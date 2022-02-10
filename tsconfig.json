@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "components/classcard.jsx",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/_app.tsx",
+    "components/bottomtab.jsx",
+    "pages/login.jsx",
+    "pages/classposted.jsx",
+    "pages/myclass.jsx",
+    "redux/reducers/index.jsx",
+    "redux/sagas/index.jsx"
+, "pages/terms2.jsx", "pages/termsContainer.jsx"  ],
+  "exclude": ["node_modules"]
+}

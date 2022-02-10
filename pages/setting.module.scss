@@ -1,0 +1,69 @@
+.alarmSelect {
+  width: 100%;
+  height: 57px;
+  padding: 10px 0;
+
+  .blackTitle {
+    margin: 0;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 17px;
+    letter-spacing: 0;
+    color: #2c343f;
+    text-align: left;
+  }
+
+  .greyContent {
+    margin: 0;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 10px;
+    letter-spacing: 0;
+    color: #949bad;
+    text-align: left;
+  }
+}
+
+.settingSection {
+  width: 375px;
+  height: 100vh;
+  margin: 0 auto;
+
+  .selectSection {
+    padding: 21px;
+
+    .blueTitle {
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 18px;
+      letter-spacing: 0;
+      color: #6595f4;
+      text-align: left;
+    }
+
+    .blueLine {
+      width: 100%;
+      height: 2px;
+      background-color: #6595f4;
+    }
+
+    .switchSection {
+      display: flex;
+      align-items: center;
+    }
+
+    .greyLine {
+      width: 100%;
+      height: 1px;
+      background-color: #e8eaef;
+    }
+  }
+
+  .fixed {
+    position: fixed;
+    bottom: -15px;
+  }
+}

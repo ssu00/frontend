@@ -1,0 +1,84 @@
+.IntroductionSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 17px 38px;
+  color: #fff;
+
+  .tutor {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.17;
+    color: #a9a9a9;
+
+    strong {
+      color: #545454;
+    }
+  }
+
+  .title {
+    width: 300px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.17;
+    color: #283237;
+  }
+
+  .rateReviews {
+    display: flex;
+    align-items: center;
+
+    .stars {
+      margin-right: 6px;
+    }
+
+    .rates {
+      margin-right: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.17;
+      color: #6a6a6a;
+    }
+
+    .reviewBtn {
+      cursor: pointer;
+      background-color: transparent;
+      border: 0;
+
+      .gotoReview,
+      .reviewcount {
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 1.17;
+        color: #a5a5a5;
+        text-decoration: underline;
+      }
+
+      .reviewcount {
+        text-decoration-line: none;
+      }
+    }
+  }
+
+  .subheading {
+    margin-bottom: 34px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.44;
+    color: #939393;
+  }
+
+  .register {
+    width: 300px;
+    height: 52px;
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.46;
+    color: #fff;
+    cursor: pointer;
+    background-color: #2354d4;
+    border: 0;
+    border-radius: 10px;
+  }
+}

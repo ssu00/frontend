@@ -1,0 +1,19 @@
+.tutorInfoBox {
+  display: flex;
+  margin-top: 10px;
+
+  .littleTitle {
+    width: 90px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.21;
+    color: #949bad;
+  }
+
+  .text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.21;
+    color: #2c343f;
+  }
+}

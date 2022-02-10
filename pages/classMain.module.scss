@@ -1,0 +1,140 @@
+.classModal {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 329px;
+  height: 249px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px 0 #949bad;
+
+  .choose {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+  }
+
+  .ok,
+  .no {
+    width: 80px;
+    height: 50px;
+    color: #fff;
+    cursor: pointer;
+    background-color: #3568ee;
+    border: 0;
+    border-radius: 10px;
+    outline: none;
+  }
+
+  .no {
+    background-color: #858585;
+  }
+}
+
+.main {
+  position: relative;
+  width: 376px;
+  padding-bottom: 50px;
+  margin: 0 auto;
+
+  .btnSet {
+    position: absolute;
+    top: 9px;
+    right: 16px;
+    display: flex;
+    justify-content: space-between;
+    width: 80px;
+
+    .edit,
+    .close {
+      z-index: 9999;
+      width: 36px;
+      height: 23px;
+      cursor: pointer;
+      background-color: #949bad;
+      border: 0;
+      border-radius: 5px;
+
+      .btnText {
+        font-family: Noto Sans KR;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 17px;
+        letter-spacing: -0.02em;
+        color: #fff;
+        text-align: center;
+      }
+    }
+
+    .close {
+      background-color: #434a58;
+    }
+  }
+
+  .classBack {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 9999;
+    display: block;
+    width: 375px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    transform: translateX(-50%);
+
+    .modal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .category {
+    display: flex;
+    font-size: 14px;
+    line-height: 1.44;
+    text-align: center;
+
+    .selected {
+      width: 187.5px;
+      height: 50px;
+      font-weight: 700;
+      color: #3568ee;
+      cursor: pointer;
+      background-color: #fff;
+      border: 0;
+      border-bottom: 2px solid #3568ee;
+      outline: none;
+    }
+
+    .unselected {
+      width: 187.5px;
+      font-weight: 400;
+      color: #858585;
+      cursor: pointer;
+      background-color: #fff;
+      border: 0;
+      outline: none;
+    }
+  }
+
+  .classIntroduce {
+    width: 376px;
+    padding: 17px 38px;
+
+    img {
+      width: 300px;
+    }
+  }
+
+  .fixedTab {
+    position: fixed;
+    bottom: -17px;
+  }
+}

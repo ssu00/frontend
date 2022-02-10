@@ -1,0 +1,53 @@
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  width: 323px;
+  height: 100vh;
+  padding-top: 30px;
+  background-color: #6595f4;
+
+  .logo {
+    width: 100%;
+    height: 80px;
+    margin-bottom: 50px;
+    cursor: pointer;
+    background-color: transparent;
+    background-image: url("/images/logo.png");
+    background-position: 90%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 0;
+  }
+
+  .btns {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+
+    .btnSelected {
+      width: 80%;
+      height: 70px;
+      padding-left: 20px;
+      font-size: 32px;
+      color: #6595f4;
+      text-align: left;
+      cursor: pointer;
+      background-color: #fff;
+      border: 0;
+      border-bottom-left-radius: 20px;
+      border-top-left-radius: 20px;
+    }
+
+    .btnUnselected {
+      width: 80%;
+      height: 70px;
+      padding-right: 20px;
+      font-size: 32px;
+      color: #fff;
+      text-align: right;
+      cursor: pointer;
+      background-color: #6595f4;
+      border: 0;
+    }
+  }
+}

@@ -1,0 +1,53 @@
+.loginSection {
+  display: flex;
+  flex-direction: column;
+  width: 376px;
+  height: 100vh;
+  padding: 33px 63px 55px;
+  margin: 0 auto;
+  background-color: #fff;
+
+  .title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.46;
+    color: #283237;
+    text-align: center;
+  }
+
+  .imageLogo {
+    margin: 165px auto 80px;
+  }
+
+  .btns {
+    width: 100%;
+    margin: 0 auto 160px;
+
+    .failed {
+      text-align: center;
+      display: block;
+      margin-bottom: 8px;
+      font-size: 12px;
+      color: #ee5a5a;
+    }
+
+    .textBtn {
+      display: flex;
+      justify-content: center;
+
+      .find {
+        cursor: pointer;
+        background-color: transparent;
+        border: 0;
+      }
+
+      .text {
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 1.46;
+        color: #949bad;
+      }
+    }
+  }
+}

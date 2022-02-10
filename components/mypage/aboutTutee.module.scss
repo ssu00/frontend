@@ -1,0 +1,46 @@
+.aboutTuteeSection {
+  display: flex;
+  justify-content: space-between;
+}
+
+.TuteeBox {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 164px;
+  height: 72px;
+  padding: 10px 11px 12px;
+  cursor: pointer;
+  background-color: #6595f4;
+  border: 0;
+  border-radius: 8px;
+  outline: none;
+
+  .icon1,
+  .icon2 {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+    border: 0;
+  }
+
+  .icon1 {
+    background-image: url("/images/mypage/tuteeList.svg");
+  }
+
+  .icon2 {
+    background-image: url("/images/mypage/refundList.svg");
+  }
+
+  .title {
+    margin: 0;
+    font-family: Noto Sans KR;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #fff;
+  }
+}

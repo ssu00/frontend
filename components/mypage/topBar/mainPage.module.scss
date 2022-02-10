@@ -1,0 +1,51 @@
+.myPageMainTop {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  padding: 16px 20px;
+  margin-top: 10px;
+  margin-bottom: 22px;
+
+  .title {
+    margin: 0;
+    font-family: Noto Sans KR;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.333;
+    color: #1c1f22;
+  }
+
+  .icons {
+    display: flex;
+    justify-content: space-between;
+    width: 64px;
+    height: 24px;
+
+    .alarm,
+    .noalarm,
+    .setting {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      background-color: transparent;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto;
+      border: 0;
+      outline: none;
+    }
+
+    .alarm {
+      background-image: url("/images/mypage/alarm.svg");
+    }
+
+    .noalarm {
+      background-image: url("/images/mypage/no_alarm.svg");
+    }
+
+    .setting {
+      background-image: url("/images/mypage/setting.svg");
+    }
+  }
+}

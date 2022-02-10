@@ -1,0 +1,56 @@
+.titleBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 53px;
+  padding: 16px 20px;
+  background-color: #fff;
+
+  .title {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 2.13;
+    color: #2c343f;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 64px;
+
+    .chatNoAlarm,
+    .chatAlarm {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      background-color: transparent;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto;
+      border: 0;
+      outline: none;
+    }
+
+    .chatNoAlarm {
+      background-image: url("/images/chat_no_alarm.svg");
+    }
+
+    .chatAlarm {
+      background-image: url("/images/chat_alarm.svg");
+    }
+
+    .chatMenu {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      background-color: transparent;
+      background-image: url("/images/chat_menu.svg");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto;
+      border: 0;
+      outline: none;
+    }
+  }
+}

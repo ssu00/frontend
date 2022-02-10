@@ -1,0 +1,28 @@
+.topBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .prev {
+    position: absolute;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background-color: transparent;
+    background-image: url("/images/signup/prev.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+    border: 0;
+    outline: none;
+  }
+
+  .text {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.46;
+    color: #283237;
+  }
+}

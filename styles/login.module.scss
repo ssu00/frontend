@@ -1,0 +1,77 @@
+@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+.box {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.container {
+    height: 100vh;
+    border: 2mm #0080ff solid;
+}
+
+.title {
+    padding-top: 125px;
+    padding-bottom: 120px;
+    font-weight: 600;
+    font-size: 50px;
+    color: 	#303030 !important;
+    font-family: 'Nanum Pen Script', sans-serif;
+}
+
+.form {
+    margin: 0 auto;
+    input[type=text], select, textarea {
+        width: 80% !important;
+        padding: 15px;
+        background-color: #F0F8FF;
+        border: 0.5px solid #eee;
+        border-radius: 3px;
+        resize: vertical;
+        text-align:center;
+    }
+}
+
+
+.find {
+    display: inline;
+    font-size: 15px;
+    div {
+        color: grey !important;
+        padding: 10px !important;
+    }
+}
+
+.footer {
+    color: grey !important;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        padding-bottom: 30px;
+        padding-left: 0px !important;
+        
+    span {
+        text-align: center;
+        font-size: 15px;
+    }
+}
+.submit{
+    margin: 0 auto;
+    #button {
+        margin: 0 auto;
+        display:inline-block;
+        border: 0;
+        outline: 0;
+        padding: 15px;
+        width: 80% !important;
+        border-radius: 3px;
+        box-sizing: border-box;
+        text-decoration:none;
+        font-family:'Roboto',sans-serif;
+        text-transform:uppercase;
+        font-weight:400;
+        color:#FFFFFF;
+        background-color: #0080ff ;
+        text-align:center;
+        position:relative;
+    }
+}

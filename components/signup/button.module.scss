@@ -1,0 +1,25 @@
+.bluebtn,
+.disabledBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 375px;
+  height: 60px;
+  cursor: pointer;
+  background-color: #689afd;
+  border: 0;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
+  .btnText {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.46;
+    color: #fff;
+  }
+}
+
+.disabledBtn {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

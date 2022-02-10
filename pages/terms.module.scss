@@ -1,0 +1,51 @@
+.termSection {
+  position: relative;
+  width: 375px;
+  height: 812px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0 auto;
+  background-color: #fff;
+
+  .termsContent {
+    height: 80%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    font-family: Noto Sans KR;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #939393;
+  }
+
+  .termsContent::-webkit-scrollbar {
+    width: 6px;
+    background-color: #939393;
+    border-radius: 30px;
+  }
+
+  .termsContent::-webkit-scrollbar-thumb {
+    background-color: #283237;
+    border-radius: 30px;
+  }
+
+  .fixedTab {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    margin: 0;
+    transform: translateX(-50%);
+  }
+
+  .agreement {
+    font-family: Noto Sans KR;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #283237;
+    text-align: left;
+  }
+}

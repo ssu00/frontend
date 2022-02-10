@@ -1,0 +1,18 @@
+.tobTab {
+  position: relative;
+  display: flex;
+
+  .prev {
+    position: absolute;
+    left: 31px;
+  }
+
+  .title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.46;
+    color: #283237;
+    text-align: center;
+  }
+}

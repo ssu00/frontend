@@ -1,0 +1,46 @@
+{
+  "registercnt": 3,
+  "testingcnt": 1,
+  "classes": [
+    {
+      "title": "취업이 빨라지는 개발 교육 첫 단계",
+      "offline": true,
+      "online": true,
+      "explanation": "빅데이터플랫폼 구축, 실무 경험 그대로",
+      "tag": ["#S사 10년 근무", "#SW개발 및 품질 경력"],
+      "likes": 127,
+      "register": true,
+      "testing": false
+    },
+    {
+      "title": "금융권 취업을 위한 데이터 분석 및 모델링",
+      "offline": false,
+      "online": true,
+      "explanation": "SQL, R, Python",
+      "tag": ["#플랫폼 개발 PM 출신"],
+      "likes": 35,
+      "register": true,
+      "testing": false
+    },
+    {
+      "title": "한 눈에 끝내는 SQL",
+      "offline": true,
+      "online": false,
+      "explanation": "데이터베이스, SQL 기초",
+      "tag": ["#S사 10년 근무"],
+      "likes": 71,
+      "register": true,
+      "testing": false
+    },
+    {
+      "title": "초보자를 위한 Django",
+      "offline": true,
+      "online": true,
+      "explanation": "Django 기초",
+      "tag": ["#기초부터 탄탄히"],
+      "likes": 0,
+      "register": false,
+      "testing": true
+    }
+  ]
+}

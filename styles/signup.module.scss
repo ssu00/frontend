@@ -1,0 +1,61 @@
+.box {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.header{
+    width: 100% !important;
+    height: 20vh !important;
+    padding-top: 20px;
+    padding-bottom: 200px !important;
+    color: #808080;
+    .icon {
+        justify-content: left !important;
+        right:0 !important;
+    }
+}
+
+.form {
+    margin: 0 auto;
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1;
+    height: 100%;
+    padding-top: 10px !important; 
+}
+
+.input{
+    padding-left: 30px !important;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+    width: 80% !important;
+    background-color: #f0f0f0 !important;
+    border: 0 !important;
+    outline: 0 !important;
+}
+
+.idField {
+    width: 80% !important;
+    .idInput {
+        padding-left: 25px !important;
+        padding-top: 15px !important;
+        padding-bottom: 15px !important;
+        background-color: #f0f0f0 !important;
+        border: 0 !important;
+        outline: 0 !important;
+    }
+        
+}
+
+.button {
+    background:#0080ff;
+    width: 100%;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    border-radius: 5px;
+}

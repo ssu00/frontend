@@ -1,0 +1,37 @@
+.searchSection {
+  position: relative;
+  margin-bottom: 16px;
+
+  .searchBox {
+    width: 335px;
+    height: 48px;
+    padding: 14px 40px 14px 20px;
+    background-color: #f3f5f8;
+    border: 0;
+    border-radius: 8px;
+    outline: none;
+  }
+
+  .searchBox::placeholder {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42;
+    color: #949bad;
+  }
+
+  .searchBtn {
+    position: absolute;
+    top: 12px;
+    right: 20px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background-color: transparent;
+    background-image: url("/images/chat_search.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+    border: 0;
+    outline: none;
+  }
+}

@@ -1,0 +1,78 @@
+.modal {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 329px;
+  height: 249px;
+  background-color: #fff;
+  border-radius: 10px;
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 13px;
+    height: 13px;
+    color: #667089;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+  }
+
+  .blueIcon,
+  .grayIcon {
+    position: relative;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+
+    .check {
+      position: absolute;
+      top: -2.5px;
+      left: 7px;
+      color: #fff;
+    }
+  }
+
+  .blueIcon {
+    background-color: #3568ee;
+  }
+
+  .grayIcon {
+    background-color: #667089;
+  }
+
+  .text {
+    margin-bottom: 36px;
+    font-size: 17px;
+    line-height: 1.41;
+    color: #283237;
+    text-align: center;
+  }
+
+  .blueBtn,
+  .grayBtn {
+    height: 38px;
+    padding: 12px, 20px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.16;
+    color: #fff;
+    cursor: pointer;
+    border: 0;
+    border-radius: 10px;
+  }
+
+  .blueBtn {
+    width: 124px;
+    background-color: #3568ee;
+  }
+
+  .grayBtn {
+    width: 85px;
+    background-color: #667089;
+  }
+}

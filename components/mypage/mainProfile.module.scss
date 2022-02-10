@@ -1,0 +1,65 @@
+.mainPageProfile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 335px;
+  height: 56px;
+  margin-bottom: 24px;
+  background-color: #fff;
+
+  .profileImage {
+    width: 56px;
+    height: 56px;
+    background-color: grey;
+    border: 0;
+    border-radius: 50%;
+  }
+
+  .profileInfo {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    width: 180px;
+    height: 56px;
+
+    .profile {
+      width: 39px;
+      height: 22px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.41;
+      color: #ee5a5a;
+      text-align: center;
+      background-color: #fce6e6;
+      border-radius: 6px;
+    }
+
+    .name {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.4375;
+      color: #2c343f;
+    }
+  }
+
+  .profileEditBtn {
+    width: 82px;
+    height: 36px;
+    padding: 9px 8px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #e8eaef;
+    border-radius: 50px;
+
+    .btnText {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.41;
+      color: #434a58;
+      text-align: center;
+    }
+  }
+}
