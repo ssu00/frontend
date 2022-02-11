@@ -1,0 +1,40 @@
+.container {
+    position: absolute;
+    width: 335px;
+    height: 48px;
+    left: 20px;
+    top: 146px;
+    background-color: #fff;
+    border: 1px solid #6595F4;
+    box-sizing: border-box;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    
+    svg {
+        position: absolute;
+        left: 5.97%;
+        right: 86.87%;
+        top: 25%;
+        bottom: 25%;
+    }
+    input {
+        position: absolute;
+        width: 70%;
+        height: 24px;
+        left: 16.72%;
+        right: 27.46%;
+        top: 28.12%;
+        bottom: 30.21%;
+        border: none;
+        color: #949BAD;
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        display: flex;
+        align-items: center;
+
+    }
+}

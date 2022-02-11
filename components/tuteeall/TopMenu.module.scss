@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 375px;
+  position: absolute;
+  top: 12px;
+  padding-left: 20px;
+  padding-right: 16px;
+
+  .centerbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    select {
+      border: none;
+      font-family: Noto Sans KR;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 15px;
+      line-height: 32px;
+      letter-spacing: -0.002em;
+      text-transform: uppercase;
+      -o-appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background: url("data:image/svg+xml,%3Csvg width='8' height='6' viewBox='0 0 8 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L3.63099 4.33229C3.85155 4.56972 4.2142 4.55282 4.41479 4.29575L7 1.5H1Z' fill='%232C343F' stroke='%232C343F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+        no-repeat 94px;
+
+      color: #2c343f;
+      padding-right: 16px;
+    }
+  }
+  .rightbox {
+    display: flex;
+    width: 64px;
+    justify-content: space-between;
+  }
+}

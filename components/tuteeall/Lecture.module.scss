@@ -1,0 +1,191 @@
+.container {
+  position: absolute;
+  top: 303px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .item {
+    margin: 20px 20px 0 20px;
+    background: #ffffff;
+    box-shadow: 0px 12px 40px rgba(0, 19, 37, 0.1);
+    border-radius: 8px;
+    height: 294px;
+    position: relative;
+    .lecture_img {
+      width: 100%;
+      height: 110px;
+
+      background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.45),
+          rgba(0, 0, 0, 0.45)
+        ),
+        url("../../public/images/tuteeall/lectureimg.png");
+      border-radius: 8px 8px 0px 0px;
+      .category_box {
+        display: flex;
+        position: absolute;
+        top: 72px;
+        left: 12px;
+        span {
+          padding: 2px 8px 3px;
+          border: 1px solid #ffffff;
+          box-sizing: border-box;
+          border-radius: 8px;
+          font-family: Noto Sans KR;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 17px;
+          display: flex;
+          align-items: center;
+          text-align: center;
+          margin: 0 4px;
+
+          /* #fff */
+
+          color: #ffffff;
+        }
+      }
+    }
+    .content_box {
+      width: 100%;
+      height: 184px;
+      padding: 16px 16px 22px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .online {
+      width: 53px;
+      height: 18px;
+      padding: 2.5px 6px 3.5px;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 10px;
+      line-height: 12px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      background: rgba(89, 195, 99, 0.15);
+      border-radius: 8px;
+
+      color: #59c463;
+    }
+    .title {
+      font-family: Noto Sans KR;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 22px;
+      margin: 0;
+
+      color: #2c343f;
+    }
+    .tutor {
+      font-family: Noto Sans KR;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 17px;
+
+      /* light gray */
+
+      color: #949bad;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      span {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 15px;
+        /* identical to box height */
+
+        /* light gray */
+
+        color: #949bad;
+      }
+      .height_bar {
+        margin: 0 8px;
+      }
+
+      .stars {
+        display: flex;
+        align-items: center;
+      }
+      .review_num {
+        margin-left: 4px;
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+
+        /* light gray */
+
+        color: #949bad;
+      }
+    }
+
+    .price_box {
+      .sale {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        /* identical to box height */
+
+        /* red */
+
+        color: #ee5a5a;
+      }
+
+      .price {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+        margin-left: 5px;
+        /* identical to box height */
+
+        /* sub color */
+
+        color: #2c343f;
+      }
+      .won {
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+        letter-spacing: 0.1em;
+        margin-left: 2px;
+
+        /* sub color */
+
+        color: #2c343f;
+      }
+
+      .month {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 16px;
+        margin-left: 4px;
+        /* light gray */
+
+        color: #949bad;
+      }
+    }
+  }
+}
