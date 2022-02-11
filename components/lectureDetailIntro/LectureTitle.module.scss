@@ -1,0 +1,87 @@
+.container {
+  width: 100%;
+
+  position: absolute;
+  height: 261px;
+  top: 326px;
+  .main_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 176px;
+    padding: 15px 25px;
+    border-bottom: 1px solid #e8eaef;
+    .lang {
+      font-family: Noto Sans KR;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 25px;
+      /* identical to box height, or 227% */
+
+      /* LIGHT GRAY */
+
+      color: #949bad;
+    }
+    .title {
+      font-family: Noto Sans KR;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 17px;
+      line-height: 28px;
+      width: 233px;
+      /* or 165% */
+
+      /* SUB */
+
+      color: #2c343f;
+    }
+    .review {
+      display: flex;
+      align-items: center;
+      .star {
+        display: flex;
+        align-items: center;
+        span {
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 10px;
+          line-height: 12px;
+          text-align: center;
+          margin-left: 6.62px;
+
+          /* LIGHT GRAY */
+
+          color: #949bad;
+        }
+      }
+      a {
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 10px;
+        line-height: 14px;
+        text-align: center;
+        margin-left: 17px;
+        border-bottom: 1px solid #6595f4;
+
+        /* MAIN */
+
+        color: #6595f4;
+      }
+    }
+    .content {
+      font-family: Noto Sans KR;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 19px;
+      width: 312px;
+
+      /* GRAY */
+
+      color: #434a58;
+    }
+  }
+}
