@@ -1,0 +1,11 @@
+.container {
+  width: 100%;
+  position: absolute;
+  padding: 9px 18px 4px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .search {
+    margin-right: 16px;
+  }
+}
