@@ -6,8 +6,8 @@ const Ask = () => {
     <section className={styles.askSection}>
       <OtherTopBar title={"문의하기"} url={"/mypage"} />
       <p className={styles.text}>
-        튜터랩을 이용하면서 생긴 불편사항이나 개선사항을 알려주세요. 전달해주신
-        소중한 의견으로 더 나은 튜터랩이 되도록 노력하겠습니다.
+        mentoridge를 이용하면서 생긴 불편사항이나 개선사항을 알려주세요.
+        전달해주신 소중한 의견으로 더 나은 mentoridge가 되도록 노력하겠습니다.
       </p>
       <div className={styles.line} />
       <div className={styles.inputArea}>
