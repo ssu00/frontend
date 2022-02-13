@@ -9,6 +9,6 @@ const TextLogo = () => {
 };
 
 const NameLogo = () => {
-  return <span className={styles.tutorlabText}>@tutorlab</span>;
+  return <span className={styles.tutorlabText}>@mentoridge</span>;
 };
 export { ImageLogo, TextLogo, NameLogo };

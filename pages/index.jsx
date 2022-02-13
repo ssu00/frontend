@@ -45,7 +45,7 @@ const Main = () => {
             onClick={() => router.push("/termsContainer")}
           />
         </div>
-        <span className={styles.tutorlabText}>@tutorlab</span>
+        <span className={styles.tutorlabText}>@mentoridge</span>
       </section>
     </div>
   );
