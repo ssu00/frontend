@@ -1,0 +1,153 @@
+.container {
+  width: 375px;
+  padding: 0px 16px;
+  position: absolute;
+  top: 118px;
+  display: flex;
+  flex-wrap: wrap;
+  article {
+    width: 163px;
+    height: 306px;
+    margin: 8px 4px;
+    background: #ffffff;
+    box-shadow: 0px 12px 40px rgba(0, 19, 37, 0.1);
+    border-radius: 8px;
+
+    .image_box {
+      position: relative;
+      height: 140px;
+      width: 100%;
+
+      .category_box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: absolute;
+        bottom: 16px;
+        left: 8px;
+
+        span {
+          border: 1px solid #ffffff;
+          box-sizing: border-box;
+          border-radius: 8px;
+          padding: 2px 8px 3px;
+          margin-left: 8px;
+
+          font-family: Noto Sans KR;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 17px;
+          display: flex;
+          align-items: center;
+          text-align: center;
+
+          /* #fff */
+
+          color: #ffffff;
+        }
+      }
+    }
+    .content_box {
+      width: 100%;
+      height: 166px;
+
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .online {
+        width: 53px;
+        height: 18px;
+        border: none;
+        background: rgba(89, 195, 99, 0.15);
+        border-radius: 6px;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 10px;
+        line-height: 12px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        /* green */
+
+        color: #59c463;
+      }
+      .title {
+        width: 100%;
+        height: 36px;
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 18px;
+        /* or 150% */
+
+        /* sub color */
+
+        color: #2c343f;
+      }
+      .mentor {
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+
+        /* light gray */
+
+        color: #949bad;
+      }
+      .review {
+        display: flex;
+        align-items: center;
+        span {
+          margin-left: 4px;
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 12px;
+          line-height: 15px;
+          /* identical to box height */
+
+          /* light gray */
+
+          color: #949bad;
+        }
+        .bar {
+          width: 1px;
+          height: 8px;
+          background: #e8eaef;
+          margin: 0 7px;
+        }
+      }
+
+      .price_box {
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+        letter-spacing: 0.1em;
+
+        /* sub color */
+
+        color: #2c343f;
+        .price {
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 22px;
+          /* identical to box height */
+
+          /* sub color */
+
+          color: #2c343f;
+        }
+      }
+    }
+  }
+}
