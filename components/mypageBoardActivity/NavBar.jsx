@@ -1,17 +1,18 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./NavBar.module.scss";
+
 function NavBar() {
   return (
     <div className={styles.container}>
       <div className={styles.list_box}>
         <div className={styles.item}>
           <Image
-            src={"/images/menteeall/home_icon_clicked.svg"}
+            src={"/images/menteeall/home_icon.svg"}
             width="24px"
             height="24px"
           />
-          <span className={styles.clicked}>홈</span>
+          <span>홈</span>
         </div>
         <div className={styles.item}>
           <Image
@@ -32,11 +33,11 @@ function NavBar() {
         </div>
         <div className={styles.item}>
           <Image
-            src={"/images/menteeall/my_icon.svg"}
+            src={"/images/menteeall/my_icon_clicked.svg"}
             width="24px"
             height="24px"
           />
-          <span>마이페이지</span>
+          <span className={styles.clicked}>마이페이지</span>
         </div>
 
         <div className={styles.indicator}></div>
