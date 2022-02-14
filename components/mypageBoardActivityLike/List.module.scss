@@ -1,0 +1,52 @@
+.container {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  li {
+    width: 333px;
+    height: 85px;
+    padding: 23px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #e8eaef;
+    h6 {
+      font-family: SF Pro Display;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 16px;
+      /* identical to box height */
+
+      display: flex;
+      align-items: center;
+
+      color: #2c343f;
+    }
+    .span_box {
+      display: flex;
+      span {
+        margin-right: 13px;
+        font-family: SF Pro Display;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 11px;
+        line-height: 13px;
+        display: flex;
+        align-items: center;
+
+        /* GRAY */
+
+        color: #434a58;
+        strong {
+          margin-left: 2px;
+        }
+      }
+    }
+  }
+}
