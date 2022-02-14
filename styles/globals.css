@@ -17,27 +17,32 @@ a {
   box-sizing: border-box;
 }
 
-ul,li {
+ul,
+li {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   padding: 0;
 }
 
-
 @font-face {
   font-family: SF Pro Display;
   font-weight: 400;
-  font-style: normal;
+
   src: url("/fonts/SFPRODISPLAYREGULAR.OTF") format("opentype");
 }
 @font-face {
   font-family: SF Pro Display;
-  
   font-weight: 500;
+  font-style: normal;
   src: url("/fonts/SFPRODISPLAYMEDIUM.OTF") format("opentype");
 }
 @font-face {

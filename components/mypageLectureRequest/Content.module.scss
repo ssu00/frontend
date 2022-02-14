@@ -1,0 +1,23 @@
+.container {
+  border-top: 8px solid #f3f5f8;
+  padding: 17px 21px;
+  textarea {
+    width: 100%;
+    padding: 29px 23px;
+    min-height: 492px;
+    font-family: SF Pro Display;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 23px;
+    display: flex;
+    align-items: center;
+
+    /* LIGHT GRAY */
+
+    color: #949bad;
+    background: #f3f5f8;
+    border-radius: 10px;
+    border: none;
+  }
+}

@@ -1,0 +1,23 @@
+.container {
+  all: unset;
+  position: fixed;
+  bottom: 0%;
+  width: 375px;
+  height: 80px;
+  background: #6595f4;
+  border-radius: 0px;
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+  /* or 160% */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+
+  color: #ffffff;
+}

@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import styles from "./TopBar.module.scss";
 
-function TopBar() {
+function TopBar(props) {
   return (
     <>
       <div className={styles.container}>
@@ -13,7 +13,7 @@ function TopBar() {
           className={styles.back_icon}
         />
 
-        <h5>강의 요청</h5>
+        <h5>{props.title}</h5>
       </div>
       <div className={styles.bg}></div>
     </>

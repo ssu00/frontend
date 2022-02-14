@@ -8,7 +8,7 @@ import styles from "./template.module.scss";
 function MypageBoardActivityReple() {
   return (
     <main className={styles.main}>
-      <TopBar />
+      <TopBar title="게시판 활동내역" />
       <Category />
       <List />
       <NavBar />
