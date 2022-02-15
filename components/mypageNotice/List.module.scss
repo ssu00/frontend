@@ -1,0 +1,57 @@
+.line {
+  width: 310px;
+  height: 36px;
+  border-bottom: 2px solid #6595f4;
+  margin: 0 auto;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  li {
+    width: 329px;
+    height: 65px;
+    border-bottom: 1px solid #e8eaef;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 12px;
+    position: relative;
+    .date {
+      font-family: SF Pro Display;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 11px;
+      line-height: 13px;
+      display: flex;
+      align-items: center;
+
+      /* SUB */
+
+      color: #2c343f;
+    }
+    h6 {
+      margin-top: 6px;
+      font-family: SF Pro Display;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 16px;
+      /* identical to box height */
+
+      display: flex;
+      align-items: center;
+
+      /* SUB */
+
+      color: #2c343f;
+    }
+    .tagIcon {
+      height: 11px;
+      position: absolute;
+      bottom: 29px;
+      right: 3px;
+      cursor: pointer;
+    }
+  }
+}
