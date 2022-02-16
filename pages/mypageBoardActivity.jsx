@@ -1,7 +1,7 @@
 import React from "react";
 import Category from "../components/mypageBoardActivity/Category";
 import List from "../components/mypageBoardActivity/List";
-import NavBar from "../components/mypageBoardActivity/NavBar";
+import NavBar from "../components/NavBar";
 import TopBar from "../components/mypageBoardActivity/TopBar";
 import styles from "./template.module.scss";
 

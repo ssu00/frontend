@@ -1,13 +1,25 @@
 .line {
-  width: 310px;
+  width: 100%;
   height: 36px;
-  border-bottom: 2px solid #6595f4;
-  margin: 0 auto;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  span {
+    display: inline-block;
+
+    width: 313px;
+    height: 2px;
+    background-color: #6595f4;
+  }
 }
 .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  background: #fff;
+  padding-bottom: 36px;
+
   li {
     width: 329px;
     height: 65px;
@@ -17,6 +29,7 @@
     justify-content: center;
     padding-left: 12px;
     position: relative;
+
     .date {
       font-family: SF Pro Display;
       font-style: normal;
