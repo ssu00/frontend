@@ -1,0 +1,29 @@
+.container {
+  width: 375px;
+  height: 62.5px;
+  display: flex;
+  background-color: #fff;
+  .menu_box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 0;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 23px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding-top: 12px;
+    border-bottom: 2.5px solid#E8EAEF;
+    cursor: pointer;
+    &.clicked {
+      color: #6595f4;
+      border-bottom: 2.5px solid #6595f4;
+    }
+  }
+}

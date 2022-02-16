@@ -1,0 +1,53 @@
+.container {
+  position: fixed;
+  bottom: 0;
+  width: 375px;
+  height: 96px;
+  background: #ffffff;
+  box-sizing: border-box;
+  padding: 20.5px 28px 32px 45.5px;
+
+  .list_box {
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      span {
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+        text-align: center;
+        letter-spacing: -0.24px;
+        margin-top: 7.5px;
+        /* light gray */
+
+        color: #949bad;
+        &.clicked {
+          color: #6595f4;
+        }
+      }
+    }
+  }
+
+  .indicator {
+    position: absolute;
+    width: 134px;
+    height: 5px;
+    left: calc(50% - 134px / 2 + 1.5px);
+    bottom: 8px;
+
+    /* sub color */
+
+    background: #2c343f;
+    opacity: 0.7;
+    border-radius: 100px;
+  }
+}
