@@ -1,9 +1,9 @@
 .container {
   width: 375px;
   ul {
-    background-color: #fff;
-    margin-bottom: 8px;
     li {
+      margin-bottom: 8px;
+      background-color: #fff;
       .date {
         display: flex;
         align-items: center;

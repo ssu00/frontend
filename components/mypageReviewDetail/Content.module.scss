@@ -1,0 +1,95 @@
+.container {
+  width: 375px;
+  height: 100%;
+  margin-top: 8px;
+  background-color: #fff;
+  padding: 20px;
+
+  .mentee_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .left_box {
+      display: flex;
+      .name_box {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-left: 12px;
+        height: 30px;
+        span {
+          font-family: Noto Sans KR;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 18px;
+          /* or 150% */
+
+          display: flex;
+          align-items: flex-end;
+          letter-spacing: -0.002em;
+          text-transform: uppercase;
+
+          /* sub color */
+
+          color: #2c343f;
+        }
+      }
+    }
+
+    span {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 18px;
+      /* or 150% */
+
+      display: flex;
+      align-items: center;
+      text-align: right;
+      letter-spacing: -0.002em;
+      text-transform: uppercase;
+
+      /* light gray */
+
+      color: #949bad;
+    }
+  }
+
+  h5 {
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    /* identical to box height, or 167% */
+
+    text-transform: uppercase;
+
+    /* SUB */
+
+    color: #2c343f;
+    &:nth-of-type(1) {
+      margin-top: 17px;
+    }
+    &:nth-of-type(2) {
+      margin-top: 5px;
+    }
+  }
+  p {
+    margin-top: 11px;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 20px;
+    /* or 167% */
+
+    text-transform: uppercase;
+
+    /* sub color */
+
+    color: #2c343f;
+  }
+}

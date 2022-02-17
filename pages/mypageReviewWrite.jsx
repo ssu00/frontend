@@ -1,33 +1,15 @@
-import React, { useState } from "react";
-import styles from "./template.module.scss";
+import React from "react";
+import LectureInfo from "../components/mypageReviewWrite/LectureInfo";
+import Rating from "../components/mypageReviewWrite/Rating";
 import TopBar from "../components/TopBar";
-import ReviewCategory from "../components/mypageReivewWrite/ReviewCategory";
-import WriteContent from "../components/mypageReivewWrite/WriteContent";
-import NavBar from "../components/NavBar";
-import ReviewContent from "../components/mypageReivewWrite/ReviewContent";
+import styles from "./template.module.scss";
 
-function mypageReviewWrite(props) {
-  const [Category, setCategory] = useState("후기작성");
-  const getCategory = (value) => {
-    setCategory(value);
-  };
+function mypageReviewWrite() {
   return (
     <main className={styles.main}>
-      <TopBar title="강의후기" />
-      <ReviewCategory getCategory={getCategory} />
-      {Category === "후기작성" ? (
-        <WriteContent />
-      ) : (
-        <>
-          <ReviewContent />
-          <ReviewContent />
-          <ReviewContent />
-          <ReviewContent />
-        </>
-      )}
-      {/* <WriteContent /> */}
-
-      <NavBar />
+      <TopBar title="후기 작성" />
+      <LectureInfo />
+      <Rating />
     </main>
   );
 }

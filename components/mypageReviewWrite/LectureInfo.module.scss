@@ -1,0 +1,38 @@
+.container {
+  width: 375px;
+  height: 118px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 17px 20px;
+
+  .info_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    h6 {
+      width: 239px;
+      font-family: Noto Sans KR;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      /* or 143% */
+
+      /* sub color */
+
+      color: #2c343f;
+    }
+    span {
+      font-family: Noto Sans KR;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 17px;
+
+      /* light gray */
+
+      color: #949bad;
+    }
+  }
+}

@@ -1,0 +1,84 @@
+.container {
+  width: 375px;
+  height: 119px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-bottom: 1px solid #e8eaef;
+  .info_wrapper {
+    width: 335px;
+    height: 87px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .info_box {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      h5 {
+        width: 239px;
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 20px;
+        /* or 143% */
+
+        /* sub color */
+
+        color: #2c343f;
+      }
+      .mentor {
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 17px;
+
+        /* light gray */
+
+        color: #949bad;
+      }
+      h6 {
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 17px;
+
+        /* SUB */
+
+        color: #2c343f;
+        .price {
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 20px;
+          /* identical to box height */
+
+          /* SUB */
+
+          color: #2c343f;
+          margin-right: 2px;
+        }
+        .month {
+          font-family: Noto Sans KR;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 12px;
+          line-height: 17px;
+
+          /* light gray */
+
+          color: #949bad;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
