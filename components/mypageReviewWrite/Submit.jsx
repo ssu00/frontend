@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import Alert from "./Alert";
+
 import styles from "./Submit.module.scss";
+import SubmitComplete from "./SubmitComplete";
 
 function Submit() {
   const [Clicked, setClicked] = useState(false);
+  const [Completed, setComplete] = useState(false);
   const alert = (e) => {
     e.preventDefault(e);
     setClicked(true);
@@ -11,25 +15,23 @@ function Submit() {
     e.preventDefault(e);
     setClicked(false);
   };
+  const finalConfirm = (e) => {
+    e.preventDefault(e);
+    setComplete(true);
+  };
   return (
     <>
       <button className={styles.container} onClick={alert}>
         등록
       </button>
       {Clicked && (
-        <div className={styles.bg}>
-          <div className={styles.modal}>
-            <h5>후기 등록</h5>
-            <h6>작성한 후기를 등록하시겠습니까?</h6>
-            <div className={styles.button_box}>
-              <button className={styles.cancel} onClick={cancel}>
-                취소
-              </button>
-              <button className={styles.confirm}>확인</button>
-            </div>
-          </div>
-        </div>
+        <Alert
+          cancel={cancel}
+          Completed={Completed}
+          finalConfirm={finalConfirm}
+        />
       )}
+      {Completed && <SubmitComplete />}
     </>
   );
 }

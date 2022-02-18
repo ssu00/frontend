@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./WriteContent.module.scss";
 import Image from "next/image";
+import router from "next/router";
 
 function WriteContent() {
   return (
@@ -22,7 +23,13 @@ function WriteContent() {
               <h6>금융권 취업을 위한 데이터 분석 및 모델링 - SQL, R, Python</h6>
               <span>온라인/그룹</span>
             </div>
-            <button>후기작성</button>
+            <button
+              onClick={() => {
+                router.push("/mypageReviewWrite");
+              }}
+            >
+              후기작성
+            </button>
           </div>
         </li>
       </ul>
