@@ -2,17 +2,19 @@
   position: fixed;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 375px;
-  height: 59px;
-  padding: 16px;
+  height: 58px;
+
   background: #fff;
   z-index: 1;
+  border-bottom: 1px solid #e8eaef;
   .back_icon {
     cursor: pointer;
   }
   h5 {
+    width: 259px;
     margin: 0%;
-    margin-left: 16px;
     font-family: Noto Sans KR;
     font-style: normal;
     font-weight: bold;
@@ -29,9 +31,11 @@
 
     color: #2c343f;
   }
+  .option_icon {
+    cursor: pointer;
+  }
 }
 .bg {
   width: 375px;
   height: 58px;
-  background-color: #fff;
 }

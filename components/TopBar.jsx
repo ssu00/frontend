@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import styles from "./TopBar.module.scss";
+import router from "next/router";
 
 function TopBar(props) {
   return (
@@ -11,6 +12,9 @@ function TopBar(props) {
           width={"24px"}
           height={"24px"}
           className={styles.back_icon}
+          onClick={() => {
+            router.back();
+          }}
         />
 
         <h5>{props.title}</h5>
