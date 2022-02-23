@@ -1,77 +1,53 @@
-@import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
-.box {
-    margin: 0 auto;
-    text-align: center;
-}
+.loginSection {
+  display: flex;
+  flex-direction: column;
+  width: 376px;
+  height: 100vh;
+  padding: 33px 63px 55px;
+  margin: 0 auto;
+  background-color: #fff;
 
-.container {
-    height: 100vh;
-    border: 2mm #0080ff solid;
-}
-
-.title {
-    padding-top: 125px;
-    padding-bottom: 120px;
-    font-weight: 600;
-    font-size: 50px;
-    color: 	#303030 !important;
-    font-family: 'Nanum Pen Script', sans-serif;
-}
-
-.form {
-    margin: 0 auto;
-    input[type=text], select, textarea {
-        width: 80% !important;
-        padding: 15px;
-        background-color: #F0F8FF;
-        border: 0.5px solid #eee;
-        border-radius: 3px;
-        resize: vertical;
-        text-align:center;
-    }
-}
-
-
-.find {
-    display: inline;
+  .title {
+    margin: 0;
     font-size: 15px;
-    div {
-        color: grey !important;
-        padding: 10px !important;
-    }
-}
+    font-weight: 700;
+    line-height: 1.46;
+    color: #283237;
+    text-align: center;
+  }
 
-.footer {
-    color: grey !important;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        padding-bottom: 30px;
-        padding-left: 0px !important;
-        
-    span {
-        text-align: center;
-        font-size: 15px;
+  .imageLogo {
+    margin: 165px auto 80px;
+  }
+
+  .btns {
+    width: 100%;
+    margin: 0 auto 160px;
+
+    .failed {
+      text-align: center;
+      display: block;
+      margin-bottom: 8px;
+      font-size: 12px;
+      color: #ee5a5a;
     }
-}
-.submit{
-    margin: 0 auto;
-    #button {
-        margin: 0 auto;
-        display:inline-block;
+
+    .textBtn {
+      display: flex;
+      justify-content: center;
+
+      .find {
+        cursor: pointer;
+        background-color: transparent;
         border: 0;
-        outline: 0;
-        padding: 15px;
-        width: 80% !important;
-        border-radius: 3px;
-        box-sizing: border-box;
-        text-decoration:none;
-        font-family:'Roboto',sans-serif;
-        text-transform:uppercase;
-        font-weight:400;
-        color:#FFFFFF;
-        background-color: #0080ff ;
-        text-align:center;
-        position:relative;
+      }
+
+      .text {
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 1.46;
+        color: #949bad;
+      }
     }
+  }
 }

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "./tutorIntroduction.module.scss";
-import BottomTab from "../components/bottomtab";
-import OtherTopBar from "../components/mypage/topBar/otherPage";
-import TutorInfoBox from "../components/mypage/tutorInfoBox";
-import TutorProfileImg from "../components/mypage/tutorProfileImg";
+import BottomTab from "/components/bottomtab";
+import OtherTopBar from "/components/mypage/topBar/otherPage";
+import TutorInfoBox from "/components/mypage/tutorInfoBox";
+import TutorProfileImg from "/components/mypage/tutorProfileImg";
 import router from "next/router";
 import axios from "axios";
 const TutorIntroduction = () => {
@@ -39,7 +39,7 @@ const TutorIntroduction = () => {
   }, []);
   return (
     <section className={styles.tutorIntroductionSection}>
-      <OtherTopBar title={"튜터 소개"} url={"/profileEdit"} />
+      <OtherTopBar title={"튜터 소개"} url={"/mentor/mypage/profileEdit"} />
       <section className={styles.basicInfo}>
         <h1 className={styles.title}>기본정보</h1>
         <div className={styles.profile}>

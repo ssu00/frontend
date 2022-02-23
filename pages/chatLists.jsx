@@ -11,6 +11,7 @@ const ChatLists = () => {
   const [chatExists, setChatExists] = useState(0);
   const [chatList, setChatList] = useState([]);
   const [alarm, setAlarm] = useState(0);
+  const [mypage, setMypage] = useState("");
   const getChatLists = () => {
     axios.get("/mentors/my-chatrooms").then((resData) => {
       console.log("data: ", resData.data);
@@ -21,6 +22,7 @@ const ChatLists = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
+    setMypage(localStorage.getItem("classification"));
     if (!token) {
       router.push("/");
     } else {
@@ -51,7 +53,7 @@ const ChatLists = () => {
           )}
         </section>
         <span className={styles.fixedTab}>
-          <BottomTab num={2} />
+          <BottomTab num={2} mypage={mypage} />
         </span>
       </div>
     </>

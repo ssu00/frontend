@@ -4,6 +4,7 @@ import { WhiteBtn, BlueBtn } from "../components/login/btn/mainBtn";
 import { ImageLogo, TextLogo } from "../components/login/logos";
 import router from "next/router";
 import jwt_decode from "jwt-decode";
+import axios from "axios";
 
 const Main = () => {
   let token = "";
@@ -21,7 +22,14 @@ const Main = () => {
   }
   useEffect(() => {
     if (token) {
-      router.push("/myclass");
+      // home이 만들어지면 home으로 이동시켜야 한다.
+      axios.get("/users/my-info").then((res) => {
+        if (res.data.role === "MENTOR") {
+          router.push("/tutorInfoEdit");
+        } else {
+          router.push("/myclass");
+        }
+      });
     } else {
       router.push("/");
     }
@@ -36,14 +44,9 @@ const Main = () => {
           <TextLogo />
         </span>
         <div className={styles.buttons}>
-          <WhiteBtn
-            text={"튜터로 로그인"}
-            onClick={() => router.push("/login")}
-          />
-          <BlueBtn
-            text={"회원가입"}
-            onClick={() => router.push("/termsContainer")}
-          />
+          {/* 로그인을 따로따로 만들어서 API 요청을 해야할것같은데 어찌할까... */}
+          <WhiteBtn text={"멘토로 로그인"} onClick={() => router.push("/login")} />
+          <BlueBtn text={"멘티로 로그인"} onClick={() => router.push("/login")} />
         </div>
         <span className={styles.tutorlabText}>@mentoridge</span>
       </section>

@@ -2,23 +2,15 @@ import Image from "next/image";
 import styles from "./bottomtab.module.scss";
 import router from "next/router";
 
-const BottomTab = ({ num }) => {
+const BottomTab = ({ num, mypage }) => {
   return (
     <>
       <ul className={styles.tab}>
-        <button
-          type="button"
-          onClick={() => router.push("/myclass")}
-          className={styles.elements}
-        >
+        <button type="button" onClick={() => router.push("/myclass")} className={styles.elements}>
           <li>
             <div className={styles.img}>
               <Image
-                src={
-                  num == 1
-                    ? "/newImage/bottom_home_blue.svg"
-                    : "/newImage/bottom_home.svg"
-                }
+                src={num == 1 ? "/newImage/bottom_home_blue.svg" : "/newImage/bottom_home.svg"}
                 width="24px"
                 height="24px"
                 margin="0"
@@ -49,19 +41,11 @@ const BottomTab = ({ num }) => {
           </li>
         </button> */}
 
-        <button
-          type="button"
-          onClick={() => router.push("/chatLists")}
-          className={styles.elements}
-        >
+        <button type="button" onClick={() => router.push("/chatLists")} className={styles.elements}>
           <li>
             <div className={styles.img}>
               <Image
-                src={
-                  num == 2
-                    ? "/newImage/bottom_chat_blue.svg"
-                    : "/newImage/bottom_chat.svg"
-                }
+                src={num == 2 ? "/newImage/bottom_chat_blue.svg" : "/newImage/bottom_chat.svg"}
                 width="24px"
                 height="24px"
                 alt="채팅리스트"
@@ -74,17 +58,15 @@ const BottomTab = ({ num }) => {
 
         <button
           type="button"
-          onClick={() => router.push("/mypage")}
+          onClick={() => {
+            mypage === "MENTOR" ? router.push("/mentor/mypage/mypageSetting") : router.push("/mentee/mypage/");
+          }}
           className={styles.elements}
         >
           <li>
             <div className={styles.img}>
               <Image
-                src={
-                  num == 3
-                    ? "/newImage/bottom_mypage_blue.svg"
-                    : "/newImage/bottom_mypage.svg"
-                }
+                src={num == 3 ? "/newImage/bottom_mypage_blue.svg" : "/newImage/bottom_mypage.svg"}
                 width="24px"
                 height="24px"
                 alt="마이페이지"

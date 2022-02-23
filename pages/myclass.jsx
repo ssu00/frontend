@@ -1,7 +1,7 @@
 import router from "next/router";
-import styles from "../styles/myclass.module.scss";
-import ClassCard from "../components/classcard";
-import BottomTab from "../components/bottomtab";
+import styles from "/styles/myclass.module.scss";
+import ClassCard from "/components/classcard";
+import BottomTab from "/components/bottomtab";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";

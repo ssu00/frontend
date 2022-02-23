@@ -16,7 +16,7 @@ const RefundList = () => {
       const token = localStorage.getItem("accessToken");
     }
 
-    axios.get("/tutors/my-cancellations").then((response) => {
+    axios.get("/mentors/my-cancellations").then((response) => {
       console.log(response.data);
       setRes(response.data);
     });
@@ -47,9 +47,7 @@ const RefundList = () => {
                 name={data.tuteeName}
                 title={data.lecture.title}
                 type={state}
-                price={data.lecture.lecturePrice.totalCost.toLocaleString(
-                  "ko-KR"
-                )}
+                price={data.lecture.lecturePrice.totalCost.toLocaleString("ko-KR")}
                 img={data.lecture.thumbnail}
                 value={reasonM}
                 setValue={setReasonM}
@@ -58,17 +56,9 @@ const RefundList = () => {
               />
               <div className={styles.modal}>
                 {reasonM ? (
-                  <ReasonModal
-                    reason={data.reason}
-                    value={reasonM}
-                    setValue={setReasonM}
-                  />
+                  <ReasonModal reason={data.reason} value={reasonM} setValue={setReasonM} />
                 ) : acceptM ? (
-                  <RefundModal
-                    cancellationId={data.cancellationId}
-                    modal={acceptM}
-                    setModal={setAcceptM}
-                  />
+                  <RefundModal cancellationId={data.cancellationId} modal={acceptM} setModal={setAcceptM} />
                 ) : (
                   <></>
                 )}

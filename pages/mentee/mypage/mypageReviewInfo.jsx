@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styles from "./template.module.scss";
-import TopBar from "../components/TopBar";
-import ReviewCategory from "../components/mypageReviewInfo/ReviewCategory";
-import WriteContent from "../components/mypageReviewInfo/WriteContent";
-import NavBar from "../components/NavBar";
-import ReviewContent from "../components/mypageReviewInfo/ReviewContent";
-import EmptyBox from "../components/mypageReviewInfo/EmptyBox";
+import TopBar from "/components/TopBar";
+import ReviewCategory from "/components/mypageReviewInfo/ReviewCategory";
+import WriteContent from "/components/mypageReviewInfo/WriteContent";
+import NavBar from "/components/NavBar";
+import ReviewContent from "/components/mypageReviewInfo/ReviewContent";
+import EmptyBox from "/components/mypageReviewInfo/EmptyBox";
 
-function mypageReviewInfo(props) {
+function MypageReviewInfo(props) {
   const [Category, setCategory] = useState("후기작성");
   const getCategory = (value) => {
     setCategory(value);
@@ -37,4 +37,4 @@ function mypageReviewInfo(props) {
   );
 }
 
-export default mypageReviewInfo;
+export default MypageReviewInfo;

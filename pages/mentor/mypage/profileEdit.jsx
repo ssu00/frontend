@@ -1,7 +1,7 @@
 import styles from "./profileEdit.module.scss";
-import BottomTab from "../components/bottomtab";
-import OtherTopBar from "../components/mypage/topBar/otherPage";
-import { ProfileEditBtn } from "../components/mypage/myPageBtn";
+import BottomTab from "/components/bottomtab";
+import OtherTopBar from "/components/mypage/topBar/otherPage";
+import { ProfileEditBtn } from "/components/mypage/myPageBtn";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -58,12 +58,7 @@ const ProfileEdit = () => {
         {img == "" ? (
           origin == "" ? (
             <>
-              <input
-                type="file"
-                id="profile"
-                accept="image/*"
-                onChange={(e) => onChangeFile(e)}
-              />
+              <input type="file" id="profile" accept="image/*" onChange={(e) => onChangeFile(e)} />
               <label htmlFor="profile">
                 <div className={styles.profileImage} />
                 <div className={styles.editBtn} />
@@ -72,18 +67,8 @@ const ProfileEdit = () => {
           ) : (
             <>
               {" "}
-              <input
-                type="file"
-                id="profile"
-                accept="image/*"
-                onChange={(e) => onChangeFile(e)}
-              />
-              <Image
-                src={origin}
-                width="100px"
-                height="100px"
-                className={styles.inputImage}
-              ></Image>
+              <input type="file" id="profile" accept="image/*" onChange={(e) => onChangeFile(e)} />
+              <Image src={origin} width="100px" height="100px" className={styles.inputImage}></Image>
               <label htmlFor="profile">
                 <div className={styles.editBtn} />
               </label>
@@ -92,12 +77,7 @@ const ProfileEdit = () => {
         ) : (
           <>
             <input type="file" id="profile" onChange={(e) => onChangeFile(e)} />
-            <Image
-              src={img}
-              width="100px"
-              height="100px"
-              className={styles.inputImage}
-            ></Image>
+            <Image src={img} width="100px" height="100px" className={styles.inputImage}></Image>
             <label htmlFor="profile">
               <div className={styles.editBtn} />
             </label>
@@ -106,7 +86,7 @@ const ProfileEdit = () => {
       </section>
       <span className={styles.line} />
       <section className={styles.editBtnSection}>
-        <ProfileEditBtn text={"튜터 소개"} url={"/tutorIntroduction"} />
+        <ProfileEditBtn text={"멘토 소개"} url={"/mentor/mypage/tutorIntroduction"} />
         <ProfileEditBtn text={"회원정보 수정"} url={"/memberInfoEdit"} />
         <ProfileEditBtn text={"비밀번호 변경"} url={"/changePW"} />
         <ProfileEditBtn text={"로그아웃"} url={"/"} />

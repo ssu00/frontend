@@ -1,9 +1,9 @@
-import { CategoryBtn } from "../components/mypage/myPageBtn";
-import AboutTutee from "../components/mypage/aboutTutee";
-import MainTopBar from "../components/mypage/topBar/mainPage";
+import { CategoryBtn } from "/components/mypage/myPageBtn";
+import AboutTutee from "/components/mypage/aboutTutee";
+import MainTopBar from "/components/mypage/topBar/mainPage";
 import styles from "./mypage.module.scss";
-import MainProfile from "../components/mypage/mainProfile";
-import BottomTab from "../components/bottomtab";
+import MainProfile from "/components/mypage/mainProfile";
+import BottomTab from "/components/bottomtab";
 import axios from "axios";
 import router from "next/router";
 import { useEffect, useState } from "react";

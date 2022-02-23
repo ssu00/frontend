@@ -1,11 +1,11 @@
 import { useState } from "react";
-import styles from "./login.module.scss";
+import styles from "/styles/login.module.scss";
 import axios from "axios";
 import router from "next/router";
-import { BlueBtn } from "../components/login/btn/mainBtn";
-import InputBox from "../components/login/btn/inputBox";
-import TextBtn from "../components/login/btn/textBtn";
-import { ImageLogo, NameLogo } from "../components/login/logos";
+import { BlueBtn } from "/components/login/btn/mainBtn";
+import InputBox from "/components/login/btn/inputBox";
+import TextBtn from "/components/login/btn/textBtn";
+import { ImageLogo, NameLogo } from "/components/login/logos";
 
 const Login = ({}) => {
   const [username, setUsername] = useState("");
@@ -35,10 +35,11 @@ const Login = ({}) => {
           .then((res) => {
             setError(false);
             alert("로그인에 성공하였습니다");
-            console.log(res.data);
             if (res.data.role === "MENTOR") {
-              router.push("/tutorInfoEdit");
+              localStorage.setItem("classification", res.data.role);
+              router.push("/mentorInfoEdit");
             } else {
+              localStorage.setItem("classification", "MENTEE");
               router.push("/myclass");
             }
           })
@@ -61,7 +62,7 @@ const Login = ({}) => {
 
   return (
     <section className={styles.loginSection}>
-      <h1 className={styles.title}>{"튜터로 로그인"}</h1>
+      <h1 className={styles.title}>{"멘토로 로그인"}</h1>
       <div className="test" />
       <span className={styles.imageLogo}>
         <ImageLogo />
