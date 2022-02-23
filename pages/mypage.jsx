@@ -15,18 +15,16 @@ const MyPage = () => {
   }
 
   const getMyInfo = () => {
-    axios.get("/tutors/my-info").then((response) => {
+    axios.get("/mentors/my-info").then((response) => {
       console.log(response);
       setUsername(response.data.user.name);
       setImage(response.data.user.image);
     });
   };
 
-  // const redirect = () => {
-  //   window.location.assign(
-  //     "https://github.com/tutor-lab/tutor-lab-front/wiki/%EC%9D%B4%EC%9A%A9%EC%95%BD%EA%B4%80"
-  //   );
-  // };
+  const redirect = () => {
+    window.location.assign("https://github.com/tutor-lab/tutor-lab-front/wiki/%EC%9D%B4%EC%9A%A9%EC%95%BD%EA%B4%80");
+  };
 
   useEffect(() => {
     getMyInfo();

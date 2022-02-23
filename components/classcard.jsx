@@ -4,31 +4,17 @@ import router from "next/router";
 const ClassCard = ({ data }) => {
   let online = false;
   let offline = false;
-  if (
-    data.systemTypes[0]?.type == "ONLINE" ||
-    data.systemTypes[1]?.type == "ONLINE"
-  ) {
+  if (data.systems[0]?.type == "ONLINE" || data.systems[1]?.type == "ONLINE") {
     online = true;
   }
-  if (
-    data.systemTypes[0]?.type == "OFFLINE" ||
-    data.systemTypes[1]?.type == "OFFLINE"
-  ) {
+  if (data.systems[0]?.type == "OFFLINE" || data.systems[1]?.type == "OFFLINE") {
     offline = true;
   }
   return (
-    <div
-      className={styles.classCard}
-      onClick={() => router.push(`/classDetail/${data.id}`)}
-    >
+    <div className={styles.classCard} onClick={() => router.push(`/classDetail/${data.id}`)}>
       <div className={styles.classCardImage}>
-        <Image
-          src={data.thumbnail ? data.thumbnail : ""}
-          width="330px"
-          height="136px"
-          alt=""
-          className={styles.classCardImg}
-        />
+        {/* <Image src={data.thumbnail} 들어가야하는데 지금은 aws 이미지 없기에 대체함 */}
+        <Image src="/images/mypage/imgLogo.svg" width="330px" height="136px" alt="" className={styles.classCardImg} />
         <div className={styles.onoffMethod}>
           {offline ? (
             <strong className={styles.onoff} aria-label="오프라인으로 진행">
@@ -47,11 +33,7 @@ const ClassCard = ({ data }) => {
         </div>
       </div>{" "}
       <div className={styles.classCardExplanation}>
-        <h1>
-          {data.title.length >= 25
-            ? data.title.substring(0, 25) + "..."
-            : data.title}
-        </h1>
+        <h1>{data.title.length >= 25 ? data.title.substring(0, 25) + "..." : data.title}</h1>
         <span className={styles.def}>{data.subTitle} </span>
         <div className={styles.likes}>
           <span className={styles.heart} />

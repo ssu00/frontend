@@ -26,9 +26,7 @@ const Login = ({}) => {
       .post("/login", LoginRequest)
       .then(function (response) {
         if (window.ReactNativeWebView) {
-          window.ReactNativeWebView.postMessage(
-            JSON.stringify({ username: username })
-          );
+          window.ReactNativeWebView.postMessage(JSON.stringify({ username: username }));
         }
         const accessToken = response.data.split(" ")[1];
         localStorage.setItem("accessToken", accessToken);
@@ -36,8 +34,9 @@ const Login = ({}) => {
           .get("/users/my-info")
           .then((res) => {
             setError(false);
-            //            alert("로그인에 성공하였습니다");
-            if (res.data.role === "TUTEE") {
+            alert("로그인에 성공하였습니다");
+            console.log(res.data);
+            if (res.data.role === "MENTOR") {
               router.push("/tutorInfoEdit");
             } else {
               router.push("/myclass");
@@ -68,25 +67,9 @@ const Login = ({}) => {
         <ImageLogo />
       </span>
       <div className={styles.btns}>
-        <InputBox
-          type={"email"}
-          placeholder={"ID(Email)"}
-          onChange={onChangeUsername}
-          value={username}
-        />
-        <InputBox
-          type={"password"}
-          placeholder={"Password"}
-          onChange={onChangePassword}
-          value={password}
-        />
-        {error ? (
-          <span className={styles.failed}>
-            아이디 또는 비밀번호가 일치하지 않습니다.{" "}
-          </span>
-        ) : (
-          <></>
-        )}
+        <InputBox type={"email"} placeholder={"ID(Email)"} onChange={onChangeUsername} value={username} />
+        <InputBox type={"password"} placeholder={"Password"} onChange={onChangePassword} value={password} />
+        {error ? <span className={styles.failed}>아이디 또는 비밀번호가 일치하지 않습니다. </span> : <></>}
         <BlueBtn text={"로그인 하기"} type="submit" onClick={checkAccount} />
         <span className={styles.textBtn}>
           <TextBtn text={"아이디 찾기"} />

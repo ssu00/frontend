@@ -2,12 +2,12 @@ import styles from "./tutorProfileImg.module.scss";
 import Image from "next/image";
 
 const TutorProfileImg = ({ img }) => {
-  return img == "" ? (
+  return img === null ? (
     <section className={styles.tutorProfileImg}>
       <div className={styles.logo} />
     </section>
   ) : (
-    <Image src={img} width="86px" height="113px" />
+    <Image src={img || "/images/mypage/imgLogo.svg"} width={86} height={113} />
   );
 };
 export default TutorProfileImg;

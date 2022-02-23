@@ -12,7 +12,7 @@ const ChatLists = () => {
   const [chatList, setChatList] = useState([]);
   const [alarm, setAlarm] = useState(0);
   const getChatLists = () => {
-    axios.get("/tutors/my-chatrooms").then((resData) => {
+    axios.get("/mentors/my-chatrooms").then((resData) => {
       console.log("data: ", resData.data);
       setChatList(resData.data.content);
       setChatExists(resData.data.numberOfElements);
@@ -40,10 +40,7 @@ const ChatLists = () => {
         <section className={styles.listSection}>
           <ChatListSearchBox />
           <div className={styles.chatPreviews}>
-            {chatList !== undefined &&
-              chatList.map((item, index) => (
-                <ChatPreview data={item} key={index} newChat={2} />
-              ))}
+            {chatList !== undefined && chatList.map((item, index) => <ChatPreview data={item} key={index} newChat={2} />)}
           </div>
           {chatExists ? (
             ""

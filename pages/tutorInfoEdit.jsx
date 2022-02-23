@@ -19,7 +19,7 @@ const TutorInfoEdit = () => {
   const [userInfoCheck, setUserInfoCheck] = useState(false);
 
   const getUserInfo = () => {
-    axios.get("/tutors/my-info").then((res) => {
+    axios.get("/mentors/my-info").then((res) => {
       const item = res.data;
       setSchoolName(item.educations[0].schoolName);
       setEdOthers(item.educations[0].others);
@@ -54,7 +54,7 @@ const TutorInfoEdit = () => {
       ],
     };
     axios
-      .post("/tutors", sendData)
+      .post("/mentors", sendData)
       .then((res) => {
         if (res.status === 201) {
           alert("등록되었습니다.");
@@ -87,7 +87,7 @@ const TutorInfoEdit = () => {
       ],
     };
     axios
-      .put("/tutors/my-info", sendData)
+      .put("/mentors/my-info", sendData)
       .then((res) => {
         console.log("res1", res);
         if (res.status === 200) {
@@ -119,11 +119,8 @@ const TutorInfoEdit = () => {
       <OtherTopBar title={"튜터 정보 수정"} url={"/tutorIntroduction"} />
       <section className={styles.text}>
         <p className={styles.intro}>
-          입력하신 학력 및 경력 정보를 인증할 수 있는 첨부파일을 추가로 업로드
-          해주세요. 관리자 확인 후, 인증마크를 부여합니다. <br />
-          <span className={styles.caution}>
-            * 첨부파일은 JPEG, PNG, GIF 형식으로만 첨부가능합니다.
-          </span>
+          입력하신 학력 및 경력 정보를 인증할 수 있는 첨부파일을 추가로 업로드 해주세요. 관리자 확인 후, 인증마크를 부여합니다. <br />
+          <span className={styles.caution}>* 첨부파일은 JPEG, PNG, GIF 형식으로만 첨부가능합니다.</span>
         </p>
       </section>
       <div className={styles.line} />
@@ -135,30 +132,10 @@ const TutorInfoEdit = () => {
           </label>
           <input type="file" id="academicFile" required />
         </div>
-        <InputBox
-          text={"최종 학력"}
-          order={1}
-          value={educationLevel}
-          setValue={setEducationLevel}
-        />
-        <InputBox
-          text={"학교 명"}
-          order={2}
-          value={schoolName}
-          setValue={setSchoolName}
-        />
-        <InputBox
-          text={"전공 명"}
-          order={2}
-          value={major}
-          setValue={setMajor}
-        />
-        <InputBox
-          text={"그 외 학력"}
-          order={3}
-          value={edothers}
-          setValue={setEdOthers}
-        />
+        <InputBox text={"최종 학력"} order={1} value={educationLevel} setValue={setEducationLevel} />
+        <InputBox text={"학교 명"} order={2} value={schoolName} setValue={setSchoolName} />
+        <InputBox text={"전공 명"} order={2} value={major} setValue={setMajor} />
+        <InputBox text={"그 외 학력"} order={3} value={edothers} setValue={setEdOthers} />
       </section>
       <div className={styles.line} />
       <section className={styles.career}>
@@ -170,31 +147,12 @@ const TutorInfoEdit = () => {
           <input type="file" id="careerFile" required />
         </div>
         <InputBox text={"직업"} order={1} value={job} setValue={setJob} />
-        <InputBox
-          text={"직장 명"}
-          order={2}
-          value={companyName}
-          setValue={setcompanyName}
-        />
-        <InputBox
-          text={"그 외 경력"}
-          order={2}
-          value={caothers}
-          setValue={setCaOthers}
-        />
-        <InputBox
-          text={"자격증"}
-          order={3}
-          value={license}
-          setValue={setLicense}
-        />
+        <InputBox text={"직장 명"} order={2} value={companyName} setValue={setcompanyName} />
+        <InputBox text={"그 외 경력"} order={2} value={caothers} setValue={setCaOthers} />
+        <InputBox text={"자격증"} order={3} value={license} setValue={setLicense} />
       </section>
       <div className={styles.fixed}>
-        {userInfoCheck ? (
-          <BlueBtn onClick={handleUpdate} text={"수정"} />
-        ) : (
-          <BlueBtn onClick={handleSave} text={"저장"} />
-        )}
+        {userInfoCheck ? <BlueBtn onClick={handleUpdate} text={"수정"} /> : <BlueBtn onClick={handleSave} text={"저장"} />}
       </div>
     </section>
   );

@@ -23,7 +23,7 @@ const ChatPreview = ({ data, newChat }) => {
   useEffect(() => {
     TimeMaker();
   }, []);
-
+  console.log(data.tuteeImage);
   return (
     <button
       className={styles.previewSection}
@@ -39,14 +39,8 @@ const ChatPreview = ({ data, newChat }) => {
       }
     >
       <div className={styles.profile}>
-        {data.tuteeImage !== null && (
-          <Image
-            src={data.tuteeImage}
-            width="56px"
-            height="56px"
-            alt="프로필"
-            className={styles.profileImg}
-          />
+        {data.tuteeImage !== undefined && (
+          <Image src={data.tuteeImage} width="56px" height="56px" alt="프로필" className={styles.profileImg} />
         )}
       </div>
       <div className={styles.chat}>
@@ -57,9 +51,7 @@ const ChatPreview = ({ data, newChat }) => {
         <span className={styles.last}>{data.lastMessage?.message}</span>
       </div>
       <div className={styles.timeInfo}>
-        <span className={styles.date}>
-          {sameDay ? time.slice(0, -3) : date.substring(2)}
-        </span>
+        <span className={styles.date}>{sameDay ? time.slice(0, -3) : date.substring(2)}</span>
         <span></span>
         <span className={styles.newChat}>{data.uncheckedMessageCount}</span>
       </div>

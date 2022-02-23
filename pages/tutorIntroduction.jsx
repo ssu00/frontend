@@ -18,14 +18,14 @@ const TutorIntroduction = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
-
   const getUserInfo = () => {
-    axios.get("/tutors/my-info").then((res) => {
+    axios.get("/mentors/my-info").then((res) => {
       setEducations(res.data.educations[0]);
       setCareers(res.data.careers[0]);
     });
     axios.get("/users/my-info").then((res) => {
       const item = res.data;
+      console.log(item);
       setImg(item.image);
       setName(item.name);
       setNickname(item.nickname);
@@ -56,10 +56,7 @@ const TutorIntroduction = () => {
 
       <section className={styles.academicInfo}>
         <h1 className={styles.title}>학력정보</h1>
-        <TutorInfoBox
-          category={"최종학력"}
-          content={educations.educationLevel}
-        />
+        <TutorInfoBox category={"최종학력"} content={educations.educationLevel} />
         <TutorInfoBox category={"학교 명"} content={educations.schoolName} />
         <TutorInfoBox category={"전공 명"} content={educations.major} />
         <TutorInfoBox category={"그 외 학력"} content={educations.others} />
@@ -78,11 +75,7 @@ const TutorIntroduction = () => {
       </section>
       <div className={styles.fixed}>
         <BottomTab num={3} />
-        <button
-          type="button"
-          className={styles.edit}
-          onClick={() => router.push("tutorInfoEdit")}
-        />
+        <button type="button" className={styles.edit} onClick={() => router.push("tutorInfoEdit")} />
       </div>
     </section>
   );
