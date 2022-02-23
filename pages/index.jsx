@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import styles from "./main.module.scss";
-import { WhiteBtn, BlueBtn } from "../components/login/btn/mainBtn";
-import { ImageLogo, TextLogo } from "../components/login/logos";
+// import styles from "./main.module.scss";
+// import { WhiteBtn, BlueBtn } from "../components/login/btn/mainBtn";
+// import { ImageLogo, TextLogo } from "../components/login/logos";
 import router from "next/router";
 import jwt_decode from "jwt-decode";
+import axios from "axios";
 
 const Main = () => {
   let token = "";
@@ -21,14 +22,21 @@ const Main = () => {
   }
   useEffect(() => {
     if (token) {
-      router.push("/myclass");
+      // home이 만들어지면 home으로 이동시켜야 한다.
+      axios.get("/users/my-info").then((res) => {
+        if (res.data.role === "MENTOR") {
+          router.push("/tutorInfoEdit");
+        } else {
+          router.push("/myclass");
+        }
+      });
     } else {
       router.push("/");
     }
   }, [token]);
   return (
     <div>
-      <section className={styles.main}>
+      {/* <section className={styles.main}>
         <span className={styles.imageLogo}>
           <ImageLogo />
         </span>
@@ -36,17 +44,11 @@ const Main = () => {
           <TextLogo />
         </span>
         <div className={styles.buttons}>
-          <WhiteBtn
-            text={"튜터로 로그인"}
-            onClick={() => router.push("/login")}
-          />
-          <BlueBtn
-            text={"회원가입"}
-            onClick={() => router.push("/termsContainer")}
-          />
+          <WhiteBtn text={"멘토로 로그인"} onClick={() => router.push("/login")} />
+          <BlueBtn text={"멘티로 로그인"} onClick={() => router.push("/login")} />
         </div>
         <span className={styles.tutorlabText}>@mentoridge</span>
-      </section>
+      </section> */}
     </div>
   );
 };
