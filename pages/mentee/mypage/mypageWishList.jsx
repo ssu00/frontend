@@ -1,7 +1,7 @@
 import React from "react";
-import HomeIndicator from "/components/HomeIndicator";
-import ContentList from "/components/mypageWishList/ContentList";
-import TopMenu from "/components/mypageWishList/TopMenu";
+import HomeIndicator from "../../../components/mentee/HomeIndicator";
+import ContentList from "../../../components/mentee/mypageWishList/ContentList";
+import TopMenu from "../../../components/mentee/mypageWishList/TopMenu";
 import styles from "./mypageWishList.module.scss";
 
 export default function myPageWishList() {

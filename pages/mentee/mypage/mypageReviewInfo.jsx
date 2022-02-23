@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import styles from "./template.module.scss";
-import TopBar from "/components/TopBar";
-import ReviewCategory from "/components/mypageReviewInfo/ReviewCategory";
-import WriteContent from "/components/mypageReviewInfo/WriteContent";
-import NavBar from "/components/NavBar";
-import ReviewContent from "/components/mypageReviewInfo/ReviewContent";
-import EmptyBox from "/components/mypageReviewInfo/EmptyBox";
+import TopBar from "../../../components/mentee/TopBar";
+import ReviewCategory from "../../../components/mentee/mypageReviewInfo/ReviewCategory";
+import WriteContent from "../../../components/mentee/mypageReviewInfo/WriteContent";
+import NavBar from "../../../components/mentee/NavBar";
+import ReviewContent from "../../../components/mentee/mypageReviewInfo/ReviewContent";
 
 function MypageReviewInfo(props) {
   const [Category, setCategory] = useState("후기작성");

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import styles from "./main.module.scss";
-import { WhiteBtn, BlueBtn } from "../components/login/btn/mainBtn";
-import { ImageLogo, TextLogo } from "../components/login/logos";
+// import styles from "./main.module.scss";
+// import { WhiteBtn, BlueBtn } from "../components/login/btn/mainBtn";
+// import { ImageLogo, TextLogo } from "../components/login/logos";
 import router from "next/router";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
@@ -36,7 +36,7 @@ const Main = () => {
   }, [token]);
   return (
     <div>
-      <section className={styles.main}>
+      {/* <section className={styles.main}>
         <span className={styles.imageLogo}>
           <ImageLogo />
         </span>
@@ -44,12 +44,11 @@ const Main = () => {
           <TextLogo />
         </span>
         <div className={styles.buttons}>
-          {/* 로그인을 따로따로 만들어서 API 요청을 해야할것같은데 어찌할까... */}
           <WhiteBtn text={"멘토로 로그인"} onClick={() => router.push("/login")} />
           <BlueBtn text={"멘티로 로그인"} onClick={() => router.push("/login")} />
         </div>
         <span className={styles.tutorlabText}>@mentoridge</span>
-      </section>
+      </section> */}
     </div>
   );
 };

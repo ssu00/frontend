@@ -1,9 +1,9 @@
 import React from "react";
-import Content from "/components/mypageReviewDetail/Content";
-import LectureInfo from "/components/mypageReviewDetail/LectureInfo";
-import TopBar from "/components/mypageReviewDetail/TopBar";
-import styles from "../../template.module.scss";
-import HomeIndicator from "/components/HomeIndicator";
+import Content from "../../../components/mentee/mypageReviewDetail/Content";
+import LectureInfo from "../../../components/mentee/mypageReviewDetail/LectureInfo";
+import TopBar from "../../../components/mentee/mypageReviewDetail/TopBar";
+import styles from "./template.module.scss";
+import HomeIndicator from "../../../components/mentee/HomeIndicator";
 
 function mypageReviewDetail() {
   return (

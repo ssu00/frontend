@@ -1,12 +1,12 @@
 import React from "react";
-import LectureInfo from "/components/mypageReviewWrite/LectureInfo";
-import Rating from "/components/mypageReviewWrite/Rating";
-import Submit from "/components/mypageReviewWrite/Submit";
-import Write from "/components/mypageReviewWrite/Write";
-import WriteGuide from "/components/mypageReviewWrite/WriteGuide";
-import TopBar from "/components/TopBar";
-import HomeIndicator from "/components/HomeIndicator";
-import styles from "../../template.module.scss";
+import LectureInfo from "../../../components/mentee/mypageReviewWrite/LectureInfo";
+import Rating from "../../../components/mentee/mypageReviewWrite/Rating";
+import Submit from "../../../components/mentee/mypageReviewWrite/Submit";
+import Write from "../../../components/mentee/mypageReviewWrite/Write";
+import WriteGuide from "../../../components/mentee/mypageReviewWrite/WriteGuide";
+import TopBar from "../../../components/mentee/TopBar";
+import HomeIndicator from "../../../components/mentee/HomeIndicator";
+import styles from "./template.module.scss";
 
 function mypageReviewWrite() {
   return (
