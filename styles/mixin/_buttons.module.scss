@@ -1,0 +1,15 @@
+@mixin btn-style($height: false, $radius: false) {
+  @include flexBox;
+  width: 100%;
+  font-size: 15px;
+  cursor: pointer;
+  outline: none;
+
+  @if (type-of($height) ==number) {
+    height: $height;
+  }
+
+  @if (type-of($radius) ==number) {
+    border-radius: $radius;
+  }
+}

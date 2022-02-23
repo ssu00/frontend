@@ -1,0 +1,7 @@
+%modal-base {
+  @include flexBox;
+  @include pos-center(absolute);
+  flex-direction: column;
+  width: 330px;
+  background-color: $white;
+}
