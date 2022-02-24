@@ -23,8 +23,14 @@
   }
 }
 
-@mixin pos-absolute($top: false, $right: false, $bottom: false, $left: false) {
-  position: absolute;
+@mixin pos(
+  $posType: absolute,
+  $top: false,
+  $right: false,
+  $bottom: false,
+  $left: false
+) {
+  position: $posType;
   @if (type-of($top) ==number) {
     top: $top;
   }
