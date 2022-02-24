@@ -1,0 +1,14 @@
+@import "../../../styles/main.module.scss";
+.commonCheckBox {
+  display: flex;
+  justify-content: space-between;
+
+  .showBtn {
+    @include btn-style(14px, 0);
+    text-decoration: underline;
+  }
+
+  .showBtnText {
+    @include text-style($fs-10, $light_gray, 400);
+  }
+}
