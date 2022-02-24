@@ -1,0 +1,54 @@
+@import "../../../styles/main.module.scss";
+.ellipseBtn {
+  @include flexBox;
+  position: relative;
+  width: 133px;
+  height: 26px;
+  margin: 0;
+  margin-bottom: 5px;
+  cursor: pointer;
+  background-color: $bg_color;
+  border-radius: 10px;
+
+  input {
+    display: none;
+  }
+
+  span {
+    display: block;
+  }
+
+  label {
+    cursor: pointer;
+  }
+
+  .checkIcon {
+    @include pos-absolute(4px, 0, 0, 4px);
+    @include backgroundImg(16px, 16px);
+    background-image: url("/icons/check.svg");
+  }
+
+  .selectedText {
+    @include text-style($fs-12, $main, 700);
+  }
+
+  .unselectedText {
+    @include text-style($fs-12, $light_gray, 700);
+  }
+}
+
+.selected {
+  border: 1px solid $main;
+}
+
+.unselected {
+  border: 1px solid $line;
+}
+
+.unselected:hover {
+  border: 0.5px solid $main;
+
+  .unselectedText {
+    @include text-style($fs-12, $main, 700);
+  }
+}
