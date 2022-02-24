@@ -1,0 +1,22 @@
+@import "../../../styles/main.module.scss";
+.elemBtn {
+  width: 76px;
+  height: 49px;
+  cursor: pointer;
+  background-color: $white;
+  border: 0;
+  outline: none;
+
+  .elem {
+    display: flex;
+    flex-direction: column;
+
+    .elemText_unselected {
+      @include text-style($fs-12, $light_gray, 400);
+    }
+
+    .elemText_selected {
+      @include text-style($fs-12, $main, 400);
+    }
+  }
+}
