@@ -1,0 +1,37 @@
+@import "../../../styles/main.module.scss";
+.classPriceSection {
+  .alignWithRow {
+    @include flexBox(between, center);
+    width: 100%;
+
+    .alignWithColumn {
+      display: flex;
+      flex-direction: column;
+      width: 90px;
+
+      .title {
+        @include text-style($fs-13, $sub, 500);
+        margin-bottom: 4px;
+      }
+    }
+  }
+
+  .total_price_block {
+    @include flexBox(between, center);
+    width: 300px;
+    height: 30px;
+    padding: 4px 14px;
+    background-color: $bg-color;
+    border: 1px solid $line;
+    border-radius: 15px;
+
+    .text_black {
+      @include text-style($fs-13, $sub, 700);
+    }
+
+    .total_price {
+      @include text-style($fs-16, $main, 600, right);
+      width: 65%;
+    }
+  }
+}

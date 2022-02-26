@@ -1,0 +1,36 @@
+@import "../../../styles/main.module.scss";
+.step {
+  width: 375px;
+  height: 100vh;
+  margin: 0 auto;
+
+  .category {
+    display: flex;
+    width: 100%;
+    height: 48px;
+  }
+
+  .contentSection {
+    @include flexBox(center, start);
+    flex-direction: column;
+    width: 100%;
+    padding: 15px 23px 120px;
+
+    .questionBlock {
+      margin-bottom: 11px;
+
+      .question {
+        @include text-style($fs-13, $sub, 500, left);
+        margin: 0 0 12px 8px;
+
+        .row {
+          display: flex;
+        }
+      }
+    }
+
+    .example {
+      @include text-style($fs-13, $light_gray, 400, left);
+    }
+  }
+}
