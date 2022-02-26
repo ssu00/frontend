@@ -1,0 +1,15 @@
+@import "../../../styles/main.module.scss";
+.infoLine {
+  display: flex;
+  width: 100%;
+
+  .title {
+    @include text-style($fs-14, $light_gray, 400, left);
+    display: block;
+    width: 80px;
+  }
+
+  .content {
+    @include text-style($fs-14, $sub, 400, left);
+  }
+}
