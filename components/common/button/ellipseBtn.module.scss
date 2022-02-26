@@ -23,7 +23,7 @@
   }
 
   .checkIcon {
-    @include pos-absolute(4px, 0, 0, 4px);
+    @include pos(absolute, 4px, 0, 0, 4px);
     @include backgroundImg(16px, 16px);
     background-image: url("/icons/check.svg");
   }
