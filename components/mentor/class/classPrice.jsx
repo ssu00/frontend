@@ -36,6 +36,9 @@ const ClassPrice = ({ form, handleChange, classType }) => {
                 ? handleChange("PpricePerHour")
                 : handleChange("GpricePerHour")
             }
+            value={
+              classType == "personal" ? form.PpricePerHour : form.GpricePerHour
+            }
           />
         </div>
         <div className={styles.multiple} />
@@ -50,6 +53,9 @@ const ClassPrice = ({ form, handleChange, classType }) => {
                 ? handleChange("PtimePerClass")
                 : handleChange("GtimePerClass")
             }
+            value={
+              classType == "personal" ? form.PtimePerClass : form.GtimePerClass
+            }
           />
         </div>
         <div className={styles.multiple} />
@@ -63,6 +69,9 @@ const ClassPrice = ({ form, handleChange, classType }) => {
               classType == "personal"
                 ? handleChange("PnumOfClass")
                 : handleChange("GnumOfClass")
+            }
+            value={
+              classType == "personal" ? form.PnumOfClass : form.GnumOfClass
             }
           />
         </div>

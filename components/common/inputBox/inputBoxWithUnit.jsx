@@ -7,7 +7,6 @@ const InputBoxWithUnit = ({ type, unit, placeholder, onChange, value }) => {
         className={styles.inputBox}
         placeholder={placeholder}
         onChange={onChange}
-        onChange={onChange}
         value={value == "" ? 0 : value}
       />
       <strong className={styles.unit}>{unit}</strong>

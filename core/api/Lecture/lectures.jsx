@@ -59,7 +59,6 @@ const GetLecturePriceArray = (form) => {
       form.GpricePerHour * form.GnumOfClass * form.GtimePerClass; //총 비용
     priceArray.push(groupPrice);
   }
-
   return priceArray;
 };
 
@@ -80,21 +79,20 @@ const LectureRegister = async ({ form, num, lecID }) => {
     systems: GetLectureSystemArray(form),
     thumbnail: form.image,
   };
-  console.log("this is axios");
 
-  await axios({
-    method: "POST",
-    url: "/lectures",
-    data: data,
-  })
-    .then((response) => {
-      console.log(response);
-      return response;
-    })
-    .catch((error) => {
-      errormsg = error.response;
-      return Promise.reject(errormsg);
-    });
+  // await axios({
+  //   method: "POST",
+  //   url: "/lectures",
+  //   data: data,
+  // })
+  //   .then((response) => {
+  //     console.log(response);
+  //     return response;
+  //   })
+  //   .catch((error) => {
+  //     errormsg = error.response;
+  //     return Promise.reject(errormsg);
+  //   });
   // if (num == 2) {
   //   axios
   //     .put(`/lectures/${lecID}`, data)
