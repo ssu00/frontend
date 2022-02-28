@@ -1,0 +1,13 @@
+@mixin tag-role($bg: #fce6e6, $color: $red) {
+  @include flexBox;
+  width: 39px;
+  height: 22px;
+  background-color: $bg;
+  border: 0;
+  border-radius: 6px;
+  outline: none;
+
+  span {
+    @include text-style($fs-12, $color, 500);
+  }
+}
