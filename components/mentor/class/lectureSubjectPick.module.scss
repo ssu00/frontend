@@ -1,0 +1,22 @@
+@import "../../../styles/main.module.scss";
+.lectureType {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+
+  .bigSizeSelectBox {
+    width: 170px;
+  }
+
+  .deleteBtn {
+    @include btn-style(30px, 6px);
+    padding: 7px;
+    background-color: $line;
+    border: 0;
+
+    .deleteImg {
+      @include backgroundImg(14px, 14px);
+      background-image: url("../../../public/icons/x_red.svg");
+    }
+  }
+}
