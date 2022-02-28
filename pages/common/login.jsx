@@ -18,6 +18,7 @@ const Login = () => {
 
   const checkAccount = async () => {
     const res = await Login_API(username, password);
+    localStorage.setItem("accessToken", res.data);
   };
 
   const onChangeUsername = (e) => {
