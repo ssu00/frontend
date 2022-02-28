@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import LectureSubjectPick from "./lectureSubjectPick";
 import { GetSubjectArray } from "../../../core/api/Lecture/getSubjects";
 
-const Step02 = ({ form, nextStep, prevStep, handleChange, MoveStep }) => {
+const Step02 = ({ form, handleChange, MoveStep }) => {
   const [subject, setSubject] = useState([]);
   useEffect(() => {
     GetSubjectArray(setSubject);
@@ -16,7 +16,7 @@ const Step02 = ({ form, nextStep, prevStep, handleChange, MoveStep }) => {
 
   return (
     <div className={styles.step}>
-      <TopBar text={"강의 등록"} onClick={prevStep} />
+      <TopBar text={"강의 등록"} onClick={() => MoveStep(form.step - 1)} />
       <div className={styles.category}>
         <MenuBtn selected={false} text={"1단계"} onClick={() => MoveStep(1)} />
         <MenuBtn selected={true} text={"2단계"} onClick={() => MoveStep(2)} />
@@ -71,7 +71,7 @@ const Step02 = ({ form, nextStep, prevStep, handleChange, MoveStep }) => {
         </div>
         <Quill form={form} />
       </section>
-      <BottomBlueBtn text={"다음"} onClick={nextStep} />
+      <BottomBlueBtn text={"다음"} onClick={() => MoveStep(form.step + 1)} />
     </div>
   );
 };

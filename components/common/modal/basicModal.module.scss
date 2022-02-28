@@ -9,7 +9,6 @@
   }
 
   .btnStyle {
-    width: 216px;
     @include btn-style(50px, 10px);
   }
 
@@ -21,16 +20,29 @@
 .squareModal {
   @extend %modal-base;
   height: 175px;
-  padding: 27px 57px;
   border-radius: 3px;
   box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.25);
 
+  .x_icon {
+    @include backgroundImg(24px, 24px);
+    margin-bottom: 7px;
+    background-image: url("../../../public/icons/x_red.svg");
+  }
+
+  .check_icon {
+    @include backgroundImg(24px, 24px);
+    background-image: url("../../../public/icons/check.svg");
+  }
+
   .noticeText {
-    @include text-style(14px, $sub, 400);
+    @include text-style(14px, $sub, 400, center);
+    margin: 0 0 16px;
+    white-space: pre-line;
   }
 
   .btnStyle {
     @include btn-style(40px, 5px);
+    width: 216px;
   }
 
   .btnTextStyle {

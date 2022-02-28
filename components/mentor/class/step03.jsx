@@ -1,14 +1,36 @@
+import { useEffect, useState } from "react";
 import styles from "./steps.module.scss";
 import { MenuBtn } from "../../common";
 import TopBar from "../../common/tab/topBar";
 import BottomBlueBtn from "../../common/button/bottomBlueBtn";
 import EllipseBtn from "../../common/button/ellipseBtn";
 import ClassPrice from "./classPrice";
+import ClassRegistrationInputError from "./inputErrorHandling";
+import ModalWithBackground from "../../common/modal/modalWithBackground";
+import BasicModal from "../../common/modal/basicModal";
 
-const Step03 = ({ form, prevStep, handleChange, handleSubmit, MoveStep }) => {
+const Step03 = ({ form, handleChange, handleSubmit, MoveStep }) => {
+  const [err, setErr] = useState("");
+  const [modal, setModal] = useState(false);
+  useEffect(() => {
+    ClassRegistrationInputError(form, setErr);
+  }, [form]);
+
   return (
     <div className={styles.step}>
-      <TopBar text={"강의 등록"} onClick={prevStep} />
+      {err != "" && modal ? (
+        <ModalWithBackground setModal={setModal}>
+          <BasicModal
+            notice={err}
+            btnText={"확인"}
+            modalStyle={"square"}
+            btnClick={() => setModal(false)}
+          />
+        </ModalWithBackground>
+      ) : (
+        <></>
+      )}
+      <TopBar text={"강의 등록"} onClick={() => MoveStep(form.step - 1)} />
       <div className={styles.category}>
         <MenuBtn selected={false} text={"1단계"} onClick={() => MoveStep(1)} />
         <MenuBtn selected={false} text={"2단계"} onClick={() => MoveStep(2)} />
@@ -118,7 +140,15 @@ const Step03 = ({ form, prevStep, handleChange, handleSubmit, MoveStep }) => {
         )}
       </section>
 
-      <BottomBlueBtn text={"강의 업로드"} onClick={handleSubmit} />
+      <BottomBlueBtn
+        text={"강의 업로드"}
+        onClick={() => {
+          handleSubmit();
+          if (err != "") {
+            setModal(true);
+          }
+        }}
+      />
     </div>
   );
 };

@@ -6,6 +6,15 @@ const BasicModal = ({ modalStyle, notice, btnText, btnClick }) => {
     <section
       className={modalStyle == "round" ? styles.roundModal : styles.squareModal}
     >
+      <div
+        className={
+          btnText == "강의 등록 취소"
+            ? styles.x_icon
+            : btnText == "내 강의 바로가기"
+            ? styles.check_icon
+            : ""
+        }
+      />
       <p className={styles.noticeText}>{notice}</p>
       <BasicBtn
         text={btnText}

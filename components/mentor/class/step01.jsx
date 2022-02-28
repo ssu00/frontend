@@ -9,17 +9,14 @@ import ModalWithBackground from "../../common/modal/modalWithBackground";
 import router from "next/router";
 // import ImageCrop from "./ImageCrop";
 
-const Step01 = ({ form, nextStep, handleChange, MoveStep }) => {
+const Step01 = ({ form, handleChange, MoveStep }) => {
   const [modal, setModal] = useState(false);
   return (
     <div className={styles.step}>
       {modal ? (
         <ModalWithBackground setModal={setModal}>
           <BasicModal
-            notice={
-              "등록 중인 강의를 취소하시겠습니까?\n" +
-              "작성 취소시, 작성된 내용은 저장되지 않습니다."
-            }
+            notice={`등록 중인 강의를 취소하시겠습니까?\n작성 취소 시, 작성된 내용은 저장되지 않습니다.`}
             btnText={"강의 등록 취소"}
             modalStyle={"square"}
             btnClick={() => router.push("/mentor/classRegistrationIntro")}
@@ -72,7 +69,7 @@ const Step01 = ({ form, nextStep, handleChange, MoveStep }) => {
         </div>
       </section>
 
-      <BottomBlueBtn text={"다음"} onClick={nextStep} />
+      <BottomBlueBtn text={"다음"} onClick={() => MoveStep(form.step + 1)} />
     </div>
   );
 };
