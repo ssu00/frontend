@@ -5,13 +5,17 @@ const EllipseBtn = ({ element, select, id, onClick }) => {
     <section
       className={classNames(
         styles.ellipseBtn,
-        select ? styles.selected : styles.unselected
+        select == "on" ? styles.selected : styles.unselected
       )}
     >
-      <div className={select ? styles.checkIcon : ""} />
-      <input type="checkbox" id={id} onClick={onClick} />
-      <label htmlFor={id}>
-        <span className={select ? styles.selectedText : styles.unselectedText}>
+      <div className={select == "on" ? styles.checkIcon : ""} />
+      <input type="checkbox" id={id} />
+      <label htmlFor={id} onClick={onClick}>
+        <span
+          className={
+            select == "on" ? styles.selectedText : styles.unselectedText
+          }
+        >
           {element}
         </span>
       </label>

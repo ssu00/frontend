@@ -9,10 +9,9 @@
 
 .completeBtn {
   @include btn-style(80px, 0);
-  width: 100%;
+  width: 375px;
 }
 
 .completeBtnText {
-  width: 375px;
   @include text-style(500);
 }
