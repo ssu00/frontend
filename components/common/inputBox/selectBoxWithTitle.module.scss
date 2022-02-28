@@ -1,0 +1,40 @@
+@import "../../../styles/main.module.scss";
+.selectBox {
+  position: relative;
+  display: inline-block;
+  margin: 0 12px 0 0;
+
+  .title {
+    @include text-style($fs-12, $light_gray, 400, left);
+    @include pos(absolute, 6px, 0, 0, 17px);
+    z-index: 2;
+    width: 40px;
+  }
+
+  .sel {
+    @include text-style($fs-14, $main, 500, left);
+    width: 130px;
+    height: 60px;
+    padding: 30px 17px 6px;
+    background-color: $bg-color;
+    border: 1px solid $line;
+    border-radius: 10px;
+    outline: none;
+    appearance: none;
+
+    .option {
+      @include text-style($fs-14, $main, 500, left);
+    }
+  }
+
+  select {
+    background-image: url("/icons/down_blue.svg");
+    background-repeat: no-repeat;
+    background-position-x: 90%;
+    background-position-y: 75%;
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+}
