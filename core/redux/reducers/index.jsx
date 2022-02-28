@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import update from "./update";
+import classRegister from "./update";
 import loading from "./loading";
 
 const rootReducer = combineReducers({
-  update,
+  classRegister,
   loading,
 });
 

@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import createRequestSaga from "./createRequestSaga";
 import { createRequestActionTypes } from "./createRequestSaga";
-import * as API from "../../api/Lecture/lectures";
+import LectureRegister from "../../api/Lecture/lectures";
 import { takeLatest } from "@redux-saga/core/effects";
 
 const INITIALIZE = "lecture/INITIALIZE";
@@ -10,8 +10,6 @@ const CHANGE_FIELD = "lecture/CHANGE_FIELD";
 const ADD_TO_ARRAY = "lecture/ADD_TO_ARRAY";
 const CHANGE_ARRAY = "lecture/CHANGE_ARRAY";
 const DELETE_ARRAY_ELEMENT = "lecture/DELETE_ARRAY_ELEMENT";
-const NEXT_STEP = "lecture/NEXT_STEP";
-const PREV_STEP = "lecture/PREV_STEP";
 const MOVE_STEP = "lecture/MOVE_STEP";
 const [LECTURE_UPDATE, LECTURE_UPDATE_SUCCESS, LECTURE_UPDATE_FAILURE] =
   createRequestActionTypes("lecture/LECTURE_UPDATE");
@@ -21,6 +19,7 @@ export const ChangeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({ form, key, value })
 );
+
 export const AddToArray = createAction(
   ADD_TO_ARRAY,
   ({ form, key, value }) => ({
@@ -49,18 +48,16 @@ export const DeleteArrayElement = createAction(
   })
 );
 
-export const NextStep = createAction(NEXT_STEP, (form) => form);
-export const PrevStep = createAction(PREV_STEP, (form) => form);
 export const MoveStep = createAction(MOVE_STEP, (form) => form);
 export const LectureUpdate = createAction(LECTURE_UPDATE, (form) => form);
 
-const UpdateSaga = createRequestSaga(LECTURE_UPDATE, API.LectureRegister);
+const UpdateSaga = createRequestSaga(LECTURE_UPDATE, LectureRegister);
 export function* Saga() {
   yield takeLatest(LECTURE_UPDATE, UpdateSaga);
 }
 
 const initialState = {
-  update: {
+  classInfo: {
     step: 1,
     image: "",
     title: "",
@@ -86,7 +83,7 @@ const initialState = {
   updateError: false,
 };
 
-const ClassRegister = handleActions(
+const classRegister = handleActions(
   {
     [INITIALIZE]: (state) => ({ ...state, ...initialState }),
     [CHANGE_FIELD]: (state, { payload: { form, key, value } }) =>
@@ -105,17 +102,9 @@ const ClassRegister = handleActions(
       produce(state, (draft) => {
         delete draft[form][key][index];
       }),
-    [NEXT_STEP]: (state) =>
-      produce(state, (draft) => {
-        draft["update"]["step"] += 1;
-      }),
-    [PREV_STEP]: (state) =>
-      produce(state, (draft) => {
-        draft["update"]["step"] -= 1;
-      }),
     [MOVE_STEP]: (state, { payload }) =>
       produce(state, (draft) => {
-        draft["update"]["step"] = payload;
+        draft["classInfo"]["step"] = payload;
       }),
     [LECTURE_UPDATE_SUCCESS]: (state) => ({
       ...state,
@@ -131,4 +120,4 @@ const ClassRegister = handleActions(
   initialState
 );
 
-export default ClassRegister;
+export default classRegister;

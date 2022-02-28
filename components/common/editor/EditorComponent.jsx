@@ -29,21 +29,7 @@ class EditorComponent extends Component {
         });
 
       const range = this.quill.getSelection(true);
-
-      // Insert temporary loading placeholder image
-      // this.quill.insertEmbed(range.index, 'image', `${window.location.origin}/images/loaders/placeholder.gif`);
-
-      // Move cursor to right side of image (easier to continue typing)
       this.quill.setSelection(range.index + 1);
-
-      //const res = await this.apiPostNewsImage(formData); // API post, returns image location as string e.g. 'http://www.example.com/images/foo.png'
-      // Remove placeholder image
-
-      // this.quill.deleteText(range.index, 1);
-
-      // Insert uploaded image
-      // this.quill.insertEmbed(range.index, 'image', res.body.image);
-      console.log("resImage", resImage);
       this.quill.insertEmbed(range.index, "image", resImage);
     };
   }
@@ -71,7 +57,6 @@ class EditorComponent extends Component {
   };
 
   formats = [
-    //'font',
     "header",
     "bold",
     "italic",

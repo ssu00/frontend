@@ -137,7 +137,7 @@ export default function ImageCrop() {
                         let value = response.data.url;
                         dispatch(
                           ChangeField({
-                            form: "update",
+                            form: "classInfo",
                             key: "image",
                             value,
                           })

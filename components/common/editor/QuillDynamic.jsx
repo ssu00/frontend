@@ -18,7 +18,7 @@ const Quill = ({ form }) => {
 
     dispatch(
       ChangeField({
-        form: "update",
+        form: "classInfo",
         key: "content",
         value,
       })
