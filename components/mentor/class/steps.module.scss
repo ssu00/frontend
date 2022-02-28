@@ -1,8 +1,11 @@
 @import "../../../styles/main.module.scss";
 .step {
-  width: 375px;
-  height: 100vh;
-  margin: 0 auto;
+  @extend %page-base;
+  position: relative;
+
+  .modal {
+    height: 175px;
+  }
 
   .category {
     display: flex;
@@ -17,14 +20,62 @@
     padding: 15px 23px 120px;
 
     .questionBlock {
+      width: 100%;
       margin-bottom: 11px;
 
       .question {
         @include text-style($fs-13, $sub, 500, left);
         margin: 0 0 12px 8px;
+      }
 
-        .row {
-          display: flex;
+      .caution {
+        @include text-style(11px, $light_gray, 400, left);
+      }
+
+      .plusBtn {
+        @include btn-style(30px, 6px);
+        width: 130px;
+        background-color: $line;
+        border: 0;
+
+        .plusImg {
+          @include backgroundImg(14px, 14px);
+          background-image: url("../../../public/icons/plus_blue.svg");
+        }
+      }
+
+      .group {
+        @include flexBox(start, center);
+
+        .groupMax {
+          position: relative;
+
+          .maxInput {
+            @include text-style($fs-12, $main, 600, right);
+            width: 107px;
+            height: 26px;
+            padding: 5px 27px 5px 37px;
+            margin: 0 0 5px 8px;
+            background-color: $bg_color;
+            border: 1px solid $main;
+            border-radius: 12px;
+            outline: none;
+          }
+
+          input[type="number"]::-webkit-outer-spin-button,
+          input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+          }
+
+          .text_max {
+            @include text-style($fs-12, $sub, 500);
+            @include pos(absolute, 4px, false, false, 15px);
+          }
+
+          .text_cnt {
+            @include text-style($fs-12, $sub, 700);
+            @include pos(absolute, 4px, 15px, false, false);
+          }
         }
       }
     }
