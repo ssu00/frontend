@@ -1,0 +1,8 @@
+@import "../../../styles/main.module.scss";
+.modalWithBackground {
+  @extend %modal-background;
+
+  .modal {
+    @extend %modal-base;
+  }
+}
