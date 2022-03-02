@@ -19,10 +19,24 @@ const SelectBoxWithTitle = ({
         value={value}
       >
         {arr &&
+          title != "언어" &&
           arr?.map((data, i) => {
             return (
               <option value={data} className={styles.option} key={i}>
                 {data}
+              </option>
+            );
+          })}
+        {arr &&
+          title == "언어" &&
+          arr?.map((data, i) => {
+            return (
+              <option
+                value={data.subjectId}
+                className={styles.option}
+                key={data.subjectId}
+              >
+                {data.krSubject}
               </option>
             );
           })}

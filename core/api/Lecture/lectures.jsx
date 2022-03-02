@@ -1,6 +1,6 @@
 import axios from "axios";
 const GetLectureLevel = (form) => {
-  let level = "BASIC";
+  let level = "";
   switch (form.level) {
     case "입문":
       level = "BASIC";
@@ -42,19 +42,19 @@ const GetLecturePriceArray = (form) => {
   if (form.personal == "on") {
     personalPrice.isGroup = false;
     personalPrice.numberOfMembers = 0;
-    personalPrice.numberOfLectures = form.PnumOfClass;
-    personalPrice.pricePerHour = form.PpricePerHour; //시간당 비용
-    personalPrice.timePerLecture = form.PtimePerClass; //1회당 강의 시간
+    personalPrice.numberOfLectures = Number(form.PnumOfClass);
+    personalPrice.pricePerHour = Number(form.PpricePerHour); //시간당 비용
+    personalPrice.timePerLecture = Number(form.PtimePerClass); //1회당 강의 시간
     personalPrice.totalPrice =
       form.PpricePerHour * form.PnumOfClass * form.PtimePerClass; //총 비용
     priceArray.push(personalPrice);
   }
   if (form.group == "on") {
     groupPrice.isGroup = true;
-    groupPrice.numberOfMembers = form.groupMax;
-    groupPrice.numberOfLectures = form.GnumOfClass;
-    groupPrice.pricePerHour = form.GpricePerHour; //시간당 비용
-    groupPrice.timePerLecture = form.GtimePerClass; //1회당 강의 시간
+    groupPrice.numberOfMembers = Number(form.groupMax);
+    groupPrice.numberOfLectures = Number(form.GnumOfClass);
+    groupPrice.pricePerHour = Number(form.GpricePerHour); //시간당 비용
+    groupPrice.timePerLecture = Number(form.GtimePerClass); //1회당 강의 시간
     groupPrice.totalPrice =
       form.GpricePerHour * form.GnumOfClass * form.GtimePerClass; //총 비용
     priceArray.push(groupPrice);
@@ -63,11 +63,16 @@ const GetLecturePriceArray = (form) => {
 };
 
 const GetLectureSubjectArray = (form) => {
-  const subjectArray = form.lectureSubject.filter((data) => data != null);
+  const subject_NoNull = form.lectureSubject.filter((data) => data != null);
+  const subjectArray = subject_NoNull.map((data, i) => {
+    return {
+      subjectId: data,
+    };
+  });
   return subjectArray;
 };
 
-const LectureRegister = async ({ form, num, lecID }) => {
+const LectureRegister = async ({ form }) => {
   const data = {
     title: form.title,
     subTitle: form.subtitle,
@@ -77,46 +82,16 @@ const LectureRegister = async ({ form, num, lecID }) => {
     lecturePrices: GetLecturePriceArray(form),
     lectureSubjects: GetLectureSubjectArray(form),
     systems: GetLectureSystemArray(form),
-    thumbnail: form.image,
+    thumbnail:
+      "https://www.city.kr/files/attach/images/161/701/416/022/a2c34aa75756074e20552ccbac6894e8.jpg",
   };
 
-  // await axios({
-  //   method: "POST",
-  //   url: "/lectures",
-  //   data: data,
-  // })
-  //   .then((response) => {
-  //     console.log(response);
-  //     return response;
-  //   })
-  //   .catch((error) => {
-  //     errormsg = error.response;
-  //     return Promise.reject(errormsg);
-  //   });
-  // if (num == 2) {
-  //   axios
-  //     .put(`/lectures/${lecID}`, data)
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // } else {
-  //   await axios({
-  //     method: "POST",
-  //     url: "/lectures",
-  //     data: data,
-  //   })
-  //     .then((response) => {
-  //       console.log(response);
-  //       return response;
-  //     })
-  //     .catch((error) => {
-  //       errormsg = error.response;
-  //       return Promise.reject(errormsg);
-  //     });
-  // }
+  try {
+    const res = await axios.post("/lectures", data);
+    return res;
+  } catch (err) {
+    return err;
+  }
 };
 
 export default LectureRegister;

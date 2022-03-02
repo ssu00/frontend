@@ -17,19 +17,15 @@
       border-top-left-radius: 10px;
     }
 
-    .onoffMethod {
-      position: absolute;
-      top: 9px;
-      right: 12px;
+    .classSystemSection {
+      @include pos(absolute, 12px, false, false, 16px);
+      display: flex;
+      height: 21px;
 
-      .onoff {
-        float: left;
-        padding: 4px 8px;
-        margin-left: 12px;
-        font-size: 12px;
-        color: #fff;
-        border: 0.5px solid #fff;
-        border-radius: 18px;
+      .classSystemTag {
+        @include tag-class-system;
+        z-index: 1;
+        margin-right: 5px;
       }
     }
   }
@@ -74,31 +70,31 @@
       @include pos(absolute, false, 18px, 0, false);
     }
 
-    .likes {
-      position: relative;
-      left: 0;
-      float: left;
-      overflow: hidden;
+    // .likes {
+    //   position: relative;
+    //   left: 0;
+    //   float: left;
+    //   overflow: hidden;
 
-      .heart {
-        float: left;
-        width: 16px;
-        height: 14px;
-        padding: 0;
-        padding-top: 2px;
-        background-color: transparent;
-        // background-image: url("../public/newImage/heart.svg");
-        background-repeat: no-repeat;
-        border: 0;
-      }
+    //   .heart {
+    //     float: left;
+    //     width: 16px;
+    //     height: 14px;
+    //     padding: 0;
+    //     padding-top: 2px;
+    //     background-color: transparent;
+    //     // background-image: url("../public/newImage/heart.svg");
+    //     background-repeat: no-repeat;
+    //     border: 0;
+    //   }
 
-      .likeCnt {
-        float: left;
-        margin-left: 8px;
-        font-size: 13px;
-        font-weight: 400;
-        color: #949bad;
-      }
-    }
+    //   .likeCnt {
+    //     float: left;
+    //     margin-left: 8px;
+    //     font-size: 13px;
+    //     font-weight: 400;
+    //     color: #949bad;
+    //   }
+    // }
   }
 }
