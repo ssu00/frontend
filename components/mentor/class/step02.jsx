@@ -6,13 +6,18 @@ import BottomBlueBtn from "../../common/button/bottomBlueBtn";
 import SelectBoxWithTitle from "../../common/inputBox/selectBoxWithTitle";
 import { useEffect, useState } from "react";
 import LectureSubjectPick from "./lectureSubjectPick";
-import { GetSubjectArray } from "../../../core/api/Lecture/getSubjects";
+import GetSubjects from "../../../core/api/Lecture/getSubjects";
 
 const Step02 = ({ form, handleChange, MoveStep }) => {
   const [subject, setSubject] = useState([]);
+
   useEffect(() => {
-    GetSubjectArray(setSubject);
+    GetSubjects().then((res) => setSubject(res));
   }, []);
+
+  useEffect(() => {
+    console.log("subject==", subject);
+  }, [subject]);
 
   return (
     <div className={styles.step}>

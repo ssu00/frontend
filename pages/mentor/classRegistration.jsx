@@ -1,42 +1,44 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   ChangeField,
   Initialize,
-  NextStep,
-  PrevStep,
   MoveStep,
   LectureUpdate,
   AddToArray,
   ChangeArray,
   DeleteArrayElement,
 } from "../../core/redux/reducers/update";
-import MyClassList from "./myClassList";
+import MyClassList from "./myclass/myClassList";
 import Step01 from "../../components/mentor/class/step01";
 import Step02 from "../../components/mentor/class/step02";
 import Step03 from "../../components/mentor/class/step03";
 
-const ClassRegistration = ({ distinct }) => {
+const ClassRegistration = () => {
   const dispatch = useDispatch();
-  const { form } = useSelector(({ update }) => ({
-    form: update.update,
-  }));
-  const step = form.step;
+  useEffect(() => {
+    dispatch(Initialize("classRegister"));
+  }, [dispatch]);
 
+  const { form } = useSelector(({ classRegister }) => ({
+    form: classRegister.classInfo,
+  }));
+
+  const updateResult = useSelector(({ classRegister }) => ({
+    updateSuccess: classRegister.updateSuccess,
+    updateError: classRegister.updateError,
+  }));
+
+  const step = form.step;
   const onChange = (name, index) => async (e) => {
     let value = e.target.value;
     let discuss = form.discuss;
     switch (name) {
-      case "title":
-      case "subtitle":
-      case "introduction":
-      case "level":
       case "lectureSubject":
-      case "groupMax":
-        value = e.target.value;
+        value = JSON.parse(e.target.value);
         break;
       case "lectureSubjectAdd":
-        value = "프론트엔드";
+        value = 1;
         break;
       case "online":
       case "discuss":
@@ -56,7 +58,7 @@ const ClassRegistration = ({ distinct }) => {
     if (name == "lectureSubjectAdd") {
       dispatch(
         AddToArray({
-          form: "update",
+          form: "classInfo",
           key: "lectureSubject",
           value,
         })
@@ -64,7 +66,7 @@ const ClassRegistration = ({ distinct }) => {
     } else if (name == "lectureSubject") {
       dispatch(
         ChangeArray({
-          form: "update",
+          form: "classInfo",
           key: "lectureSubject",
           index: index,
           value,
@@ -73,7 +75,7 @@ const ClassRegistration = ({ distinct }) => {
     } else if (name == "lectureSubjectDelete") {
       dispatch(
         DeleteArrayElement({
-          form: "update",
+          form: "classInfo",
           key: "lectureSubject",
           index: index,
         })
@@ -81,14 +83,14 @@ const ClassRegistration = ({ distinct }) => {
     } else if (name == "offline") {
       dispatch(
         ChangeField({
-          form: "update",
+          form: "classInfo",
           key: name,
           value,
         })
       );
       dispatch(
         ChangeField({
-          form: "update",
+          form: "classInfo",
           key: "discuss",
           discuss,
         })
@@ -96,7 +98,7 @@ const ClassRegistration = ({ distinct }) => {
     } else {
       dispatch(
         ChangeField({
-          form: "update",
+          form: "classInfo",
           key: name,
           value,
         })
@@ -104,57 +106,31 @@ const ClassRegistration = ({ distinct }) => {
     }
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = () => {
     dispatch(LectureUpdate({ form: form }));
-  };
-
-  const GoNext = () => {
-    dispatch(NextStep());
-  };
-
-  const GoPrev = (e) => {
-    dispatch(PrevStep());
   };
 
   const RandomMove = (step) => {
     dispatch(MoveStep(step));
   };
 
-  if (distinct != 2) {
-    useEffect(() => {
-      dispatch(Initialize("update"));
-    }, [dispatch]);
-  }
-
   switch (step) {
     case 1:
       return (
-        <Step01
-          form={form}
-          nextStep={GoNext}
-          handleChange={onChange}
-          MoveStep={RandomMove}
-        />
+        <Step01 form={form} handleChange={onChange} MoveStep={RandomMove} />
       );
     case 2:
       return (
-        <Step02
-          form={form}
-          nextStep={GoNext}
-          prevStep={GoPrev}
-          handleChange={onChange}
-          MoveStep={RandomMove}
-        />
+        <Step02 form={form} handleChange={onChange} MoveStep={RandomMove} />
       );
     case 3:
       return (
         <Step03
           form={form}
-          prevStep={GoPrev}
           handleChange={onChange}
           handleSubmit={onSubmit}
           MoveStep={RandomMove}
+          updateResult={updateResult}
         />
       );
 

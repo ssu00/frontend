@@ -8,17 +8,61 @@ import ClassPrice from "./classPrice";
 import ClassRegistrationInputError from "./inputErrorHandling";
 import ModalWithBackground from "../../common/modal/modalWithBackground";
 import BasicModal from "../../common/modal/basicModal";
+import router from "next/router";
 
-const Step03 = ({ form, handleChange, handleSubmit, MoveStep }) => {
+const Step03 = ({
+  form,
+  handleChange,
+  handleSubmit,
+  MoveStep,
+  updateResult,
+}) => {
   const [err, setErr] = useState("");
   const [modal, setModal] = useState(false);
+  const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [registerError, setRegisterError] = useState(false);
   useEffect(() => {
     ClassRegistrationInputError(form, setErr);
   }, [form]);
 
+  useEffect(() => {
+    setRegisterSuccess(updateResult.updateSuccess);
+    setRegisterError(updateResult.updateError);
+  }, [updateResult]);
+
+  const GetResultModal = () => {
+    if (registerSuccess && !registerError) {
+      return (
+        <ModalWithBackground setModal={setModal}>
+          <BasicModal
+            notice={`업로드 되었습니다.\n내 강의에서 확인하세요.`}
+            btnText={"내 강의 바로가기"}
+            modalStyle={"square"}
+            btnClick={() => router.push("/mentor/myclass/myClassList")}
+          />
+        </ModalWithBackground>
+      );
+    } else if (!registerSuccess && registerError) {
+      return (
+        <ModalWithBackground setModal={setModal}>
+          <BasicModal
+            notice={`강의 등록 실패`}
+            btnText={"메인으로 바로가기"}
+            modalStyle={"square"}
+            btnClick={() =>
+              router.push("/mentor/myclass/classRegistrationIntro")
+            }
+          />
+        </ModalWithBackground>
+      );
+    } else {
+      return <></>;
+    }
+  };
+
   return (
     <div className={styles.step}>
-      {err != "" && modal ? (
+      {modal ? (
         <ModalWithBackground setModal={setModal}>
           <BasicModal
             notice={err}
@@ -30,6 +74,7 @@ const Step03 = ({ form, handleChange, handleSubmit, MoveStep }) => {
       ) : (
         <></>
       )}
+      {GetResultModal()}
       <TopBar text={"강의 등록"} onClick={() => MoveStep(form.step - 1)} />
       <div className={styles.category}>
         <MenuBtn selected={false} text={"1단계"} onClick={() => MoveStep(1)} />
@@ -143,8 +188,10 @@ const Step03 = ({ form, handleChange, handleSubmit, MoveStep }) => {
       <BottomBlueBtn
         text={"강의 업로드"}
         onClick={() => {
-          handleSubmit();
           if (err != "") {
+            setModal(true);
+          } else {
+            handleSubmit();
             setModal(true);
           }
         }}

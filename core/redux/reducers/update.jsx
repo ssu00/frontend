@@ -63,7 +63,7 @@ const initialState = {
     title: "",
     subtitle: "",
     introduction: "",
-    lectureSubject: ["프론트엔드"],
+    lectureSubject: [1],
     level: "입문",
     content: "",
     PpricePerHour: 0,
