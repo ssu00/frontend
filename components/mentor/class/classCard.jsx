@@ -1,14 +1,16 @@
 import Image from "next/image";
 import styles from "./classCard.module.scss";
 import { IC_Student_Black } from "../../common/icons/class_icons";
+import router from "next/router";
+
+export const transLevel = (data) => {
+  if (data.difficulty == "BASIC") return ["입문"];
+  else if (data.difficulty == "BEGINNER") return ["초급"];
+  else if (data.difficulty == "INTERMEDIATE") return ["중급"];
+  else if (data.difficulty == "ADVANCED") return ["고급"];
+};
 
 const ClassCard = ({ data }) => {
-  const transLevel = () => {
-    if (data.difficulty == "BASIC") return ["입문"];
-    else if (data.difficulty == "BEGINNER") return ["초급"];
-    else if (data.difficulty == "INTERMEDIATE") return ["중급"];
-    else if (data.difficulty == "ADVANCED") return ["고급"];
-  };
   const subjectOnly = data.lectureSubjects.map((data, i) => data.krSubject);
   const classSystem1 = data.systems.map((data, i) => data.name);
   const classSystem2 = data.lecturePrices.map((data, i) => {
@@ -19,13 +21,16 @@ const ClassCard = ({ data }) => {
     }
   });
 
-  const classLevel = transLevel();
+  const classLevel = transLevel(data);
   const classSystem = classSystem1.concat(classSystem2);
   const classTags = classLevel.concat(classSystem);
 
   let title = data.title;
   return (
-    <section className={styles.classCard}>
+    <section
+      className={styles.classCard}
+      onClick={() => router.push(`/mentor/myclass/classDetail/${data.id}`)}
+    >
       <div className={styles.classCardImage}>
         <Image
           // src={data.thumbnail ? data.thumbnail : ""}
