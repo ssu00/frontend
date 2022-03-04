@@ -11,3 +11,36 @@
     @include text-style($fs-12, $color, 500);
   }
 }
+
+@mixin tag-class-system() {
+  @include flexBox;
+  height: 21px;
+  padding: 2.5px 6px;
+  background-color: transparent;
+  border: 1px solid $line;
+  border-radius: 10px;
+  outline: none;
+
+  span {
+    @include text-style(11px, $white, 700);
+  }
+}
+
+@mixin tag-class-system-colored($bg-color: false, $color: false) {
+  @include flexBox;
+  height: 22px;
+  padding: 3.5px 6px;
+  border: 0;
+  border-radius: 6px;
+  outline: none;
+
+  @if (type-of($bg-color) ==color) {
+    background-color: $bg-color;
+  }
+
+  span {
+    @if (type-of($color) ==color) {
+      @include text-style($fs-12, $color, 600);
+    }
+  }
+}
