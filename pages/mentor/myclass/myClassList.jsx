@@ -55,6 +55,7 @@ const MyClassList = ({ classes, parsedCookies }) => {
           dataLength={classes.totalElements}
           next={() => setPageNum(pageNum + 1)}
           hasMore={!classes.last}
+          className={styles.infiniteScroll}
         >
           {allClass.map((data, i) => {
             return <ClassCard key={i} data={data} />;
