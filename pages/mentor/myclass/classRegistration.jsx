@@ -8,11 +8,11 @@ import {
   AddToArray,
   ChangeArray,
   DeleteArrayElement,
-} from "../../core/redux/reducers/update";
-import MyClassList from "./myclass/myClassList";
-import Step01 from "../../components/mentor/class/step01";
-import Step02 from "../../components/mentor/class/step02";
-import Step03 from "../../components/mentor/class/step03";
+} from "../../../core/redux/reducers/update";
+import MyClassList from "./myClassList";
+import Step01 from "../../../components/mentor/class/step01";
+import Step02 from "../../../components/mentor/class/step02";
+import Step03 from "../../../components/mentor/class/step03";
 
 const ClassRegistration = () => {
   const dispatch = useDispatch();
