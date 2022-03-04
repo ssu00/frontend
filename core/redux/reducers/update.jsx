@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import createRequestSaga from "./createRequestSaga";
 import { createRequestActionTypes } from "./createRequestSaga";
-import LectureRegister from "../../api/Lecture/lectures";
+import LectureRegister from "../../api/Lecture/registerLecture";
 import { takeLatest } from "@redux-saga/core/effects";
 
 const INITIALIZE = "lecture/INITIALIZE";
