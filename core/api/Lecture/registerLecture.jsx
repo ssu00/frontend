@@ -72,7 +72,7 @@ const GetLectureSubjectArray = (form) => {
   return subjectArray;
 };
 
-const LectureRegister = async ({ form }) => {
+const LectureRegister = async ({ form, token }) => {
   const data = {
     title: form.title,
     subTitle: form.subtitle,
@@ -87,7 +87,9 @@ const LectureRegister = async ({ form }) => {
   };
 
   try {
-    const res = await axios.post("/lectures", data);
+    const res = await axios.post("/lectures", data, {
+      headers: { Authorization: token.token },
+    });
     return res;
   } catch (err) {
     return err;

@@ -13,8 +13,18 @@ import MyClassList from "./myClassList";
 import Step01 from "../../../components/mentor/class/step01";
 import Step02 from "../../../components/mentor/class/step02";
 import Step03 from "../../../components/mentor/class/step03";
+import * as cookie from "cookie";
 
-const ClassRegistration = () => {
+export const getServerSideProps = async (context) => {
+  const token = cookie.parse(context.req.headers.cookie).accessToken;
+  return {
+    props: {
+      token,
+    },
+  };
+};
+
+const ClassRegistration = (token) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Initialize("classRegister"));
@@ -107,7 +117,7 @@ const ClassRegistration = () => {
   };
 
   const onSubmit = () => {
-    dispatch(LectureUpdate({ form: form }));
+    dispatch(LectureUpdate({ form: form, token: token }));
   };
 
   const RandomMove = (step) => {

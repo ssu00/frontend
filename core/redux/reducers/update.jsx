@@ -49,7 +49,10 @@ export const DeleteArrayElement = createAction(
 );
 
 export const MoveStep = createAction(MOVE_STEP, (form) => form);
-export const LectureUpdate = createAction(LECTURE_UPDATE, (form) => form);
+export const LectureUpdate = createAction(
+  LECTURE_UPDATE,
+  ({ form, token }) => ({ form, token })
+);
 
 const UpdateSaga = createRequestSaga(LECTURE_UPDATE, LectureRegister);
 export function* Saga() {
