@@ -43,8 +43,8 @@ const ClassCard = ({ data }) => {
         <section className={styles.classSystemSection}>
           {classTags.map((data, i) => {
             return (
-              <div className={styles.classSystemTag}>
-                <span key={i}>{data}</span>
+              <div className={styles.classSystemTag} key={i}>
+                <span>{data}</span>
               </div>
             );
           })}
