@@ -1,0 +1,20 @@
+@import "../../../styles/main.module.scss";
+.radioSection {
+  @include flexBox(start, center);
+  height: 44px;
+  border-bottom: 1px solid $line;
+
+  .radioBtn {
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    margin-right: 18px;
+    border: 1px solid $light_gray;
+    outline: none;
+  }
+
+  .reason {
+    @include text-style($fs-13, $sub, 400);
+    display: block;
+  }
+}

@@ -1,9 +1,13 @@
 import styles from "./menuBtn.module.scss";
-const MenuBtn = ({ selected, text, onClick }) => {
+import classNames from "classnames";
+const MenuBtn = ({ selected, text, onClick, ownStyle }) => {
   return (
     <button
       type="button"
-      className={selected ? styles.selectedBtn : styles.unselectedBtn}
+      className={classNames(
+        ownStyle,
+        selected ? styles.selectedBtn : styles.unselectedBtn
+      )}
       onClick={onClick}
     >
       <strong
