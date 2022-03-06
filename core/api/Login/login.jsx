@@ -1,10 +1,10 @@
 import axios from "axios";
-const Login_API = (id, pw) => {
-  return new Promise((resolve, reject) => {
-    axios
-      .post("/login", { password: pw, username: id })
-      .then((res) => resolve(res))
-      .catch((err) => reject(err));
-  });
+const Login_API = async (id, pw) => {
+  try {
+    const res = await axios.post("/login", { password: pw, username: id });
+    return res;
+  } catch (err) {
+    return err;
+  }
 };
 export default Login_API;
