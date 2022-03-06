@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import router from "next/router";
 import GetReviewOnlyOne from "../../../../../../core/api/Lecture/getReviewOnlyOne";
 import { MenteeReview } from "../../../../../../components/mentor/class/classReview";

@@ -108,7 +108,7 @@ const ClassDetail = ({ classData, reviewData }) => {
           <div className={styles.reviews}>
             <h1 className={styles.reviewTitle}>강의 후기</h1>
             {reviewData.content.map((data, i) => {
-              return <ClassReview cid={classData.id} mentee={data} />;
+              return <ClassReview cid={classData.id} mentee={data} key={i} />;
             })}
           </div>
         </div>

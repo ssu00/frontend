@@ -50,9 +50,10 @@ const ClassRegistrationIntro = ({}) => {
           </h3>
           {fakeData.classes.map((data, i) => {
             return data.testing ? (
-              <ClassCard />
+              // <ClassCard />
+              <></>
             ) : (
-              //   <ClassCardForPosting data={data} key={i} />
+              // <ClassCardForPosting data={data} key={i} />
               <></>
             );
           })}
