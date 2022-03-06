@@ -1,0 +1,36 @@
+@import "../styles/main.module.scss";
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 376px;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: $white;
+
+  .imageLogo {
+    margin: 226px auto 15px;
+  }
+
+  .textLogo {
+    margin: 0 auto 45px;
+  }
+
+  .buttons {
+    width: 203px;
+    margin: 0 auto 170px;
+
+    .loginBtn {
+      @include btn-style(50px, 10px);
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .loginBtnText {
+      @include text-style($fs-15, $main, 700);
+    }
+  }
+
+  .mentoridgeText {
+    @include text-style($fs-15, $light_gray, 400);
+  }
+}
