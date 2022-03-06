@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import router from "next/router";
 import styles from "./login.module.scss";
 import {
@@ -10,6 +9,7 @@ import {
 import { ImageLogo, NameLogo } from "../../components/common/icons/logos";
 import classNames from "classnames";
 import Login_API from "../../core/api/Login/login";
+import { setCookie } from "../../cookie";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -18,7 +18,16 @@ const Login = () => {
 
   const checkAccount = async () => {
     const res = await Login_API(username, password);
-    localStorage.setItem("accessToken", res.data);
+    if (res.status == 200) {
+      router.push("/mentor/myclass/myClassList");
+      localStorage.setItem("accessToken", res.data);
+      setCookie("accessToken", res.data, {
+        path: "/",
+        secure: true,
+      });
+    } else {
+      setError(true);
+    }
   };
 
   const onChangeUsername = (e) => {
