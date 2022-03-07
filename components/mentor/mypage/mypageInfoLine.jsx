@@ -3,7 +3,9 @@ const MyPageInfoLine = ({ title, content }) => {
   return (
     <section className={styles.infoLine}>
       <h1 className={styles.title}>{title}</h1>
-      <span className={styles.content}>{content == "" ? "-" : content}</span>
+      <span className={styles.content}>
+        {content == "" || content == null ? "-" : content}
+      </span>
     </section>
   );
 };
