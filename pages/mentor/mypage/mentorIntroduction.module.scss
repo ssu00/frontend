@@ -1,0 +1,49 @@
+@import "../../../styles/main.module.scss";
+.mentorIntroductionSection {
+  @extend %page-base;
+  position: relative;
+
+  .line {
+    display: block;
+    width: 100%;
+    height: 8px;
+    background-color: $bg-color;
+  }
+
+  .basicInfo,
+  .additionalInfo {
+    padding: 17px 30px;
+    border-top: 1px solid #e8eaef;
+
+    .title {
+      @include text-style($fs-14, $sub, 700, left);
+      margin: 0 0 10px 0;
+    }
+  }
+
+  .basicInfo {
+    .profile {
+      display: flex;
+      justify-content: space-between;
+
+      .info {
+        width: 181px;
+      }
+    }
+  }
+
+  .editBtn {
+    @include pos(absolute, 617px, 24px, false, false);
+    width: 54px;
+    height: 54px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+
+    .editImg {
+      @include backgroundImg(54px, 54px);
+      background-image: url("../../../public/icons/edit_blue.svg");
+    }
+  }
+}

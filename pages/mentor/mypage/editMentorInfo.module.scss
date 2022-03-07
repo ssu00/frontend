@@ -1,0 +1,34 @@
+@import "../../../styles/main.module.scss";
+.editMentorInfoSection {
+  @extend %page-base;
+  position: relative;
+
+  .editInfoBlock {
+    padding: 12px 21px;
+
+    .editInfoTitle {
+      @include text-style($fs-14, $sub, 700, left);
+      margin: 0 0 9px 10px;
+    }
+
+    .editLevel {
+      width: 333px;
+      height: 41px;
+      background-color: $bg-color;
+      outline: none;
+    }
+
+    .firstBox,
+    .editLevel {
+      border: 1px solid $line;
+      border-top-right-radius: 6px;
+      border-top-left-radius: 6px;
+    }
+
+    .lastBox {
+      border: 1px solid $line;
+      border-bottom-right-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+  }
+}
