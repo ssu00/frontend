@@ -1,0 +1,14 @@
+@mixin inputBox($height: false, $padding: false) {
+  width: 100%;
+  padding: $padding;
+  color: $sub;
+  cursor: default;
+  background-color: $bg-color;
+  border: 0;
+  border-radius: 10px;
+  outline: none;
+
+  @if (type-of($height) ==number) {
+    height: $height;
+  }
+}

@@ -1,0 +1,63 @@
+@import "../../styles/main.module.scss";
+.loginSection {
+  display: flex;
+  flex-direction: column;
+  width: 376px;
+  height: 100vh;
+  padding: 33px 63px 55px;
+  margin: 0 auto;
+  background-color: $white;
+
+  .title {
+    @include text-style($fs-15, $sub, 700);
+    margin: 0;
+  }
+
+  .imageLogo {
+    margin: 165px auto 80px;
+  }
+
+  .btns {
+    width: 100%;
+    margin: 0 auto 160px;
+
+    .loginInputBox {
+      @include inputBox(40px, 8px 17px);
+      margin-bottom: 10px;
+    }
+
+    .loginInputBox::placeholder {
+      @include text-style($fs-15, $light_gray, 400, left);
+    }
+
+    .failed {
+      text-align: center;
+      display: block;
+      margin-bottom: 8px;
+      font-size: 12px;
+      color: #ee5a5a;
+    }
+
+    .loginBtn {
+      @include btn-style(50px, 10px);
+    }
+
+    .loginBtnText {
+      @include text-style($fs-15, $white, 700);
+    }
+
+    .textButtons {
+      display: flex;
+      padding: 0 25px;
+
+      .textBtn {
+        @include btn-style(30px, 0);
+        padding: 0;
+      }
+
+      .textBtnText {
+        @include text-style($fs-15, $light_gray, 400);
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+@import "../../../styles/main.module.scss";
+.mypageTopBar {
+  @include flexBox(between, center);
+  width: 100%;
+  padding: 10px 23px;
+
+  .title {
+    @include text-style(18px, $sub, 700);
+  }
+
+  .btns {
+    @include flexBox(between, center);
+    width: 104px;
+    height: 24px;
+
+    .mypageBtn {
+      padding: 0;
+      cursor: pointer;
+      background-color: transparent;
+      border: 0;
+    }
+  }
+}

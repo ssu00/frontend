@@ -1,0 +1,25 @@
+@import "../../../styles/main.module.scss";
+.topBar {
+  @include flexBox(start, center);
+  width: 100%;
+  height: 49px;
+  padding: 12px 16px;
+  background-color: $white;
+
+  .goBack {
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+    cursor: pointer;
+    background-color: transparent;
+    background-image: url("/icons/go_back.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 0;
+    outline: none;
+  }
+
+  .topBarText {
+    @include text-style($fs-16, $sub, 700);
+  }
+}

@@ -1,0 +1,100 @@
+@import "../../../styles/main.module.scss";
+.classCard {
+  width: 330px;
+  height: 254px;
+  margin-bottom: 11px;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgba(0, 19, 37, 0.1);
+
+  .classCardImage {
+    position: relative;
+
+    .classCardImg {
+      margin: 0;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+    }
+
+    .classSystemSection {
+      @include pos(absolute, 12px, false, false, 16px);
+      display: flex;
+      height: 21px;
+
+      .classSystemTag {
+        @include tag-class-system;
+        z-index: 1;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .classCardExplanation {
+    @include flexBox(start, start);
+    position: relative;
+    flex-direction: column;
+    padding: 9px 17px 16px;
+
+    .subject {
+      @include text-style(9px, $gray, 900);
+    }
+
+    .title {
+      @include text-style(15px, $main, 700);
+    }
+
+    .secondLine {
+      @include flexBox(between, center);
+      width: 100%;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      @include text-style($fs-12, $sub, 400);
+      margin-bottom: 6px;
+    }
+
+    .studentCnt {
+      display: flex;
+      align-items: center;
+
+      .cnt {
+        @include text-style($fs-13, $sub, 500);
+        margin-left: 3px;
+      }
+    }
+
+    .name {
+      @include text-style($fs-13, $sub, 500);
+      @include pos(absolute, false, 18px, 0, false);
+    }
+
+    // .likes {
+    //   position: relative;
+    //   left: 0;
+    //   float: left;
+    //   overflow: hidden;
+
+    //   .heart {
+    //     float: left;
+    //     width: 16px;
+    //     height: 14px;
+    //     padding: 0;
+    //     padding-top: 2px;
+    //     background-color: transparent;
+    //     // background-image: url("../public/newImage/heart.svg");
+    //     background-repeat: no-repeat;
+    //     border: 0;
+    //   }
+
+    //   .likeCnt {
+    //     float: left;
+    //     margin-left: 8px;
+    //     font-size: 13px;
+    //     font-weight: 400;
+    //     color: #949bad;
+    //   }
+    // }
+  }
+}

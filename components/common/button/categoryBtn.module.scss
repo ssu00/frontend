@@ -1,0 +1,23 @@
+@import "../../../styles/main.module.scss";
+.myPageCategoryBtn {
+  @include flexBox(start, center);
+  position: relative;
+  width: 333px;
+  height: 40px;
+  padding-left: 9px;
+  cursor: pointer;
+  background-color: $white;
+  border: 0;
+  border-top: 1px solid $line;
+
+  .text {
+    @include text-style($fs-14, $sub, 400);
+  }
+
+  .arrow {
+    @include pos-center-y(absolute);
+    @include backgroundImg(24px, 24px);
+    right: 13px;
+    background-image: url("../../../public/icons/arrow_right.svg");
+  }
+}

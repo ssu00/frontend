@@ -1,0 +1,26 @@
+@import "../../../styles/main.module.scss";
+.ratingEmptySection {
+  position: relative;
+  background-image: url("/icons/stars_empty.svg");
+  background-repeat: no-repeat;
+
+  .ratingFullSection {
+    @include pos(absolute, 0, false, false, -0.18px);
+    overflow: hidden;
+    background-image: url("/icons/stars_fill.svg");
+    background-repeat: no-repeat;
+  }
+}
+
+.ratingEmptySectionBig {
+  position: relative;
+  background-image: url("/icons/stars_empty_big.svg");
+  background-repeat: no-repeat;
+
+  .ratingFullSectionBig {
+    @include pos(absolute, 0, false, false, -0.18px);
+    overflow: hidden;
+    background-image: url("/icons/stars_fill_big.svg");
+    background-repeat: no-repeat;
+  }
+}
