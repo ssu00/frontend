@@ -11,7 +11,7 @@ import {
 } from "../../../components/common/icons/mypage_icons";
 import Image from "next/image";
 import GetMyInfo from "../../../core/api/User/myInfo";
-import UserRole from "../../../util/userRole";
+import UserRole from "../../../utils/userRole";
 import * as cookie from "cookie";
 
 const MyPage = ({ userInfo }) => {
@@ -22,7 +22,7 @@ const MyPage = ({ userInfo }) => {
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
             <Image
-              src={"/example.png"}
+              src={"/samples/lecture.png"}
               width={56}
               height={56}
               className={styles.profileImg}

@@ -1,7 +1,7 @@
 import router from "next/router";
 import styles from "./classRegistrationIntro.module.scss";
 import { BottomTab } from "../../../components/common";
-import fakeData from "../../../data.json";
+import fakeData from "../../../mock/data.json";
 import ClassCard from "../../../components/mentor/class/classCard";
 import MenuBtn from "../../../components/common/button/menuBtn";
 import { IC_Plus_Blue } from "../../../components/common/icons/class_icons";

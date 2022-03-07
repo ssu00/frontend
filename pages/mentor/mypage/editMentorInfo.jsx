@@ -5,7 +5,7 @@ import InfoEditBox from "../../../components/mentor/mypage/infoEditBox";
 import styles from "./editMentorInfo.module.scss";
 import classNames from "classnames";
 import { useState } from "react";
-import ChangeObject from "../../../util/changeObject";
+import ChangeObject from "../../../utils/changeObject";
 import * as cookie from "cookie";
 import GetMyInfoAsMentor from "../../../core/api/Mentor/getMyInfoAsMentor";
 import EditMyInfoAsMentor from "../../../core/api/Mentor/editMyInfoAsMentor";
