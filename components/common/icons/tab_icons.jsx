@@ -25,9 +25,9 @@ const IC_Chat = ({ w, h, num }) => {
 
 const IC_MyPage = ({ w, h, num }) => {
   return num == 0 ? (
-    <Image src={"/icons/mypage.svg"} width={w} height={h} />
+    <Image src={"/icons/person.svg"} width={w} height={h} />
   ) : (
-    <Image src={"/icons/mypage_select.svg"} width={w} height={h} />
+    <Image src={"/icons/person_select.svg"} width={w} height={h} />
   );
 };
 

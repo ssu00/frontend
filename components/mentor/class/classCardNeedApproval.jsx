@@ -1,10 +1,13 @@
+import Image from "next/image";
+import { IC_Student_Black } from "../../common/icons/class_icons";
 import styles from "./classCard.module.scss";
+
 const ClassCardNeedApproval = () => {
   return (
     <section className={styles.classCard}>
       <div className={styles.classCardImage}>
         <Image
-          src={"/example.png"}
+          src={"/samples/lecture.png"}
           width="330px"
           height="136px"
           alt=""

@@ -1,16 +1,16 @@
 import Image from "next/image";
-const IC_No_Alarm = ({ w, h }) => {
-  return (
-    <div>
-      <Image src={"/icons/no_alarm.svg"} width={w} height={h} />
-    </div>
-  );
-};
-
 const IC_Alarm = ({ w, h }) => {
   return (
     <div>
       <Image src={"/icons/alarm.svg"} width={w} height={h} />
+    </div>
+  );
+};
+
+const IC_Alarm_Active = ({ w, h }) => {
+  return (
+    <div>
+      <Image src={"/icons/alarm_active.svg"} width={w} height={h} />
     </div>
   );
 };
@@ -48,8 +48,8 @@ const IC_Student_White = ({ w, h }) => {
 };
 
 export {
-  IC_No_Alarm,
   IC_Alarm,
+  IC_Alarm_Active,
   IC_Setting,
   IC_Menu,
   IC_Book,

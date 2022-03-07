@@ -22,7 +22,7 @@ const MyPage = ({ userInfo }) => {
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
             <Image
-              src={"/example.png"}
+              src={"/samples/lecture.png"}
               width={56}
               height={56}
               className={styles.profileImg}

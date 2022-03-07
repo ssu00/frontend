@@ -38,13 +38,13 @@ const ClassDetail = ({ classData, reviewData }) => {
     <section className={styles.classDetailSection}>
       <TopBar onClick={() => router.push("/mentor/myclass/myClassList")} />
       <div className={styles.imageBlock}>
-        <Image src={"/example.png"} width={375} height={277} />
+        <Image src={"/samples/lecture.png"} width={375} height={277} />
         <div className={styles.classSystemTag}>
           <span>{transLevel(classData)}</span>
         </div>
         <div className={styles.mentorProfileBlock}>
           <Image
-            src={"/example.png"}
+            src={"/samples/lecture.png"}
             width={72}
             height={72}
             className={styles.mentorImg}

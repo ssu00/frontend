@@ -80,7 +80,7 @@ export default function ImageCrop() {
             <label htmlFor="classImg">
               <div className={styles.pluspic}>
                 <Image
-                  src="/images/plus.png"
+                  src="/icons/plus_blue.svg"
                   width="16px"
                   height="16px"
                   alt="강의 대표 이미지를 추가하세요"
