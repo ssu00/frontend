@@ -1,10 +1,12 @@
 import styles from "./profileEdit.module.scss";
-import BottomTab from "/components/bottomtab";
-import OtherTopBar from "/components/mypage/topBar/otherPage";
-import { ProfileEditBtn } from "/components/mypage/myPageBtn";
+import { BottomTab } from "../../../components/common";
+import TopBar from "../../../components/common/tab/topBar";
+// import { ProfileEditBtn } from "/components/mypage/myPageBtn";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import CategoryBtn from "../../../components/common/button/categoryBtn";
+import router from "next/router";
 const ProfileEdit = () => {
   const [img, setImg] = useState("");
   const [origin, setOrigin] = useState("");
@@ -53,12 +55,22 @@ const ProfileEdit = () => {
 
   return (
     <section className={styles.profileEditSection}>
-      <OtherTopBar title={"프로필 수정"} url={"/mypage"} />
+      <TopBar
+        text={"프로필 수정"}
+        onClick={() => router.push("/mentor/mypage")}
+      />
+
+      {/*imageSection 추후 수정 필요*/}
       <section className={styles.imageSection}>
         {img == "" ? (
           origin == "" ? (
             <>
-              <input type="file" id="profile" accept="image/*" onChange={(e) => onChangeFile(e)} />
+              <input
+                type="file"
+                id="profile"
+                accept="image/*"
+                onChange={(e) => onChangeFile(e)}
+              />
               <label htmlFor="profile">
                 <div className={styles.profileImage} />
                 <div className={styles.editBtn} />
@@ -66,9 +78,18 @@ const ProfileEdit = () => {
             </>
           ) : (
             <>
-              {" "}
-              <input type="file" id="profile" accept="image/*" onChange={(e) => onChangeFile(e)} />
-              <Image src={origin} width="100px" height="100px" className={styles.inputImage}></Image>
+              <input
+                type="file"
+                id="profile"
+                accept="image/*"
+                onChange={(e) => onChangeFile(e)}
+              />
+              <Image
+                src={origin}
+                width="100px"
+                height="100px"
+                className={styles.inputImage}
+              ></Image>
               <label htmlFor="profile">
                 <div className={styles.editBtn} />
               </label>
@@ -77,24 +98,32 @@ const ProfileEdit = () => {
         ) : (
           <>
             <input type="file" id="profile" onChange={(e) => onChangeFile(e)} />
-            <Image src={img} width="100px" height="100px" className={styles.inputImage}></Image>
+            <Image
+              src={img}
+              width="100px"
+              height="100px"
+              className={styles.inputImage}
+            ></Image>
             <label htmlFor="profile">
               <div className={styles.editBtn} />
             </label>
           </>
         )}
       </section>
+
       <span className={styles.line} />
       <section className={styles.editBtnSection}>
-        <ProfileEditBtn text={"멘토 소개"} url={"/mentor/mypage/tutorIntroduction"} />
-        <ProfileEditBtn text={"회원정보 수정"} url={"/memberInfoEdit"} />
-        <ProfileEditBtn text={"비밀번호 변경"} url={"/changePW"} />
-        <ProfileEditBtn text={"로그아웃"} url={"/"} />
-        <ProfileEditBtn text={"회원탈퇴"} url={"/deleteAccount"} />
+        <CategoryBtn
+          text={"멘토 소개"}
+          arrow={true}
+          onClick={() => router.push("/mentor/mypage/mentorIntroduction")}
+        />
+        <CategoryBtn text={"회원정보 수정"} arrow={true} />
+        <CategoryBtn text={"비밀번호 변경"} arrow={true} />
+        <CategoryBtn text={"로그아웃"} arrow={true} />
+        <CategoryBtn text={"회원탈퇴"} arrow={true} />
       </section>
-      <div className={styles.fixedTab}>
-        <BottomTab num={3} />
-      </div>
+      <BottomTab num={[0, 0, 0, 1]} />
     </section>
   );
 };
