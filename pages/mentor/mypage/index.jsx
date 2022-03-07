@@ -11,7 +11,7 @@ import {
 } from "../../../components/common/icons/mypage_icons";
 import Image from "next/image";
 import GetMyInfo from "../../../core/api/User/myInfo";
-import UserRole from "../../../util/userRole";
+import UserRole from "../../../utils/userRole";
 import * as cookie from "cookie";
 
 const MyPage = ({ userInfo }) => {

@@ -9,7 +9,7 @@ import {
 import { ImageLogo, NameLogo } from "../../components/common/icons/logos";
 import classNames from "classnames";
 import Login_API from "../../core/api/Login/login";
-import { setCookie } from "../../cookie";
+import { setCookie } from "../../utils/cookie";
 
 const Login = () => {
   const [username, setUsername] = useState("");
