@@ -42,7 +42,6 @@ import IC_LocationPin from "./assets/location_pin.svg";
 import IC_LogoText from "./assets/logo_text.svg";
 import IC_Logo from "./assets/logo.svg";
 import IC_Menu from "./assets/menu.svg";
-import IC_PersonBlack from "./assets/person_black.svg";
 import IC_PersonFill from "./assets/person_fill.svg";
 import IC_Person from "./assets/person.svg";
 import IC_PlusCircle from "./assets/plus_circle.svg";
@@ -111,7 +110,6 @@ export {
   IC_LogoText,
   IC_Logo,
   IC_Menu,
-  IC_PersonBlack,
   IC_PersonFill,
   IC_Person,
   IC_PlusCircle,
