@@ -1,6 +1,6 @@
 import styles from "./lectureSubjectPick.module.scss";
 import SelectBoxWithTitle from "../../common/inputBox/selectBoxWithTitle";
-import { CloseCircle } from "../../../icons";
+import { IC_CloseCircle } from "../../../icons";
 const LectureSubjectPick = ({ i, subject, handleChange, value }) => {
   return (
     <div key={i} className={styles.lectureType}>
@@ -20,7 +20,7 @@ const LectureSubjectPick = ({ i, subject, handleChange, value }) => {
           onClick={handleChange("lectureSubjectDelete", i)}
         >
           <div className={styles.deleteImg} />
-          <CloseCircle />
+          <IC_CloseCircle />
         </button>
       ) : (
         <></>

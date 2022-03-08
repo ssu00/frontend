@@ -1,4 +1,4 @@
-import { ChevronDownS } from "../../../icons";
+import { IC_ChevronDownS } from "../../../icons";
 import styles from "./categoryBtn.module.scss";
 const CategoryBtn = ({ text, onClick, arrow }) => {
   return (
@@ -10,7 +10,7 @@ const CategoryBtn = ({ text, onClick, arrow }) => {
       <h1 className={styles.text}>{text}</h1>
       {arrow ? (
         <div className={styles.arrow}>
-          <ChevronDownS />
+          <IC_ChevronDownS />
         </div>
       ) : (
         <></>

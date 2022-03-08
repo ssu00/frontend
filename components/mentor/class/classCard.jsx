@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "./classCard.module.scss";
 import router from "next/router";
-import { StudentHeadphone } from "../../../icons";
+import { IC_StudentHeadphone } from "../../../icons";
 
 export const transLevel = (data) => {
   if (data.difficulty == "BASIC") return ["입문"];
@@ -58,7 +58,7 @@ const ClassCard = ({ data }) => {
             {title.length >= 20 ? title.substring(0, 20) + "..." : title}
           </h1>
           <div className={styles.studentCnt}>
-            <StudentHeadphone width="9.33" height="13" />
+            <IC_StudentHeadphone width="9.33" height="13" />
             <span className={styles.cnt}>32</span>
           </div>
         </div>

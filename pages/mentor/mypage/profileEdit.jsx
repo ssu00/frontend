@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import CategoryBtn from "../../../components/common/button/categoryBtn";
 import router from "next/router";
-import { EditFill } from "../../../icons";
+import { IC_EditFill } from "../../../icons";
 const ProfileEdit = () => {
   const [img, setImg] = useState("");
   const [origin, setOrigin] = useState("");
@@ -75,7 +75,7 @@ const ProfileEdit = () => {
               <label htmlFor="profile" className={styles.profile}>
                 <div className={styles.profileImage} />
                 <button aria-label="프로필 수정" className={styles.editBtn}>
-                  <EditFill width="18.83" height="18.83" />
+                  <IC_EditFill width="18.83" height="18.83" />
                 </button>
               </label>
             </>

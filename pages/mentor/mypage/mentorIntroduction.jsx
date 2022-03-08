@@ -6,7 +6,7 @@ import MyPageInfoLine from "../../../components/mentor/mypage/mypageInfoLine";
 import GetMyInfoAsMentor from "../../../core/api/Mentor/getMyInfoAsMentor";
 import * as cookie from "cookie";
 import { TransEduLevelToKor } from "../../../components/mentor/transform";
-import { EditFill } from "../../../icons";
+import { IC_EditFill } from "../../../icons";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -77,7 +77,7 @@ const MentorIntroduction = ({ myInfoAsMentor }) => {
         className={styles.editBtn}
         // onClick={() => router.push("/mentor/mypage/editMentorInfo")}
       >
-        <EditFill width="26.36" height="26.36" />
+        <IC_EditFill width="26.36" height="26.36" />
       </button>
       <BottomTab num={[0, 0, 0, 1]} />
     </section>

@@ -4,16 +4,16 @@ import styles from "./start.module.scss";
 import BasicBtn from "../components/common/button/basicBtn";
 import classNames from "classnames";
 import { basicBtnStyle } from "../components/common";
-import { Logo, LogoText } from "../icons";
+import { IC_Logo, IC_LogoText } from "../icons";
 
 const Start = () => {
   return (
     <section className={styles.main}>
       <span className={styles.imageLogo}>
-        <Logo width="56" height="56" />
+        <IC_Logo width="56" height="56" />
       </span>
       <span className={styles.textLogo}>
-        <LogoText width="90" height="46" />
+        <IC_LogoText width="90" height="46" />
       </span>
       <div className={styles.buttons}>
         <BasicBtn

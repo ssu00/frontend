@@ -7,7 +7,7 @@ import SelectBoxWithTitle from "../../common/inputBox/selectBoxWithTitle";
 import { useEffect, useState } from "react";
 import LectureSubjectPick from "./lectureSubjectPick";
 import GetSubjects from "../../../core/api/Lecture/getSubjects";
-import { PlusCircle } from "../../../icons";
+import { IC_PlusCircle } from "../../../icons";
 
 const Step02 = ({ form, handleChange, MoveStep }) => {
   const [subject, setSubject] = useState([]);
@@ -51,7 +51,7 @@ const Step02 = ({ form, handleChange, MoveStep }) => {
             onClick={handleChange("lectureSubjectAdd")}
           >
             <div className={styles.plusImg} />
-            <PlusCircle />
+            <IC_PlusCircle />
           </button>
         </div>
 

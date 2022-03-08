@@ -1,4 +1,4 @@
-import { ArrowLeft } from "../../../icons";
+import { IC_ArrowLeft } from "../../../icons";
 import styles from "./topBar.module.scss";
 const TopBar = ({ text, onClick }) => {
   return (
@@ -9,7 +9,7 @@ const TopBar = ({ text, onClick }) => {
         className={styles.goBack}
         onClick={onClick}
       >
-        <ArrowLeft />
+        <IC_ArrowLeft />
       </button>
       <span className={styles.topBarText}>{text}</span>
     </section>

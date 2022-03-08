@@ -9,7 +9,7 @@ import Image from "next/image";
 import GetMyInfo from "../../../core/api/User/myInfo";
 import UserRole from "../../../utils/userRole";
 import * as cookie from "cookie";
-import { Bookmark, Student } from "../../../icons";
+import { IC_Bookmark, IC_Student } from "../../../icons";
 
 const MyPage = ({ userInfo }) => {
   return (
@@ -46,7 +46,7 @@ const MyPage = ({ userInfo }) => {
             type="button"
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
           >
-            <Bookmark />
+            <IC_Bookmark />
             <span className={styles.bigBtnText}>강의 목록</span>
           </button>
 
@@ -54,7 +54,7 @@ const MyPage = ({ userInfo }) => {
             type="button"
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
           >
-            <Student w="30" h="30" />
+            <IC_Student w="30" h="30" />
             <span className={styles.bigBtnText}>멘티 목록</span>
           </button>
         </div>
