@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import CategoryBtn from "../../../components/common/button/categoryBtn";
 import router from "next/router";
+import { EditFill } from "../../../icons";
 const ProfileEdit = () => {
   const [img, setImg] = useState("");
   const [origin, setOrigin] = useState("");
@@ -71,9 +72,11 @@ const ProfileEdit = () => {
                 accept="image/*"
                 onChange={(e) => onChangeFile(e)}
               />
-              <label htmlFor="profile">
+              <label htmlFor="profile" className={styles.profile}>
                 <div className={styles.profileImage} />
-                <div className={styles.editBtn} />
+                <button aria-label="프로필 수정" className={styles.editBtn}>
+                  <EditFill width="18.83" height="18.83" />
+                </button>
               </label>
             </>
           ) : (

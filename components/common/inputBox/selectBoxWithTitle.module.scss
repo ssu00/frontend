@@ -27,11 +27,10 @@
     }
   }
 
-  select {
-    background-image: url("/icons/down_blue.svg");
-    background-repeat: no-repeat;
-    background-position-x: 90%;
-    background-position-y: 75%;
+  .arrow {
+    position: absolute;
+    right: 17px;
+    bottom: 11px;
   }
 
   select::-ms-expand {

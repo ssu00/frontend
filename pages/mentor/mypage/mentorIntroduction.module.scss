@@ -34,16 +34,16 @@
 
   .editBtn {
     @include pos(absolute, 617px, 24px, false, false);
-    width: 54px;
-    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
     cursor: pointer;
-    background-color: transparent;
+    background: #689afd;
     border: 0;
+    border-radius: 50%;
     outline: none;
-
-    .editImg {
-      @include backgroundImg(54px, 54px);
-      background-image: url("../../../public/icons/edit_blue.svg");
-    }
+    box-shadow: 2px 2px 6px rgba(101, 149, 244, 0.6);
   }
 }

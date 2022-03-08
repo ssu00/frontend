@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IC_Student_Black } from "../../common/icons/class_icons";
+import { StudentHeadphone } from "../../../icons";
 import styles from "./classCard.module.scss";
 
 const ClassCardNeedApproval = () => {
@@ -39,7 +39,7 @@ const ClassCardNeedApproval = () => {
             {title.length >= 20 ? title.substring(0, 20) + "..." : title}
           </h1>
           <div className={styles.studentCnt}>
-            <IC_Student_Black w={9.33} h={13} />
+            <StudentHeadphone width="9.33" height="13" />
             <span className={styles.cnt}>32</span>
           </div>
         </div>

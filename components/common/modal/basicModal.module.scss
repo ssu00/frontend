@@ -23,15 +23,8 @@
   border-radius: 3px;
   box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.25);
 
-  .x_icon {
-    @include backgroundImg(24px, 24px);
-    margin-bottom: 7px;
-    background-image: url("../../../public/icons/x_red.svg");
-  }
-
-  .check_icon {
-    @include backgroundImg(24px, 24px);
-    background-image: url("../../../public/icons/check.svg");
+  .closeIcon circle {
+    fill: #ee5a5a;
   }
 
   .noticeText {

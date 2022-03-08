@@ -1,7 +1,7 @@
 @import "../../../styles/main.module.scss";
 .selectBox {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  display: inline-block;
   margin-bottom: 11px;
 
   .sel {
@@ -16,11 +16,11 @@
     appearance: none;
   }
 
-  select {
-    background-image: url("/images/mypage/arrow.svg");
-    background-repeat: no-repeat;
-    background-position-x: 90%;
-    background-position-y: center;
+  .arrow {
+    position: absolute;
+    top: 50%;
+    left: 85%;
+    transform: translate(0, -50%);
   }
 
   select::-ms-expand {

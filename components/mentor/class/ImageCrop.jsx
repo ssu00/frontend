@@ -9,6 +9,7 @@ import Slider from "@material-ui/core/Slider";
 import { generateDownload } from "../btn_inputs/utils/cropImage";
 import axios from "axios";
 import Image from "next/image";
+import { PlusCircle } from "../../../icons";
 export default function ImageCrop() {
   const inputRef = React.useRef();
 
@@ -79,12 +80,7 @@ export default function ImageCrop() {
           ) : (
             <label htmlFor="classImg">
               <div className={styles.pluspic}>
-                <Image
-                  src="/icons/plus_blue.svg"
-                  width="16px"
-                  height="16px"
-                  alt="강의 대표 이미지를 추가하세요"
-                />
+                <PlusCircle width="16" height="16" />
               </div>
               <p className={styles.placeholdertext}>
                 가로:00px 세로:00px(00바이트 이내)

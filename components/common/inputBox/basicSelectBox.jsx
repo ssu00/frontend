@@ -1,3 +1,4 @@
+import { ArrowDoubleTriangle } from "../../../icons";
 import styles from "./basicSelectBox.module.scss";
 const BasicSelectBox = ({ arr, name, onChange }) => {
   return (
@@ -11,6 +12,7 @@ const BasicSelectBox = ({ arr, name, onChange }) => {
           );
         })}
       </select>
+      <ArrowDoubleTriangle className={styles.arrow} />
     </section>
   );
 };
