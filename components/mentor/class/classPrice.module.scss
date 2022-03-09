@@ -17,14 +17,7 @@
     }
 
     .multiple {
-      @include backgroundImg(8px, 8px);
-      background-image: url("../../../public/icons/close.svg");
-      transform: translateY(140%);
-    }
-
-    .equal {
-      @include backgroundImg(12px, 12px);
-      background-image: url("../../../public/icons/equal.svg");
+      transform: translateY(95%);
     }
 
     .total_price_block {

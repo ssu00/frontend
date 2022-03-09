@@ -4,8 +4,8 @@ import { BottomTab } from "../../../components/common";
 import fakeData from "../../../mock/data.json";
 import ClassCard from "../../../components/mentor/class/classCard";
 import MenuBtn from "../../../components/common/button/menuBtn";
-import { IC_Plus_Blue } from "../../../components/common/icons/class_icons";
 import TopBar from "../../../components/common/tab/topBar";
+import { IC_PlusCircle } from "../../../icons";
 
 const ClassRegistrationIntro = ({}) => {
   return (
@@ -40,7 +40,7 @@ const ClassRegistrationIntro = ({}) => {
               새로운 강의를 등록하고
               <br /> 더 많은 튜티들을 만나보세요.
             </p>
-            <IC_Plus_Blue w={20} h={20} />
+            <IC_PlusCircle w="20" h="20" />
           </button>
         </div>
 

@@ -11,12 +11,7 @@
   .deleteBtn {
     @include btn-style(30px, 6px);
     padding: 7px;
-    background-color: $line;
+    background: none;
     border: 0;
-
-    .deleteImg {
-      @include backgroundImg(14px, 14px);
-      background-image: url("../../../public/icons/x_red.svg");
-    }
   }
 }

@@ -17,6 +17,10 @@
       display: none;
     }
 
+    .profile {
+      position: relative;
+    }
+
     .profileImage {
       width: 100px;
       height: 100px;
@@ -31,16 +35,15 @@
 
     .editBtn {
       position: absolute;
-      top: 111px;
-      right: 143px;
-      width: 35px;
-      height: 35px;
+      right: 3px;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
       cursor: pointer;
       background-color: #689afd;
-      background-image: url("/images/mypage/edit.svg");
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: auto;
       border: 0;
       border-radius: 50%;
     }

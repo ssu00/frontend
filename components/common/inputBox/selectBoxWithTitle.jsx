@@ -1,5 +1,6 @@
 import styles from "./selectBoxWithTitle.module.scss";
 import classNames from "classnames";
+import { IC_ChevronDownB } from "../../../icons";
 const SelectBoxWithTitle = ({
   title,
   arr,
@@ -41,6 +42,7 @@ const SelectBoxWithTitle = ({
             );
           })}
       </select>
+      <IC_ChevronDownB className={styles.arrow} />
     </section>
   );
 };

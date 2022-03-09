@@ -16,8 +16,10 @@
 
   .arrow {
     @include pos-center-y(absolute);
-    @include backgroundImg(24px, 24px);
     right: 13px;
-    background-image: url("../../../public/icons/arrow_right.svg");
+
+    svg {
+      transform: rotate(-90deg);
+    }
   }
 }

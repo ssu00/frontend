@@ -6,10 +6,11 @@ import {
   BasicBtn,
   basicBtnStyle,
 } from "../../components/common";
-import { ImageLogo, NameLogo } from "../../components/common/icons/logos";
 import classNames from "classnames";
 import Login_API from "../../core/api/Login/login";
 import { setCookie } from "../../utils/cookie";
+import { IC_Logo } from "../../icons";
+import { NameLogo } from "../../components/common/icons/nameLogo";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -41,7 +42,7 @@ const Login = () => {
     <section className={styles.loginSection}>
       <h1 className={styles.title}>{"로그인"}</h1>
       <span className={styles.imageLogo}>
-        <ImageLogo />
+        <IC_Logo width="56" height="56" />
       </span>
       <div className={styles.btns}>
         <BasicInputBox

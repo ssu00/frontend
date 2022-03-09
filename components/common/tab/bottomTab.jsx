@@ -1,21 +1,30 @@
 import styles from "./bottomTab.module.scss";
-import { IC_Board, IC_Chat, IC_Home, IC_MyPage } from "../icons/tab_icons";
 import BottomTabElem from "./bottomTabElement";
+import {
+  IC_Board,
+  IC_BoardFill,
+  IC_Chat,
+  IC_ChatFill,
+  IC_Home,
+  IC_HomeFill,
+  IC_Person,
+  IC_PersonFill,
+} from "../../../icons";
 
 const BottomTab = ({ num }) => {
   return (
     <ul className={styles.tab}>
       <BottomTabElem url={"/mentor/myclass/myClassList"} text={"홈"}>
-        <IC_Home w={24} h={24} num={num[0]} />
+        {num[0] === 0 ? <IC_Home /> : <IC_HomeFill />}
       </BottomTabElem>
       <BottomTabElem url={"/board"} text={"자유게시판"}>
-        <IC_Board w={24} h={24} num={num[1]} />
+        {num[1] === 0 ? <IC_Board /> : <IC_BoardFill />}
       </BottomTabElem>
       <BottomTabElem url={"/chat"} text={"채팅"}>
-        <IC_Chat w={24} h={24} num={num[2]} />
+        {num[2] === 0 ? <IC_Chat /> : <IC_ChatFill />}
       </BottomTabElem>
       <BottomTabElem url={"/mentor/mypage"} text={"마이페이지"}>
-        <IC_MyPage w={24} h={24} num={num[3]} />
+        {num[3] === 0 ? <IC_Person /> : <IC_PersonFill />}
       </BottomTabElem>
     </ul>
   );

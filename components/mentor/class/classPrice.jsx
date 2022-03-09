@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { IC_CloseRound, IC_Equal } from "../../../icons";
 import InputBoxWithUnit from "../../common/inputBox/inputBoxWithUnit";
 import styles from "./classPrice.module.scss";
 const ClassPrice = ({ form, handleChange, classType }) => {
@@ -41,7 +42,7 @@ const ClassPrice = ({ form, handleChange, classType }) => {
             }
           />
         </div>
-        <div className={styles.multiple} />
+        <IC_CloseRound className={styles.multiple} />
         <div className={styles.alignWithColumn}>
           <span className={styles.title}>1회 당 강의시간</span>
           <InputBoxWithUnit
@@ -58,7 +59,7 @@ const ClassPrice = ({ form, handleChange, classType }) => {
             }
           />
         </div>
-        <div className={styles.multiple} />
+        <IC_CloseRound className={styles.multiple} />
         <div className={styles.alignWithColumn}>
           <span className={styles.title}>총 강의 횟수</span>
           <InputBoxWithUnit
@@ -78,7 +79,7 @@ const ClassPrice = ({ form, handleChange, classType }) => {
       </div>
 
       <div className={styles.alignWithRow}>
-        <div className={styles.equal} />
+        <IC_Equal />
         <div className={styles.total_price_block}>
           <span className={styles.text_black}>최종 수강료</span>
           <strong className={styles.total_price}>

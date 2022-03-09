@@ -37,11 +37,6 @@
         width: 130px;
         background-color: $line;
         border: 0;
-
-        .plusImg {
-          @include backgroundImg(14px, 14px);
-          background-image: url("../../../public/icons/plus_blue.svg");
-        }
       }
 
       .group {

@@ -5,14 +5,11 @@ import CategoryBtn from "../../../components/common/button/categoryBtn";
 import MyPageTopBar from "../../../components/mentor/mypage/mypageTopBar";
 import classNames from "classnames";
 import { BasicBtn, basicBtnStyle } from "../../../components/common";
-import {
-  IC_Book,
-  IC_Student_White,
-} from "../../../components/common/icons/mypage_icons";
 import Image from "next/image";
 import GetMyInfo from "../../../core/api/User/myInfo";
 import UserRole from "../../../utils/userRole";
 import * as cookie from "cookie";
+import { IC_Bookmark, IC_Student } from "../../../icons";
 
 const MyPage = ({ userInfo }) => {
   return (
@@ -49,7 +46,7 @@ const MyPage = ({ userInfo }) => {
             type="button"
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
           >
-            <IC_Book w={28} h={28} />
+            <IC_Bookmark />
             <span className={styles.bigBtnText}>강의 목록</span>
           </button>
 
@@ -57,7 +54,7 @@ const MyPage = ({ userInfo }) => {
             type="button"
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
           >
-            <IC_Student_White w={30} h={30} />
+            <IC_Student w="30" h="30" />
             <span className={styles.bigBtnText}>멘티 목록</span>
           </button>
         </div>

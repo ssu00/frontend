@@ -1,5 +1,6 @@
 import styles from "./ellipseBtn.module.scss";
 import classNames from "classnames";
+import { IC_Check } from "../../../icons";
 const EllipseBtn = ({ element, select, id, onClick }) => {
   return (
     <section
@@ -9,6 +10,7 @@ const EllipseBtn = ({ element, select, id, onClick }) => {
       )}
     >
       <div className={select == "on" ? styles.checkIcon : ""} />
+      {select === "on" && <IC_Check className={styles.checkIcon} />}
       <input type="checkbox" id={id} />
       <label htmlFor={id} onClick={onClick}>
         <span

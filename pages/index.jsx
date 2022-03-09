@@ -2,18 +2,18 @@ import { useEffect } from "react";
 import router from "next/router";
 import styles from "./start.module.scss";
 import BasicBtn from "../components/common/button/basicBtn";
-import { ImageLogo, TextLogo } from "../components/common/icons/logos";
 import classNames from "classnames";
 import { basicBtnStyle } from "../components/common";
+import { IC_Logo, IC_LogoText } from "../icons";
 
 const Start = () => {
   return (
     <section className={styles.main}>
       <span className={styles.imageLogo}>
-        <ImageLogo />
+        <IC_Logo width="56" height="56" />
       </span>
       <span className={styles.textLogo}>
-        <TextLogo />
+        <IC_LogoText width="90" height="46" />
       </span>
       <div className={styles.buttons}>
         <BasicBtn
