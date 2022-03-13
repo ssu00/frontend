@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import styles from "./addrBlock.module.scss";
-import { GetSiGunGus } from "../../../core/api/Address";
-import { GetStates } from "../../../core/api/Address";
-import { GetDongs } from "../../../core/api/Address";
 import { BasicSelectBox } from "../../common";
+import { GetSiGunGus, GetStates, GetDongs } from "../../../core/api/Address";
 
 const AddrBlock = ({ datas }) => {
   const { addr, setAddr } = datas;

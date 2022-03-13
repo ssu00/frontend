@@ -1,15 +1,18 @@
 import router from "next/router";
-import styles from "./mypage.module.scss";
-import BottomTab from "../../../components/common/tab/bottomTab";
-import CategoryBtn from "../../../components/common/button/categoryBtn";
-import MyPageTopBar from "../../../components/mentor/mypage/mypageTopBar";
-import classNames from "classnames";
-import { BasicBtn, basicBtnStyle } from "../../../components/common";
 import Image from "next/image";
-import GetMyInfo from "../../../core/api/User/myInfo";
-import UserRole from "../../../utils/userRole";
+import classNames from "classnames";
 import * as cookie from "cookie";
+import styles from "./mypage.module.scss";
+import {
+  BottomTab,
+  CategoryBtn,
+  BasicBtn,
+  basicBtnStyle,
+} from "../../../components/common";
+import MyPageTopBar from "../../../components/mentor/mypage/mypageTopBar";
 import { IC_Bookmark, IC_Student } from "../../../icons";
+import { GetMyInfo } from "../../../core/api/User";
+import UserRole from "../../../utils/userRole";
 
 const MyPage = ({ userInfo }) => {
   return (

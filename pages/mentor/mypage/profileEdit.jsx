@@ -1,13 +1,11 @@
-import styles from "./profileEdit.module.scss";
-import { BottomTab } from "../../../components/common";
-import TopBar from "../../../components/common/tab/topBar";
-// import { ProfileEditBtn } from "/components/mypage/myPageBtn";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import CategoryBtn from "../../../components/common/button/categoryBtn";
 import router from "next/router";
+import Image from "next/image";
+import axios from "axios";
+import styles from "./profileEdit.module.scss";
+import { BottomTab, TopBar, CategoryBtn } from "../../../components/common";
 import { IC_EditFill } from "../../../icons";
+
 const ProfileEdit = () => {
   const [img, setImg] = useState("");
   const [origin, setOrigin] = useState("");

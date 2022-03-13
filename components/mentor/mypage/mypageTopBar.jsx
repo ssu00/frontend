@@ -1,6 +1,6 @@
 import styles from "./mypageTopBar.module.scss";
-import router from "next/router";
 import { IC_AlarmActive, IC_Setting, IC_Menu } from "../../../icons";
+
 const MyPageTopBar = () => {
   return (
     <section className={styles.mypageTopBar}>

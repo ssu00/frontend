@@ -1,12 +1,11 @@
-import styles from "./mentorIntroduction.module.scss";
-import TopBar from "../../../components/common/tab/topBar";
-import BottomTab from "../../../components/common/tab/bottomTab";
 import router from "next/router";
-import MyPageInfoLine from "../../../components/mentor/mypage/mypageInfoLine";
-import GetMyInfoAsMentor from "../../../core/api/Mentor/getMyInfoAsMentor";
 import * as cookie from "cookie";
+import styles from "./mentorIntroduction.module.scss";
+import { TopBar, BottomTab } from "../../../components/common";
+import MyPageInfoLine from "../../../components/mentor/mypage/mypageInfoLine";
 import { TransEduLevelToKor } from "../../../components/mentor/transform";
 import { IC_EditFill } from "../../../icons";
+import { GetMyInfoAsMentor } from "../../../core/api/Mentor";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -75,7 +74,7 @@ const MentorIntroduction = ({ myInfoAsMentor }) => {
       <button
         type="button"
         className={styles.editBtn}
-        // onClick={() => router.push("/mentor/mypage/editMentorInfo")}
+        onClick={() => router.push("/mentor/mypage/editMentorInfo")}
       >
         <IC_EditFill width="26.36" height="26.36" />
       </button>

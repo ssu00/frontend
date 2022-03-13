@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { IC_StudentHeadphone } from "../../../icons";
 import styles from "./classCard.module.scss";
+import { IC_StudentHeadphone } from "../../../icons";
 
 const ClassCardNeedApproval = () => {
   return (

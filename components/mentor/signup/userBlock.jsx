@@ -1,11 +1,8 @@
-import { BasicInputBox, BasicBtn, basicBtnStyle } from "../../common";
-import { IC_Check } from "../../../icons";
 import classNames from "classnames";
 import styles from "./userBlock.module.scss";
-import {
-  NickNameDupCheck,
-  EmailDupCheck,
-} from "../../../core/api/Login/checkForSignup";
+import { BasicInputBox, BasicBtn, basicBtnStyle } from "../../common";
+import { IC_Check } from "../../../icons";
+import { NickNameDupCheck, EmailDupCheck } from "../../../core/api/Login";
 
 const UserBlock = ({ datas }) => {
   const { user, setUser, dupCheck, setDupCheck, checkError } = datas;

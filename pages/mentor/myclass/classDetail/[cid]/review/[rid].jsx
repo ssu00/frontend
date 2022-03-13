@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import router from "next/router";
-import GetReviewOnlyOne from "../../../../../../core/api/Lecture/getReviewOnlyOne";
-import { MenteeReview } from "../../../../../../components/mentor/class/classReview";
-import TopBar from "../../../../../../components/common/tab/topBar";
-import styles from "./reviewDetail.module.scss";
-import BottomBlueBtn from "../../../../../../components/common/button/bottomBlueBtn";
-import WriteMentorReview from "../../../../../../core/api/Lecture/writeMentorReview";
-import ModalWithBackground from "../../../../../../components/common/modal/modalWithBackground";
-import BasicModal from "../../../../../../components/common/modal/basicModal";
 import * as cookie from "cookie";
-import EditMentorReview from "../../../../../../core/api/Lecture/editMentorReview";
+import styles from "./reviewDetail.module.scss";
+import {
+  TopBar,
+  BottomBlueBtn,
+  ModalWithBackground,
+  BasicModal,
+} from "../../../../../../components/common";
+import { MenteeReview } from "../../../../../../components/mentor/class/classReview";
+import {
+  GetReviewOnlyOne,
+  WriteMentorReview,
+  EditMentorReview,
+} from "../../../../../../core/api/Lecture";
 
 export async function getServerSideProps(context) {
   const classID = context.query.cid;

@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
+import router from "next/router";
 import styles from "./steps.module.scss";
-import { MenuBtn } from "../../common";
-import TopBar from "../../common/tab/topBar";
-import BottomBlueBtn from "../../common/button/bottomBlueBtn";
-import EllipseBtn from "../../common/button/ellipseBtn";
+import {
+  MenuBtn,
+  TopBar,
+  BottomBlueBtn,
+  BasicModal,
+  ModalWithBackground,
+  EllipseBtn,
+} from "../../common";
 import ClassPrice from "./classPrice";
 import ClassRegistrationInputError from "./inputErrorHandling";
-import ModalWithBackground from "../../common/modal/modalWithBackground";
-import BasicModal from "../../common/modal/basicModal";
-import router from "next/router";
 
 const Step03 = ({
   form,

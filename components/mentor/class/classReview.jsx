@@ -1,10 +1,9 @@
 import Image from "next/image";
-import styles from "./classReview.module.scss";
 import router from "next/router";
-import BasicBtn from "../../common/button/basicBtn";
-import basicBtnStyle from "../../common/button/basicBtn.module.scss";
 import classNames from "classnames";
-import DeleteMentorReview from "../../../core/api/Lecture/deleteMentorReview";
+import styles from "./classReview.module.scss";
+import { BasicBtn, basicBtnStyle } from "../../common";
+import { DeleteMentorReview } from "../../../core/api/Lecture";
 import RefreshPage from "../../../utils/refreshPage";
 
 const MenteeReview = ({ data, onClick }) => {

@@ -1,6 +1,6 @@
+import router from "next/router";
 import Image from "next/image";
 import styles from "./classCard.module.scss";
-import router from "next/router";
 import { IC_StudentHeadphone } from "../../../icons";
 
 export const transLevel = (data) => {

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import styles from "./signup.module.scss";
-import BottomBlueBtn from "../../components/common/button/bottomBlueBtn";
-import TopBar from "../../components/common/tab/topBar";
-import { SignUp_API } from "../../core/api/Login";
 import router from "next/router";
+import styles from "./signup.module.scss";
+import { BottomBlueBtn, TopBar } from "../../components/common";
+import { SignUp_API } from "../../core/api/Login";
 import SignUpErr from "../../utils/errorHandling/signupErr";
 import UserBlock from "../../components/mentor/signup/userBlock";
 import BasicDataBlock from "../../components/mentor/signup/basicDataBlock";

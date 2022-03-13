@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "./basicDataBlock.module.scss";
-import BasicSelectBox from "../../common/inputBox/basicSelectBox";
+import { BasicSelectBox } from "../../common";
 import SetBirthYear from "../../../utils/auth/setBirthYear";
+
 const BasicDataBlock = ({ datas }) => {
   const { user, setUser } = datas;
   const [basicData, setBasicData] = useState({

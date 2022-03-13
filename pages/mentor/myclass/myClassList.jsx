@@ -1,12 +1,11 @@
-import router from "next/router";
-import { BottomTab, MenuBtn } from "../../../components/common";
-import styles from "./myClassList.module.scss";
-import ClassCard from "../../../components/mentor/class/classCard";
-import TopBar from "../../../components/common/tab/topBar";
-import GetMyLectures from "../../../core/api/Lecture/myLectures";
-import * as cookie from "cookie";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import router from "next/router";
+import * as cookie from "cookie";
+import styles from "./myClassList.module.scss";
+import { BottomTab, MenuBtn, TopBar } from "../../../components/common";
+import ClassCard from "../../../components/mentor/class/classCard";
+import { GetMyLectures } from "../../../core/api/Lecture";
 
 const MyClassList = ({ classes, parsedCookies }) => {
   const [pageNum, setPageNum] = useState(1);

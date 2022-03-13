@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import router from "next/router";
 import renderHTML from "react-render-html";
-import InfiniteScroll from "react-infinite-scroll-component";
-import GetLectureDetail from "../../../../../core/api/Lecture/getLectureDetail";
-import TopBar from "../../../../../components/common/tab/topBar";
-import styles from "./classDetail.module.scss";
 import Image from "next/image";
-import { BasicBtn, MenuBtn } from "../../../../../components/common";
+import * as cookie from "cookie";
+import styles from "./classDetail.module.scss";
+import {
+  GetLectureDetail,
+  GetReview,
+  DeleteLecture,
+} from "../../../../../core/api/Lecture";
+import { TopBar, BasicBtn, MenuBtn } from "../../../../../components/common";
 import { transLevel } from "../../../../../components/mentor/class/classCard";
 import ClassReview from "../../../../../components/mentor/class/classReview";
-import GetReview from "../../../../../core/api/Lecture/getReviews";
 import {
   Rating,
   RatingBig,
 } from "../../../../../components/mentor/class/rating";
-import * as cookie from "cookie";
-import DeleteLecture from "../../../../../core/api/Lecture/deleteLecture";
 
 export async function getServerSideProps(context) {
   const classID = context.query.cid;
@@ -57,9 +57,11 @@ const ClassDetail = ({ token, classData, reviewData }) => {
           <BasicBtn
             text={"삭제"}
             btnStyle={styles.removeBtn}
-            onClick={() => {
-              DeleteLecture(token, classData.id);
-              router.push("/mentor/myclass/myClassList");
+            onClick={async () => {
+              const res = await DeleteLecture(token, classData.id);
+              if (res == 200) {
+                router.push("/mentor/myclass/myClassList");
+              }
             }}
           />
         </div>

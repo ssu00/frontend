@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { IC_CloseRound, IC_Equal } from "../../../icons";
-import InputBoxWithUnit from "../../common/inputBox/inputBoxWithUnit";
 import styles from "./classPrice.module.scss";
+import { IC_CloseRound, IC_Equal } from "../../../icons";
+import { InputBoxWithUnit } from "../../common";
+
 const ClassPrice = ({ form, handleChange, classType }) => {
   const [total, setTotal] = useState("");
   const CalculateTotal = () => {

@@ -1,6 +1,7 @@
 import styles from "./lectureSubjectPick.module.scss";
-import SelectBoxWithTitle from "../../common/inputBox/selectBoxWithTitle";
 import { IC_CloseCircle } from "../../../icons";
+import { SelectBoxWithTitle } from "../../common";
+
 const LectureSubjectPick = ({ i, subject, handleChange, value }) => {
   return (
     <div key={i} className={styles.lectureType}>
