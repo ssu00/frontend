@@ -1,10 +1,10 @@
 import axios from "axios";
 import { LevelToEng } from "../../../utils/class/classLevel";
-import { SystemToArr } from "../../../utils/class/classSystem";
 import { PriceToArray } from "../../../utils/class/classPrice";
+import { SystemToArr } from "../../../utils/class/classSystem";
 import { FilterSubjectArr } from "../../../utils/class/classSubject";
 
-const LectureRegister = async ({ form, token }) => {
+const EditLecture = async ({ form, token, classID }) => {
   const data = {
     title: form.title,
     subTitle: form.subtitle,
@@ -19,7 +19,7 @@ const LectureRegister = async ({ form, token }) => {
   };
 
   try {
-    const res = await axios.post("/lectures", data, {
+    const res = await axios.put(`/lectures/${classID}`, data, {
       headers: { Authorization: token },
     });
     return res;
@@ -28,4 +28,4 @@ const LectureRegister = async ({ form, token }) => {
   }
 };
 
-export default LectureRegister;
+export default EditLecture;

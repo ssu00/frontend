@@ -5,6 +5,24 @@
   .imageBlock {
     position: relative;
 
+    .edit_remove_btn {
+      @include pos(absolute, 9px, 16px, false, false);
+      display: flex;
+      height: 23px;
+
+      .editBtn,
+      .removeBtn {
+        @include tag-class-system-colored($light_gray, $white);
+        z-index: 1;
+        margin-left: 7px;
+        cursor: pointer;
+      }
+
+      .removeBtn {
+        @include tag-class-system-colored($gray, $white);
+      }
+    }
+
     .classSystemTag {
       @include tag-class-system-colored($main, $white);
       @include pos(absolute, false, false, 18px, 26px);
