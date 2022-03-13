@@ -1,0 +1,15 @@
+@import "../../../styles/main.module.scss";
+.agreeSection {
+  @include flexBox(center, start);
+  flex-direction: column;
+  width: 100%;
+
+  .agreeCheck {
+    position: relative;
+    top: 1.5px;
+  }
+
+  .agreeText {
+    @include text-style($fs-12, $gray, 400);
+  }
+}

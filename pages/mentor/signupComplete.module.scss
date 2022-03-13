@@ -1,0 +1,25 @@
+@import "../../styles/main.module.scss";
+.signupComplete {
+  @extend %page-base;
+  @include flexBox(center, center);
+  flex-direction: column;
+
+  .completeTitle {
+    @include text-style(24px, $sub, 700);
+    margin-bottom: 20px;
+  }
+
+  .completeParagraph {
+    @include text-style($fs-15, $sub, 400);
+    margin: 0 0 46px 0;
+  }
+
+  .loginBtn {
+    @include btn-style(40px, 5px);
+    width: 216px;
+  }
+
+  .loginBtnText {
+    @include text-style($fs-16, $white, 700);
+  }
+}
