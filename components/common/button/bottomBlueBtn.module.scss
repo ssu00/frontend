@@ -7,9 +7,14 @@
   transform: translateX(-50%);
 }
 
-.completeBtn {
+.completeBtn,
+.completeBtnDisable {
   @include btn-style(80px, 0);
   width: 375px;
+}
+
+.completeBtnDisable {
+  cursor: not-allowed;
 }
 
 .completeBtnText {
