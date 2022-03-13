@@ -3,14 +3,17 @@ import classNames from "classnames";
 import { BasicBtn } from "..";
 import { basicBtnStyle } from "..";
 
-const BottomBlueBtn = ({ text, onClick, disable }) => {
+const BottomBlueBtn = ({ text, onClick, disabled }) => {
   return (
     <div className={styles.footer}>
       <BasicBtn
         text={text}
         onClick={onClick}
-        disable={disable}
-        btnStyle={classNames(styles.completeBtn, basicBtnStyle.btn_blue)}
+        disabled={disabled}
+        btnStyle={classNames(
+          disabled == true ? styles.completeBtnDisable : styles.completeBtn,
+          disabled == true ? basicBtnStyle.btn_gray : basicBtnStyle.btn_blue
+        )}
         textStyle={styles.completeBtnText}
       />
     </div>
