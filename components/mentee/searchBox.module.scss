@@ -1,0 +1,45 @@
+@import "../../styles/main.module";
+
+.searchBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.manIcon {
+  align-self: flex-end;
+  transform: translate(-28px, 14px);
+}
+
+.inputBox {
+  position: relative;
+
+  input {
+    width: 100%;
+    padding: 13.5px 12px 14.5px 56px;
+    font-size: 14px;
+    border: 1px solid $main;
+    border-radius: 8px;
+
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 1px $main;
+    }
+
+    &::placeholder {
+      color: $light_gray;
+    }
+  }
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  pointer-events: none;
+  transform: translateY(-50%);
+
+  circle,
+  path {
+    stroke: $main;
+  }
+}

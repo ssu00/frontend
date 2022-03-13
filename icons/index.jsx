@@ -50,7 +50,6 @@ import IC_Reason from "./assets/reason.svg";
 import IC_Refresh from "./assets/refresh.svg";
 import IC_SearchL from "./assets/search_L.svg";
 import IC_SearchS from "./assets/search_S.svg";
-import IC_Search from "./assets/search-icon_blue.svg";
 import IC_Setting from "./assets/setting.svg";
 import IC_Share from "./assets/share.svg";
 import IC_SmilingMan from "./assets/smiling_man.svg";
@@ -118,7 +117,6 @@ export {
   IC_Refresh,
   IC_SearchL,
   IC_SearchS,
-  IC_Search,
   IC_Setting,
   IC_Share,
   IC_SmilingMan,

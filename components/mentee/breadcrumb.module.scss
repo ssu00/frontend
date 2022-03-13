@@ -1,0 +1,23 @@
+@import "../../styles/main.module";
+
+.breadcrumb {
+  padding: 16px 0;
+
+  ul {
+    display: flex;
+    gap: 8px;
+
+    button {
+      padding: 7.5px 11px 9.5px;
+      cursor: pointer;
+      background: none;
+      border: 1px solid $line;
+      border-radius: 50px;
+      @include text-style(12px, $gray, 400);
+
+      &:hover {
+        background: $line;
+      }
+    }
+  }
+}

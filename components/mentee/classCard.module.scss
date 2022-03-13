@@ -1,0 +1,63 @@
+@import "../../styles/main.module";
+
+.classCard {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0, 19, 37, 0.1);
+
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 0 0 0 2px $main;
+    }
+  }
+}
+
+.imageContainer {
+  position: relative;
+  height: 110px;
+}
+
+.labels {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.label {
+  @include text-style(12px, $white, 500);
+  padding: 2px 8px 3px;
+  border: 1px solid $white;
+  border-radius: 8px;
+}
+
+.informationBox {
+  padding: 16px;
+  background-color: $white;
+
+  h2,
+  h3 {
+    @include text-style(16px, $sub, 500, start);
+  }
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+}
+
+.tag {
+  @include text-style(10px, $green, 600, start);
+  padding: 2.5px 6px 3.5px;
+  margin-bottom: 7px;
+  background: rgba(89, 195, 99, 0.15);
+  border-radius: 6px;
+}
+
+.tutorName {
+  @include text-style(12px, $light_gray, 400, start);
+  margin: 8px 0 7px;
+}

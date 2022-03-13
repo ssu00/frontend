@@ -1,0 +1,53 @@
+@import "../../styles/main.module";
+
+.dropdown {
+  position: relative;
+  transform: translateX(4px);
+
+  button {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  &.open {
+    .options {
+      display: block;
+    }
+
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.select {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: bold;
+  background: none;
+  border: 0;
+  gap: 8px;
+
+  span {
+    letter-spacing: -0.2%;
+  }
+}
+
+.options {
+  position: absolute;
+  display: none;
+  width: 100%;
+
+  li {
+    line-height: 0;
+
+    button {
+      border: 0;
+    }
+
+    &.selected button {
+      background-color: hsl(220, 87%, 80%);
+    }
+  }
+}

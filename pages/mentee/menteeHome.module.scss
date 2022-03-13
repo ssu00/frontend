@@ -1,0 +1,40 @@
+@import "../../styles/main.module";
+
+.home {
+  position: relative;
+  max-width: 376px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: $white;
+
+  main {
+    position: relative;
+    padding: 17px 20px;
+  }
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+
+  div {
+    position: relative;
+    height: 812px;
+  }
+}
+
+.classesCount {
+  @include text-style(15px, $sub, 500, start);
+  margin: 16px 0 22.5px;
+}
+
+.classCards {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+  gap: 16px;
+}
