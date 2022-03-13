@@ -1,6 +1,11 @@
 import Image from "next/image";
 import styles from "./classReview.module.scss";
 import router from "next/router";
+import BasicBtn from "../../common/button/basicBtn";
+import basicBtnStyle from "../../common/button/basicBtn.module.scss";
+import classNames from "classnames";
+import DeleteMentorReview from "../../../core/api/Lecture/deleteMentorReview";
+import RefreshPage from "../../../utils/refreshPage";
 
 const MenteeReview = ({ data, onClick }) => {
   return (
@@ -23,12 +28,34 @@ const MenteeReview = ({ data, onClick }) => {
   );
 };
 
-const MentorReview = ({ data }) => {
+const MentorReview = ({ token, cid, mentee, data }) => {
   return (
     <section className={styles.mentorReviewSection}>
       <div className={styles.mentorProfileBlock}>
         <div className={styles.profileImg}>
           <Image src={"/samples/lecture.png"} width={32} height={32} />
+        </div>
+
+        <div className={styles.textBtnSection}>
+          <BasicBtn
+            text={"수정"}
+            onClick={() =>
+              router.push(
+                `/mentor/myclass/classDetail/${cid}/review/${mentee.reviewId}`
+              )
+            }
+            btnStyle={classNames(basicBtnStyle.btn_transparent, styles.textBtn)}
+          />
+
+          <BasicBtn
+            text={"삭제"}
+            onClick={() => {
+              DeleteMentorReview(token, cid, mentee.reviewId, data.reviewId);
+              router.push(`/mentor/myclass/myClassList`);
+              RefreshPage();
+            }}
+            btnStyle={classNames(basicBtnStyle.btn_transparent, styles.textBtn)}
+          />
         </div>
 
         <div className={styles.alignColumn}>
@@ -42,7 +69,7 @@ const MentorReview = ({ data }) => {
   );
 };
 
-const ClassReview = ({ cid, mentee }) => {
+const ClassReview = ({ token, cid, mentee }) => {
   const child = mentee.child;
   return (
     <section
@@ -62,7 +89,11 @@ const ClassReview = ({ cid, mentee }) => {
           }
         }}
       />
-      {child.reviewId ? <MentorReview data={child} /> : <></>}
+      {child.reviewId ? (
+        <MentorReview token={token} cid={cid} mentee={mentee} data={child} />
+      ) : (
+        <></>
+      )}
     </section>
   );
 };
