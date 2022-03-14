@@ -1,12 +1,14 @@
 import { useState } from "react";
-import styles from "./steps.module.scss";
-import { MenuBtn } from "../../common";
-import TopBar from "../../common/tab/topBar";
-import BottomBlueBtn from "../../common/button/bottomBlueBtn";
-import ClassRegistrationInputBox from "../../common/inputBox/classRegistrationInputBox";
-import BasicModal from "../../common/modal/basicModal";
-import ModalWithBackground from "../../common/modal/modalWithBackground";
 import router from "next/router";
+import styles from "./steps.module.scss";
+import {
+  MenuBtn,
+  TopBar,
+  BottomBlueBtn,
+  ClassRegistrationInputBox,
+  BasicModal,
+  ModalWithBackground,
+} from "../../common";
 // import ImageCrop from "./ImageCrop";
 
 const Step01 = ({ form, handleChange, MoveStep }) => {

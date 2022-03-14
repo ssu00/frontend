@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import router from "next/router";
-import GetReviewOnlyOne from "../../../../../../core/api/Lecture/getReviewOnlyOne";
-import { MenteeReview } from "../../../../../../components/mentor/class/classReview";
-import TopBar from "../../../../../../components/common/tab/topBar";
-import styles from "./reviewDetail.module.scss";
-import BottomBlueBtn from "../../../../../../components/common/button/bottomBlueBtn";
-import WriteMentorReview from "../../../../../../core/api/Lecture/writeMentorReview";
-import ModalWithBackground from "../../../../../../components/common/modal/modalWithBackground";
-import BasicModal from "../../../../../../components/common/modal/basicModal";
 import * as cookie from "cookie";
+import styles from "./reviewDetail.module.scss";
+import {
+  TopBar,
+  BottomBlueBtn,
+  ModalWithBackground,
+  BasicModal,
+} from "../../../../../../components/common";
+import { MenteeReview } from "../../../../../../components/mentor/class/classReview";
+import {
+  GetReviewOnlyOne,
+  WriteMentorReview,
+  EditMentorReview,
+} from "../../../../../../core/api/Lecture";
 
 export async function getServerSideProps(context) {
   const classID = context.query.cid;
@@ -17,20 +22,37 @@ export async function getServerSideProps(context) {
   const parsedCookies = cookie.parse(context.req.headers.cookie);
 
   return {
-    props: { classID, reviewID, reviewData, parsedCookies },
+    props: {
+      classID,
+      reviewID,
+      reviewData,
+      parsedCookies,
+    },
   };
 }
 
 const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
   const [comment, setComment] = useState("");
   const [modal, setModal] = useState(false);
+  const [writeType, setWriteType] = useState("register");
+
+  useEffect(() => {
+    if (reviewData.child.reviewId) {
+      setWriteType("edit");
+      setComment(reviewData.child.content);
+    }
+  }, []);
 
   return (
     <section className={styles.reviewDetailSection}>
       {modal ? (
         <ModalWithBackground setModal={setModal}>
           <BasicModal
-            notice={`정상적으로 등록되었습니다.`}
+            notice={
+              writeType == "register"
+                ? `정상적으로 등록되었습니다.`
+                : "정상적으로 수정되었습니다."
+            }
             btnText={"강의 상세보기"}
             modalStyle={"square"}
             btnClick={() =>
@@ -54,19 +76,32 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
         <textarea
           className={styles.writeComment}
           onChange={(e) => setComment(e.target.value)}
-        />
+          value={comment}
+        ></textarea>
       </div>
       <BottomBlueBtn
-        text={"등록"}
+        text={writeType == "register" ? "등록" : "수정"}
         onClick={async () => {
-          await WriteMentorReview(
-            parsedCookies.accessToken,
-            classID,
-            reviewID,
-            comment
-          ).then((res) => {
-            if (res == 201) setModal(true);
-          });
+          if (writeType == "register") {
+            await WriteMentorReview(
+              parsedCookies.accessToken,
+              classID,
+              reviewID,
+              comment
+            ).then((res) => {
+              if (res == 201) setModal(true);
+            });
+          } else {
+            await EditMentorReview(
+              parsedCookies.accessToken,
+              classID,
+              reviewID,
+              reviewData.child.reviewId,
+              comment
+            ).then((res) => {
+              if (res == 200) setModal(true);
+            });
+          }
         }}
       />
     </section>

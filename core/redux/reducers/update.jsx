@@ -3,6 +3,7 @@ import produce from "immer";
 import createRequestSaga from "./createRequestSaga";
 import { createRequestActionTypes } from "./createRequestSaga";
 import LectureRegister from "../../api/Lecture/registerLecture";
+import EditLecture from "../../api/Lecture/editLecture";
 import { takeLatest } from "@redux-saga/core/effects";
 
 const INITIALIZE = "lecture/INITIALIZE";
@@ -13,6 +14,8 @@ const DELETE_ARRAY_ELEMENT = "lecture/DELETE_ARRAY_ELEMENT";
 const MOVE_STEP = "lecture/MOVE_STEP";
 const [LECTURE_UPDATE, LECTURE_UPDATE_SUCCESS, LECTURE_UPDATE_FAILURE] =
   createRequestActionTypes("lecture/LECTURE_UPDATE");
+const [LECTURE_EDIT, LECTURE_EDIT_SUCCESS, LECTURE_EDIT_FAILURE] =
+  createRequestActionTypes("lecture/LECTURE_EDIT");
 
 export const Initialize = createAction(INITIALIZE);
 export const ChangeField = createAction(
@@ -54,9 +57,20 @@ export const LectureUpdate = createAction(
   ({ form, token }) => ({ form, token })
 );
 
+export const LectureEdit = createAction(
+  LECTURE_EDIT,
+  ({ form, token, classID }) => ({
+    form,
+    token,
+    classID,
+  })
+);
+
 const UpdateSaga = createRequestSaga(LECTURE_UPDATE, LectureRegister);
+const EditSaga = createRequestSaga(LECTURE_EDIT, EditLecture);
 export function* Saga() {
   yield takeLatest(LECTURE_UPDATE, UpdateSaga);
+  yield takeLatest(LECTURE_EDIT, EditSaga);
 }
 
 const initialState = {
@@ -115,6 +129,16 @@ const classRegister = handleActions(
       updateError: false,
     }),
     [LECTURE_UPDATE_FAILURE]: (state, { payload }) => ({
+      ...state,
+      updateSuccess: false,
+      updateError: true,
+    }),
+    [LECTURE_EDIT_SUCCESS]: (state) => ({
+      ...state,
+      updateSuccess: true,
+      updateError: false,
+    }),
+    [LECTURE_EDIT_FAILURE]: (state, { payload }) => ({
       ...state,
       updateSuccess: false,
       updateError: true,

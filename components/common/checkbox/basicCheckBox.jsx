@@ -1,8 +1,21 @@
 import styles from "./basicCheckBox.module.scss";
-const BasicCheckBox = ({ id, text, checkBoxStyle, textStyle }) => {
+const BasicCheckBox = ({
+  id,
+  text,
+  checkBoxStyle,
+  textStyle,
+  value,
+  onChange,
+}) => {
   return (
     <section className={styles.commonCheckbox}>
-      <input type="checkbox" id={id} className={checkBoxStyle} />
+      <input
+        type="checkbox"
+        id={id}
+        className={checkBoxStyle}
+        onChange={onChange}
+        checked={value}
+      />
       <label htmlFor={id} className={textStyle}>
         {text}
       </label>

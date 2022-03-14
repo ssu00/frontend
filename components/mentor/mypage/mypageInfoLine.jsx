@@ -1,4 +1,5 @@
 import styles from "./mypageInfoLine.module.scss";
+
 const MyPageInfoLine = ({ title, content }) => {
   return (
     <section className={styles.infoLine}>

@@ -1,15 +1,16 @@
-import router from "next/router";
-import BottomBlueBtn from "../../../components/common/button/bottomBlueBtn";
-import TopBar from "../../../components/common/tab/topBar";
-import InfoEditBox from "../../../components/mentor/mypage/infoEditBox";
-import styles from "./editMentorInfo.module.scss";
-import classNames from "classnames";
 import { useState } from "react";
-import ChangeObject from "../../../utils/changeObject";
+import classNames from "classnames";
+import router from "next/router";
 import * as cookie from "cookie";
-import GetMyInfoAsMentor from "../../../core/api/Mentor/getMyInfoAsMentor";
-import EditMyInfoAsMentor from "../../../core/api/Mentor/editMyInfoAsMentor";
+import styles from "./editMentorInfo.module.scss";
+import { BottomBlueBtn, TopBar } from "../../../components/common";
+import InfoEditBox from "../../../components/mentor/mypage/infoEditBox";
 import { TransEduLevelToKor } from "../../../components/mentor/transform";
+import {
+  GetMyInfoAsMentor,
+  EditMyInfoAsMentor,
+} from "../../../core/api/Mentor";
+import ChangeObject from "../../../utils/changeObject";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;

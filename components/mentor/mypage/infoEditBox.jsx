@@ -1,5 +1,5 @@
-import styles from "./infoEditBox.module.scss";
 import classNames from "classnames";
+import styles from "./infoEditBox.module.scss";
 
 const InfoEditBox = ({ title, value, ownStyle, makeChange }) => {
   const arr = ["초등학교", "중학교", "고등학교", "대학교"];

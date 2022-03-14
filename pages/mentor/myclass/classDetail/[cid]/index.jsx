@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import router from "next/router";
 import renderHTML from "react-render-html";
-import InfiniteScroll from "react-infinite-scroll-component";
-import GetLectureDetail from "../../../../../core/api/Lecture/getLectureDetail";
-import TopBar from "../../../../../components/common/tab/topBar";
-import styles from "./classDetail.module.scss";
 import Image from "next/image";
-import { MenuBtn } from "../../../../../components/common";
+import * as cookie from "cookie";
+import styles from "./classDetail.module.scss";
+import {
+  GetLectureDetail,
+  GetReview,
+  DeleteLecture,
+} from "../../../../../core/api/Lecture";
+import { TopBar, BasicBtn, MenuBtn } from "../../../../../components/common";
 import { transLevel } from "../../../../../components/mentor/class/classCard";
 import ClassReview from "../../../../../components/mentor/class/classReview";
-import GetReview from "../../../../../core/api/Lecture/getReviews";
 import {
   Rating,
   RatingBig,
@@ -19,12 +21,14 @@ export async function getServerSideProps(context) {
   const classID = context.query.cid;
   const classData = await GetLectureDetail(classID);
   const reviewData = await GetReview(classID);
+  const token = cookie.parse(context.req.headers.cookie).accessToken;
+
   return {
-    props: { classData, reviewData },
+    props: { token, classData, reviewData },
   };
 }
 
-const ClassDetail = ({ classData, reviewData }) => {
+const ClassDetail = ({ token, classData, reviewData }) => {
   const [select, setSelect] = useState(true);
   const subjectOnly = classData.lectureSubjects.map(
     (data, i) => data.krSubject
@@ -39,6 +43,28 @@ const ClassDetail = ({ classData, reviewData }) => {
       <TopBar onClick={() => router.push("/mentor/myclass/myClassList")} />
       <div className={styles.imageBlock}>
         <Image src={"/samples/lecture.png"} width={375} height={277} />
+        <div className={styles.edit_remove_btn}>
+          <BasicBtn
+            text={"수정"}
+            btnStyle={styles.editBtn}
+            onClick={() =>
+              router.push({
+                pathname: "/mentor/myclass/classRegistration",
+                query: { classID: classData.id },
+              })
+            }
+          />
+          <BasicBtn
+            text={"삭제"}
+            btnStyle={styles.removeBtn}
+            onClick={async () => {
+              const res = await DeleteLecture(token, classData.id);
+              if (res == 200) {
+                router.push("/mentor/myclass/myClassList");
+              }
+            }}
+          />
+        </div>
         <div className={styles.classSystemTag}>
           <span>{transLevel(classData)}</span>
         </div>
@@ -108,7 +134,14 @@ const ClassDetail = ({ classData, reviewData }) => {
           <div className={styles.reviews}>
             <h1 className={styles.reviewTitle}>강의 후기</h1>
             {reviewData.content.map((data, i) => {
-              return <ClassReview cid={classData.id} mentee={data} key={i} />;
+              return (
+                <ClassReview
+                  token={token}
+                  cid={classData.id}
+                  mentee={data}
+                  key={i}
+                />
+              );
             })}
           </div>
         </div>

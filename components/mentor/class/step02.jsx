@@ -1,13 +1,15 @@
+import { useEffect, useState } from "react";
 import styles from "./steps.module.scss";
 import Quill from "../../common/editor/QuillDynamic";
-import { MenuBtn } from "../../common";
-import TopBar from "../../common/tab/topBar";
-import BottomBlueBtn from "../../common/button/bottomBlueBtn";
-import SelectBoxWithTitle from "../../common/inputBox/selectBoxWithTitle";
-import { useEffect, useState } from "react";
-import LectureSubjectPick from "./lectureSubjectPick";
-import GetSubjects from "../../../core/api/Lecture/getSubjects";
+import {
+  MenuBtn,
+  TopBar,
+  BottomBlueBtn,
+  SelectBoxWithTitle,
+} from "../../common";
 import { IC_PlusCircle } from "../../../icons";
+import { GetSubjects } from "../../../core/api/Lecture";
+import LectureSubjectPick from "./lectureSubjectPick";
 
 const Step02 = ({ form, handleChange, MoveStep }) => {
   const [subject, setSubject] = useState([]);

@@ -46,11 +46,26 @@
 
   .mentorProfileBlock {
     @include flexBox(start, center);
+    position: relative;
     margin-bottom: 8px;
 
     .profileImg {
       @include avatar(32px, 32px);
       margin-right: 12px;
+    }
+
+    .textBtnSection {
+      @include flexBox(center, center);
+      @include pos(absolute, 0, 0, false, false);
+
+      .textBtn {
+        @include text-style(10px, $light_gray, 400);
+        width: 30px;
+        padding: 0;
+        text-decoration: underline;
+        cursor: pointer;
+        outline: none;
+      }
     }
 
     .alignColumn {

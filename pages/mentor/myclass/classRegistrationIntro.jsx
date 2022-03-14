@@ -1,10 +1,7 @@
 import router from "next/router";
 import styles from "./classRegistrationIntro.module.scss";
-import { BottomTab } from "../../../components/common";
 import fakeData from "../../../mock/data.json";
-import ClassCard from "../../../components/mentor/class/classCard";
-import MenuBtn from "../../../components/common/button/menuBtn";
-import TopBar from "../../../components/common/tab/topBar";
+import { BottomTab, MenuBtn, TopBar } from "../../../components/common";
 import { IC_PlusCircle } from "../../../icons";
 
 const ClassRegistrationIntro = ({}) => {

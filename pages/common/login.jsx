@@ -1,13 +1,13 @@
 import { useState } from "react";
 import router from "next/router";
+import classNames from "classnames";
 import styles from "./login.module.scss";
 import {
   BasicInputBox,
   BasicBtn,
   basicBtnStyle,
 } from "../../components/common";
-import classNames from "classnames";
-import Login_API from "../../core/api/Login/login";
+import { Login_API } from "../../core/api/Login";
 import { setCookie } from "../../utils/cookie";
 import { IC_Logo } from "../../icons";
 import { NameLogo } from "../../components/common/icons/nameLogo";
@@ -21,7 +21,6 @@ const Login = () => {
     const res = await Login_API(username, password);
     if (res.status == 200) {
       router.push("/mentor/myclass/myClassList");
-      localStorage.setItem("accessToken", res.data);
       setCookie("accessToken", res.data, {
         path: "/",
         secure: true,

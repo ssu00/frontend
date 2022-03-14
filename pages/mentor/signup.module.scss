@@ -1,0 +1,66 @@
+@import "../../styles/main.module.scss";
+.signUp01 {
+  @extend %page-base;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    @include text-style($fs-15, $sub, 700);
+    margin: 0;
+  }
+
+  .contentSection {
+    width: 100%;
+    padding: 52px 42px 110px;
+
+    .selectSection {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .inputSection {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 40px;
+
+      .errText {
+        @include text-style($fs-15, $red, 400);
+      }
+
+      .signupInput {
+        @include inputBox(50px, 14px 37px);
+        margin-bottom: 10px;
+      }
+
+      .inputWithDupBtn {
+        position: relative;
+        width: 100%;
+
+        .successIC {
+          @include pos(absolute, 15px, 10px, false, false);
+          width: 20px;
+          height: 20px;
+        }
+
+        .dupBtn {
+          @include pos(absolute, 10px, 10px, false, false);
+          @include btn-style(30px, 10px);
+          width: 80px;
+
+          .dupBtnText {
+            @include text-style($fs-12, $white, 400);
+          }
+        }
+      }
+    }
+
+    .text {
+      @include text-style($fs-12, $light_gray, 400, left);
+      display: block;
+      margin-bottom: 15px;
+    }
+  }
+}
