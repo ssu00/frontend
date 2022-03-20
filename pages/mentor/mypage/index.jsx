@@ -56,6 +56,7 @@ const MyPage = ({ userInfo }) => {
           <button
             type="button"
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
+            onClick={() => router.push("/mentor/mypage/menteeList")}
           >
             <IC_Student w="30" h="30" />
             <span className={styles.bigBtnText}>멘티 목록</span>

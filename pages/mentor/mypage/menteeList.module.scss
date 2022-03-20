@@ -1,0 +1,34 @@
+@import "../../../styles/main.module.scss";
+
+.menteeListSection {
+  @extend %page-base;
+  padding: 0 21px;
+
+  .line {
+    width: 100%;
+    height: 8px;
+    background-color: $bg-color;
+  }
+
+  .ing,
+  .finished {
+    width: 100%;
+    background-color: $white;
+
+    .titleBox {
+      @include flexBox(between, center);
+      width: 100%;
+      height: 50px;
+      padding: 10px 0;
+      border-bottom: 1px solid $line;
+    }
+
+    .title {
+      @include text-style($fs-15, $sub, 700, left);
+    }
+  }
+
+  .finished {
+    padding-bottom: 80px;
+  }
+}
