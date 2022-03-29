@@ -13,11 +13,7 @@ const WriteMenteeReview = ({ menteeReviews }) => {
   const [reviews, setReviews] = useState([]);
   const [modal, setModal] = useState(false);
 
-  const showModal = () => {
-    setModal(true);
-  };
-
-  const closeModal = (e) => {
+  const handleModal = () => {
     setModal(!modal);
   };
 
@@ -65,8 +61,11 @@ const WriteMenteeReview = ({ menteeReviews }) => {
                           ))}
                         </p>
                       </div>
-                      <IC_Menu className={styles.pointer} onClick={showModal} />
-                      {modal && <OptionModal modalHandler={closeModal} />}
+                      <IC_Menu
+                        className={styles.pointer}
+                        onClick={handleModal}
+                      />
+                      {modal && <OptionModal modalHandler={handleModal} />}
                     </div>
                   </article>
                 </section>
