@@ -7,7 +7,6 @@ import styles from "./menteeReview.module.scss";
 import { MenuBtn, TopBar, BottomTab } from "../../../../components/common";
 import WriteMenteeReview from "./WriteMenteeReview";
 import UnWriteMenteeReview from "./UnWriteMenteeReview";
-import OptionModal from "../../../../components/old-mentee/OptionModal";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;

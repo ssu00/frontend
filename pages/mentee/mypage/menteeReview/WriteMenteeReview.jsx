@@ -17,6 +17,10 @@ const WriteMenteeReview = ({ menteeReviews }) => {
     setModal(true);
   };
 
+  const closeModal = (e) => {
+    setModal(!modal);
+  };
+
   const writeCon = menteeReviews?.content;
   return (
     <>
@@ -61,7 +65,8 @@ const WriteMenteeReview = ({ menteeReviews }) => {
                           ))}
                         </p>
                       </div>
-                      <IC_Menu className={styles.pointer} />
+                      <IC_Menu className={styles.pointer} onClick={showModal} />
+                      {modal && <OptionModal modalHandler={closeModal} />}
                     </div>
                   </article>
                 </section>
