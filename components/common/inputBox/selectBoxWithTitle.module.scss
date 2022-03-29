@@ -9,6 +9,7 @@
     @include pos(absolute, 6px, 0, 0, 17px);
     z-index: 2;
     width: 40px;
+    pointer-events: none;
   }
 
   .sel {
