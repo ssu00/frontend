@@ -3,6 +3,7 @@ import styles from "./userBlock.module.scss";
 import { BasicInputBox, BasicBtn, basicBtnStyle } from "../../common";
 import { IC_Check } from "../../../icons";
 import { NickNameDupCheck, EmailDupCheck } from "../../../core/api/Login";
+import { EmailValidation } from "../../../utils/validation";
 
 const UserBlock = ({ datas }) => {
   const { user, setUser, dupCheck, setDupCheck, checkError } = datas;
@@ -65,11 +66,15 @@ const UserBlock = ({ datas }) => {
           <BasicBtn
             text={"중복확인"}
             onClick={async () => {
-              const emailDup = await EmailDupCheck(user.email);
-              if (emailDup) {
-                SetDupState("emailDupError", "emailDupSuccess");
+              if (!EmailValidation(user.email)) {
+                return;
               } else {
-                SetDupState("emailDupSuccess", "emailDupError");
+                const emailDup = await EmailDupCheck(user.email);
+                if (emailDup) {
+                  SetDupState("emailDupError", "emailDupSuccess");
+                } else {
+                  SetDupState("emailDupSuccess", "emailDupError");
+                }
               }
             }}
             btnStyle={classNames(basicBtnStyle.btn_blue, styles.dupBtn)}
