@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getMyReviewsMentt = async (token) => {
+export const getReviewMentee = async (token) => {
   try {
     const res = await axios.get("/mentees/my-reviews", {
       headers: { Authorization: token },

@@ -72,9 +72,7 @@ const MyPage = ({ userInfo }) => {
         <CategoryBtn text={"강의 요청"} />
         <CategoryBtn
           text={"강의 후기"}
-          onClick={() =>
-            router.push("/mentee/mypage/meteeReview/writeMenteeReview")
-          }
+          onClick={() => router.push("/mentee/mypage/menteeReview")}
         />
       </section>
 

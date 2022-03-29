@@ -9,7 +9,7 @@ import {
 } from "../../components/common";
 import { Login_API } from "../../core/api/Login";
 import { setCookie } from "../../utils/cookie";
-import { IC_Logo } from "../../icons";
+import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../icons";
 import { NameLogo } from "../../components/common/icons/nameLogo";
 
 const Login = () => {
@@ -88,6 +88,14 @@ const Login = () => {
         </span>
       </div>
 
+      <div className={styles.snsCon}>
+        <p>SNS 로그인</p>
+        <div className={styles.snsBtn}>
+          <IC_Google />
+          <IC_Naver />
+          <IC_Kakao />
+        </div>
+      </div>
       <NameLogo />
     </section>
   );
