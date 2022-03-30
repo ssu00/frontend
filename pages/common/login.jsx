@@ -20,7 +20,8 @@ const Login = () => {
   const checkAccount = async () => {
     const res = await Login_API(username, password);
     if (res.status == 200) {
-      router.push("/mentor/myclass/myClassList");
+      // router.push("/mentor/myclass/myClassList");
+      router.push("/mentee");
       setCookie("accessToken", res.data, {
         path: "/",
         secure: true,

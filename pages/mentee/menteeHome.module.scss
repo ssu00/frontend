@@ -13,6 +13,43 @@
   }
 }
 
+.drawer {
+  margin: 0 auto;
+  right: 0;
+  height: 514px;
+  max-width: 376px;
+
+  .bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 114px;
+    border-top: 2px solid #e8eaef;
+
+    .resetbutton {
+      width: 106px;
+      height: 48px;
+      border: none;
+      background: #2c343f;
+      border-radius: 8px;
+      color: $white;
+    }
+    .findbutton {
+      width: 221px;
+      height: 48px;
+      border: none;
+      background: #689afd;
+      border-radius: 8px;
+      color: $white;
+    }
+  }
+}
+
 .background {
   position: absolute;
   top: 0;

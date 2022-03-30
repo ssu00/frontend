@@ -10,6 +10,7 @@ import GetSubjects from "./getSubjects";
 import GetMyLectures from "./myLectures";
 import LectureRegister from "./registerLecture";
 import WriteMentorReview from "./writeMentorReview";
+import GetLecture from "./getLecture";
 
 export {
   DeleteLecture,
@@ -17,6 +18,7 @@ export {
   EditLecture,
   EditMentorReview,
   GetEachLecture,
+  GetLecture,
   GetLectureDetail,
   GetReviewOnlyOne,
   GetReview,
