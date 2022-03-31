@@ -20,7 +20,7 @@ const BottomTab = ({ num }) => {
       <BottomTabElem url={"/board"} text={"자유게시판"}>
         {num[1] === 0 ? <IC_Board /> : <IC_BoardFill />}
       </BottomTabElem>
-      <BottomTabElem url={"/chat"} text={"채팅"}>
+      <BottomTabElem url={"/mentor/chat/chatList"} text={"채팅"}>
         {num[2] === 0 ? <IC_Chat /> : <IC_ChatFill />}
       </BottomTabElem>
       <BottomTabElem url={"/mentor/mypage"} text={"마이페이지"}>
