@@ -10,7 +10,6 @@ const ClassCard = ({ classDetail }) => {
   const router = useRouter();
   const labels = ["초급", "그룹"];
   const tags = ["ONLINE", "NEW"];
-  console.log(classDetail);
 
   return (
     <div className={styles.classCard} aria-label={`${title} 상세 정보 보기`}>

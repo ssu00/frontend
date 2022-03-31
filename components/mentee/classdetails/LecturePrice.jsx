@@ -12,8 +12,7 @@ function LecturePrice() {
         <span className={styles.sale_price}>
           <span>197,000</span>원
         </span>
-        <span className={styles.month}>/ 1개월 기준</span>
-        <IC_Coupon width={"74px"} height={"24px"} />
+        <span className={styles.month}></span>
       </div>
     </div>
   );

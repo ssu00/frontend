@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import LecturePrice from "./LecturePrice";
 import styles from "./LectureTitle.module.scss";
 import { IC_Star } from "../../../icons";
+import * as cookie from "cookie";
 import { MenuBtn } from "../../common";
 import { RatingBig } from "../../mentor/class/rating";
 import ClassReview from "../../mentor/class/classReview";

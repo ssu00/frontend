@@ -63,6 +63,9 @@ import IC_TalkFill from "./assets/talk_fill.svg";
 import IC_TalkOutline from "./assets/talk_outline.svg";
 import IC_ToggleActive from "./assets/toggle_active.svg";
 import IC_Toggle from "./assets/toggle.svg";
+import IC_Google from "./assets/google.svg";
+import IC_Naver from "./assets/naver.svg";
+import IC_Kakao from "./assets/kakao.svg";
 
 export {
   IC_AlarmActive,
@@ -130,4 +133,7 @@ export {
   IC_TalkOutline,
   IC_ToggleActive,
   IC_Toggle,
+  IC_Google,
+  IC_Naver,
+  IC_Kakao,
 };

@@ -8,8 +8,7 @@ import { GetLectureDetail } from "../../../core/api/Lecture";
 import * as cookie from "cookie";
 import styles from "./classdetails.module.scss";
 
-const ClassDetails = ({ classes, context }) => {
-  console.log(classes, context);
+const ClassDetails = () => {
   return (
     <section className={styles.container}>
       <TopMenu />
@@ -18,20 +17,6 @@ const ClassDetails = ({ classes, context }) => {
       <BottomNavBar />
     </section>
   );
-};
-
-export const getServerSideProps = async (context) => {
-  const parsedCookies = cookie.parse(context.req.headers.cookie);
-  const classID = context.query;
-
-  const classes = await GetLectureDetail(parsedCookies.accessToken, classID);
-
-  return {
-    props: {
-      classes: JSON.parse(JSON.stringify(classes)),
-      parsedCookies,
-    },
-  };
 };
 
 export default ClassDetails;
