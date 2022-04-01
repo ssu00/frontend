@@ -1,0 +1,38 @@
+@import "../../styles/main.module.scss";
+.changePW {
+  @extend %page-base;
+
+  .text {
+    @include text-style($fs-13, $light_gray, 400, left);
+    padding: 17px 48px 28px;
+    margin: 0;
+  }
+
+  .line {
+    width: 100%;
+    height: 8px;
+    background-color: #f3f3f3;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 42px;
+
+    .pwInputBox {
+      @include inputBox(50px, 15px 18px);
+      margin-bottom: 18px;
+    }
+  }
+
+  .msg {
+    @include text-style($fs-15, $red, 400);
+    display: block;
+  }
+
+  .successMsg {
+    @include text-style($fs-15, $main, 400);
+    display: block;
+  }
+}
