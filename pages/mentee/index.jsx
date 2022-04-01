@@ -42,23 +42,25 @@ const Home = ({ classes, parsedCookies }) => {
 
   const [subjects, setSubjects] = useState(["전체"]);
   const [systemType, setSystemType] = useState(["전체"]);
+  const [isGroup, setIsGroup] = useState(["전체"]);
+  const [difficultyType, setDifficultyType] = useState(["전체"]);
   const [isVisible, setIsVisible] = useState(false);
   const [value, setValue] = useState("1");
 
-  const handleSubjects = (label) => {
-    if (label === "전체" || subjects === []) {
-      setSubjects(["전체"]);
-    } else if (!subjects.includes(label)) {
-      setSubjects([...subjects.filter((el) => el !== "전체"), label]);
-    } else if (subjects.includes(label)) {
-      if (subjects.length === 1) {
-        setSubjects(["전체"]);
+  const handleFilter = (label, value, setValue) => {
+    if (label === "전체" || value === []) {
+      setValue(["전체"]);
+    } else if (!value.includes(label)) {
+      setValue([...value.filter((el) => el !== "전체"), label]);
+    } else if (value.includes(label)) {
+      if (value.length === 1) {
+        setValue(["전체"]);
       } else {
-        setSubjects(subjects.filter((el) => el !== label));
+        setValue(value.filter((el) => el !== label));
       }
     }
   };
-  console.log(subjects);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -128,7 +130,9 @@ const Home = ({ classes, parsedCookies }) => {
                       key={idx}
                       label={subject}
                       color="primary"
-                      onClick={() => handleSubjects(subject)}
+                      onClick={() =>
+                        handleFilter(subject, subjects, setSubjects)
+                      }
                       style={{
                         backgroundColor: subjects.includes(subject)
                           ? "#689AFD"
@@ -149,11 +153,20 @@ const Home = ({ classes, parsedCookies }) => {
                 <div>
                   {systemTypeList.map((type, idx) => (
                     <Chip
+                      onClick={() =>
+                        handleFilter(type, systemType, setSystemType)
+                      }
                       key={idx}
                       label={type}
                       color="primary"
                       style={{
-                        backgroundColor: "#689AFD",
+                        backgroundColor: systemType.includes(type)
+                          ? "#689AFD"
+                          : "white",
+                        color: systemType.includes(type) ? "white" : "black",
+                        border: systemType.includes(type)
+                          ? ""
+                          : "1px solid #E8EAEF",
                         marginTop: 12,
                         marginRight: 8,
                       }}
@@ -167,8 +180,15 @@ const Home = ({ classes, parsedCookies }) => {
                       key={idx}
                       label={group}
                       color="primary"
+                      onClick={() => handleFilter(group, isGroup, setIsGroup)}
                       style={{
-                        backgroundColor: "#689AFD",
+                        backgroundColor: isGroup.includes(group)
+                          ? "#689AFD"
+                          : "white",
+                        color: isGroup.includes(group) ? "white" : "black",
+                        border: isGroup.includes(group)
+                          ? ""
+                          : "1px solid #E8EAEF",
                         marginTop: 12,
                         marginRight: 8,
                       }}
@@ -184,8 +204,23 @@ const Home = ({ classes, parsedCookies }) => {
                       key={idx}
                       label={difficulty}
                       color="primary"
+                      onClick={() =>
+                        handleFilter(
+                          difficulty,
+                          difficultyType,
+                          setDifficultyType
+                        )
+                      }
                       style={{
-                        backgroundColor: "#689AFD",
+                        backgroundColor: difficultyType.includes(difficulty)
+                          ? "#689AFD"
+                          : "white",
+                        color: difficultyType.includes(difficulty)
+                          ? "white"
+                          : "black",
+                        border: difficultyType.includes(difficulty)
+                          ? ""
+                          : "1px solid #E8EAEF",
                         marginTop: 12,
                         marginRight: 8,
                       }}
@@ -195,15 +230,7 @@ const Home = ({ classes, parsedCookies }) => {
               </TabPanel>
             </TabContext>
           </Box>
-          <Chip
-            label="python"
-            color="primary"
-            style={{
-              backgroundColor: "#689AFD",
-              marginTop: 12,
-              marginRight: 8,
-            }}
-          />
+
           <div className={styles.bottom}>
             <button className={styles.resetbutton}>초기화</button>
             <button className={styles.findbutton}>강의보기</button>

@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { IC_HeartFill } from "../../icons";
 import Rating from "@mui/material/Rating";
 import { useRouter } from "next/router";
+import { transLevel } from "../mentor/class/classCard";
 
 const ClassCard = ({ classDetail }) => {
   const { title, explanation, lectureMentor, lecturePrices } = classDetail;
@@ -24,7 +25,7 @@ const ClassCard = ({ classDetail }) => {
             alt={title}
           />
           <div className={styles.labels}>
-            <div className={styles.label}>{classDetail.difficulty}</div>
+            <div className={styles.label}>{transLevel(classDetail)}</div>
           </div>
         </div>
         <div className={styles.informationBox}>

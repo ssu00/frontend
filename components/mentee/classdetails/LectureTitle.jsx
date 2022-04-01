@@ -2,26 +2,14 @@ import React, { useState } from "react";
 import LecturePrice from "./LecturePrice";
 import styles from "./LectureTitle.module.scss";
 import { IC_Star } from "../../../icons";
-import * as cookie from "cookie";
 import { MenuBtn } from "../../common";
-import { RatingBig } from "../../mentor/class/rating";
+import { Rating, RatingBig } from "../../mentor/class/rating";
 import ClassReview from "../../mentor/class/classReview";
-import { GetLectureDetail, GetReview } from "../../../core/api/Lecture";
 import renderHTML from "react-render-html";
 
-export async function getServerSideProps(context) {
-  const classID = context.query.cid;
-  const classData = await GetLectureDetail(classID);
-  const reviewData = await GetReview(classID);
-  const token = cookie.parse(context.req.headers.cookie).accessToken;
-
-  return {
-    props: { token, classData, reviewData },
-  };
-}
 function LectureTitle({ token, classData, reviewData }) {
   const [select, setSelect] = useState(true);
-  console.log(classData);
+
   const score =
     classData?.scoreAverage % 1 == 0
       ? classData?.scoreAverage + ".0"
@@ -30,25 +18,23 @@ function LectureTitle({ token, classData, reviewData }) {
     <>
       <div className={styles.container}>
         <div className={styles.main_box}>
-          <div className={styles.lang}>{`개발언어 > SQL / R / Python`}</div>
-          <div className={styles.title}>
-            금융권 취업을 위한 데이터 분석 및 모델링 - SQL, R, Python
-          </div>
+          <div
+            className={styles.lang}
+          >{`${classData.lectureSubjects[0].learningKind} > ${classData.lectureSubjects[0].krSubject}`}</div>
+          <div className={styles.title}>{classData.title}</div>
           <div className={styles.review}>
             <div className={styles.star}>
-              <IC_Star />
-              <IC_Star />
-              <IC_Star />
-              <IC_Star />
-              <IC_Star />
-              <span>5.0</span>
+              <Rating
+                w={49.72}
+                h={9.75}
+                otherStyle={styles.ratingSmallFill}
+                fillRating={score}
+              />
+              <span>{classData.scoreAverage}</span>
             </div>
-            <a href="#">24 개의 후기</a>
+            <a href="#">{`${classData.reviewCount} 개의 후기`}</a>
           </div>
-          <div className={styles.content}>
-            데이터분석 기초부터 실무까지,
-            <br /> 현업에서 사용하는 데이터 분석 기술 파헤치기 !{" "}
-          </div>
+          <div className={styles.content}>{renderHTML(classData?.content)}</div>
         </div>
         <LecturePrice />
         <span className={styles.line} />
@@ -70,7 +56,7 @@ function LectureTitle({ token, classData, reviewData }) {
 
         {select ? (
           <div className={styles.classIntroBlock}>
-            {/* {renderHTML(classData?.content)} */}
+            {renderHTML(classData?.content)}
           </div>
         ) : (
           <div className={styles.reviewSection}>

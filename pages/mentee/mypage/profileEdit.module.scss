@@ -1,0 +1,69 @@
+@import "../../../styles/main.module.scss";
+.profileEditSection {
+  @extend %page-base;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .imageSection {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px;
+
+    input {
+      display: none;
+    }
+
+    .profile {
+      position: relative;
+    }
+
+    .profileImage {
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+      background-color: grey;
+      border-radius: 50%;
+    }
+
+    .inputImage {
+      border-radius: 50%;
+    }
+
+    .editBtn {
+      position: absolute;
+      right: 3px;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      background-color: #689afd;
+      border: 0;
+      border-radius: 50%;
+    }
+  }
+
+  .line {
+    width: 100%;
+    height: 8px;
+    background-color: #f3f3f3;
+  }
+
+  .editBtnSection {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 21px 70px;
+  }
+
+  .fixedTab {
+    position: absolute;
+    bottom: 0;
+  }
+}

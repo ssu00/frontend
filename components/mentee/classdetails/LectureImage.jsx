@@ -1,15 +1,16 @@
 import React from "react";
 import styles from "./LectureImage.module.scss";
 import { IC_Enlarge } from "../../../icons";
+import { transLevel } from "../../mentor/class/classCard";
 
-function LectureImage() {
+function LectureImage({ classData }) {
   return (
     <div className={styles.container}>
       <IC_Enlarge width={"24px"} height={"24px"} className={styles.enlarge} />
 
       <div className={styles.new_box}>
         <span className={styles.new}>NEW</span>
-        <span>초급</span>
+        <span>{transLevel(classData)}</span>
       </div>
 
       <div className={styles.mentor_avatar_box}>
@@ -26,7 +27,8 @@ function LectureImage() {
           className={styles.mentor_avatar_bg}
         />
         <span>
-          <span>멘토</span>김하나
+          <span>멘토</span>
+          {classData.lectureMentor.nickname}
         </span>
       </div>
     </div>
