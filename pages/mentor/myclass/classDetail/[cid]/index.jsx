@@ -42,7 +42,13 @@ const ClassDetail = ({ token, classData, reviewData }) => {
     <section className={styles.classDetailSection}>
       <TopBar onClick={() => router.push("/mentor/myclass/myClassList")} />
       <div className={styles.imageBlock}>
-        <Image src={"/samples/lecture.png"} width={375} height={277} />
+        <Image
+          src={
+            classData.thumbnail ? classData.thumbnail : "/samples/lecture.png"
+          }
+          width={375}
+          height={277}
+        />
         <div className={styles.edit_remove_btn}>
           <BasicBtn
             text={"수정"}
