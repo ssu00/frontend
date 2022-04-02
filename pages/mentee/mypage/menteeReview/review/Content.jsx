@@ -1,30 +1,26 @@
 import React from "react";
 import styles from "./Content.module.scss";
-import Image from "next/image";
-import router from "next/router";
+import { Rating } from "../../../../../components/mentor/class/rating";
 
 function Content() {
   return (
     <div className={styles.container}>
       <div className={styles.mentee_info}>
         <div className={styles.left_box}>
-          <Image
+          {/* <Image
             src={"/images/mentee_image.png"}
             width={"32px"}
             height={"32px"}
-          />
+          /> */}
           <div className={styles.name_box}>
             <span>박민지</span>
             <span className={styles.stars}>
-              <Image src={"/images/star.svg"} width={"11px"} height={"11px"} />
-              <Image src={"/images/star.svg"} width={"11px"} height={"11px"} />
-              <Image src={"/images/star.svg"} width={"11px"} height={"11px"} />
-              <Image src={"/images/star.svg"} width={"11px"} height={"11px"} />
-              <Image
-                src={"/images/half_star.svg"}
-                width={"11px"}
-                height={"11px"}
-              />
+              {/* <Rating
+                w={"50px"}
+                h={"10px"}
+                otherStyle={styles.score}
+                fillRating={score}
+              /> */}
             </span>
           </div>
         </div>

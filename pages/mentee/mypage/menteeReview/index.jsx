@@ -53,7 +53,9 @@ const mypageMenteeReview = ({ unreviewedMentee, menteeReviews }) => {
         {tabCurrent === 0 ? (
           <UnWriteMenteeReview unreviewedMentee={unreviewedMentee} />
         ) : (
-          <WriteMenteeReview menteeReviews={menteeReviews} />
+          <>
+            <WriteMenteeReview menteeReviews={menteeReviews} />
+          </>
         )}
       </section>
 

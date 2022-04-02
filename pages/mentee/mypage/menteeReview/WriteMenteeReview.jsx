@@ -4,6 +4,8 @@ import styles from "./menteeReview.module.scss";
 import { NoWriteReviews } from "./NoWriteReviews";
 import { Rating } from "../../../../components/mentor/class/rating";
 import OptionModal from "../../../../components/old-mentee/OptionModal";
+import router from "next/router";
+import classNames from "classnames";
 
 const WriteMenteeReview = ({ menteeReviews }) => {
   useEffect(() => {
@@ -18,23 +20,29 @@ const WriteMenteeReview = ({ menteeReviews }) => {
   };
 
   const writeCon = menteeReviews?.content;
+
   return (
     <>
       {writeCon.length !== 0 ? (
         <>
           {writeCon?.map((review) => {
-            const lectureDate = review.createdAt.slice(0, 10);
-            const dateDot = lectureDate.split("-").join(".");
-
             const krSubject = review.lecture.lectureSubjects?.map(
               (subjects) => subjects.krSubject
             );
 
-            const score =
-              review.score % 1 === 0 ? review.score + ".0" : review.score;
             return (
-              <div key={review.lecture.id}>
-                <section>
+              <div
+                className={classNames(styles.pointer, styles.reviewList)}
+                key={review.lecture.id}
+              >
+                <section
+                  className={styles.reviewListInfo}
+                  onClick={() =>
+                    router.push(
+                      `/mentee/mypage/menteeReview/review/${review.lecture.id}`
+                    )
+                  }
+                >
                   <article className={styles.bg}>
                     <div className={styles.review}>
                       <img
@@ -61,15 +69,40 @@ const WriteMenteeReview = ({ menteeReviews }) => {
                           ))}
                         </p>
                       </div>
-                      <IC_Menu
-                        className={styles.pointer}
-                        onClick={handleModal}
-                      />
-                      {modal && <OptionModal modalHandler={handleModal} />}
                     </div>
                   </article>
                 </section>
-                <section className={styles.line2}>
+
+                <IC_Menu onClick={handleModal} />
+                {modal && (
+                  <OptionModal
+                    editClick={router.push(
+                      `/mentee/mypage/menteeReview/review/${review.lecture.id}/edit`
+                    )}
+                    modalHandler={handleModal}
+                  />
+                )}
+              </div>
+            );
+          })}
+
+          {writeCon?.map((review) => {
+            const lectureDate = review.createdAt.slice(0, 10);
+            const dateDot = lectureDate.split("-").join(".");
+
+            const score =
+              review.score % 1 === 0 ? review.score + ".0" : review.score;
+            return (
+              <div
+                onClick={() =>
+                  router.push(
+                    `/mentee/mypage/menteeReview/review/${review.lecture.id}`
+                  )
+                }
+                className={styles.pointer}
+                key={review.lecture.id}
+              >
+                <section className={classNames(styles.line2, styles.testt)}>
                   <article className={styles.bg}>
                     <div className={styles.writeReview}>
                       <Rating

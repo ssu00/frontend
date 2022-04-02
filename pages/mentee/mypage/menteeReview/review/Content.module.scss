@@ -1,0 +1,26 @@
+@import "../../../../../styles/main.module.scss";
+.line {
+  width: 375px;
+  height: 8px;
+  margin: 0 auto;
+  background-color: $bg-color;
+}
+
+.topSection {
+  width: 375px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  background-color: $white;
+}
+
+.container {
+  width: 375px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px;
+
+  border-top: 1px solid $line;
+  border-bottom: 1px solid $line;
+  background-color: #fff;
+}

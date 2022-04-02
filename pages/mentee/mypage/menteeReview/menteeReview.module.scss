@@ -49,6 +49,17 @@
   position: relative;
   background: $bg-color;
 
+  .reviewList {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid $line;
+    background: $white;
+
+    .reviewListInfo {
+      flex-basis: 340px;
+    }
+  }
+
   .line {
     display: block;
     width: 100%;
@@ -59,6 +70,7 @@
   .line2 {
     border-top: 1px solid $line;
     border-bottom: 1px solid $line;
+    margin-bottom: 8px;
   }
 
   .bg {
