@@ -76,7 +76,11 @@ const ClassDetail = ({ token, classData, reviewData }) => {
         </div>
         <div className={styles.mentorProfileBlock}>
           <Image
-            src={"/samples/lecture.png"}
+            src={
+              classData.lectureMentor.image
+                ? classData.lectureMentor.image
+                : "/samples/lecture.png"
+            }
             width={72}
             height={72}
             className={styles.mentorImg}
