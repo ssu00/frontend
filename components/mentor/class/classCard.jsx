@@ -33,8 +33,7 @@ const ClassCard = ({ data }) => {
     >
       <div className={styles.classCardImage}>
         <Image
-          // src={data.thumbnail ? data.thumbnail : ""}
-          src={"/samples/lecture.png"}
+          src={data.thumbnail ? data.thumbnail : "/samples/lecture.png"}
           width="330px"
           height="136px"
           alt=""
@@ -64,12 +63,6 @@ const ClassCard = ({ data }) => {
         </div>
 
         <span className={styles.subtitle}>{data.subTitle} </span>
-
-        {/* <div className={styles.likes}>
-          <span className={styles.heart} />
-        </div> */}
-        {/* <IC_Heart_Empty w={20} h={20} />
-          <IC_Location_Gray w={12} h={12} /> */}
         <strong className={styles.name}>
           멘토 {data.lectureMentor.nickname}
         </strong>

@@ -9,9 +9,9 @@ import {
   BasicModal,
   ModalWithBackground,
 } from "../../common";
-// import ImageCrop from "./ImageCrop";
+import ImgCrop from "./imgSubmitBlock";
 
-const Step01 = ({ form, handleChange, MoveStep }) => {
+const Step01 = ({ form, handleChange, imgChange, MoveStep }) => {
   const [modal, setModal] = useState(false);
   return (
     <div className={styles.step}>
@@ -42,8 +42,7 @@ const Step01 = ({ form, handleChange, MoveStep }) => {
           <h3 className={styles.question}>
             1. 강의 소개 메인 이미지를 등록해주세요.
           </h3>
-          <ClassRegistrationInputBox placeholder={"이미지 => aws s3"} />
-          {/* <ImageCrop className={styles.test} /> */}
+          <ImgCrop value={form.image} handleChange={imgChange} />
         </div>
         <div className={styles.questionBlock}>
           <h3 className={styles.question}>2. 강의 타이틀을 입력해주세요.</h3>

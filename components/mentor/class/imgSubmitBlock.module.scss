@@ -1,0 +1,34 @@
+@import "../../../styles/main.module.scss";
+
+.imgSubmitSection {
+  .imgSubmitBlock {
+    @include flexBox;
+    flex-direction: column;
+    width: 330px;
+    height: 277px;
+    cursor: pointer;
+    background-color: $bg-color;
+    border: 1px solid $line;
+    border-radius: 10px;
+
+    .sizeText {
+      @include text-style($fs-14, $light_gray, 400);
+      padding: 0;
+      margin-top: 20px;
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  .btnSection {
+    @include flexBox(between, center);
+    margin: 10px 0 11px;
+
+    .submitBtn {
+      @include btn-style(35px, 10px);
+      width: 48%;
+    }
+  }
+}

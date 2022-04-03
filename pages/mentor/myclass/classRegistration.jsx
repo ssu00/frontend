@@ -95,6 +95,16 @@ const ClassRegistration = ({ token, classIDReal, classData }) => {
   }));
 
   const step = form.step;
+  const onChangeWithoutE = (name, value) => {
+    dispatch(
+      ChangeField({
+        form: "classInfo",
+        key: name,
+        value,
+      })
+    );
+  };
+
   const onChange = (name, index) => async (e) => {
     let value = e.target.value;
     let discuss = form.discuss;
@@ -186,7 +196,12 @@ const ClassRegistration = ({ token, classIDReal, classData }) => {
   switch (step) {
     case 1:
       return (
-        <Step01 form={form} handleChange={onChange} MoveStep={RandomMove} />
+        <Step01
+          form={form}
+          handleChange={onChange}
+          imgChange={onChangeWithoutE}
+          MoveStep={RandomMove}
+        />
       );
     case 2:
       return (

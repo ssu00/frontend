@@ -14,6 +14,14 @@ import { IC_Bookmark, IC_Student } from "../../../icons";
 import { GetMyInfo } from "../../../core/api/User";
 import UserRole from "../../../utils/userRole";
 
+export const getServerSideProps = async (context) => {
+  const token = cookie.parse(context.req.headers.cookie).accessToken;
+  const userInfo = await GetMyInfo(token);
+  return {
+    props: { userInfo },
+  };
+};
+
 const MyPage = ({ userInfo }) => {
   return (
     <section className={styles.mypageSection}>
@@ -22,7 +30,7 @@ const MyPage = ({ userInfo }) => {
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
             <Image
-              src={"/samples/lecture.png"}
+              src={userInfo.image ? userInfo.image : "/samples/lecture.png"}
               width={56}
               height={56}
               className={styles.profileImg}
@@ -78,13 +86,5 @@ const MyPage = ({ userInfo }) => {
     </section>
   );
 };
-
-export async function getServerSideProps(context) {
-  const parsedCookies = cookie.parse(context.req.headers.cookie);
-  const userInfo = await GetMyInfo(parsedCookies.accessToken);
-  return {
-    props: { userInfo },
-  };
-}
 
 export default MyPage;
