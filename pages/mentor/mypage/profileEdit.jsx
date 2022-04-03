@@ -2,55 +2,46 @@ import { useEffect, useState } from "react";
 import router from "next/router";
 import Image from "next/image";
 import axios from "axios";
+import * as cookie from "cookie";
 import styles from "./profileEdit.module.scss";
+import { GetMyInfo } from "../../../core/api/User";
 import { BottomTab, TopBar, CategoryBtn } from "../../../components/common";
 import { IC_EditFill } from "../../../icons";
-
-const ProfileEdit = () => {
-  const [img, setImg] = useState("");
-  const [origin, setOrigin] = useState("");
-  const onChangeFile = (event) => {
-    console.log(event.target.files[0]);
-    const file = event.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-    axios
-      .post("/uploads/images", formData)
-      .then((response) => {
-        const url = response.data.url;
-        const userImages = {};
-        userImages.image = url;
-        setImg(url);
-
-        console.log(url);
-        axios
-          .put("/users/my-info/image", userImages)
-          .then((response) => {})
-          .catch((e) => {
-            console.log(e);
-          });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+import UploadImage from "../../../core/api/Image/uploadImage";
+import RegisterProfileImg from "../../../core/api/Image/registerProfileImg";
+import Router from "next/router";
+export const getServerSideProps = async (context) => {
+  const token = cookie.parse(context.req.headers.cookie).accessToken;
+  const userInfo = await GetMyInfo(token);
+  return {
+    props: { token, userInfo },
   };
+};
 
-  const myImage = () => {
-    axios
-      .get("/users/my-info")
-      .then((response) => {
-        if (response.data.image !== null) {
-          setOrigin(response.data.image);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
+const ProfileEdit = ({ token, userInfo }) => {
+  const [profile, setProfile] = useState("");
+  const [err, setErr] = useState("");
 
   useEffect(() => {
-    myImage();
+    if (userInfo.image == null) setProfile("/samples/lecture.png");
+    else setProfile(userInfo?.image);
+    console.log("userinfo=", userInfo);
   }, []);
+
+  const onChangeFile = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    const imgUrl = await UploadImage(formData);
+    const imgRegister = await RegisterProfileImg(token, imgUrl.data.url);
+    console.log("imgRef", imgRegister);
+    if (imgRegister.status == 200) {
+      Router.reload(window.location.pathname);
+      setErr("");
+    } else {
+      setErr("프로필 사진 등록에 실패했습니다.");
+    }
+  };
 
   return (
     <section className={styles.profileEditSection}>
@@ -58,59 +49,26 @@ const ProfileEdit = () => {
         text={"프로필 수정"}
         onClick={() => router.push("/mentor/mypage")}
       />
-
-      {/*imageSection 추후 수정 필요*/}
-      <section className={styles.imageSection}>
-        {img == "" ? (
-          origin == "" ? (
-            <>
-              <input
-                type="file"
-                id="profile"
-                accept="image/*"
-                onChange={(e) => onChangeFile(e)}
-              />
-              <label htmlFor="profile" className={styles.profile}>
-                <div className={styles.profileImage} />
-                <button aria-label="프로필 수정" className={styles.editBtn}>
-                  <IC_EditFill width="18.83" height="18.83" />
-                </button>
-              </label>
-            </>
-          ) : (
-            <>
-              <input
-                type="file"
-                id="profile"
-                accept="image/*"
-                onChange={(e) => onChangeFile(e)}
-              />
-              <Image
-                src={origin}
-                width="100px"
-                height="100px"
-                className={styles.inputImage}
-              ></Image>
-              <label htmlFor="profile">
-                <div className={styles.editBtn} />
-              </label>
-            </>
-          )
-        ) : (
-          <>
-            <input type="file" id="profile" onChange={(e) => onChangeFile(e)} />
+      <div className={styles.imgSection}>
+        <input
+          type="file"
+          id="profile"
+          accept="image/*"
+          onChange={(e) => onChangeFile(e)}
+        />
+        <label htmlFor="profile">
+          <div className={styles.img_icon}>
             <Image
-              src={img}
-              width="100px"
-              height="100px"
-              className={styles.inputImage}
-            ></Image>
-            <label htmlFor="profile">
-              <div className={styles.editBtn} />
-            </label>
-          </>
-        )}
-      </section>
+              src={profile ? profile : "/samples/lecture.png"}
+              width={100}
+              height={100}
+              className={styles.profileImage}
+            />
+            <IC_EditFill width={19} height={19} className={styles.editIcon} />
+          </div>
+        </label>
+        {err != "" && <span className={styles.errMsg}>{err}</span>}
+      </div>
 
       <span className={styles.line} />
       <section className={styles.editBtnSection}>
