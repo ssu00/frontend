@@ -4,26 +4,25 @@
   cursor: pointer;
 }
 
-.btnRadius {
-  padding: 8px 11px;
-  border-radius: 6px;
-  font-weight: 500;
-  font-size: $fs-13;
+.line {
+  height: 8px;
+  background-color: $bg-color;
+  border-top: 1px solid $line;
 }
 
-.day {
-  font-family: Montserrat !important;
-  font-style: normal;
-  font-size: $fs-15;
+.line2 {
+  border-bottom: 1px solid $line;
 }
 
-.contentText {
-  font-size: $fs-12;
-  margin: 0;
-  width: 330px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.line3 {
+  border-top: 1px solid $line;
+}
+
+.noReviews {
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+  @include flexBox(center, center);
 }
 
 .topSection {
@@ -49,50 +48,34 @@
   position: relative;
   background: $bg-color;
 
-  .reviewList {
-    display: flex;
-    align-items: center;
-    border-top: 1px solid $line;
-    background: $white;
-
-    .reviewListInfo {
-      flex-basis: 340px;
-    }
-  }
-
-  .line {
-    display: block;
-    width: 100%;
-    height: 8px;
-    background-color: $bg-color;
-  }
-
-  .line2 {
-    border-top: 1px solid $line;
-    border-bottom: 1px solid $line;
-    margin-bottom: 8px;
-  }
-
   .bg {
     background: $white;
     padding: 15px 20px;
   }
-  .classCnt {
-    @include text-style($fs-13, $sub, 500);
-    margin: 0 0 11px 8px;
-    text-align: left;
-  }
-
-  .subNotification {
-    @include text-style($fs-15, $light_gray, 400, left);
-  }
 }
 
-.noReviews {
-  display: flex;
-  flex-direction: column;
-  min-height: 70vh;
-  @include flexBox(center, center);
+// UnWriteMenteeReview
+
+.btnRadius {
+  padding: 8px 11px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: $fs-13;
+}
+
+.day {
+  font-family: Montserrat !important;
+  font-style: normal;
+  font-size: $fs-15;
+}
+
+.contentText {
+  font-size: $fs-12;
+  margin: 0;
+  width: 330px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .review {

@@ -20,7 +20,7 @@ export async function getServerSideProps(context) {
 
 const mypageMenteeReview = ({ unreviewedMentee, menteeReviews }) => {
   const tabMenu = ["후기작성", "후기내역"];
-  const [tabCurrent, setTabCurrent] = useState(1);
+  const [tabCurrent, setTabCurrent] = useState(0);
 
   const onClick = (idx) => {
     setTabCurrent(idx);
@@ -53,9 +53,7 @@ const mypageMenteeReview = ({ unreviewedMentee, menteeReviews }) => {
         {tabCurrent === 0 ? (
           <UnWriteMenteeReview unreviewedMentee={unreviewedMentee} />
         ) : (
-          <>
-            <WriteMenteeReview menteeReviews={menteeReviews} />
-          </>
+          <WriteMenteeReview menteeReviews={menteeReviews} />
         )}
       </section>
 
