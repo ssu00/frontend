@@ -28,7 +28,7 @@ function LectureImage({ classData }) {
         />
         <span>
           <span>멘토</span>
-          {classData.lectureMentor.nickname}
+          {classData.lectureMentor?.nickname}
         </span>
       </div>
     </div>

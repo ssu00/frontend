@@ -1,7 +1,12 @@
 import styles from "./classCard.module.scss";
 import Image from "next/image";
 import classNames from "classnames";
-import { IC_HeartFill } from "../../icons";
+import {
+  IC_HeartEmpty,
+  IC_HeartEmptySm,
+  IC_HeartRedFill,
+  IC_HeightBar,
+} from "../../icons";
 import Rating from "@mui/material/Rating";
 import { useRouter } from "next/router";
 import { transLevel } from "../mentor/class/classCard";
@@ -9,19 +14,24 @@ import { transLevel } from "../mentor/class/classCard";
 const ClassCard = ({ classDetail }) => {
   const { title, explanation, lectureMentor, lecturePrices } = classDetail;
   const router = useRouter();
-  const labels = ["초급", "그룹"];
-  const tags = ["ONLINE", "NEW"];
 
   return (
     <div className={styles.classCard} aria-label={`${title} 상세 정보 보기`}>
       <section
-        onClick={() => router.push(`/mentee/classdetails/${classDetail.id}`)}
+        onClick={() =>
+          router.push({
+            pathname: `/mentee/classdetails/${classDetail.id}`,
+            query: {
+              lecturePriceId: classDetail.lecturePrices[0].lecturePriceId,
+            },
+          })
+        }
       >
         <div className={styles.imageContainer}>
           <Image
             layout="fill"
             objectFit="cover"
-            src="/samples/lecture.png"
+            src={classDetail?.thumbnail}
             alt={title}
           />
           <div className={styles.labels}>
@@ -39,19 +49,14 @@ const ClassCard = ({ classDetail }) => {
           <p className={styles.tutorName}>{`튜터 ${lectureMentor.nickname}`}</p>
 
           <div className={styles.rating}>
-            <IC_HeartFill
-              width="12px"
-              height="9px"
-              fill="currentColor"
-              color="red"
-            />
-            <span>56</span>
-            <img
-              src={"/images/menteeall/height-bar.svg"}
-              width="1"
-              height="8"
-              className={styles.height_bar}
-            />
+            {classDetail.picked ? (
+              <IC_HeartRedFill width="16px" height="16px" />
+            ) : (
+              <IC_HeartEmptySm width="16px" height="16px" />
+            )}
+
+            <span>{classDetail.enrollmentCount}</span>
+            <IC_HeightBar width="1" height="8" className={styles.height_bar} />
 
             <Rating
               className={styles.stars}
@@ -66,10 +71,12 @@ const ClassCard = ({ classDetail }) => {
           </div>
 
           <div className={styles.price_box}>
-            <span className={styles.sale}>20%</span>
-            <span className={styles.price}>197,000</span>
+            <span className={styles.sale}></span>
+            <span className={styles.price}>
+              {classDetail.lecturePrices[0].totalPrice.toLocaleString()}
+            </span>
             <span className={styles.won}>원</span>
-            <span className={styles.month}>/1개월 기준</span>
+            <span className={styles.month}></span>
           </div>
         </div>
       </section>

@@ -18,28 +18,46 @@ import TabPanel from "@mui/lab/TabPanel";
 import Chip from "@mui/material/Chip";
 import GetLecture from "../../core/api/Mentee/getLecture";
 
-const Home = ({ classes, parsedCookies }) => {
-  const filters = ["개발 분야", "수업 방식", "레벨"];
-  const subjectsList = [
-    "전체",
-    "프론트엔드",
-    "백엔드",
-    "언어",
-    "안드로이드",
-    "IOS",
-    "임베디드 | IOT",
-    "데이터 사이언스",
-    "빅데이터",
-    "머신러닝 딥러닝",
-    "블록체인",
-    "데브옵스 | 인프라",
-    "데이터베이스",
-    "알고리즘 | 자료구조",
-  ];
-  const systemTypeList = ["전체", "온라인", "오프라인"];
-  const isGroupList = ["전체", "개인 강의", "그룹 강의"];
-  const difficultyTypesList = ["전체", "입문", "초급", "중급", "고급"];
+const filters = ["개발 분야", "수업 방식", "레벨"];
+const subjectsList = [
+  "전체",
+  "프론트엔드",
+  "백엔드",
+  "언어",
+  "안드로이드",
+  "IOS",
+  "임베디드 | IOT",
+  "데이터 사이언스",
+  "빅데이터",
+  "머신러닝 딥러닝",
+  "블록체인",
+  "데브옵스 | 인프라",
+  "데이터베이스",
+  "알고리즘 | 자료구조",
+];
+const systemTypeList = ["전체", "온라인", "오프라인"];
+const isGroupList = ["전체", "개인 강의", "그룹 강의"];
+const difficultyTypesList = ["전체", "입문", "초급", "중급", "고급"];
 
+const converDifficulty = (level) => {
+  if (level === "입문") return "BASIC";
+  else if (level === "초급") return "BEGINNER";
+  else if (level === "중급") return "INTERMEDIATE";
+  else if (level === "고급") return "ADVANCED";
+};
+
+const convertGroup = (group) => {
+  if (group === "개인 강의") return false;
+  else if (group === "그룹 강의") return true;
+};
+
+const convertType = (type) => {
+  if (type === "온라인") return "ONLINE";
+  else if (type === "오프라인") return "OFFLINE";
+};
+
+const Home = ({ classes, role, token }) => {
+  const [classData, setClassData] = useState(classes);
   const [subjects, setSubjects] = useState(["전체"]);
   const [systemType, setSystemType] = useState(["전체"]);
   const [isGroup, setIsGroup] = useState(["전체"]);
@@ -47,11 +65,15 @@ const Home = ({ classes, parsedCookies }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [value, setValue] = useState("1");
 
-  const handleFilter = (label, value, setValue) => {
-    if (label === "전체" || value === []) {
+  const handleFilter = (label, value, setValue, length) => {
+    if (label === "전체") {
       setValue(["전체"]);
     } else if (!value.includes(label)) {
-      setValue([...value.filter((el) => el !== "전체"), label]);
+      if (!value.includes("전체") && value.length === length - 2) {
+        setValue(["전체"]);
+      } else {
+        setValue([...value.filter((el) => el !== "전체"), label]);
+      }
     } else if (value.includes(label)) {
       if (value.length === 1) {
         setValue(["전체"]);
@@ -61,6 +83,23 @@ const Home = ({ classes, parsedCookies }) => {
     }
   };
 
+  const getFilteredClassList = async () => {
+    const difficult = difficultyType.map((el) => converDifficulty(el));
+    const group = isGroup.map((el) => convertGroup(el));
+    const type = systemType.map((el) => convertType(el));
+    const data = {
+      difficultyTypes: difficult,
+      isGroup: group,
+      page: 1,
+      // subjects,
+      systemType: type,
+    };
+
+    const newLecture = await GetLecture(token, data);
+    setClassData(newLecture);
+    setIsVisible(false);
+  };
+  console.log(classData);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -73,6 +112,10 @@ const Home = ({ classes, parsedCookies }) => {
   const onClose = useCallback(() => {
     setIsVisible(false);
   }, []);
+
+  // useEffect(() => {
+  //   getFilteredClassList();
+  // }, [classes]);
 
   return (
     <div className={styles.home}>
@@ -91,10 +134,10 @@ const Home = ({ classes, parsedCookies }) => {
         <SearchBox />
         <Breadcrumb filters={filters} openDrawer={openDrawer} />
         <p className={styles.classesCount}>
-          총 {classes.content.length}개의 강의
+          총 {classData.content.length}개의 강의
         </p>
         <div className={styles.classCards}>
-          {classes.content.map((classDetail, index) => (
+          {classData.content.map((classDetail, index) => (
             <ClassCard key={index} classDetail={classDetail} />
           ))}
         </div>
@@ -131,7 +174,12 @@ const Home = ({ classes, parsedCookies }) => {
                       label={subject}
                       color="primary"
                       onClick={() =>
-                        handleFilter(subject, subjects, setSubjects)
+                        handleFilter(
+                          subject,
+                          subjects,
+                          setSubjects,
+                          subjectsList.length
+                        )
                       }
                       style={{
                         backgroundColor: subjects.includes(subject)
@@ -154,7 +202,12 @@ const Home = ({ classes, parsedCookies }) => {
                   {systemTypeList.map((type, idx) => (
                     <Chip
                       onClick={() =>
-                        handleFilter(type, systemType, setSystemType)
+                        handleFilter(
+                          type,
+                          systemType,
+                          setSystemType,
+                          systemTypeList.length
+                        )
                       }
                       key={idx}
                       label={type}
@@ -180,7 +233,14 @@ const Home = ({ classes, parsedCookies }) => {
                       key={idx}
                       label={group}
                       color="primary"
-                      onClick={() => handleFilter(group, isGroup, setIsGroup)}
+                      onClick={() =>
+                        handleFilter(
+                          group,
+                          isGroup,
+                          setIsGroup,
+                          isGroupList.length
+                        )
+                      }
                       style={{
                         backgroundColor: isGroup.includes(group)
                           ? "#689AFD"
@@ -208,7 +268,8 @@ const Home = ({ classes, parsedCookies }) => {
                         handleFilter(
                           difficulty,
                           difficultyType,
-                          setDifficultyType
+                          setDifficultyType,
+                          difficultyTypesList.length
                         )
                       }
                       style={{
@@ -233,24 +294,31 @@ const Home = ({ classes, parsedCookies }) => {
 
           <div className={styles.bottom}>
             <button className={styles.resetbutton}>초기화</button>
-            <button className={styles.findbutton}>강의보기</button>
+            <button
+              className={styles.findbutton}
+              onClick={getFilteredClassList}
+            >
+              강의보기
+            </button>
           </div>
         </Drawer>
       </main>
 
-      <BottomTab num={[1, 0, 0, 0]} />
+      <BottomTab num={[1, 0, 0, 0]} role={role} />
     </div>
   );
 };
 
 export const getServerSideProps = async (context) => {
   const parsedCookies = cookie.parse(context.req.headers.cookie);
+  const role = parsedCookies.role;
   const classes = await GetLecture(parsedCookies.accessToken, 1);
 
   return {
     props: {
       classes: JSON.parse(JSON.stringify(classes)),
-      parsedCookies,
+      role,
+      token: parsedCookies.accessToken,
     },
   };
 };

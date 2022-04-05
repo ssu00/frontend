@@ -25,6 +25,7 @@
 
   .checkIcon {
     @include pos(absolute, 4px, 0, 0, 4px);
+    pointer-events: none;
   }
 
   .selectedText {

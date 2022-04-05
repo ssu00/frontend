@@ -14,7 +14,8 @@ import { IC_Bookmark, IC_Student } from "../../../icons";
 import { GetMyInfo } from "../../../core/api/User";
 import UserRole from "../../../utils/userRole";
 
-const MyPage = ({ userInfo }) => {
+const MyPage = ({ userInfo, role }) => {
+  console.log(role);
   return (
     <section className={styles.mypageSection}>
       <MyPageTopBar />
@@ -56,6 +57,7 @@ const MyPage = ({ userInfo }) => {
           <button
             type="button"
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
+            onClick={() => router.push("/mentee/mypage/mypageWishList")}
           >
             <IC_Student w="30" h="30" />
             <span className={styles.bigBtnText}>위시리스트</span>
@@ -78,23 +80,27 @@ const MyPage = ({ userInfo }) => {
 
       <section className={styles.categorySection}>
         <h1 className={styles.title}>TUTOR LAB</h1>
-        <CategoryBtn text={"공지사항"} />
+        <CategoryBtn
+          text={"공지사항"}
+          onClick={() => router.push("/mentee/mypage/mypageNotice")}
+        />
         <CategoryBtn text={"이용약관"} />
         <CategoryBtn text={"문의하기"} />
         <CategoryBtn text={"버전정보"} />
       </section>
 
-      <BottomTab num={[0, 0, 0, 1]} />
+      <BottomTab num={[0, 0, 0, 1]} role={role} />
     </section>
   );
 };
 
 export async function getServerSideProps(context) {
   const parsedCookies = cookie.parse(context.req.headers.cookie);
+  const role = parsedCookies.role;
   const userInfo = await GetMyInfo(parsedCookies.accessToken);
 
   return {
-    props: { userInfo },
+    props: { userInfo, role },
   };
 }
 

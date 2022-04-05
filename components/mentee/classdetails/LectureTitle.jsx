@@ -20,7 +20,7 @@ function LectureTitle({ token, classData, reviewData }) {
         <div className={styles.main_box}>
           <div
             className={styles.lang}
-          >{`${classData.lectureSubjects[0].learningKind} > ${classData.lectureSubjects[0].krSubject}`}</div>
+          >{`${classData.lectureSubjects[0]?.learningKind} > ${classData.lectureSubjects[0]?.krSubject}`}</div>
           <div className={styles.title}>{classData.title}</div>
           <div className={styles.review}>
             <div className={styles.star}>

@@ -7,6 +7,8 @@ const SignUpErr = (datas, setCheckError) => {
       isError: true,
       errorMsg: "중복되는 닉네임입니다.",
     });
+  } else if (!EmailValidation(user.email)) {
+    setCheckError({ isError: true, errorMsg: "이메일 형식을 체크해주세요." });
   } else if (dupCheck.emailDupError == true) {
     setCheckError({
       isError: true,
@@ -21,8 +23,6 @@ const SignUpErr = (datas, setCheckError) => {
     user.phone == ""
   ) {
     setCheckError({ isError: true, errorMsg: "빈칸을 모두 채워주세요." });
-  } else if (!EmailValidation(user.email)) {
-    setCheckError({ isError: true, errorMsg: "이메일 형식을 체크해주세요." });
   } else if (user.pw.length > 14 || user.pw.length < 6) {
     setCheckError({
       isError: true,

@@ -1,9 +1,12 @@
 import axios from "axios";
-export const GetLectureDetails = async (token, id) => {
+export const GetLectureDetails = async (token, data) => {
   try {
-    const res = await axios.get(`/lectures/${id}`, {
-      headers: { Authorization: token },
-    });
+    const res = await axios.get(
+      `/lectures/${data.id}/lecturePrices/${data.lecturePriceId}`,
+      {
+        headers: { Authorization: token },
+      }
+    );
     return res.data;
   } catch (err) {
     return err;

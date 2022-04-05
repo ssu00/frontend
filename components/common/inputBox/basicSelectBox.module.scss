@@ -20,6 +20,7 @@
     position: absolute;
     top: 50%;
     left: 85%;
+    pointer-events: none;
     transform: translate(0, -50%);
   }
 

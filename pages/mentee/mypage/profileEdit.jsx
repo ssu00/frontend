@@ -9,6 +9,7 @@ import { IC_EditFill } from "../../../icons";
 const ProfileEdit = () => {
   const [img, setImg] = useState("");
   const [origin, setOrigin] = useState("");
+
   const onChangeFile = (event) => {
     console.log(event.target.files[0]);
     const file = event.target.files[0];
@@ -114,10 +115,22 @@ const ProfileEdit = () => {
 
       <span className={styles.line} />
       <section className={styles.editBtnSection}>
-        <CategoryBtn text={"회원정보 수정"} arrow={true} />
-        <CategoryBtn text={"비밀번호 변경"} arrow={true} />
+        <CategoryBtn
+          text={"회원정보 수정"}
+          arrow={true}
+          onClick={() => router.push("/common/editMemberInfo")}
+        />
+        <CategoryBtn
+          text={"비밀번호 변경"}
+          arrow={true}
+          onClick={() => router.push("/common/changePW")}
+        />
         <CategoryBtn text={"로그아웃"} arrow={true} />
-        <CategoryBtn text={"회원탈퇴"} arrow={true} />
+        <CategoryBtn
+          text={"회원탈퇴"}
+          arrow={true}
+          onClick={() => router.push("/common/withdraw")}
+        />
       </section>
       <BottomTab num={[0, 0, 0, 1]} />
     </section>

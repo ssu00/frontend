@@ -1,7 +1,15 @@
 import axios from "axios";
-export const GetLecture = async () => {
+import qs from "qs";
+
+export const GetLecture = async (token, data) => {
   try {
-    const res = await axios.get(`/lectures`);
+    const res = await axios.get(`/lectures`, {
+      headers: { Authorization: token },
+      params: data,
+      paramsSerializer: (params) => {
+        return qs.stringify(params, { arrayFormat: "repeat" });
+      },
+    });
     return res.data;
   } catch (err) {
     return err;

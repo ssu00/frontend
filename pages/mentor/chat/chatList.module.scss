@@ -1,0 +1,11 @@
+@import "../../../styles/main.module.scss";
+.chatList {
+  @extend %page-base;
+
+  .noChat {
+    @include flexBox;
+    height: 100vh;
+    padding-bottom: 80px;
+    background-color: $white;
+  }
+}

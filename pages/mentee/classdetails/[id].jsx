@@ -10,7 +10,9 @@ import styles from "./classdetails.module.scss";
 import GetLectureDetails from "../../../core/api/Mentee/getLectureDetails";
 import { GetReview } from "../../../core/api/Lecture";
 
-const ClassDetails = ({ token, classData, reviewData }) => {
+const ClassDetails = ({ token, classData, reviewData, params }) => {
+  console.log(classData);
+  console.log(params);
   return (
     <section className={styles.container}>
       <TopMenu />
@@ -27,16 +29,18 @@ const ClassDetails = ({ token, classData, reviewData }) => {
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const classID = context.params.id;
 
-  const classData = await GetLectureDetails(token, classID);
-  const reviewData = await GetReview(classID);
+  const params = context.query;
+
+  const classData = await GetLectureDetails(token, params);
+  const reviewData = await GetReview(params);
 
   return {
     props: {
       token,
       classData: JSON.parse(JSON.stringify(classData)),
       reviewData: JSON.parse(JSON.stringify(reviewData)),
+      params,
     },
   };
 }
