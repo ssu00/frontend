@@ -1,15 +1,22 @@
 import React, { useCallback, useState } from "react";
 import styles from "./BottomNavBar.module.scss";
-import { IC_HeartEmpty } from "../../../icons";
+import { IC_HeartEmpty, IC_HeartRedFill_Lg } from "../../../icons";
 import { IC_Share } from "../../../icons";
 import Drawer from "react-bottom-drawer";
-import { BasicBtn } from "../../common";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import EnrollClass from "../../../core/api/Mentee/enrollClass";
 
-function BottomNavBar() {
+function BottomNavBar({ classData, token, params }) {
   const [isVisible, setIsVisible] = useState(false);
   const [systemType, setSystemType] = useState("");
   const [group, setGroup] = useState("");
+
+  const handleEnrollClass = async () => {
+    try {
+      const res = await EnrollClass(token, params);
+      console.log(res);
+    } catch (error) {}
+  };
 
   const handleSelection = (value, setValue) => {
     setValue(value);
@@ -25,7 +32,11 @@ function BottomNavBar() {
   return (
     <div className={styles.container}>
       <button>
-        <IC_HeartEmpty width={"24px"} height={"24px"} />
+        {classData.picked ? (
+          <IC_HeartRedFill_Lg />
+        ) : (
+          <IC_HeartEmpty width={"24px"} height={"24px"} />
+        )}
       </button>
       <button>
         <IC_Share width={"24px"} height={"24px"} />
@@ -74,7 +85,9 @@ function BottomNavBar() {
           </Select>
         </FormControl>
         <span className={styles.line} />
-        <button className={styles.enroll}>강의 신청</button>
+        <button className={styles.enroll} onClick={handleEnrollClass}>
+          강의 신청
+        </button>
       </Drawer>
     </div>
   );

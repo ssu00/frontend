@@ -36,7 +36,7 @@ function LectureTitle({ token, classData, reviewData }) {
           </div>
           <div className={styles.content}>{renderHTML(classData?.content)}</div>
         </div>
-        <LecturePrice />
+        <LecturePrice classData={classData} />
         <span className={styles.line} />
 
         <div className={styles.btnBlock}>

@@ -70,6 +70,8 @@ import IC_Kakao from "./assets/kakao.svg";
 import IC_HeightBar from "./assets/height_bar.svg";
 import IC_HeartRedFill from "./assets/heart_red_fill.svg";
 import IC_HeartEmptySm from "./assets/heart_empty_sm.svg";
+import IC_HeartRedFill_Lg from "./assets/heart_red_fill_lg.svg";
+import IC_AvatarBg from "./assets/avatar_bg.svg";
 
 export {
   IC_AlarmActive,
@@ -144,4 +146,6 @@ export {
   IC_HeartRedFill,
   IC_HeartEmptySm,
   IC_ArrowRight,
+  IC_AvatarBg,
+  IC_HeartRedFill_Lg,
 };

@@ -22,7 +22,7 @@ const ClassDetails = ({ token, classData, reviewData, params }) => {
         classData={classData}
         reviewData={reviewData}
       />
-      <BottomNavBar />
+      <BottomNavBar classData={classData} token={token} params={params} />
     </section>
   );
 };
