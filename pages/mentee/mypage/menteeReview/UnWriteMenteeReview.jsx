@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import styles from "./menteeReview.module.scss";
-
 import classNames from "classnames";
 import BasicBtn from "../../../../components/common/button/basicBtn";
 import { basicBtnStyle } from "../../../../components/common";
@@ -16,6 +15,8 @@ const UnWriteMenteeReview = ({ unreviewedMentee }) => {
   }, []);
 
   const unWriteCon = unWrite.content;
+
+  console.log(unreviewedMentee, "unreviewedMentee");
   return (
     <>
       {unWrite.content?.length !== 0 ? (
@@ -23,6 +24,7 @@ const UnWriteMenteeReview = ({ unreviewedMentee }) => {
           {unWriteCon?.map((unreview) => {
             const lectureDate = unreview.createdAt.slice(0, 10);
             const dateDot = lectureDate.split("-").join(".");
+
             return (
               <div key={unreview.lecture.id}>
                 <section className={styles.line3}>
@@ -39,6 +41,9 @@ const UnWriteMenteeReview = ({ unreviewedMentee }) => {
                   alt={unreview.lecture.lectureTitle}
                 /> */}
                       <div className={styles.reviewCnt}>
+                        <p className={styles.reviewInfoText}>
+                          {unreview.lecture.mentorNickname}
+                        </p>
                         <p>{unreview.lectureTitle}</p>
                         <p className={styles.reviewInfoText}>
                           {unreview.lecture.systems?.map((type, i) => (
@@ -54,7 +59,7 @@ const UnWriteMenteeReview = ({ unreviewedMentee }) => {
                       <BasicBtn
                         onClick={() => {
                           router.push(
-                            `/mentee/mypage/mentee/review/${unreview.lecture.id}`
+                            `/mentee/mypage/menteeReview/review/${unreview.lecture.id}`
                           );
                         }}
                         text={"후기작성"}

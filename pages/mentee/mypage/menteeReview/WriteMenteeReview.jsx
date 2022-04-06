@@ -5,7 +5,6 @@ import { NoWriteReviews } from "./NoWriteReviews";
 import { Rating } from "../../../../components/mentor/class/rating";
 import OptionModal from "../../../../components/old-mentee/OptionModal";
 import router from "next/router";
-import classNames from "classnames";
 
 const WriteMenteeReview = ({ menteeReviews }) => {
   useEffect(() => {
@@ -40,11 +39,11 @@ const WriteMenteeReview = ({ menteeReviews }) => {
               <div key={review.lecture.id}>
                 <div
                   className={styles.pointer}
-                  // onClick={() =>
-                  //   router.push(
-                  //     `/mentee/mypage/menteeReview/review/${review.lecture.id}`
-                  //   )
-                  // }
+                  onClick={() =>
+                    router.push(
+                      `/mentee/mypage/menteeReview/review/detailReview/${review.lecture.id}`
+                    )
+                  }
                 >
                   <section className={styles.line3}>
                     <article className={styles.bg}>
@@ -78,7 +77,7 @@ const WriteMenteeReview = ({ menteeReviews }) => {
                           <OptionModal
                             editClick={() => {
                               router.push(
-                                `/mentee/mypage/menteeReview/review/${review.lecture.id}/edit/${id}`
+                                `/mentee/mypage/menteeReview/review/${review.lecture.id}/edit`
                               );
                             }}
                             modalHandler={handleModal}
