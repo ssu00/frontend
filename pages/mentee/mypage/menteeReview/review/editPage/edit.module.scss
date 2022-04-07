@@ -1,0 +1,141 @@
+@import "../../../../../../styles/main.module.scss";
+
+.line {
+  border-top: 1px solid $line;
+  border-bottom: 1px solid $line;
+}
+
+.line2 {
+  height: 8px;
+  width: 100%;
+  border-bottom: 1px solid $line;
+  background: $bg-color;
+}
+
+.pb13 {
+  padding-bottom: 13px;
+}
+
+.topSection {
+  display: flex;
+  align-items: center;
+  width: 375px;
+  margin: 0 auto;
+  background-color: $white;
+
+  .title {
+    @include text-style($fs-20, $sub, 400);
+    padding-top: 8px;
+    margin-bottom: 19px;
+  }
+
+  .category {
+    display: flex;
+    width: 100%;
+    height: 48px;
+  }
+}
+
+.contentSection {
+  @extend %page-base;
+  position: relative;
+  background: $bg-color;
+  overflow-x: hidden;
+
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: $fs-14;
+  }
+
+  .bg {
+    background: $white;
+    padding: 15px 20px;
+    margin-bottom: 8px;
+  }
+
+  .review {
+    display: flex;
+    align-items: center;
+
+    .reviewImg {
+      width: 70px;
+      height: 70px;
+      border-radius: 5%;
+      margin-right: 13px;
+    }
+
+    .lectureTitle {
+      font-size: $fs-14;
+    }
+
+    .mentorNickname {
+      font-size: $fs-12;
+      color: $light-gray;
+    }
+
+    .system {
+      margin-top: 8px;
+      font-size: $fs-12;
+      color: $light-gray;
+    }
+  }
+
+  .editCon {
+    margin: 0 auto;
+    text-align: center;
+
+    .editTitle {
+      margin-bottom: 18px;
+      font-size: $fs-16;
+      color: $sub;
+      font-weight: 600;
+    }
+
+    .textCon {
+      width: 330px;
+      height: 170px;
+      padding: 13px 21px;
+      background-color: $bg-color;
+      border: 1px solid $line;
+      border-radius: 10px;
+      outline: none;
+      resize: none;
+      color: $light_gray;
+
+      .textCon::placeholder {
+        @include text-style($fs-13, $light_gray, 400, left);
+      }
+    }
+
+    .ratingStar {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .infoCon {
+    .infoTitle {
+      color: $sub;
+      font-size: $fs-13;
+      font-weight: 600;
+    }
+
+    .infoList {
+      margin-top: 15px;
+      color: $light_gray;
+
+      p {
+        position: relative;
+        font-size: 10px;
+        margin-left: 7px;
+      }
+      p::before {
+        position: absolute;
+        top: 0;
+        left: -10px;
+        content: "・";
+      }
+    }
+  }
+}

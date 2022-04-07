@@ -9,6 +9,15 @@ import styles from "./writeReview.module.scss";
 import router from "next/router";
 import { IC_Logo } from "../../../../../icons";
 
+export async function getServerSideProps(context) {
+  const token = cookie.parse(context.req.headers.cookie).accessToken;
+  const unreviewedMentee = await getUnreviewedMentee(token);
+
+  return {
+    props: { unreviewedMentee },
+  };
+}
+
 const WriteMentee = ({ unreviewedMentee }) => {
   const [reviewInfo, setReviewInfo] = useState([]);
 
@@ -16,8 +25,9 @@ const WriteMentee = ({ unreviewedMentee }) => {
     setReviewInfo(unreviewedMentee);
   }, []);
 
-  const reviewInfoCon = unreviewedMentee.content;
+  const reviewInfoCon = unreviewedMentee?.content;
 
+  console.log(reviewInfoCon, "reviewInfoCon");
   return (
     <>
       <section className={styles.topSection}>

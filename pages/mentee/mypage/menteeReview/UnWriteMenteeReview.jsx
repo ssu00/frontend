@@ -16,7 +16,6 @@ const UnWriteMenteeReview = ({ unreviewedMentee }) => {
 
   const unWriteCon = unWrite.content;
 
-  console.log(unreviewedMentee, "unreviewedMentee");
   return (
     <>
       {unWrite.content?.length !== 0 ? (

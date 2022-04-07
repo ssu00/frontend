@@ -1,18 +1,23 @@
 import axios from "axios";
 
-export const editReview = async (lectureID, reviewID, content, score) => {
+export const editReview = async ({
+  token,
+  lectureID,
+  reviewID,
+  content,
+  score,
+}) => {
   try {
-    const res = await axios.post(
+    const res = await axios.put(
       `/mentees/my-lectures/${lectureID}/reviews/${reviewID}`,
       {
         content: content,
         score: score,
       },
-      {
-        headers: { Authorization: token },
-      }
+      { headers: { Authorization: token } }
     );
-    return res.data;
+    console.log(res);
+    return res;
   } catch (e) {
     console.log(e);
   }

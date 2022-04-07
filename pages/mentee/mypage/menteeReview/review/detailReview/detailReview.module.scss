@@ -1,5 +1,9 @@
 @import "../../../../../../styles/main.module.scss";
 
+.pointer {
+  cursor: pointer;
+}
+
 .line {
   border-top: 1px solid $line;
   border-bottom: 1px solid $line;

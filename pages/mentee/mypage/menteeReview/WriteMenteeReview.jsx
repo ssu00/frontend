@@ -77,7 +77,7 @@ const WriteMenteeReview = ({ menteeReviews }) => {
                           <OptionModal
                             editClick={() => {
                               router.push(
-                                `/mentee/mypage/menteeReview/review/${review.lecture.id}/edit`
+                                `/mentee/mypage/menteeReview/review/editPage/${review.lecture.id}`
                               );
                             }}
                             modalHandler={handleModal}

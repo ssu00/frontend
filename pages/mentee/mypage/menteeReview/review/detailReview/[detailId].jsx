@@ -2,23 +2,33 @@ import { React, useState, useEffect } from "react";
 import { getReviewMentee } from "../../../../../../core/api/Mentee/getReviewMentee";
 import * as cookie from "cookie";
 import styles from "./detailReview.module.scss";
-import { TopBar } from "../../../../../../components/common";
+import { BottomBlueBtn, TopBar } from "../../../../../../components/common";
 import { IC_Menu } from "../../../../../../icons";
 import router from "next/router";
 import classNames from "classnames";
 import { Rating } from "../../../../../../components/mentor/class/rating";
+import OptionModal from "../../../../../../components/old-mentee/OptionModal";
+import { detailReviewAPI } from "../../../../../../core/api/Mentee/detailReviewAPI";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const menteeReviews = await getReviewMentee(token);
+  const reviewID = context.query.rid;
 
   return {
-    props: { menteeReviews },
+    props: { menteeReviews, reviewID, token },
   };
 }
 
-const detailReview = ({ menteeReviews }) => {
+const detailReview = ({ menteeReviews, reviewID, token }) => {
   const [detail, setDetail] = useState([]);
+
+  const [modal, setModal] = useState(false);
+
+  const handleModal = (e) => {
+    e.stopPropagation();
+    setModal(!modal);
+  };
 
   useEffect(() => {
     setDetail(menteeReviews);
@@ -26,9 +36,27 @@ const detailReview = ({ menteeReviews }) => {
 
   const menteeCon = menteeReviews.content;
 
+  console.log(menteeReviews);
   return (
     <>
       <section className={styles.topSection}>
+        {menteeCon?.map((id) => {
+          return (
+            <div key={id.child.reviewId}>
+              {modal && (
+                <OptionModal
+                  editClick={() => {
+                    router.push(
+                      `/mentee/mypage/menteeReview/review/editPage/${id.child.reviewId}`
+                    );
+                  }}
+                  modalHandler={handleModal}
+                />
+              )}
+            </div>
+          );
+        })}
+
         <TopBar
           text={"후기 상세보기"}
           onClick={() => {
@@ -36,7 +64,7 @@ const detailReview = ({ menteeReviews }) => {
           }}
         />
 
-        <IC_Menu />
+        <IC_Menu onClick={handleModal} className={styles.pointer} />
       </section>
 
       <section className={styles.contentSection}>
@@ -134,6 +162,14 @@ const detailReview = ({ menteeReviews }) => {
           </div>
         </article>
       </section>
+      <BottomBlueBtn
+        text={"등록"}
+        onClick={async () => {
+          await detailReviewAPI(token, reviewID, content, score).then((res) =>
+            console.log(res)
+          );
+        }}
+      />
     </>
   );
 };
