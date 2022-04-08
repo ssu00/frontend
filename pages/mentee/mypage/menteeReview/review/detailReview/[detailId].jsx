@@ -2,25 +2,23 @@ import { React, useState, useEffect } from "react";
 import { getReviewMentee } from "../../../../../../core/api/Mentee/getReviewMentee";
 import * as cookie from "cookie";
 import styles from "./detailReview.module.scss";
-import { BottomBlueBtn, TopBar } from "../../../../../../components/common";
+import { TopBar } from "../../../../../../components/common";
 import { IC_Menu } from "../../../../../../icons";
 import router from "next/router";
 import classNames from "classnames";
 import { Rating } from "../../../../../../components/mentor/class/rating";
 import OptionModal from "../../../../../../components/old-mentee/OptionModal";
-import { detailReviewAPI } from "../../../../../../core/api/Mentee/detailReviewAPI";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const menteeReviews = await getReviewMentee(token);
-  const reviewID = context.query.rid;
 
   return {
-    props: { menteeReviews, reviewID, token },
+    props: { menteeReviews },
   };
 }
 
-const detailReview = ({ menteeReviews, reviewID, token }) => {
+const detailReview = ({ menteeReviews }) => {
   const [detail, setDetail] = useState([]);
 
   const [modal, setModal] = useState(false);
@@ -36,7 +34,6 @@ const detailReview = ({ menteeReviews, reviewID, token }) => {
 
   const menteeCon = menteeReviews.content;
 
-  console.log(menteeReviews);
   return (
     <>
       <section className={styles.topSection}>
@@ -162,14 +159,6 @@ const detailReview = ({ menteeReviews, reviewID, token }) => {
           </div>
         </article>
       </section>
-      <BottomBlueBtn
-        text={"등록"}
-        onClick={async () => {
-          await detailReviewAPI(token, reviewID, content, score).then((res) =>
-            console.log(res)
-          );
-        }}
-      />
     </>
   );
 };
