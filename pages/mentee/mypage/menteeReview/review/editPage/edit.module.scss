@@ -1,5 +1,10 @@
 @import "../../../../../../styles/main.module.scss";
 
+.modalHeight {
+  top: -30px;
+  height: 110%;
+}
+
 .line {
   border-top: 1px solid $line;
   border-bottom: 1px solid $line;

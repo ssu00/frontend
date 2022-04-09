@@ -20,7 +20,7 @@ const Login = () => {
   const checkAccount = async () => {
     const res = await Login_API(username, password);
     if (res.status == 200) {
-      router.push("/mentee");
+      router.push("/mentee/mypage");
       setCookie("accessToken", res.data, {
         path: "/",
         secure: true,

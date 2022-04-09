@@ -3,7 +3,13 @@ import { getUnreviewedMentee } from "../../../../../core/api/Mentee/getUnreviewe
 import * as cookie from "cookie";
 import { useState } from "react";
 import { useEffect } from "react";
-import { BottomBlueBtn, TopBar } from "../../../../../components/common";
+import {
+  BasicBtn,
+  BasicModal,
+  BottomBlueBtn,
+  ModalWithBackground,
+  TopBar,
+} from "../../../../../components/common";
 import styles from "./editPage/edit.module.scss";
 import router from "next/router";
 import { IC_Logo } from "../../../../../icons";
@@ -14,14 +20,17 @@ import writeReviewAPI from "../../../../../core/api/Mentee/writeReviewAPI";
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const unreviewedMentee = await getUnreviewedMentee(token);
+  const id = context.query.id;
 
   return {
-    props: { unreviewedMentee, token },
+    props: { unreviewedMentee, token, id },
   };
 }
 
-const WriteMentee = ({ unreviewedMentee, token }) => {
+const WriteMentee = ({ unreviewedMentee, token, id }) => {
   const [reviewInfo, setReviewInfo] = useState([]);
+
+  const [modal, setModal] = useState(false);
 
   const [content, setContent] = useState("");
   const [score, setScore] = useState(-1);
@@ -36,20 +45,31 @@ const WriteMentee = ({ unreviewedMentee, token }) => {
     setContent(e.target.value);
   };
 
+  console.log(id, "writeID");
+
   return (
     <>
-      <section className={styles.topSection}>
-        <TopBar
-          text={"후기 작성"}
-          onClick={() => {
-            router.back();
-          }}
-        />
-
-        <IC_Logo />
-      </section>
-
       <section className={styles.contentSection}>
+        {modal ? (
+          <ModalWithBackground
+            setModal={setModal}
+            className={styles.modalHeight}
+          ></ModalWithBackground>
+        ) : (
+          <></>
+        )}
+
+        <article className={styles.topSection}>
+          <TopBar
+            text={"후기 작성"}
+            onClick={() => {
+              router.back();
+            }}
+          />
+
+          <IC_Logo />
+        </article>
+
         <article className={styles.bg}>
           <div className={styles.review}>
             <img className={styles.reviewImg} src={"/samples/lecture2.jpg"} />
@@ -73,9 +93,7 @@ const WriteMentee = ({ unreviewedMentee, token }) => {
                     })}
                     {info.lecture.lecturePrices.map((group, i) => {
                       return (
-                        <span key={i}>
-                          {group.isGroup ? `/ ${group.isGroup}` : null}
-                        </span>
+                        <span key={i}>{group.isGroup ? `/ 그룹` : null}</span>
                       );
                     })}
                   </p>
@@ -141,9 +159,14 @@ const WriteMentee = ({ unreviewedMentee, token }) => {
       <BottomBlueBtn
         text={"등록"}
         onClick={async () =>
-          await writeReviewAPI(token, content, score).then((res) =>
-            console.log(res)
-          )
+          await writeReviewAPI(token, id, content, score).then((res) => {
+            console.log(res);
+            if (res === 201 || res === 200) {
+              setModal(true);
+            } else {
+              setModal(true);
+            }
+          })
         }
       />
     </>
