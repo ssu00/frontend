@@ -1,0 +1,40 @@
+@import "../../../styles/main.module.scss";
+.notiBlock {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 18px 21px;
+  background-color: $white;
+  border-bottom: 1px solid $line;
+
+  .alignRow {
+    @include flexBox(between, start);
+    margin-bottom: 8px;
+
+    h1 {
+      @include text-style($fs-12, $main, 700, left);
+      width: 80%;
+      padding: 0;
+      margin: 0;
+    }
+
+    span {
+      @include text-style($fs-12, $light_gray, 500, left);
+    }
+
+    p {
+      @include text-style($fs-12, $sub, 400, left);
+      padding: 0;
+      margin: 0;
+    }
+
+    button {
+      @include text-style($fs-10, $main, 500);
+      @include btn-style(20px, 10px);
+      width: 60px;
+      cursor: pointer;
+      background-color: $white;
+      border: 1px solid $main;
+    }
+  }
+}
