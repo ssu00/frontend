@@ -7,28 +7,30 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import EnrollClass from "../../../core/api/Mentee/enrollClass";
 
 function BottomNavBar({ classData, token, params }) {
-  const [isVisible, setIsVisible] = useState(false);
-  const [systemType, setSystemType] = useState("");
-  const [group, setGroup] = useState("");
+  // const [isVisible, setIsVisible] = useState(false);
+  // const [systemType, setSystemType] = useState("");
+  // const [group, setGroup] = useState("");
 
   const handleEnrollClass = async () => {
-    try {
-      const res = await EnrollClass(token, params);
-      console.log(res);
-    } catch (error) {}
+    const res = await EnrollClass(token, params);
+    if (res.status === 201) {
+      alert("강의등록 성공");
+    } else {
+      alert("동일한 수강내역이 존재합니다.");
+    }
   };
 
-  const handleSelection = (value, setValue) => {
-    setValue(value);
-  };
+  // const handleSelection = (value, setValue) => {
+  //   setValue(value);
+  // };
 
-  const openDrawer = () => {
-    setIsVisible(true);
-  };
+  // const openDrawer = () => {
+  //   setIsVisible(true);
+  // };
 
-  const onClose = useCallback(() => {
-    setIsVisible(false);
-  }, []);
+  // const onClose = useCallback(() => {
+  //   setIsVisible(false);
+  // }, []);
   return (
     <div className={styles.container}>
       <button>
@@ -41,11 +43,11 @@ function BottomNavBar({ classData, token, params }) {
       <button>
         <IC_Share width={"24px"} height={"24px"} />
       </button>
-      <button className={styles.subscription} onClick={openDrawer}>
+      <button className={styles.subscription} onClick={handleEnrollClass}>
         강의 신청
       </button>
       <div className={styles.indicator}></div>
-      <Drawer isVisible={isVisible} onClose={onClose} className={styles.drawer}>
+      {/* <Drawer isVisible={isVisible} onClose={onClose} className={styles.drawer}>
         <FormControl fullWidth className={styles.selecter}>
           <Select
             labelId="demo-simple-select-label"
@@ -85,10 +87,8 @@ function BottomNavBar({ classData, token, params }) {
           </Select>
         </FormControl>
         <span className={styles.line} />
-        <button className={styles.enroll} onClick={handleEnrollClass}>
-          강의 신청
-        </button>
-      </Drawer>
+        <button className={styles.enroll}>강의 신청</button>
+      </Drawer> */}
     </div>
   );
 }

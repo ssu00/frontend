@@ -6,6 +6,8 @@ import { MenuBtn } from "../../common";
 import { Rating, RatingBig } from "../../mentor/class/rating";
 import ClassReview from "../../mentor/class/classReview";
 import renderHTML from "react-render-html";
+import classNames from "classnames";
+import { transGroup } from "../classCard";
 
 function LectureTitle({ token, classData, reviewData }) {
   const [select, setSelect] = useState(true);
@@ -21,6 +23,14 @@ function LectureTitle({ token, classData, reviewData }) {
           <div
             className={styles.lang}
           >{`${classData.lectureSubjects[0]?.learningKind} > ${classData.lectureSubjects[0]?.krSubject}`}</div>
+          <div className={styles.tags}>
+            <div className={classNames(styles.tag)}>
+              {classData?.systems[0]?.type}
+            </div>
+            <div className={classNames(styles.tag)}>
+              {transGroup(classData?.lecturePrices[0].isGroup)}
+            </div>
+          </div>
           <div className={styles.title}>{classData.title}</div>
           <div className={styles.review}>
             <div className={styles.star}>

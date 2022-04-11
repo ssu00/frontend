@@ -170,3 +170,16 @@
     }
   }
 }
+
+.tags {
+  display: flex;
+  gap: 8px;
+}
+
+.tag {
+  @include text-style(10px, $green, 600, start);
+  padding: 2.5px 6px 3.5px;
+  margin-bottom: 7px;
+  background: rgba(89, 195, 99, 0.15);
+  border-radius: 6px;
+}

@@ -49,6 +49,9 @@ const MyPage = ({ userInfo, role }) => {
           <button
             type="button"
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
+            onClick={() =>
+              router.push("/mentee/mypage/mypageRegisteredLecture")
+            }
           >
             <IC_Bookmark />
             <span className={styles.bigBtnText}>신청한 강의</span>
@@ -85,7 +88,10 @@ const MyPage = ({ userInfo, role }) => {
           onClick={() => router.push("/mentee/mypage/mypageNotice")}
         />
         <CategoryBtn text={"이용약관"} />
-        <CategoryBtn text={"문의하기"} />
+        <CategoryBtn
+          text={"문의하기"}
+          onClick={() => router.push("/common/inquiry")}
+        />
         <CategoryBtn text={"버전정보"} />
       </section>
 

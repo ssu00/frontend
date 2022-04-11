@@ -1,14 +1,14 @@
 import axios from "axios";
 
-export const EnrollClass = async (token, params) => {
+const EnrollClass = async (token, params) => {
   try {
     const res = await axios.post(
       `/lectures/${params.id}/lecturePrices/${params.lecturePriceId}/enrollments`,
-      {
-        headers: { Authorization: token },
-      }
+      {},
+      { headers: { Authorization: token } }
     );
-    return res.data;
+
+    return res;
   } catch (err) {
     return err;
   }

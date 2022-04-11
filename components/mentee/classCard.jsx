@@ -11,6 +11,11 @@ import Rating from "@mui/material/Rating";
 import { useRouter } from "next/router";
 import { transLevel } from "../mentor/class/classCard";
 
+export const transGroup = (status) => {
+  if (!status) return "개인";
+  else return "그룹";
+};
+
 const ClassCard = ({ classDetail }) => {
   const { title, explanation, lectureMentor, lecturePrices } = classDetail;
   const router = useRouter();
@@ -42,6 +47,9 @@ const ClassCard = ({ classDetail }) => {
           <div className={styles.tags}>
             <div className={classNames(styles.tag)}>
               {classDetail?.systems[0]?.type}
+            </div>
+            <div className={classNames(styles.tag)}>
+              {transGroup(lecturePrices[0].isGroup)}
             </div>
           </div>
           <h2>{title}</h2>

@@ -57,13 +57,21 @@ const convertType = (type) => {
 };
 
 const Home = ({ classes, role, token }) => {
-  const [classData, setClassData] = useState(classes);
+  const [classData, setClassData] = useState(classes.content);
+  const [page, setPage] = useState(1);
   const [subjects, setSubjects] = useState(["전체"]);
   const [systemType, setSystemType] = useState(["전체"]);
   const [isGroup, setIsGroup] = useState(["전체"]);
   const [difficultyType, setDifficultyType] = useState(["전체"]);
   const [isVisible, setIsVisible] = useState(false);
   const [value, setValue] = useState("1");
+
+  console.log(subjects);
+
+  // 필터 컨버팅
+  const difficult = difficultyType.map((el) => converDifficulty(el));
+  const group = isGroup.map((el) => convertGroup(el));
+  const type = systemType.map((el) => convertType(el));
 
   const handleFilter = (label, value, setValue, length) => {
     if (label === "전체") {
@@ -83,23 +91,51 @@ const Home = ({ classes, role, token }) => {
     }
   };
 
+  const handleInfiniteScroll = useCallback(async () => {
+    // 현재 위치
+    const { scrollTop } = document.documentElement;
+
+    // 뷰포트 길이
+    const { innerHeight } = window;
+
+    // 스크롤 전체 길이
+    const { scrollHeight } = document.body;
+
+    if (Math.round(scrollTop + innerHeight) >= scrollHeight) {
+      setPage(page + 1);
+      const showMore = await GetLecture(token, {
+        difficultyTypes: difficult,
+        isGroup: group,
+        page: page + 1,
+        subjects,
+        systemType: type,
+      });
+
+      setClassData(classData.concat(...showMore.content));
+    }
+  }, [page, classData]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleInfiniteScroll, true);
+
+    return () => {
+      window.removeEventListener("scroll", handleInfiniteScroll, true);
+    };
+  }, [handleInfiniteScroll]);
+
   const getFilteredClassList = async () => {
-    const difficult = difficultyType.map((el) => converDifficulty(el));
-    const group = isGroup.map((el) => convertGroup(el));
-    const type = systemType.map((el) => convertType(el));
     const data = {
       difficultyTypes: difficult,
       isGroup: group,
       page: 1,
-      // subjects,
+      subjects,
       systemType: type,
     };
-
     const newLecture = await GetLecture(token, data);
-    setClassData(newLecture);
+    setClassData(newLecture.content);
     setIsVisible(false);
   };
-  console.log(classData);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -133,11 +169,9 @@ const Home = ({ classes, role, token }) => {
       <main>
         <SearchBox />
         <Breadcrumb filters={filters} openDrawer={openDrawer} />
-        <p className={styles.classesCount}>
-          총 {classData.content.length}개의 강의
-        </p>
+        <p className={styles.classesCount}>총 {classData.length}개의 강의</p>
         <div className={styles.classCards}>
-          {classData.content.map((classDetail, index) => (
+          {classData.map((classDetail, index) => (
             <ClassCard key={index} classDetail={classDetail} />
           ))}
         </div>
@@ -312,7 +346,7 @@ const Home = ({ classes, role, token }) => {
 export const getServerSideProps = async (context) => {
   const parsedCookies = cookie.parse(context.req.headers.cookie);
   const role = parsedCookies.role;
-  const classes = await GetLecture(parsedCookies.accessToken, 1);
+  const classes = await GetLecture(parsedCookies.accessToken, { page: 1 });
 
   return {
     props: {
