@@ -2,7 +2,8 @@ import React from "react";
 import Image from "next/image";
 import styles from "./ContentList.module.scss";
 import { IC_HeartRedFill, IC_Star } from "../../../icons";
-function ContentList() {
+function ContentList({ wish }) {
+  console.log(wish);
   return (
     <section className={styles.container}>
       <article>

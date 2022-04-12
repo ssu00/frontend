@@ -107,7 +107,7 @@ const Home = ({ classes, role, token }) => {
         difficultyTypes: difficult,
         isGroup: group,
         page: page + 1,
-        subjects,
+        subjects: subjects.filter((el) => el !== "전체"),
         systemType: type,
       });
 
@@ -128,12 +128,13 @@ const Home = ({ classes, role, token }) => {
       difficultyTypes: difficult,
       isGroup: group,
       page: 1,
-      subjects,
+      subjects: subjects.filter((el) => el !== "전체"),
       systemType: type,
     };
     const newLecture = await GetLecture(token, data);
     setClassData(newLecture.content);
     setIsVisible(false);
+    setPage(1);
   };
 
   const handleChange = (event, newValue) => {
