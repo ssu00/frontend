@@ -1,18 +1,15 @@
 import React from "react";
 import styles from "./ReviewModal.module.scss";
 
-const ReviewModal = ({ mainText, subText, cancelBtn, confirmBtn }) => {
+const ConfirmModal = ({ mainText, subText, confirm }) => {
   return (
     <section className={styles.modalStyle}>
       <article className={styles.roundModal}>
         <h3 className={styles.title}>{mainText}</h3>
         <p className={styles.subTitle}>{subText}</p>
 
-        <div className={styles.btnSection}>
-          <button className={styles.cancel} onClick={cancelBtn}>
-            <span>취소</span>
-          </button>
-          <button className={styles.check} onClick={confirmBtn}>
+        <div className={styles.confirmSection}>
+          <button className={styles.confirm} onClick={confirm}>
             <span>확인</span>
           </button>
         </div>
@@ -21,4 +18,4 @@ const ReviewModal = ({ mainText, subText, cancelBtn, confirmBtn }) => {
   );
 };
 
-export default ReviewModal;
+export default ConfirmModal;

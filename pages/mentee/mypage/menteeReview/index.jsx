@@ -14,11 +14,11 @@ export async function getServerSideProps(context) {
   const menteeReviews = await getReviewMentee(token);
 
   return {
-    props: { unreviewedMentee, menteeReviews },
+    props: { unreviewedMentee, menteeReviews, token },
   };
 }
 
-const mypageMenteeReview = ({ unreviewedMentee, menteeReviews }) => {
+const mypageMenteeReview = ({ token, unreviewedMentee, menteeReviews }) => {
   const tabMenu = ["후기작성", "후기내역"];
   const [tabCurrent, setTabCurrent] = useState(0);
 
@@ -53,7 +53,7 @@ const mypageMenteeReview = ({ unreviewedMentee, menteeReviews }) => {
         {tabCurrent === 0 ? (
           <UnWriteMenteeReview unreviewedMentee={unreviewedMentee} />
         ) : (
-          <WriteMenteeReview menteeReviews={menteeReviews} />
+          <WriteMenteeReview menteeReviews={menteeReviews} token={token} />
         )}
       </section>
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const writeReview = async ({ reviewID, content, score, token }) => {
+export const writeReview = async (reviewID, content, score, token) => {
   try {
     const res = await axios.post(
       `/mentees/my-lectures/${reviewID}/reviews`,

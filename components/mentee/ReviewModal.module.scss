@@ -1,0 +1,61 @@
+@import "../../styles/main.module";
+
+.modalStyle {
+  position: absolute;
+  .roundModal {
+    @extend %modal-base;
+    width: 337px;
+    height: 175px;
+    border-radius: 10px;
+
+    .title {
+      @include text-style(16px, $sub, 500);
+      margin-bottom: 10px;
+    }
+
+    .subTitle {
+      @include text-style(15px, $sub, 300);
+    }
+
+    .btnSection {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+
+      .cancel {
+        width: 100px;
+        height: 40px;
+        margin-right: 16px;
+        color: $white;
+        background: $light-gray;
+        font-size: 15px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+      }
+
+      .check {
+        width: 100px;
+        height: 40px;
+        color: $white;
+        background: $main;
+        font-size: 15px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-radius: 4px;
+      }
+    }
+
+    .confirm {
+      width: 216px;
+      height: 40px;
+      margin-top: 12px;
+      color: $white;
+      background: $main;
+      font-size: 15px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+  }
+}

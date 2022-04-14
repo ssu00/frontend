@@ -1,16 +1,22 @@
+import router from "next/router";
+
 import { useState, useEffect } from "react";
 import { IC_Menu } from "../../../../icons";
 import styles from "./menteeReview.module.scss";
 import { NoWriteReviews } from "./NoWriteReviews";
 import { Rating } from "../../../../components/mentor/class/rating";
 import OptionModal from "../../../../components/old-mentee/OptionModal";
-import router from "next/router";
+import deleteMenteeReivew from "../../../../core/api/Mentee/deleteMenteeReview";
 
-const WriteMenteeReview = ({ menteeReviews }) => {
-  useEffect(() => {
-    setReviews(menteeReviews);
-  }, []);
+export async function getServerSideProps(context) {
+  const token = cookie.parse(context.req.headers.cookie).accessToken;
 
+  return {
+    props: { token },
+  };
+}
+
+const WriteMenteeReview = ({ menteeReviews, token }) => {
   const [reviews, setReviews] = useState([]);
   const [modal, setModal] = useState(false);
 
@@ -19,13 +25,19 @@ const WriteMenteeReview = ({ menteeReviews }) => {
     setModal(!modal);
   };
 
-  const writeCon = menteeReviews?.content;
+  useEffect(() => {
+    setReviews(menteeReviews);
+  }, []);
+
+  const reviewCon = reviews.content?.map((review) => {
+    return review;
+  });
 
   return (
     <>
-      {writeCon.length !== 0 ? (
+      {reviewCon?.length !== 0 ? (
         <>
-          {writeCon?.map((review) => {
+          {reviewCon?.map((review) => {
             const lectureDate = review.createdAt.slice(0, 10);
             const dateDot = lectureDate.split("-").join(".");
 
@@ -39,11 +51,11 @@ const WriteMenteeReview = ({ menteeReviews }) => {
               <div key={review.lecture.id}>
                 <div
                   className={styles.pointer}
-                  onClick={() =>
+                  onClick={() => {
                     router.push(
-                      `/mentee/mypage/menteeReview/review/detailReview/${review.lecture.id}`
-                    )
-                  }
+                      `/mentee/mypage/menteeReview/review/detailPage/${review.lecture.id}/${review.reviewId}`
+                    );
+                  }}
                 >
                   <section className={styles.line3}>
                     <article className={styles.bg}>
@@ -72,13 +84,25 @@ const WriteMenteeReview = ({ menteeReviews }) => {
                             ))}
                           </p>
                         </div>
-                        <IC_Menu onClick={handleModal} />
+                        <IC_Menu
+                          className={styles.zIndex}
+                          onClick={handleModal}
+                        />
                         {modal && (
                           <OptionModal
-                            editClick={() => {
+                            editClick={(e) => {
+                              e.stopPropagation();
                               router.push(
-                                `/mentee/mypage/menteeReview/review/editPage/${review.lecture.id}`
+                                `/mentee/mypage/menteeReview/review/editPage/${review.lecture.id}/${review.reviewId}`
                               );
+                            }}
+                            deleteClick={() => {
+                              deleteMenteeReivew(
+                                token,
+                                review.lecture.id,
+                                review.reviewId
+                              );
+                              router.reload("/mentee/mypage/menteeReview");
                             }}
                             modalHandler={handleModal}
                           />

@@ -7,7 +7,6 @@ const writeReviewAPI = async (token, writeID, content, score) => {
       { headers: { Authorization: token } }
     );
 
-    console.log(res.status, "res.status");
     return res.status;
   } catch (err) {
     return err;

@@ -1,4 +1,4 @@
-@import "../../../../../../styles/main.module.scss";
+@import "../../../../../../../styles/main.module.scss";
 
 .modalHeight {
   top: -30px;
@@ -46,6 +46,7 @@
   position: relative;
   background: $bg-color;
   overflow-x: hidden;
+  white-space: pre-line;
 
   p {
     margin-top: 0;

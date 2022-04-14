@@ -1,51 +1,49 @@
 import React from "react";
-import { getUnreviewedMentee } from "../../../../../core/api/Mentee/getUnreviewedMentee";
 import * as cookie from "cookie";
 import { useState } from "react";
 import { useEffect } from "react";
 import {
-  BasicBtn,
-  BasicModal,
   BottomBlueBtn,
   ModalWithBackground,
   TopBar,
 } from "../../../../../components/common";
-import styles from "./editPage/edit.module.scss";
+import styles from "./editPage/[lid]/edit.module.scss";
 import router from "next/router";
 import { IC_Logo } from "../../../../../icons";
 import MenteeStar from "../../../../../components/mentee/MenteeStar";
 import classNames from "classnames";
 import writeReviewAPI from "../../../../../core/api/Mentee/writeReviewAPI";
+import ReviewModal from "../../../../../components/mentee/ReviewModal";
+import { getViewLecture } from "../../../../../core/api/Mentee/getViewLecture";
+import ConfirmModal from "../../../../../components/mentee/ConfirmModal";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const unreviewedMentee = await getUnreviewedMentee(token);
-  const id = context.query.id;
+  const reviewId = context.query.reviewId;
+
+  const viewLecture = await getViewLecture(reviewId, token);
 
   return {
-    props: { unreviewedMentee, token, id },
+    props: { token, reviewId, viewLecture },
   };
 }
 
-const WriteMentee = ({ unreviewedMentee, token, id }) => {
+const WriteMentee = ({ token, reviewId, viewLecture }) => {
   const [reviewInfo, setReviewInfo] = useState([]);
 
   const [modal, setModal] = useState(false);
+  const [confirm, setConfirm] = useState(false);
 
   const [content, setContent] = useState("");
   const [score, setScore] = useState(-1);
 
   useEffect(() => {
-    setReviewInfo(unreviewedMentee);
+    setReviewInfo(viewLecture);
   }, []);
-
-  const reviewInfoCon = unreviewedMentee?.content;
 
   const onChange = (e) => {
     setContent(e.target.value);
   };
-
-  console.log(id, "writeID");
 
   return (
     <>
@@ -54,7 +52,44 @@ const WriteMentee = ({ unreviewedMentee, token, id }) => {
           <ModalWithBackground
             setModal={setModal}
             className={styles.modalHeight}
-          ></ModalWithBackground>
+          >
+            <ReviewModal
+              mainText={"후기 등록"}
+              subText={"작성한 후기를 등록하시겠습니까?"}
+              cancelBtn={() => {
+                setModal(false);
+              }}
+              confirmBtn={async () => {
+                const res = await writeReviewAPI(
+                  token,
+                  reviewId,
+                  content,
+                  score
+                );
+
+                if (res == 200 || res == 201) {
+                  setConfirm(!confirm);
+                }
+              }}
+            />
+          </ModalWithBackground>
+        ) : (
+          <></>
+        )}
+
+        {confirm ? (
+          <ModalWithBackground
+            setModal={setModal}
+            className={styles.modalHeight}
+          >
+            <ConfirmModal
+              mainText={"후기 등록"}
+              subText={`후기 등록이 완료되었습니다.\n수강하시느라 고생 많으셨습니다.`}
+              confirm={() => {
+                router.push("/mentee/mypage/menteeReview");
+              }}
+            />
+          </ModalWithBackground>
         ) : (
           <></>
         )}
@@ -66,40 +101,33 @@ const WriteMentee = ({ unreviewedMentee, token, id }) => {
               router.back();
             }}
           />
-
           <IC_Logo />
         </article>
 
         <article className={styles.bg}>
           <div className={styles.review}>
-            <img className={styles.reviewImg} src={"/samples/lecture2.jpg"} />
-            {reviewInfoCon?.map((info) => {
-              return (
-                <div key={info.lecture.id}>
-                  <p className={styles.lectureTitle}>{info.lectureTitle}</p>
-                  <p className={styles.mentorNickname}>
-                    {info.lecture.mentorNickname}
-                  </p>
-                  <p className={styles.system}>
-                    옵션:
-                    {info.lecture.systems.map((system, i) => {
-                      return (
-                        <span key={i}>
-                          {system.name === "온라인"
-                            ? " 1. 온라인 "
-                            : " 1. 오프라인 "}
-                        </span>
-                      );
-                    })}
-                    {info.lecture.lecturePrices.map((group, i) => {
-                      return (
-                        <span key={i}>{group.isGroup ? `/ 그룹` : null}</span>
-                      );
-                    })}
-                  </p>
-                </div>
-              );
-            })}
+            <img className={styles.reviewImg} src={reviewInfo.thumbnail} />
+            <div>
+              <p className={styles.lectureTitle}>{reviewInfo.title}</p>
+              <p className={styles.mentorNickname}>
+                {reviewInfo.lectureMentor?.nickname}
+              </p>
+              <p className={styles.system}>
+                옵션:
+                {reviewInfo.systems?.map((system, i) => {
+                  return (
+                    <span key={i}>
+                      {system.name === "온라인"
+                        ? " 1. 온라인 "
+                        : " 1. 오프라인 "}
+                    </span>
+                  );
+                })}
+                {reviewInfo.lecturePrices?.map((group, i) => {
+                  return <span key={i}>{group.isGroup ? `/ 그룹` : null}</span>;
+                })}
+              </p>
+            </div>
           </div>
         </article>
 
@@ -158,16 +186,8 @@ const WriteMentee = ({ unreviewedMentee, token, id }) => {
       </section>
       <BottomBlueBtn
         text={"등록"}
-        onClick={async () =>
-          await writeReviewAPI(token, id, content, score).then((res) => {
-            console.log(res);
-            if (res === 201 || res === 200) {
-              setModal(true);
-            } else {
-              setModal(true);
-            }
-          })
-        }
+        onClick={setModal}
+        disabled={content.length < 20 || score < -1 ? true : false}
       />
     </>
   );
