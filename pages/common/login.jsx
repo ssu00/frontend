@@ -74,16 +74,16 @@ const Login = () => {
 
         <span className={styles.textButtons}>
           <BasicBtn
-            text={"아이디찾기"}
+            text={"회원가입하기"}
             btnStyle={classNames(styles.textBtn, basicBtnStyle.btn_transparent)}
             textStyle={styles.textBtnText}
-            onClick={() => router.push("/mentor/findID")}
+            onClick={() => router.push("/mentor/signup")}
           />
           <BasicBtn
             text={"비밀번호찾기"}
             btnStyle={classNames(styles.textBtn, basicBtnStyle.btn_transparent)}
             textStyle={styles.textBtnText}
-            onClick={() => router.push("/mentor/findPW")}
+            onClick={() => router.push("/common/findPW")}
           />
         </span>
       </div>
