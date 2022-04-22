@@ -7,6 +7,7 @@ export const GetLectureDetails = async (token, data) => {
         headers: { Authorization: token },
       }
     );
+
     return res.data;
   } catch (err) {
     return err;

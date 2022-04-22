@@ -1,17 +1,19 @@
 import classNames from "classnames";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 import { IC_WriteReview } from "../../../icons";
 import { basicBtnStyle } from "../../common";
 import styles from "./LectureBlock.module.scss";
 
 const LectureBlock = ({ lecture }) => {
+  const router = useRouter();
   return (
     <div className={styles.lectureBlock}>
       <div className={styles.lectureInfo}>
         <div className={styles.lectureImg}>
           <Image
-            src={lecture.thumbnail}
+            src={lecture.thumbnail ? lecture.thumbnail : "/"}
             width={84}
             height={84}
             alt="thumbnail"
@@ -24,7 +26,7 @@ const LectureBlock = ({ lecture }) => {
           </span>
           <span
             className={styles.price}
-          >{`${lecture.lecturePrices[0].totalPrice.toLocaleString()}원`}</span>
+          >{`${lecture.lecturePrice.totalPrice.toLocaleString()}원`}</span>
         </div>
       </div>
 
@@ -37,7 +39,18 @@ const LectureBlock = ({ lecture }) => {
           )}
         >
           <IC_WriteReview widht={14} height={14} className={styles.btnIcon} />
-          <span>후기작성</span>
+          <span
+            onClick={() =>
+              router.push({
+                pathname: `/mentee/mypage/menteeReview/WriteMenteeReview`,
+                // query: {
+                //   lecturePriceId: lecture.lecturePrice.lecturePriceId,
+                // },
+              })
+            }
+          >
+            후기작성
+          </span>
         </button>
       </div>
     </div>

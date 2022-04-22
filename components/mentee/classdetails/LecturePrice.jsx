@@ -8,8 +8,7 @@ function LecturePrice({ classData }) {
       <div className={styles.sale_box}>
         {/* <span className={styles.sale}>30%</span> */}
         <span className={styles.sale_price}>
-          <span>{classData.lecturePrices[0]?.totalPrice.toLocaleString()}</span>
-          원
+          <span>{classData.lecturePrice?.totalPrice.toLocaleString()}</span>원
         </span>
         <span className={styles.month}></span>
       </div>

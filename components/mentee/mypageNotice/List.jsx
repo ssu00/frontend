@@ -2,16 +2,23 @@ import React from "react";
 import styles from "./List.module.scss";
 import Image from "next/image";
 import { IC_ArrowRight } from "../../../icons";
-function List() {
+import { useRouter } from "next/router";
+function List({ notice }) {
+  const router = useRouter();
+  console.log(notice);
   return (
     <>
-      <div className={styles.line}>
-        <span></span>
-      </div>
-      <ul className={styles.container}>
+      <ul
+        className={styles.container}
+        onClick={() =>
+          router.push({
+            pathname: `/mentee/mypage/mypageNotice/${notice.noticeId}`,
+          })
+        }
+      >
         <li>
-          <span className={styles.date}>2021.09.29</span>
-          <h6>[1.1.0] 업데이트 안내</h6>
+          <span className={styles.date}>{notice.createdAt.slice(0, 10)}</span>
+          <h6>{notice.title}</h6>
           <span className={styles.tagIcon}>
             <IC_ArrowRight />
           </span>

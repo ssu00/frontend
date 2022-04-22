@@ -5,7 +5,7 @@ import Breadcrumb from "../../components/mentee/breadcrumb";
 import ClassCard from "../../components/mentee/classCard";
 import Header from "../../components/mentee/header";
 import SearchBox from "../../components/mentee/searchBox";
-import classes from "../../mock/data.json";
+
 import styles from "./menteeHome.module.scss";
 
 import Drawer from "react-bottom-drawer";
@@ -65,8 +65,6 @@ const Home = ({ classes, role, token }) => {
   const [difficultyType, setDifficultyType] = useState(["전체"]);
   const [isVisible, setIsVisible] = useState(false);
   const [value, setValue] = useState("1");
-
-  console.log(subjects);
 
   // 필터 컨버팅
   const difficult = difficultyType.map((el) => converDifficulty(el));
@@ -351,7 +349,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      classes: JSON.parse(JSON.stringify(classes)),
+      classes: classes,
       role,
       token: parsedCookies.accessToken,
     },

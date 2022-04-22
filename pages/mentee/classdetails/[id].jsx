@@ -11,8 +11,6 @@ import GetLectureDetails from "../../../core/api/Mentee/getLectureDetails";
 import { GetReview } from "../../../core/api/Lecture";
 
 const ClassDetails = ({ token, classData, reviewData, params }) => {
-  console.log(classData);
-  console.log(params);
   return (
     <section className={styles.container}>
       <TopMenu />
@@ -38,8 +36,8 @@ export async function getServerSideProps(context) {
   return {
     props: {
       token,
-      classData: JSON.parse(JSON.stringify(classData)),
-      reviewData: JSON.parse(JSON.stringify(reviewData)),
+      classData,
+      reviewData,
       params,
     },
   };
