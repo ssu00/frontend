@@ -11,7 +11,7 @@ import {
 } from "../../common";
 import ImgCrop from "./imgSubmitBlock";
 
-const Step01 = ({ form, handleChange, imgChange, MoveStep }) => {
+const Step01 = ({ form, handleChange, imgChange, MoveStep, token }) => {
   const [modal, setModal] = useState(false);
   return (
     <div className={styles.step}>
@@ -42,7 +42,7 @@ const Step01 = ({ form, handleChange, imgChange, MoveStep }) => {
           <h3 className={styles.question}>
             1. 강의 소개 메인 이미지를 등록해주세요.
           </h3>
-          <ImgCrop value={form.image} handleChange={imgChange} />
+          <ImgCrop value={form.image} handleChange={imgChange} token={token}/>
         </div>
         <div className={styles.questionBlock}>
           <h3 className={styles.question}>2. 강의 타이틀을 입력해주세요.</h3>
