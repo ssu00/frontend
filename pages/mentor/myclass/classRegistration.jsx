@@ -201,6 +201,7 @@ const ClassRegistration = ({ token, classIDReal, classData }) => {
           handleChange={onChange}
           imgChange={onChangeWithoutE}
           MoveStep={RandomMove}
+          token={token}
         />
       );
     case 2:
