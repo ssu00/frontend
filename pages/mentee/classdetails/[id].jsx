@@ -9,14 +9,17 @@ import * as cookie from "cookie";
 import styles from "./classdetails.module.scss";
 import GetLectureDetails from "../../../core/api/Mentee/getLectureDetails";
 import { GetReview } from "../../../core/api/Lecture";
+import { getViewMentor } from "../../../core/api/Mentor/getViewMentor";
 
-const ClassDetails = ({ token, classData, reviewData, params }) => {
-  console.log(classData);
-  console.log(params);
+const ClassDetails = ({ token, classData, reviewData, params, mentorData }) => {
   return (
     <section className={styles.container}>
       <TopMenu />
-      <LectureImage classData={classData} />
+      <LectureImage
+        classData={classData}
+        mentorData={mentorData}
+        params={params}
+      />
       <LectureTitle
         token={token}
         classData={classData}
@@ -34,13 +37,15 @@ export async function getServerSideProps(context) {
 
   const classData = await GetLectureDetails(token, params);
   const reviewData = await GetReview(params);
+  const mentorData = await getViewMentor(token, params);
 
   return {
     props: {
       token,
+      params,
       classData: JSON.parse(JSON.stringify(classData)),
       reviewData: JSON.parse(JSON.stringify(reviewData)),
-      params,
+      mentorData: JSON.parse(JSON.stringify(mentorData)),
     },
   };
 }

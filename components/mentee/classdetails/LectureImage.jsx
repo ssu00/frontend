@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./LectureImage.module.scss";
 import { IC_AvatarBg, IC_Enlarge } from "../../../icons";
 import { transLevel } from "../../mentor/class/classCard";
 import Image from "next/image";
+import router from "next/router";
+import classNames from "classnames";
 
-function LectureImage({ classData }) {
+function LectureImage({ classData, mentorData, params }) {
+  const [mentor, setMentor] = useState([]);
+
+  useEffect(() => {
+    setMentor(mentorData);
+  }, []);
+
   return (
     <div className={styles.imageBlock}>
       <Image
@@ -25,8 +33,11 @@ function LectureImage({ classData }) {
           }
           width={72}
           height={72}
-          className={styles.mentorImg}
+          className={classNames(styles.mentorImg, styles.pointer)}
           alt="avatar"
+          onClick={() => {
+            router.push(`/mentee/mentorDetail/${mentor.mentorId}`);
+          }}
         />
         <span className={styles.mentorName}>
           <span className={styles.role}>멘토 </span>
