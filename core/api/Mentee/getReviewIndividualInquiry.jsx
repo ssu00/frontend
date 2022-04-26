@@ -1,18 +1,11 @@
 import axios from "axios";
 
-export const getReviewIndividualInquiry = async (
-  token,
-  lectureId,
-  reviewId
-) => {
+export const getReviewIndividualInquiry = async (token, menteeReviewId) => {
   try {
-    const res = await axios.get(
-      `mentees/my-lectures/${lectureId}/reviews/${reviewId}`,
-      { headers: { Authorization: token } }
-    );
+    const res = await axios.get(`/mentees/my-reviews/${menteeReviewId}`, {
+      headers: { Authorization: token },
+    });
 
-    console.log(1);
-    console.log(res.data);
     return res.data;
   } catch (e) {
     console.log(e);

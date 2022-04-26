@@ -7,7 +7,7 @@ import {
   ModalWithBackground,
   TopBar,
 } from "../../../../../components/common";
-import styles from "./editPage/[lid]/edit.module.scss";
+import styles from "./editPage/edit.module.scss";
 import router from "next/router";
 import { IC_Logo } from "../../../../../icons";
 import MenteeStar from "../../../../../components/mentee/MenteeStar";
@@ -20,7 +20,6 @@ import ConfirmModal from "../../../../../components/mentee/ConfirmModal";
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const reviewId = context.query.reviewId;
-
   const viewLecture = await getViewLecture(reviewId, token);
 
   return {
@@ -35,7 +34,7 @@ const WriteMentee = ({ token, reviewId, viewLecture }) => {
   const [confirm, setConfirm] = useState(false);
 
   const [content, setContent] = useState("");
-  const [score, setScore] = useState(-1);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     setReviewInfo(viewLecture);
@@ -108,22 +107,18 @@ const WriteMentee = ({ token, reviewId, viewLecture }) => {
           <div className={styles.review}>
             <img className={styles.reviewImg} src={reviewInfo.thumbnail} />
             <div>
-              <p className={styles.lectureTitle}>{reviewInfo.title}</p>
+              <p className={styles.lectureTitle}>{reviewInfo.lectureTitle}</p>
               <p className={styles.mentorNickname}>
-                {reviewInfo.lectureMentor?.nickname}
+                {reviewInfo.lecture?.mentorNickname}
               </p>
               <p className={styles.system}>
                 옵션:
-                {reviewInfo.systems?.map((system, i) => {
-                  return (
-                    <span key={i}>
-                      {system.name === "온라인"
-                        ? " 1. 온라인 "
-                        : " 1. 오프라인 "}
-                    </span>
-                  );
-                })}
-                {reviewInfo.lecturePrices?.map((group, i) => {
+                {reviewInfo.lecture?.systems.length === 2
+                  ? "온라인/오프라인"
+                  : reviewInfo.lecture?.systems.name === "온라인"
+                  ? "온라인"
+                  : "오프라인"}
+                {reviewInfo.lecture?.lecturePrices?.map((group, i) => {
                   return <span key={i}>{group.isGroup ? `/ 그룹` : null}</span>;
                 })}
               </p>
@@ -141,9 +136,9 @@ const WriteMentee = ({ token, reviewId, viewLecture }) => {
                   width={"40px"}
                   height={"40px"}
                   key={i}
-                  color={score >= i ? "#ffd704" : "#e8eaef"}
+                  color={score >= i + 1 ? "#ffd704" : "#e8eaef"}
                   onClick={() => {
-                    setScore(i);
+                    setScore(i + 1);
                   }}
                 />
               );

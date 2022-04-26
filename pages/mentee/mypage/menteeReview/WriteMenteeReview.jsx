@@ -53,7 +53,7 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
                   className={styles.pointer}
                   onClick={() => {
                     router.push(
-                      `/mentee/mypage/menteeReview/review/detailPage/${review.lecture.id}/${review.reviewId}`
+                      `/mentee/mypage/menteeReview/review/detailPage/${review.menteeReviewId}`
                     );
                   }}
                 >
@@ -93,14 +93,14 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
                             editClick={(e) => {
                               e.stopPropagation();
                               router.push(
-                                `/mentee/mypage/menteeReview/review/editPage/${review.lecture.id}/${review.reviewId}`
+                                `/mentee/mypage/menteeReview/review/editPage/${review.menteeReviewId}`
                               );
                             }}
                             deleteClick={() => {
                               deleteMenteeReivew(
                                 token,
-                                review.lecture.id,
-                                review.reviewId
+                                review.enrollmentId,
+                                review.menteeReviewId
                               );
                               router.reload("/mentee/mypage/menteeReview");
                             }}

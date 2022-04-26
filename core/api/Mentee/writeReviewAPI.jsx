@@ -2,7 +2,7 @@ import axios from "axios";
 const writeReviewAPI = async (token, writeID, content, score) => {
   try {
     const res = await axios.post(
-      `mentees/my-lectures/${writeID}/reviews`,
+      `/mentees/my-enrollments/${writeID}/reviews`,
       { content: content, score: score },
       { headers: { Authorization: token } }
     );

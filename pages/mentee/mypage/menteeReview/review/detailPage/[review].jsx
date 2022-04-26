@@ -1,42 +1,30 @@
 import { React, useState, useEffect } from "react";
-import { getReviewIndividualInquiry } from "../../../../../../../core/api/Mentee/getReviewIndividualInquiry";
-import { getMyReviews } from "../../../../../../../core/api/Mentee/getMyReviews";
+import { getReviewIndividualInquiry } from "../../../../../../core/api/Mentee/getReviewIndividualInquiry";
+import { getMyReviews } from "../../../../../../core/api/Mentee/getMyReviews";
 import * as cookie from "cookie";
 import styles from "./detailReview.module.scss";
-import { TopBar } from "../../../../../../../components/common";
-import { IC_Menu } from "../../../../../../../icons";
+import { TopBar } from "../../../../../../components/common";
+import { IC_Menu } from "../../../../../../icons";
 import router from "next/router";
 import classNames from "classnames";
-import { Rating } from "../../../../../../../components/mentor/class/rating";
-import OptionModal from "../../../../../../../components/old-mentee/OptionModal";
-import RefreshPage from "../../../../../../../utils/RefreshPage";
-import deleteMenteeReivew from "../../../../../../../core/api/Mentee/deleteMenteeReview";
+import { Rating } from "../../../../../../components/mentor/class/rating";
+import OptionModal from "../../../../../../components/old-mentee/OptionModal";
+import RefreshPage from "../../../../../../utils/RefreshPage";
+import deleteMenteeReivew from "../../../../../../core/api/Mentee/deleteMenteeReview";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const review = context.query.review;
-  const detailId = context.query.detailId;
-
-  const menteeReviews = await getReviewIndividualInquiry(
-    token,
-    detailId,
-    review
-  );
+  const menteeReviews = await getReviewIndividualInquiry(token, review);
 
   const lecturesCon = await getMyReviews(review);
 
   return {
-    props: { token, menteeReviews, lecturesCon, review, detailId },
+    props: { token, menteeReviews, lecturesCon, review },
   };
 }
 
-const detailReview = ({
-  menteeReviews,
-  token,
-  lecturesCon,
-  review,
-  detailId,
-}) => {
+const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
   const [detail, setDetail] = useState([]);
   const [lectureConInfo, setLectureConInfo] = useState([]);
 
@@ -58,6 +46,9 @@ const detailReview = ({
   const reviewData = String(detail.createdAt).substr(0, 10);
   const dateDot = reviewData.split("-").join(".");
 
+  console.log(menteeReviews, "menteeReviews");
+  console.log(lecturesCon, "lecturesCon");
+
   return (
     <div key={menteeReviews.id}>
       <section className={styles.topSection}>
@@ -65,7 +56,7 @@ const detailReview = ({
           <OptionModal
             editClick={() => {
               router.push(
-                `/mentee/mypage/menteeReview/review/editPage/${detailId}/${review}`
+                `/mentee/mypage/menteeReview/review/editPage/${review}`
               );
             }}
             deleteClick={async () => {
@@ -96,17 +87,15 @@ const detailReview = ({
               <p>{lecture.title}</p>
               <p className={styles.mentorName}>{lecture.mentorNickname}</p>
 
-              {lecture.lecturePrices?.map((pricesInfo) => (
-                <p key={pricesInfo.lecturePriceId}>
-                  <span className={styles.totalPrice}>
-                    {pricesInfo.totalPrice
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                    <span className={styles.totalPriceWon}> 원 </span>
-                  </span>
-                  <span className={styles.priceStandard}>/ 1개월 기준</span>
-                </p>
-              ))}
+              <p>
+                <span className={styles.totalPrice}>
+                  {lecture?.lecturePrice.totalPrice
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  <span className={styles.totalPriceWon}> 원 </span>
+                </span>
+                <span className={styles.priceStandard}>/ 1개월 기준</span>
+              </p>
             </div>
           </div>
         </article>
@@ -133,24 +122,17 @@ const detailReview = ({
               </div>
 
               <div className={styles.reivew}>
-                {lectureConInfo.lecture?.systems?.map((option1, i) => {
-                  return (
-                    <p key={i}>
-                      {option1.name === "온라인" ? (
-                        <span>옵션1 : 온라인</span>
-                      ) : (
-                        <span>옵션1 : 오프라인</span>
-                      )}
-                    </p>
-                  );
-                })}
-                {lectureConInfo.lecture?.lecturePrices.map((option2, i) => {
-                  return (
-                    <p key={i} className={styles.mt14}>
-                      {option2.isGroup ? <span>옵션2 : 그룹</span> : null}
-                    </p>
-                  );
-                })}
+                <p className={styles.system}>
+                  옵션:{" "}
+                  {lecture?.systems.length === 2
+                    ? "온라인/오프라인"
+                    : lecture?.systems.name === "온라인"
+                    ? "온라인"
+                    : "오프라인"}
+                  {lecture.lecturePrices?.isGroup
+                    ? `${(<span>"/ 그룹"</span>)}`
+                    : null}
+                </p>
 
                 <div className={styles.reivewText}>
                   <p>{detail.content}</p>

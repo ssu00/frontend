@@ -4,45 +4,48 @@ import {
   BottomBlueBtn,
   ModalWithBackground,
   TopBar,
-} from "../../../../../../../components/common";
+} from "../../../../../../components/common";
 import router from "next/router";
 import styles from "./edit.module.scss";
-import { IC_Logo } from "../../../../../../../icons";
-import { getViewLecture } from "../../../../../../../core/api/Mentee/getViewLecture";
+import { IC_Logo } from "../../../../../../icons";
+import { getViewLecture } from "../../../../../../core/api/Mentee/getViewLecture";
 import classNames from "classnames";
-import MenteeStar from "../../../../../../../components/mentee/MenteeStar";
-import ConfirmModal from "../../../../../../../components/mentee/ConfirmModal";
-import ReviewModal from "../../../../../../../components/mentee/ReviewModal";
-import { editMenteeReview } from "../../../../../../../core/api/Mentee/editMenteeReview";
+import MenteeStar from "../../../../../../components/mentee/MenteeStar";
+import ConfirmModal from "../../../../../../components/mentee/ConfirmModal";
+import ReviewModal from "../../../../../../components/mentee/ReviewModal";
+import { editMenteeReview } from "../../../../../../core/api/Mentee/editMenteeReview";
+import { getOriginalReview } from "../../../../../../core/api/Mentee/getOriginalReview";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const lid = context.query.lid;
   const editId = context.query.editId;
-
-  const viewLecture = await getViewLecture(lid, token);
+  const viewLecture = await getViewLecture(editId, token);
+  const originalReview = await getOriginalReview(editId, token);
 
   return {
-    props: { token, lid, editId, viewLecture },
+    props: { token, editId, viewLecture, originalReview },
   };
 }
 
-const edit = ({ token, lid, editId, viewLecture }) => {
+const edit = ({ token, editId, viewLecture, originalReview }) => {
   const [reviews, setReviews] = useState([]);
-
+  const [modifyReview, setModifyReview] = useState([]);
+  const [score, setScore] = useState(0);
   const [content, setContent] = useState("");
-  const [score, setScore] = useState(-1);
-
   const [modal, setModal] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
   useEffect(() => {
     setReviews(viewLecture);
+    setModifyReview(originalReview);
+    setScore(originalReview.score);
   }, []);
 
   const onChange = (e) => {
     setContent(e.target.value);
   };
+
+  const lecture = originalReview.lecture;
 
   return (
     <>
@@ -54,13 +57,12 @@ const edit = ({ token, lid, editId, viewLecture }) => {
           >
             <ReviewModal
               mainText={"후기 등록"}
-              subText={"작성한 후기를 등록하시겠습니까?"}
+              subText={"작성한 후기를 수정하시겠습니까?"}
               cancelBtn={() => {
                 setModal(false);
               }}
               confirmBtn={async () => {
                 const res = await editMenteeReview(
-                  lid,
                   editId,
                   token,
                   content,
@@ -105,24 +107,24 @@ const edit = ({ token, lid, editId, viewLecture }) => {
         <section className={styles.contentSection}>
           <article className={styles.bg}>
             <div className={styles.review}>
-              <img className={styles.reviewImg} src={reviews.thumbnail} />
+              <img
+                className={styles.reviewImg}
+                src={originalReview.thumbnail}
+              />
               <div>
-                <p className={styles.lectureTitle}>{reviews.title}</p>
+                <p className={styles.lectureTitle}>{lecture.title}</p>
                 <p className={styles.mentorNickname}>
-                  {reviews.lectureMentor?.nickname}
+                  {lecture?.mentorNickname}
                 </p>
+
                 <p className={styles.system}>
-                  옵션:
-                  {reviews.systems?.map((system, i) => {
-                    return (
-                      <span key={i}>
-                        {system.name === "온라인"
-                          ? " 1. 온라인 "
-                          : " 1. 오프라인 "}
-                      </span>
-                    );
-                  })}
-                  {reviews.lecturePrices?.map((group, i) => {
+                  옵션:{" "}
+                  {lecture?.systems.length === 2
+                    ? "온라인/오프라인"
+                    : lecture?.systems.name === "온라인"
+                    ? "온라인"
+                    : "오프라인"}
+                  {lecture.lecturePrices?.map((group, i) => {
                     return (
                       <span key={i}>{group.isGroup ? "/ 그룹" : null}</span>
                     );
@@ -136,15 +138,15 @@ const edit = ({ token, lid, editId, viewLecture }) => {
             <div className={styles.editCon}>
               <p className={styles.editTitle}>강의는 만족하셨나요?</p>
 
-              {[...Array(5)].map((star, i) => {
+              {[...Array(5)].map((_, i) => {
                 return (
                   <MenteeStar
                     width={"40px"}
                     height={"40px"}
                     key={i}
-                    color={score >= i ? "#ffd704" : "#e8eaef"}
+                    color={score >= i + 1 ? "#ffd704" : "#e8eaef"}
                     onClick={() => {
-                      setScore(i);
+                      setScore(i + 1);
                     }}
                   />
                 );
@@ -157,9 +159,8 @@ const edit = ({ token, lid, editId, viewLecture }) => {
               <p className={styles.editTitle}>상세한 후기를 작성해주세요.</p>
               <textarea
                 className={styles.textCon}
-                placeholder={`강의에 대한 의견을 자유롭게 작성해주세요 \n최소 20자 이상`}
                 onChange={onChange}
-                value={content}
+                defaultValue={modifyReview.content}
               />
             </div>
           </article>
@@ -187,7 +188,7 @@ const edit = ({ token, lid, editId, viewLecture }) => {
         </section>
       </section>
       <BottomBlueBtn
-        text={"등록"}
+        text={"수정"}
         onClick={setModal}
         disabled={content.length < 20 || score < -1 ? true : false}
       />

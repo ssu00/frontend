@@ -1,19 +1,13 @@
 import axios from "axios";
 
-export const editMenteeReview = async (
-  lectureId,
-  reviewId,
-  token,
-  content,
-  score
-) => {
+export const editMenteeReview = async (reviewId, token, content, score) => {
   try {
     const res = await axios.put(
-      `/mentees/my-lectures/${lectureId}/reviews/${reviewId}`,
+      `/mentees/my-reviews/${reviewId}`,
       { content: content, score: score },
       { headers: { Authorization: token } }
     );
-    console.log(res, "ttt");
+
     return res;
   } catch (e) {
     console.log(e);

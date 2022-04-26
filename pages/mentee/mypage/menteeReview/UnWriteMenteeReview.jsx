@@ -59,7 +59,7 @@ const UnWriteMenteeReview = ({ unreviewedMentee }) => {
                       <BasicBtn
                         onClick={() => {
                           router.push(
-                            `/mentee/mypage/menteeReview/review/${unreview.lecture.id}`
+                            `/mentee/mypage/menteeReview/review/${unreview.enrollmentId}`
                           );
                         }}
                         text={"후기작성"}
