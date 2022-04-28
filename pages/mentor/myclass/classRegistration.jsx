@@ -206,7 +206,7 @@ const ClassRegistration = ({ token, classIDReal, classData }) => {
       );
     case 2:
       return (
-        <Step02 form={form} handleChange={onChange} MoveStep={RandomMove} />
+        <Step02 form={form} handleChange={onChange} MoveStep={RandomMove} token={token}/>
       );
     case 3:
       return (
