@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import styles from "./changePW.module.scss";
 import { BottomBlueBtn, TopBar, BasicInputBox } from "../../components/common";
 import * as cookie from "cookie";
 import ChangePassword from "../../core/api/User/changePW";
+import router from "next/router";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -50,7 +50,10 @@ const ChangePW = ({ token }) => {
 
   return (
     <section className={styles.changePW}>
-      <TopBar text={"비밀번호 변경"} />
+      <TopBar
+        text={"비밀번호 변경"}
+        onClick={() => router.push("/mentor/mypage/profileEdit")}
+      />
       <p className={styles.text}>
         주기적인 비밀번호 변경을 통해
         <br />
