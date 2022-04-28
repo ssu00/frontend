@@ -5,6 +5,7 @@ import styles from "./classReview.module.scss";
 import { BasicBtn, basicBtnStyle } from "../../common";
 import { DeleteMentorReview } from "../../../core/api/Lecture";
 import RefreshPage from "../../../utils/refreshPage";
+import { Rating } from "./rating";
 
 const MenteeReview = ({ data, onClick }) => {
   return (
@@ -16,7 +17,7 @@ const MenteeReview = ({ data, onClick }) => {
 
         <div className={styles.alignColumn}>
           <span className={styles.name}>{data.userNickname}</span>
-          <div className={styles.name}>별</div>
+          <Rating w={55} h={11} fillRating={data.score} />
         </div>
 
         <span className={styles.date}>{data.createdAt.substring(0, 10)}</span>
@@ -40,7 +41,7 @@ const MentorReview = ({ token, cid, mentee, data }) => {
             text={"수정"}
             onClick={() =>
               router.push(
-                `/mentor/myclass/classDetail/${cid}/review/${mentee.reviewId}`
+                `/mentor/myclass/classDetail/${cid}/review/${mentee.menteeReviewId}`
               )
             }
             btnStyle={classNames(basicBtnStyle.btn_transparent, styles.textBtn)}
@@ -49,7 +50,12 @@ const MentorReview = ({ token, cid, mentee, data }) => {
           <BasicBtn
             text={"삭제"}
             onClick={() => {
-              DeleteMentorReview(token, cid, mentee.reviewId, data.reviewId);
+              DeleteMentorReview(
+                token,
+                cid,
+                mentee.menteeReviewId,
+                data.mentorReviewId
+              );
               router.push(`/mentor/myclass/myClassList`);
               RefreshPage();
             }}
@@ -73,7 +79,7 @@ const ClassReview = ({ token, cid, mentee }) => {
   return (
     <section
       className={
-        child.reviewId
+        child.mentorReviewId
           ? styles.classReviewSectionNoCursor
           : styles.classReviewSection
       }
@@ -81,14 +87,14 @@ const ClassReview = ({ token, cid, mentee }) => {
       <MenteeReview
         data={mentee}
         onClick={() => {
-          if (!child.reviewId) {
+          if (!child.mentorReviewId) {
             router.push(
-              `/mentor/myclass/classDetail/${cid}/review/${mentee.reviewId}`
+              `/mentor/myclass/classDetail/${cid}/review/${mentee.menteeReviewId}`
             );
           }
         }}
       />
-      {child.reviewId ? (
+      {child.mentorReviewId ? (
         <MentorReview token={token} cid={cid} mentee={mentee} data={child} />
       ) : (
         <></>

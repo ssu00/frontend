@@ -1,9 +1,12 @@
 import styles from "./modalWithBackground.module.scss";
-const ModalWithBackground = ({ children, setModal }) => {
+const ModalWithBackground = ({ children, setModal, prevent }) => {
   return (
     <section
       className={styles.modalWithBackground}
-      onClick={() => setModal(false)}
+      onClick={() => {
+        if (prevent) setModal(true);
+        else setModal(false);
+      }}
     >
       <div className={styles.modal}>{children}</div>
     </section>
