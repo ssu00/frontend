@@ -17,7 +17,7 @@ export const transGroup = (status) => {
 };
 
 const ClassCard = ({ classDetail }) => {
-  const { title, explanation, lectureMentor, lecturePrices } = classDetail;
+  const { title, explanation, lectureMentor, lecturePrice } = classDetail;
   const router = useRouter();
 
   return (
@@ -25,20 +25,20 @@ const ClassCard = ({ classDetail }) => {
       <section
         onClick={() =>
           router.push({
-            pathname: `/mentee/classdetails/${classDetail.id}`,
+            pathname: `/mentee/classdetails/${classDetail.lectureId}`,
             query: {
-              lecturePriceId: classDetail.lecturePrices[0].lecturePriceId,
+              lecturePriceId: lecturePrice?.lecturePriceId,
             },
           })
         }
       >
         <div className={styles.imageContainer}>
-          <Image
+          {/* <Image
             layout="fill"
             objectFit="cover"
-            src={classDetail?.thumbnail}
+            src={classDetail.thumbnail ? classDetail.thumbnail : "/"}
             alt={title}
-          />
+          /> */}
           <div className={styles.labels}>
             <div className={styles.label}>{transLevel(classDetail)}</div>
           </div>
@@ -49,7 +49,7 @@ const ClassCard = ({ classDetail }) => {
               {classDetail?.systems[0]?.type}
             </div>
             <div className={classNames(styles.tag)}>
-              {transGroup(lecturePrices[0].isGroup)}
+              {transGroup(lecturePrice?.isGroup)}
             </div>
           </div>
           <h2>{title}</h2>
@@ -60,7 +60,7 @@ const ClassCard = ({ classDetail }) => {
             {classDetail.picked ? (
               <IC_HeartRedFill width="16px" height="16px" />
             ) : (
-              <IC_HeartEmptySm width="16px" height="16px" />
+              <IC_HeartRedFill width="16px" height="16px" />
             )}
 
             <span>{classDetail.enrollmentCount}</span>
@@ -81,7 +81,7 @@ const ClassCard = ({ classDetail }) => {
           <div className={styles.price_box}>
             <span className={styles.sale}></span>
             <span className={styles.price}>
-              {classDetail.lecturePrices[0].totalPrice.toLocaleString()}
+              {lecturePrice.totalPrice.toLocaleString()}
             </span>
             <span className={styles.won}>원</span>
             <span className={styles.month}></span>

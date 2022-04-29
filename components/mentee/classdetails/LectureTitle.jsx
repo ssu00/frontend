@@ -11,7 +11,7 @@ import { transGroup } from "../classCard";
 
 function LectureTitle({ token, classData, reviewData }) {
   const [select, setSelect] = useState(true);
-
+  console.log(classData);
   const score =
     classData?.scoreAverage % 1 == 0
       ? classData?.scoreAverage + ".0"
@@ -28,7 +28,7 @@ function LectureTitle({ token, classData, reviewData }) {
               {classData?.systems[0]?.type}
             </div>
             <div className={classNames(styles.tag)}>
-              {transGroup(classData?.lecturePrices[0].isGroup)}
+              {transGroup(classData?.lecturePrice.isGroup)}
             </div>
           </div>
           <div className={styles.title}>{classData.title}</div>

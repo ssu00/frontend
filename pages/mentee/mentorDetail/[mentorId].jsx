@@ -1,5 +1,5 @@
 import * as cookie from "cookie";
-import { getViewMentor } from "../../../core/api/Mentor/getViewMentor";
+import GetViewMentor from "../../../core/api/Mentor/getViewMentor";
 import { getMentorLectureList } from "../../../core/api/Mentor/getMentorLectureList";
 import styles from "../../mentor/mypage/mentorIntroduction.module.scss";
 import { BottomTab, MenuBtn, TopBar } from "../../../components/common";
@@ -7,16 +7,15 @@ import Image from "next/image";
 import MentorInfo from "./MentorInfo";
 import MentorLecture from "./MentorLecture";
 import { useState } from "react";
+import router from "next/router";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const params = context.query;
   params.id = params.mentorId;
 
-  const lectureId = context.query;
-
-  const mentorData = await getViewMentor(token, lectureId);
-  const mentorLectureList = await getMentorLectureList(token, lectureId);
+  const mentorData = await GetViewMentor(token, params.id);
+  const mentorLectureList = await getMentorLectureList(token, params.id);
 
   return {
     props: {
@@ -38,10 +37,23 @@ const MentorCon = ({ mentorData, lectureListData }) => {
 
   return (
     <section className={styles.mentorIntroductionSection}>
-      <TopBar />
+      <TopBar
+        onClick={() => {
+          router.back();
+        }}
+      />
       <section className={styles.basicInfo}>
         <article className={styles.mentorInfoCon}>
-          <Image src={user.image} alt={user.name} width={88} height={88} />
+          <div className={styles.mentorImg}>
+            <Image
+              src={user.image ? user.image : "/samples/lecture.png"}
+              className={styles.mentorImg}
+              alt={user.name}
+              width={88}
+              height={88}
+            />
+          </div>
+
           <div>
             <p>
               <span className={styles.role}>멘토</span>

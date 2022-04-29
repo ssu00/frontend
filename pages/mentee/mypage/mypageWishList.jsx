@@ -7,6 +7,7 @@ import * as cookie from "cookie";
 import GetMenteePicks from "../../../core/api/Mentee/getMenteePicks";
 
 export default function myPageWishList({ wishList }) {
+  console.log(wishList);
   return (
     <main className={styles.main}>
       <TopMenu />

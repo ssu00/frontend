@@ -18,7 +18,7 @@
   flex-wrap: wrap;
   justify-content: center;
   background: #fff;
-  padding-bottom: 36px;
+  // padding-bottom: 36px;
 
   li {
     width: 329px;
@@ -51,7 +51,8 @@
       font-size: 13px;
       line-height: 16px;
       /* identical to box height */
-
+      width: 90%;
+      text-overflow: ellipsis;
       display: flex;
       align-items: center;
 

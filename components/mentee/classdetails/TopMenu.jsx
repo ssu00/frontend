@@ -8,12 +8,9 @@ import { useRouter } from "next/router";
 function TopMenu() {
   const router = useRouter();
 
-  const handleBack = () => {
-    router.push("/mentee");
-  };
   return (
     <div className={styles.container}>
-      <IC_ArrowLeft width="24px" height="24px" onClick={handleBack} />
+      <IC_ArrowLeft width="24px" height="24px" onClick={() => router.back()} />
       <div>
         <IC_SearchS width="24px" height="24px" className={styles.search} />
         <IC_Logo width="24px" height="24px" />

@@ -74,10 +74,13 @@ const MyPage = ({ userInfo, role }) => {
         <h1 className={styles.title}>계정정보</h1>
         <CategoryBtn text={"내 계정"} />
         <CategoryBtn text={"내 강의"} />
-        <CategoryBtn text={"강의 요청"} />
         <CategoryBtn
           text={"강의 후기"}
           onClick={() => router.push("/mentee/mypage/menteeReview")}
+        />
+        <CategoryBtn
+          text={"게시판 활동내역"}
+          onClick={() => router.push("/mentee/mypage/mypageBoardActivity")}
         />
       </section>
 

@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const getViewMentor = async (token, data) => {
+const GetViewMentor = async (token, data) => {
   try {
-    const res = await axios.get(`/mentors/${data.id}`, {
+    const res = await axios.get(`/mentors/${data}`, {
       headers: { Authorization: token },
     });
     return res.data;
@@ -10,3 +10,5 @@ export const getViewMentor = async (token, data) => {
     return err;
   }
 };
+
+export default GetViewMentor;

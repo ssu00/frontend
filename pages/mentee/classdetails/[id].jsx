@@ -9,7 +9,7 @@ import * as cookie from "cookie";
 import styles from "./classdetails.module.scss";
 import GetLectureDetails from "../../../core/api/Mentee/getLectureDetails";
 import { GetReview } from "../../../core/api/Lecture";
-import { getViewMentor } from "../../../core/api/Mentor/getViewMentor";
+import GetViewMentor from "../../../core/api/Mentor/getViewMentor";
 
 const ClassDetails = ({ token, classData, reviewData, params, mentorData }) => {
   return (
@@ -18,13 +18,9 @@ const ClassDetails = ({ token, classData, reviewData, params, mentorData }) => {
       <LectureImage
         classData={classData}
         mentorData={mentorData}
-        params={params}
+        params={mentorData.mentorId}
       />
-      <LectureTitle
-        token={token}
-        classData={classData}
-        reviewData={reviewData}
-      />
+      <LectureTitle classData={classData} reviewData={reviewData} />
       <BottomNavBar classData={classData} token={token} params={params} />
     </section>
   );
@@ -37,15 +33,18 @@ export async function getServerSideProps(context) {
 
   const classData = await GetLectureDetails(token, params);
   const reviewData = await GetReview(params);
-  const mentorData = await getViewMentor(token, params);
+  const mentorData = await GetViewMentor(
+    token,
+    classData.lectureMentor.mentorId
+  );
 
   return {
     props: {
       token,
       params,
-      classData: JSON.parse(JSON.stringify(classData)),
-      reviewData: JSON.parse(JSON.stringify(reviewData)),
-      mentorData: JSON.parse(JSON.stringify(mentorData)),
+      classData,
+      reviewData,
+      mentorData,
     },
   };
 }
