@@ -8,6 +8,8 @@ const TransEduLevelToEng = (eduLevel) => {
       return "HIGH";
     case "대학교":
       return "UNIVERSITY";
+    case "대학원":
+      return "COLLEGE";
   }
 };
 
@@ -21,6 +23,8 @@ const TransEduLevelToKor = (eduLevel) => {
       return "고등학교";
     case "UNIVERSITY":
       return "대학교";
+    case "COLLEGE":
+      return "대학원";
   }
 };
 
