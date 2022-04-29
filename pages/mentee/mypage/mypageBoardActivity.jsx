@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 function MypageBoardActivity({ boardList, role }) {
   const router = useRouter();
-  console.log(boardList);
+
   return (
     <main className={styles.main}>
       <TopBar
@@ -19,7 +19,7 @@ function MypageBoardActivity({ boardList, role }) {
         onClick={() => router.push("/mentee/mypage")}
       />
       <Category />
-      <List />
+      <List boardList={boardList.content} />
       <BottomTab num={[0, 0, 0, 1]} role={role} />
     </main>
   );

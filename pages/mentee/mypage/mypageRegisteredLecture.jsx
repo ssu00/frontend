@@ -19,6 +19,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const MypageRegisteredLecture = ({ token, lectures, role }) => {
+  console.log(lectures);
   return (
     <section className={styles.LectureListSection}>
       <TopBar text={"구매한 강의"} onClick={() => router.back()} />

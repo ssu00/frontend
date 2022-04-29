@@ -5,6 +5,7 @@ import { IC_Share } from "../../../icons";
 import Drawer from "react-bottom-drawer";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import EnrollClass from "../../../core/api/Mentee/enrollClass";
+import { UpdatePicks } from "../../../core/api/Mentee/pick";
 
 function BottomNavBar({ classData, token, params }) {
   // const [isVisible, setIsVisible] = useState(false);
@@ -20,6 +21,11 @@ function BottomNavBar({ classData, token, params }) {
     }
   };
 
+  const handlePicks = async () => {
+    const res = await UpdatePicks(token, params);
+
+    console.log(res);
+  };
   // const handleSelection = (value, setValue) => {
   //   setValue(value);
   // };
@@ -33,7 +39,7 @@ function BottomNavBar({ classData, token, params }) {
   // }, []);
   return (
     <div className={styles.container}>
-      <button>
+      <button onClick={handlePicks}>
         {classData.picked ? (
           <IC_HeartRedFill_Lg />
         ) : (

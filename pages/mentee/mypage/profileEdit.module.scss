@@ -5,11 +5,10 @@
   display: flex;
   flex-direction: column;
 
-  .imageSection {
+  .imgSection {
+    @include flexBox;
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     width: 100%;
     height: 200px;
 
@@ -17,42 +16,36 @@
       display: none;
     }
 
-    .profile {
+    .img_icon {
       position: relative;
+
+      .profileImage {
+        @include avatar(100px, 100px);
+        cursor: pointer;
+      }
+
+      .editIcon {
+        @include pos(absolute, false, 3px, 0, false);
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        cursor: pointer;
+        background-color: $main;
+        border-radius: 50%;
+      }
     }
 
-    .profileImage {
-      width: 100px;
-      height: 100px;
-      cursor: pointer;
-      background-color: grey;
-      border-radius: 50%;
-    }
-
-    .inputImage {
-      border-radius: 50%;
-    }
-
-    .editBtn {
-      position: absolute;
-      right: 3px;
-      bottom: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-      background-color: #689afd;
-      border: 0;
-      border-radius: 50%;
+    .errMsg {
+      @include text-style($fs-14, $red, 400);
+      display: block;
+      margin-top: 10px;
     }
   }
 
   .line {
     width: 100%;
     height: 8px;
-    background-color: #f3f3f3;
+    background-color: $bg-color;
   }
 
   .editBtnSection {
@@ -60,10 +53,5 @@
     flex-direction: column;
     width: 100%;
     padding: 0 21px 70px;
-  }
-
-  .fixedTab {
-    position: absolute;
-    bottom: 0;
   }
 }

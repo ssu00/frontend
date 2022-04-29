@@ -22,3 +22,25 @@ export const UploadPost = async (token, data) => {
     return err.response;
   }
 };
+
+export const GetBoardDetail = async (token, post_id) => {
+  try {
+    const res = await axios.get(`/posts/${post_id}`, {
+      headers: { Authorization: token },
+    });
+    return res.data;
+  } catch (err) {
+    return err;
+  }
+};
+
+export const GetBoardDetailComments = async (token, post_id) => {
+  try {
+    const res = await axios.get(`/posts/${post_id}/comments`, {
+      headers: { Authorization: token },
+    });
+    return res.data;
+  } catch (err) {
+    return err;
+  }
+};

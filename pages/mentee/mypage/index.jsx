@@ -23,10 +23,11 @@ const MyPage = ({ userInfo, role }) => {
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
             <Image
-              src={"/samples/lecture.png"}
+              src={userInfo.image}
               width={56}
               height={56}
               className={styles.profileImg}
+              alt=""
             />
           </div>
 

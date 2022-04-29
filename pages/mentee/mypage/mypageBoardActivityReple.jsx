@@ -13,7 +13,7 @@ function MypageBoardActivityReple({ commentList, role }) {
     <main className={styles.main}>
       <TopBar title="게시판 활동내역" />
       <Category />
-      <List />
+      <List commentList={commentList.content} />
       <BottomTab num={[0, 0, 0, 1]} role={role} />
     </main>
   );

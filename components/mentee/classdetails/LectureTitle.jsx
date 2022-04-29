@@ -11,7 +11,7 @@ import { transGroup } from "../classCard";
 
 function LectureTitle({ token, classData, reviewData }) {
   const [select, setSelect] = useState(true);
-  console.log(classData);
+
   const score =
     classData?.scoreAverage % 1 == 0
       ? classData?.scoreAverage + ".0"
