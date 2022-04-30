@@ -1,0 +1,89 @@
+@import "../../../styles/main.module.scss";
+
+.lectureBlock {
+  @include flexBox(center, start);
+  flex-direction: column;
+  padding: 20px 0 16px;
+  border-bottom: 1px solid $line;
+
+  .btnSection {
+    @include flexBox(between, center);
+    width: 100%;
+
+    .btnForlectureBlock {
+      @include flexBox;
+      width: 100%;
+      height: 44px;
+      padding: 13px 44px;
+      cursor: pointer;
+      border-radius: 9px;
+      outline: none;
+
+      .btnIcon {
+        margin-right: 6px;
+      }
+    }
+
+    .btnForlectureBlock:hover {
+      color: $white;
+      background-color: $main;
+
+      .btnIcon {
+        svg,
+        path,
+        mask {
+          fill: $white;
+        }
+        stroke: $white;
+        fill: $white;
+      }
+    }
+  }
+
+  .lectureLine {
+    border: 0;
+
+    .lectureName {
+      width: 256px;
+    }
+
+    .arrowBtnUp {
+      cursor: pointer;
+      transform: rotate((180deg));
+    }
+  }
+
+  .lectureInfo {
+    @include flexBox(start, center);
+    width: 100%;
+    margin-bottom: 11px;
+
+    .lectureImg {
+      width: 84px;
+      height: 84px;
+      overflow: hidden;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .lectureInfoText {
+      @include flexBox(start, start);
+      flex-direction: column;
+      width: 70%;
+      margin-left: 12px;
+
+      .title {
+        @include text-style($fs-14, $sub, 400, left);
+      }
+
+      .classSystem {
+        @include text-style($fs-12, $light_gray, 500, left);
+        display: block;
+      }
+
+      .price {
+        @include text-style($fs-16, $sub, 600, left);
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ import { basicBtnStyle } from "..";
 
 const BottomBlueBtn = ({ text, onClick, disabled }) => {
   return (
-    <div className={styles.footer}>
+    <div className={styles.bottomBlueBtn}>
       <BasicBtn
         text={text}
         onClick={onClick}

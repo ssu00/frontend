@@ -13,16 +13,26 @@ import MyPageTopBar from "../../../components/mentor/mypage/mypageTopBar";
 import { IC_Bookmark, IC_Student } from "../../../icons";
 import { GetMyInfo } from "../../../core/api/User";
 import UserRole from "../../../utils/userRole";
+import GetUncheckedNotificationCount from "../../../core/api/Notification/getUncheckedNotificatonCount";
 
-const MyPage = ({ userInfo }) => {
+export const getServerSideProps = async (context) => {
+  const token = cookie.parse(context.req.headers.cookie).accessToken;
+  const userInfo = await GetMyInfo(token);
+  const uncheckedCnt = await GetUncheckedNotificationCount(token);
+  return {
+    props: { userInfo, uncheckedCnt },
+  };
+};
+
+const MyPage = ({ userInfo, uncheckedCnt }) => {
   return (
     <section className={styles.mypageSection}>
-      <MyPageTopBar />
+      <MyPageTopBar count={uncheckedCnt} />
       <section className={styles.profileSection}>
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
             <Image
-              src={"/samples/lecture.png"}
+              src={userInfo.image ? userInfo.image : "/samples/lecture.png"}
               width={56}
               height={56}
               className={styles.profileImg}
@@ -56,6 +66,7 @@ const MyPage = ({ userInfo }) => {
           <button
             type="button"
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
+            onClick={() => router.push("/mentor/mypage/menteeList")}
           >
             <IC_Student w="30" h="30" />
             <span className={styles.bigBtnText}>멘티 목록</span>
@@ -77,13 +88,5 @@ const MyPage = ({ userInfo }) => {
     </section>
   );
 };
-
-export async function getServerSideProps(context) {
-  const parsedCookies = cookie.parse(context.req.headers.cookie);
-  const userInfo = await GetMyInfo(parsedCookies.accessToken);
-  return {
-    props: { userInfo },
-  };
-}
 
 export default MyPage;

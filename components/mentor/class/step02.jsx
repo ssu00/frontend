@@ -11,7 +11,7 @@ import { IC_PlusCircle } from "../../../icons";
 import { GetSubjects } from "../../../core/api/Lecture";
 import LectureSubjectPick from "./lectureSubjectPick";
 
-const Step02 = ({ form, handleChange, MoveStep }) => {
+const Step02 = ({ form, handleChange, MoveStep, token }) => {
   const [subject, setSubject] = useState([]);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const Step02 = ({ form, handleChange, MoveStep }) => {
             <li>• 강의 진행방향 (예시 화면 첨부 등)</li>
           </ul>
         </div>
-        <Quill form={form} />
+        <Quill form={form} token={token} />
       </section>
       <BottomBlueBtn text={"다음"} onClick={() => MoveStep(form.step + 1)} />
     </div>

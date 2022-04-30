@@ -11,6 +11,7 @@ import { Login_API } from "../../core/api/Login";
 import { setCookie } from "../../utils/cookie";
 import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../icons";
 import { NameLogo } from "../../components/common/icons/nameLogo";
+import GetUserRoleType from "../../core/api/Login/roleTypeCheck";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -20,11 +21,21 @@ const Login = () => {
   const checkAccount = async () => {
     const res = await Login_API(username, password);
     if (res.status == 200) {
-      router.push("/mentee/mypage");
+      const role = await GetUserRoleType(res.data);
       setCookie("accessToken", res.data, {
         path: "/",
         secure: true,
       });
+      setCookie("role", role.loginType, {
+        path: "/",
+        secure: true,
+      });
+      if (role.loginType === "MENTOR") {
+        router.push("/mentor/myclass/myClassList");
+      }
+      if (role.loginType === "MENTEE") {
+        router.push("/mentee");
+      }
     } else {
       setError(true);
     }
@@ -74,16 +85,16 @@ const Login = () => {
 
         <span className={styles.textButtons}>
           <BasicBtn
-            text={"아이디찾기"}
+            text={"회원가입하기"}
             btnStyle={classNames(styles.textBtn, basicBtnStyle.btn_transparent)}
             textStyle={styles.textBtnText}
-            onClick={() => router.push("/mentor/findID")}
+            onClick={() => router.push("/mentor/signup")}
           />
           <BasicBtn
             text={"비밀번호찾기"}
             btnStyle={classNames(styles.textBtn, basicBtnStyle.btn_transparent)}
             textStyle={styles.textBtnText}
-            onClick={() => router.push("/mentor/findPW")}
+            onClick={() => router.push("/common/findPW")}
           />
         </span>
       </div>

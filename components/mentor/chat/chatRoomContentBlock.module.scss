@@ -1,0 +1,67 @@
+@import "../../../styles/main.module.scss";
+.myChat {
+  @include flexBox(center, end);
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  .blueContentBox {
+    background-color: $main;
+    border-radius: 16px 2px 16px 16px;
+
+    span {
+      @include text-style($fs-14, $white, 400);
+    }
+  }
+
+  .date {
+    @include text-style(11px, $gray, 400, right);
+    display: block;
+    margin: 5px 16px 0 0;
+  }
+}
+
+.blueContentBox,
+.whiteContentBox {
+  display: inline-block;
+  max-width: 80%;
+  padding: 10px 16px;
+  word-break: break-all;
+}
+
+.othersChat {
+  @include flexBox(start, start);
+  width: 100%;
+  margin-bottom: 10px;
+
+  .profileImg {
+    @include avatar(44px, 44px);
+    margin-right: 12px;
+  }
+
+  .menteeChat {
+    @include flexBox(start, start);
+    flex-direction: column;
+    width: 80%;
+
+    .name {
+      @include text-style($fs-12, $sub, 500, left);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .whiteContentBox {
+      background-color: $white;
+      border-radius: 2px 16px 16px 16px;
+
+      span {
+        @include text-style($fs-14, $sub, 400);
+      }
+    }
+
+    .date {
+      @include text-style(11px, $gray, 400, right);
+      display: block;
+      margin: 5px 0 0 16px;
+    }
+  }
+}

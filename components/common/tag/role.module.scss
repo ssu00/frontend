@@ -1,0 +1,9 @@
+@import "../../../styles/main.module.scss";
+
+.role_mentor {
+  @include tag-role;
+}
+
+.role_mentee {
+  @include tag-role(#e8effd, $main);
+}

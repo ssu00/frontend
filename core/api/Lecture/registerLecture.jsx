@@ -14,8 +14,7 @@ const LectureRegister = async ({ form, token }) => {
     lecturePrices: PriceToArray(form),
     lectureSubjects: FilterSubjectArr(form),
     systems: SystemToArr(form),
-    thumbnail:
-      "https://www.city.kr/files/attach/images/161/701/416/022/a2c34aa75756074e20552ccbac6894e8.jpg",
+    thumbnail: form.image,
   };
 
   try {

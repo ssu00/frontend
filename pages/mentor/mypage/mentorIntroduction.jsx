@@ -9,7 +9,8 @@ import { GetMyInfoAsMentor } from "../../../core/api/Mentor";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const myInfoAsMentor = await GetMyInfoAsMentor(token);
+  const myInfo = await GetMyInfoAsMentor(token);
+  const myInfoAsMentor = myInfo == null ? "" : myInfo;
   return {
     props: {
       myInfoAsMentor,
@@ -23,6 +24,8 @@ const MentorIntroduction = ({ myInfoAsMentor }) => {
   const edu = myInfoAsMentor.educations[0];
   const bio = myInfoAsMentor.bio;
 
+  const now = new Date();
+
   return (
     <section className={styles.mentorIntroductionSection}>
       <TopBar
@@ -34,10 +37,13 @@ const MentorIntroduction = ({ myInfoAsMentor }) => {
         <h1 className={styles.title}>기본정보</h1>
         <div className={styles.profile}>
           <div>
-            <MyPageInfoLine title={"이름"} content={user.name} />
-            <MyPageInfoLine title={"닉네임"} content={user.nickname} />
-            <MyPageInfoLine title={"휴대폰번호"} content={user.phoneNumber} />
+            <MyPageInfoLine
+              title={"나이"}
+              content={now.getFullYear() - user.birthYear + 1}
+            />
+            <MyPageInfoLine title={"성별"} content={user.gender} />
             <MyPageInfoLine title={"이메일"} content={user.username} />
+            <MyPageInfoLine title={"주소"} content={user.zone} />
           </div>
         </div>
       </section>

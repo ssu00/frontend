@@ -1,0 +1,44 @@
+@import "../../styles/main.module.scss";
+.findPWSection {
+  @extend %page-base;
+  display: flex;
+  flex-direction: column;
+  padding: 33px 63px 55px;
+
+  .title {
+    @include text-style($fs-15, $sub, 700);
+  }
+
+  .inputs {
+    @include flexBox;
+    flex-direction: column;
+    height: 80%;
+
+    .largeText {
+      @include text-style($fs-20, $sub, 700);
+      margin-bottom: 60px;
+
+      .blueText {
+        color: $main;
+      }
+    }
+
+    .inputBox {
+      @include inputBox(40px, 8px 16px);
+      margin-bottom: 16px;
+    }
+
+    .okBtn,
+    .disableBtn {
+      @include btn-style(50px, 10px);
+    }
+
+    .disableBtn {
+      cursor: not-allowed;
+    }
+
+    .okBtnText {
+      @include text-style($fs-15, $white, 700);
+    }
+  }
+}

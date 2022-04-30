@@ -18,10 +18,10 @@ import {
 } from "../../../../../components/mentor/class/rating";
 
 export async function getServerSideProps(context) {
-  const classID = context.query.cid;
-  const classData = await GetLectureDetail(classID);
-  const reviewData = await GetReview(classID);
   const token = cookie.parse(context.req.headers.cookie).accessToken;
+  const classID = context.query.cid;
+  const classData = await GetLectureDetail(classID, token);
+  const reviewData = await GetReview(classID);
 
   return {
     props: { token, classData, reviewData },
@@ -38,11 +38,19 @@ const ClassDetail = ({ token, classData, reviewData }) => {
       ? classData.scoreAverage + ".0"
       : classData.scoreAverage;
 
+  console.log(classData);
+
   return (
     <section className={styles.classDetailSection}>
       <TopBar onClick={() => router.push("/mentor/myclass/myClassList")} />
       <div className={styles.imageBlock}>
-        <Image src={"/samples/lecture.png"} width={375} height={277} />
+        <Image
+          src={
+            classData.thumbnail ? classData.thumbnail : "/samples/lecture.png"
+          }
+          width={375}
+          height={277}
+        />
         <div className={styles.edit_remove_btn}>
           <BasicBtn
             text={"수정"}
@@ -70,7 +78,11 @@ const ClassDetail = ({ token, classData, reviewData }) => {
         </div>
         <div className={styles.mentorProfileBlock}>
           <Image
-            src={"/samples/lecture.png"}
+            src={
+              classData.lectureMentor.image
+                ? classData.lectureMentor.image
+                : "/samples/mentor.svg"
+            }
             width={72}
             height={72}
             className={styles.mentorImg}
@@ -101,7 +113,14 @@ const ClassDetail = ({ token, classData, reviewData }) => {
       </div>
 
       <div className={styles.classPriceBlock}>
-        <h1>가격......</h1>
+        {classData.lecturePrices.map((data, i) => {
+          return (
+            <div className={styles.price} key={i}>
+              <span>{data.isGroup ? "그룹" : "1:1"}</span>
+              <h1>{data.totalPrice.toLocaleString("ko-KR")} 원</h1>
+            </div>
+          );
+        })}
       </div>
 
       <span className={styles.line} />

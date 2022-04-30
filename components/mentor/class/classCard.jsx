@@ -2,30 +2,18 @@ import router from "next/router";
 import Image from "next/image";
 import styles from "./classCard.module.scss";
 import { IC_StudentHeadphone } from "../../../icons";
-
-export const transLevel = (data) => {
-  if (data.difficulty == "BASIC") return ["입문"];
-  else if (data.difficulty == "BEGINNER") return ["초급"];
-  else if (data.difficulty == "INTERMEDIATE") return ["중급"];
-  else if (data.difficulty == "ADVANCED") return ["고급"];
-};
+import { LevelToKor } from "../../../utils/class/classLevel";
 
 const ClassCard = ({ data }) => {
-  const subjectOnly = data.lectureSubjects.map((data, i) => data.krSubject);
-  const classSystem1 = data.systems.map((data, i) => data.name);
-  const classSystem2 = data.lecturePrices.map((data, i) => {
-    if (data.isGroup) {
-      return "그룹";
-    } else {
-      return "1:1";
-    }
-  });
-
-  const classLevel = transLevel(data);
-  const classSystem = classSystem1.concat(classSystem2);
-  const classTags = classLevel.concat(classSystem);
-
+  const subjectOnly = data.lectureSubjects.map((data) => data.krSubject);
+  const classSystem1 = data.systems.map((data) => data.name);
+  const classSystem2 = data.lecturePrices.map((data) =>
+    data.isGroup ? "그룹" : "1:1"
+  );
+  const classLevel = [LevelToKor(data.difficulty)];
+  const classTags = classLevel.concat(classSystem1, classSystem2);
   let title = data.title;
+
   return (
     <section
       className={styles.classCard}
@@ -33,8 +21,7 @@ const ClassCard = ({ data }) => {
     >
       <div className={styles.classCardImage}>
         <Image
-          // src={data.thumbnail ? data.thumbnail : ""}
-          src={"/samples/lecture.png"}
+          src={data.thumbnail ? data.thumbnail : "/samples/lecture.png"}
           width="330px"
           height="136px"
           alt=""
@@ -59,17 +46,11 @@ const ClassCard = ({ data }) => {
           </h1>
           <div className={styles.studentCnt}>
             <IC_StudentHeadphone width="9.33" height="13" />
-            <span className={styles.cnt}>32</span>
+            <span className={styles.cnt}>{data.enrollmentCount}</span>
           </div>
         </div>
 
         <span className={styles.subtitle}>{data.subTitle} </span>
-
-        {/* <div className={styles.likes}>
-          <span className={styles.heart} />
-        </div> */}
-        {/* <IC_Heart_Empty w={20} h={20} />
-          <IC_Location_Gray w={12} h={12} /> */}
         <strong className={styles.name}>
           멘토 {data.lectureMentor.nickname}
         </strong>

@@ -61,3 +61,94 @@
   @include text-style(12px, $light_gray, 400, start);
   margin: 8px 0 7px;
 }
+
+.rating {
+  display: flex;
+  align-items: center;
+  span {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+
+    /* light gray */
+
+    // color: #949bad;
+  }
+  .height_bar {
+    margin: 0 8px;
+  }
+
+  .stars {
+    display: flex;
+    align-items: center;
+  }
+  .review_num {
+    margin-left: 4px;
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 17px;
+
+    /* light gray */
+
+    color: #949bad;
+  }
+}
+
+.price_box {
+  .sale {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+
+    /* red */
+
+    color: #ee5a5a;
+  }
+
+  .price {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    margin-left: 5px;
+    /* identical to box height */
+
+    /* sub color */
+
+    color: #2c343f;
+  }
+  .won {
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 17px;
+    letter-spacing: 0.1em;
+    margin-left: 2px;
+
+    /* sub color */
+
+    color: #2c343f;
+  }
+
+  .month {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    margin-left: 4px;
+    /* light gray */
+
+    color: #949bad;
+  }
+}

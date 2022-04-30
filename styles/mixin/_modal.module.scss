@@ -10,6 +10,9 @@
 %modal-background {
   @extend %page-base;
   position: absolute;
+  top: 0;
+  left: 50%;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.35);
+  transform: translateX(-50%);
 }
