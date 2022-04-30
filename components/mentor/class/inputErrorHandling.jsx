@@ -1,5 +1,7 @@
 const ClassRegistrationInputError = (form, setErr) => {
-  if (form.title == "") {
+  if (form.image == "") {
+    setErr("강의 이미지를 등록해주세요.");
+  } else if (form.title == "") {
     setErr("강의 타이틀을 입력해주세요.");
   } else if (form.subtitle == "") {
     setErr("강의 소제목을 입력해주세요.");

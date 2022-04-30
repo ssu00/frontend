@@ -4,12 +4,19 @@
   height: 224px;
   border-radius: 10px;
 
+  .closeIcon circle {
+    fill: #ee5a5a;
+  }
+
   .noticeText {
-    @include text-style(17px, $sub, 500);
+    @include text-style(17px, $sub, 500, center);
+    margin: 0 0 16px;
+    white-space: pre-line;
   }
 
   .btnStyle {
     @include btn-style(50px, 10px);
+    width: 249px;
   }
 
   .btnTextStyle {

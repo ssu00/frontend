@@ -24,6 +24,7 @@ import IC_ClipL from "./assets/clip_L.svg";
 import IC_ClipS from "./assets/clip_S.svg";
 import IC_CloseCircle from "./assets/close_circle.svg";
 import IC_CloseRound from "./assets/close_round.svg";
+import IC_CloseRoundGray from "./assets/close_round_gray.svg";
 import IC_Close from "./assets/close.svg";
 import IC_Coupon from "./assets/coupon.svg";
 import IC_Drawer from "./assets/drawer.svg";
@@ -100,6 +101,7 @@ export {
   IC_ClipS,
   IC_CloseCircle,
   IC_CloseRound,
+  IC_CloseRoundGray,
   IC_Close,
   IC_Coupon,
   IC_Drawer,

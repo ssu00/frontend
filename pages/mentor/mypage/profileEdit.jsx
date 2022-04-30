@@ -32,7 +32,7 @@ const ProfileEdit = ({ token, userInfo }) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("file", file);
-    const imgUrl = await UploadImage(formData);
+    const imgUrl = await UploadImage(formData, token);
     const imgRegister = await RegisterProfileImg(token, imgUrl.data.url);
     console.log("imgRef", imgRegister);
     if (imgRegister.status == 200) {
