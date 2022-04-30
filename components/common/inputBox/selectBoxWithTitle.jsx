@@ -1,5 +1,4 @@
 import styles from "./selectBoxWithTitle.module.scss";
-import classNames from "classnames";
 import { IC_ChevronDownB } from "../../../icons";
 const SelectBoxWithTitle = ({
   title,
@@ -10,40 +9,30 @@ const SelectBoxWithTitle = ({
   value,
 }) => {
   return (
-    <section className={styles.selectBox}>
-      <span className={styles.title}>{title}</span>
+    <div className={styles.selectBoxWithTitle}>
+      <span>{title}</span>
       <select
-        className={classNames(styles.sel, additionalStyle)}
+        className={additionalStyle}
         name={name}
         id={name}
         onChange={onChange}
         value={value}
       >
         {arr &&
-          title != "언어" &&
-          arr?.map((data, i) => {
-            return (
-              <option value={data} className={styles.option} key={i}>
-                {data}
-              </option>
-            );
-          })}
-        {arr &&
-          title == "언어" &&
-          arr?.map((data, i) => {
-            return (
-              <option
-                value={data.subjectId}
-                className={styles.option}
-                key={data.subjectId}
-              >
-                {data.krSubject}
-              </option>
-            );
-          })}
+          (title != "언어"
+            ? arr?.map((data, i) => (
+                <option value={data} key={i}>
+                  {data}
+                </option>
+              ))
+            : arr?.map((data, i) => (
+                <option value={data.subjectId} key={data.subjectId}>
+                  {data.krSubject}
+                </option>
+              )))}
       </select>
       <IC_ChevronDownB className={styles.arrow} />
-    </section>
+    </div>
   );
 };
 export default SelectBoxWithTitle;
