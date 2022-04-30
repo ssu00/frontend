@@ -16,7 +16,11 @@ const MentorLecture = ({ lectureListData }) => {
         return (
           <article className={styles.classCard} key={info.id}>
             <div className={styles.imageContainer}>
-              <Image src={info.thumbnail} layout="fill" objectFit="cover" />
+              <Image
+                src={info.thumbnail ? info.thumbnail : "/samples/lecture.png"}
+                layout="fill"
+                objectFit="cover"
+              />
               <div className={styles.labels}>
                 <p className={styles.label}>
                   {info.difficulty === "BASIC" && "입문"}

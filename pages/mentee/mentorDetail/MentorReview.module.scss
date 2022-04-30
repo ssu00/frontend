@@ -1,0 +1,12 @@
+@import "../../../styles/main.module.scss";
+
+.ratingSection {
+  margin: 21px 0;
+  h2 {
+    @include text-style(14px, $sub, 500);
+  }
+
+  .rating {
+    display: flex;
+  }
+}

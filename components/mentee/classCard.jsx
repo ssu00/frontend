@@ -28,6 +28,7 @@ const ClassCard = ({ classDetail }) => {
             pathname: `/mentee/classdetails/${classDetail.lectureId}`,
             query: {
               lecturePriceId: lecturePrice?.lecturePriceId,
+              mentorId: lectureMentor.mentorId,
             },
           })
         }
