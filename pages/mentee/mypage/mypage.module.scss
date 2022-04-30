@@ -26,10 +26,6 @@
       .role_name {
         width: 60%;
 
-        .mentorTag {
-          @include tag-role;
-        }
-
         .name {
           @include text-style($fs-16, $sub, 700);
           width: 60%;
