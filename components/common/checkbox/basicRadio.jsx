@@ -10,7 +10,7 @@ const BasicRadio = ({ reason, name }) => {
           className={styles.radioBtn}
           id={reason}
         />
-        <span className={styles.reason}>{reason}</span>
+        <span>{reason}</span>
       </section>
     </label>
   );
