@@ -9,13 +9,12 @@ const Dynamic = dynamic(
   { ssr: false }
 );
 
-const Quill = ({ form }) => {
+const Quill = ({ form, token }) => {
   const dispatch = useDispatch();
   const [content, setContent] = useState(form.content);
   const onChange = (e, content, delta, source) => {
     var value = e;
     setContent(e);
-
     dispatch(
       ChangeField({
         form: "classInfo",
@@ -24,7 +23,7 @@ const Quill = ({ form }) => {
       })
     );
   };
-  return <Dynamic value={content} onChange={onChange} />;
+  return <Dynamic value={content} onChange={onChange} token={token} />;
 };
 
 export default Quill;

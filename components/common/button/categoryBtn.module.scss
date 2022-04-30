@@ -1,16 +1,13 @@
 @import "../../../styles/main.module.scss";
-.myPageCategoryBtn {
+.categoryBtn {
   @include flexBox(start, center);
+  @include basic-box(333px, 40px, 0 0 0 9px, 0, 0);
   position: relative;
-  width: 333px;
-  height: 40px;
-  padding-left: 9px;
   cursor: pointer;
   background-color: $white;
-  border: 0;
   border-top: 1px solid $line;
 
-  .text {
+  span {
     @include text-style($fs-14, $sub, 400);
   }
 

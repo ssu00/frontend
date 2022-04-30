@@ -3,13 +3,12 @@ import classNames from "classnames";
 import { IC_Check } from "../../../icons";
 const EllipseBtn = ({ element, select, id, onClick }) => {
   return (
-    <section
+    <div
       className={classNames(
         styles.ellipseBtn,
         select == "on" ? styles.selected : styles.unselected
       )}
     >
-      <div className={select == "on" ? styles.checkIcon : ""} />
       {select === "on" && <IC_Check className={styles.checkIcon} />}
       <input type="checkbox" id={id} />
       <label htmlFor={id} onClick={onClick}>
@@ -21,7 +20,7 @@ const EllipseBtn = ({ element, select, id, onClick }) => {
           {element}
         </span>
       </label>
-    </section>
+    </div>
   );
 };
 

@@ -14,7 +14,7 @@ import {
 
 const BottomTab = ({ num, role }) => {
   return (
-    <ul className={styles.tab}>
+    <ul className={styles.bottomTab}>
       <BottomTabElem
         url={role === "MENTEE" ? "/mentee" : "/mentor/myclass/myClassList"}
         text={"홈"}

@@ -35,9 +35,10 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
   const [comment, setComment] = useState("");
   const [modal, setModal] = useState(false);
   const [writeType, setWriteType] = useState("register");
+  const [err, setErr] = useState(false);
 
   useEffect(() => {
-    if (reviewData.child.reviewId) {
+    if (reviewData.child.mentorReviewId) {
       setWriteType("edit");
       setComment(reviewData.child.content);
     }
@@ -46,10 +47,12 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
   return (
     <section className={styles.reviewDetailSection}>
       {modal ? (
-        <ModalWithBackground setModal={setModal}>
+        <ModalWithBackground setModal={setModal} prevent={true}>
           <BasicModal
             notice={
-              writeType == "register"
+              err != ""
+                ? "등록에 실패했습니다."
+                : writeType == "register"
                 ? `정상적으로 등록되었습니다.`
                 : "정상적으로 수정되었습니다."
             }
@@ -89,17 +92,29 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
               reviewID,
               comment
             ).then((res) => {
-              if (res == 201) setModal(true);
+              if (res == 201) {
+                setModal(true);
+                setErr("");
+              } else {
+                setModal(false);
+                setErr("실패");
+              }
             });
           } else {
             await EditMentorReview(
               parsedCookies.accessToken,
               classID,
               reviewID,
-              reviewData.child.reviewId,
+              reviewData.child.mentorReviewId,
               comment
             ).then((res) => {
-              if (res == 200) setModal(true);
+              if (res == 200) {
+                setModal(true);
+                setErr("");
+              } else {
+                setModal(false);
+                setErr("실패");
+              }
             });
           }
         }}

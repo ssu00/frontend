@@ -8,7 +8,7 @@ const BasicCheckBox = ({
   onChange,
 }) => {
   return (
-    <section className={styles.commonCheckbox}>
+    <div className={styles.basicCheckBox}>
       <input
         type="checkbox"
         id={id}
@@ -24,7 +24,7 @@ const BasicCheckBox = ({
         btnStyle={classNames(styles.showBtn, basicBtnStyle.btn_transparent)}
         textStyle={styles.showBtnText}
       /> */}
-    </section>
+    </div>
   );
 };
 

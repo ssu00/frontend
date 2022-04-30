@@ -18,10 +18,10 @@ import {
 } from "../../../../../components/mentor/class/rating";
 
 export async function getServerSideProps(context) {
-  const classID = context.query.cid;
-  const classData = await GetLectureDetail(classID);
-  const reviewData = await GetReview(classID);
   const token = cookie.parse(context.req.headers.cookie).accessToken;
+  const classID = context.query.cid;
+  const classData = await GetLectureDetail(classID, token);
+  const reviewData = await GetReview(classID);
 
   return {
     props: { token, classData, reviewData },
@@ -37,6 +37,8 @@ const ClassDetail = ({ token, classData, reviewData }) => {
     classData.scoreAverage % 1 == 0
       ? classData.scoreAverage + ".0"
       : classData.scoreAverage;
+
+  console.log(classData);
 
   return (
     <section className={styles.classDetailSection}>
@@ -79,7 +81,7 @@ const ClassDetail = ({ token, classData, reviewData }) => {
             src={
               classData.lectureMentor.image
                 ? classData.lectureMentor.image
-                : "/samples/lecture.png"
+                : "/samples/mentor.svg"
             }
             width={72}
             height={72}
@@ -111,7 +113,14 @@ const ClassDetail = ({ token, classData, reviewData }) => {
       </div>
 
       <div className={styles.classPriceBlock}>
-        <h1>가격......</h1>
+        {classData.lecturePrices.map((data, i) => {
+          return (
+            <div className={styles.price} key={i}>
+              <span>{data.isGroup ? "그룹" : "1:1"}</span>
+              <h1>{data.totalPrice.toLocaleString("ko-KR")} 원</h1>
+            </div>
+          );
+        })}
       </div>
 
       <span className={styles.line} />
