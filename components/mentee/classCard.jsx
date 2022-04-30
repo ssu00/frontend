@@ -9,7 +9,7 @@ import {
 } from "../../icons";
 import Rating from "@mui/material/Rating";
 import { useRouter } from "next/router";
-import { transLevel } from "../mentor/class/classCard";
+import { LevelToKor } from "../../utils/class/classLevel";
 
 export const transGroup = (status) => {
   if (!status) return "개인";
@@ -40,7 +40,7 @@ const ClassCard = ({ classDetail }) => {
             alt={title}
           /> */}
           <div className={styles.labels}>
-            <div className={styles.label}>{transLevel(classDetail)}</div>
+            <div className={styles.label}>{LevelToKor(classDetail)}</div>
           </div>
         </div>
         <div className={styles.informationBox}>
