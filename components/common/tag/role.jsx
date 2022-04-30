@@ -5,7 +5,7 @@ const Role = ({ role, otherStyle }) => {
     <div
       className={classNames(
         otherStyle,
-        role == "멘토" ? styles.mentorRole : styles.menteeRole
+        role == "멘토" ? styles.role_mentor : styles.role_mentee
       )}
     >
       <span>{role}</span>
