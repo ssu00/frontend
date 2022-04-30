@@ -7,30 +7,25 @@ import {
 } from "../../../../../../components/common";
 import router from "next/router";
 import styles from "./edit.module.scss";
-import { IC_Logo } from "../../../../../../icons";
-import { getViewLecture } from "../../../../../../core/api/Mentee/getViewLecture";
-import classNames from "classnames";
+import { getReviewInfo } from "../../../../../../core/api/Mentee/getReviewInfo";
 import MenteeStar from "../../../../../../components/mentee/MenteeStar";
 import ConfirmModal from "../../../../../../components/mentee/ConfirmModal";
 import ReviewModal from "../../../../../../components/mentee/ReviewModal";
 import { editMenteeReview } from "../../../../../../core/api/Mentee/editMenteeReview";
-import { getOriginalReview } from "../../../../../../core/api/Mentee/getOriginalReview";
-import MyPageTopBar from "../../../../../../components/mentor/mypage/mypageTopBar";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const editId = context.query.editId;
-  const viewLecture = await getViewLecture(editId, token);
-  const originalReview = await getOriginalReview(editId, token);
+  const viewLecture = await getReviewInfo(editId, token);
 
   return {
-    props: { token, editId, viewLecture, originalReview },
+    props: { token, editId, viewLecture },
   };
 }
 
-const edit = ({ token, editId, viewLecture, originalReview }) => {
+const edit = ({ token, editId, viewLecture }) => {
   const [reviews, setReviews] = useState([]);
-  const [modifyReview, setModifyReview] = useState([]);
+
   const [score, setScore] = useState(0);
   const [content, setContent] = useState("");
   const [modal, setModal] = useState(false);
@@ -38,15 +33,16 @@ const edit = ({ token, editId, viewLecture, originalReview }) => {
 
   useEffect(() => {
     setReviews(viewLecture);
-    setModifyReview(originalReview);
-    setScore(originalReview.score);
+    setScore(reviews.score);
   }, []);
 
   const onChange = (e) => {
     setContent(e.target.value);
   };
 
-  const lecture = originalReview.lecture;
+  const lecture = reviews.lecture;
+
+  console.log(reviews);
 
   return (
     <>
@@ -81,13 +77,10 @@ const edit = ({ token, editId, viewLecture, originalReview }) => {
         )}
 
         {confirm ? (
-          <ModalWithBackground
-            setModal={setModal}
-            className={styles.modalHeight}
-          >
+          <ModalWithBackground setModal={setModal}>
             <ConfirmModal
-              mainText={"후기 등록"}
-              subText={`후기 등록이 수정되었습니다.\n수강하시느라 고생 많으셨습니다.`}
+              mainText={"후기 수정"}
+              subText={`후기가 수정되었습니다.\n수강하시느라 고생 많으셨습니다.`}
               confirm={() => {
                 router.push("/mentee/mypage/menteeReview");
               }}
@@ -111,13 +104,11 @@ const edit = ({ token, editId, viewLecture, originalReview }) => {
               <img
                 className={styles.lectureInfoImg}
                 src={
-                  originalReview.thumbnail
-                    ? originalReview.thumbnail
-                    : "/samples/lecture.png"
+                  reviews.thumbnail ? reviews.thumbnail : "/samples/lecture.png"
                 }
               />
               <div className={styles.lectureInfoText}>
-                <p className={styles.lectureTitle}>{lecture.title}</p>
+                <p className={styles.lectureTitle}>{lecture?.title}</p>
                 <p className={styles.mentorNickname}>
                   {lecture?.mentorNickname}
                 </p>
@@ -125,15 +116,13 @@ const edit = ({ token, editId, viewLecture, originalReview }) => {
                 <p className={styles.system}>
                   옵션:{" "}
                   {lecture?.systems.length === 2
-                    ? "온라인/오프라인"
+                    ? "온라인 / 오프라인"
                     : lecture?.systems.name === "온라인"
                     ? "온라인"
                     : "오프라인"}
-                  {lecture.lecturePrices?.map((group, i) => {
-                    return (
-                      <span key={i}>{group.isGroup ? "/ 그룹" : null}</span>
-                    );
-                  })}
+                  <span>
+                    {lecture?.lecturePrice.isGroup ? " / 그룹" : null}
+                  </span>
                 </p>
               </div>
             </div>
@@ -168,7 +157,7 @@ const edit = ({ token, editId, viewLecture, originalReview }) => {
             <textarea
               className={styles.textCon}
               onChange={onChange}
-              defaultValue={modifyReview.content}
+              defaultValue={reviews.content}
             />
           </article>
 
@@ -176,19 +165,15 @@ const edit = ({ token, editId, viewLecture, originalReview }) => {
 
           <article className={styles.infoSection}>
             <p className={styles.infoTitle}>후기 작성 안내</p>
-            <ul>
-              <li className={styles.infoList}>
-                <p>
-                  후기 내용은 20자 이상 작성합니다. 강의와 관련없는 내용,
-                  이메일, 휴대전화 번호 등의 개인정보/광고/비속어가 포함 된
-                  후기는 블라인드 처리 됩니다.
-                </p>
+            <ul className={styles.infoList}>
+              <li>
+                후기 내용은 20자 이상 작성합니다. 강의와 관련없는 내용, 이메일,
+                휴대전화 번호 등의 개인정보/광고/비속어가 포함 된 후기는
+                블라인드 처리 됩니다.
               </li>
-              <li className={styles.infoList}>
-                <p>
-                  최종 등록된 후기는 공개되어 튜터랩 사용자가 조회 가능하며,
-                  댓글이 등록될 수 있습니다.
-                </p>
+              <li>
+                최종 등록된 후기는 공개되어 튜터랩 사용자가 조회 가능하며,
+                댓글이 등록될 수 있습니다.
               </li>
             </ul>
           </article>

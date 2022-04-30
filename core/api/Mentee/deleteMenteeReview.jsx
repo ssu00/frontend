@@ -1,11 +1,10 @@
 import axios from "axios";
 
-const deleteMenteeReivew = async (token, lectureId, reviewId) => {
+const deleteMenteeReivew = async (token, reviewId) => {
   try {
-    const res = await axios.delete(
-      `/mentees/my-enrollments/${lectureId}/reviews/${reviewId}`,
-      { headers: { Authorization: token } }
-    );
+    const res = await axios.delete(`/mentees/my-reviews/${reviewId}`, {
+      headers: { Authorization: token },
+    });
     console.log(res);
     return res;
   } catch (err) {

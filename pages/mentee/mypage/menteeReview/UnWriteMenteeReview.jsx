@@ -18,14 +18,17 @@ const UnWriteMenteeReview = ({ unreviewedMentee }) => {
 
   return (
     <>
-      {unWrite.content?.length !== 0 ? (
+      {unWriteCon?.length !== 0 ? (
         <>
           {unWriteCon?.map((unreview) => {
             const lectureDate = unreview.createdAt.slice(0, 10);
             const dateDot = lectureDate.split("-").join(".");
 
             return (
-              <div key={unreview.lecture.id}>
+              <div
+                className={styles.unWriteSection}
+                key={unreview.enrollmentId}
+              >
                 <section className={styles.line3}>
                   <article className={styles.bg}>
                     <p className={styles.day}>{dateDot}</p>
@@ -33,12 +36,13 @@ const UnWriteMenteeReview = ({ unreviewedMentee }) => {
                     <div className={styles.review}>
                       <img
                         className={styles.reviewImg}
-                        src={"/samples/lecture2.jpg"}
+                        src={
+                          unWriteCon.thumbnail
+                            ? unWriteCon.thumbnail
+                            : "/samples/lecture2.jpg"
+                        }
                       />
-                      {/* <img
-                  src={unreview.lecture.thumbnail}
-                  alt={unreview.lecture.lectureTitle}
-                /> */}
+
                       <div className={styles.reviewCnt}>
                         <p className={styles.reviewInfoText}>
                           {unreview.lecture.mentorNickname}

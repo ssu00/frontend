@@ -7,8 +7,8 @@
 }
 .contentSection {
   @extend %page-base;
-  position: relative;
   background: $white;
+  white-space: pre-line;
 
   .lectureInfoSection {
     margin: 15px 20px;
@@ -25,6 +25,7 @@
     }
 
     .lectureInfoText {
+      flex-basis: 240px;
       .lectureTitle {
         font-size: $fs-14;
         color: $sub;
@@ -72,8 +73,8 @@
   }
 
   .infoSection {
-    position: relative;
     margin: 15px 20px;
+    padding-bottom: 80px;
 
     .infoTitle {
       font-size: 13px;
@@ -84,7 +85,10 @@
     .infoList {
       font-size: 10px;
       color: $light-gray;
-      margin-bottom: 10px;
+
+      li {
+        margin-bottom: 10px;
+      }
     }
   }
 }

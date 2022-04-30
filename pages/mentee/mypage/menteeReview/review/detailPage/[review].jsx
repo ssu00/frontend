@@ -46,9 +46,6 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
   const reviewData = String(detail.createdAt).substr(0, 10);
   const dateDot = reviewData.split("-").join(".");
 
-  console.log(menteeReviews, "menteeReviews");
-  console.log(lecturesCon, "lecturesCon");
-
   return (
     <div key={menteeReviews.id}>
       <section className={styles.topSection}>
@@ -60,7 +57,7 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
               );
             }}
             deleteClick={async () => {
-              await deleteMenteeReivew(token, detailId, review);
+              await deleteMenteeReivew(token, review);
               router.push(`/mentee/mypage/menteeReview`);
               RefreshPage();
             }}

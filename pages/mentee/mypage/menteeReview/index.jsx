@@ -26,38 +26,38 @@ const mypageMenteeReview = ({ token, unreviewedMentee, menteeReviews }) => {
     setTabCurrent(idx);
   };
 
+  console.log(menteeReviews, "menteeReviews");
+
   return (
     <>
-      <section className={styles.topSection}>
-        <TopBar
-          text={"강의 후기"}
-          onClick={() => {
-            router.back();
-          }}
-        />
-        <div className={styles.category}>
-          {tabMenu.map((tab, i) => (
-            <MenuBtn
-              text={tab}
-              key={i}
-              selected={tabCurrent === i ? true : false}
-              onClick={() => {
-                onClick(i);
-              }}
-            />
-          ))}
-        </div>
-      </section>
-
       <section className={styles.contentSection}>
+        <section className={styles.topSection}>
+          <TopBar
+            text={"강의 후기"}
+            onClick={() => {
+              router.back();
+            }}
+          />
+          <div className={styles.category}>
+            {tabMenu.map((tab, i) => (
+              <MenuBtn
+                text={tab}
+                key={i}
+                selected={tabCurrent === i ? true : false}
+                onClick={() => {
+                  onClick(i);
+                }}
+              />
+            ))}
+          </div>
+        </section>
         {tabCurrent === 0 ? (
           <UnWriteMenteeReview unreviewedMentee={unreviewedMentee} />
         ) : (
           <WriteMenteeReview menteeReviews={menteeReviews} token={token} />
         )}
+        <BottomTab num={[0, 0, 0, 1]} />
       </section>
-
-      <BottomTab num={[0, 0, 0, 1]} />
     </>
   );
 };

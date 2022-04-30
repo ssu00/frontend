@@ -7,26 +7,18 @@ import { Rating } from "../../../../components/mentor/class/rating";
 import OptionModal from "../../../../components/old-mentee/OptionModal";
 import deleteMenteeReivew from "../../../../core/api/Mentee/deleteMenteeReview";
 
-export async function getServerSideProps(context) {
-  const token = cookie.parse(context.req.headers.cookie).accessToken;
-
-  return {
-    props: { token },
-  };
-}
-
 const WriteMenteeReview = ({ menteeReviews, token }) => {
   const [reviews, setReviews] = useState([]);
   const [modal, setModal] = useState(false);
+
+  useEffect(() => {
+    setReviews(menteeReviews);
+  }, []);
 
   const handleModal = (e) => {
     e.stopPropagation();
     setModal(!modal);
   };
-
-  useEffect(() => {
-    setReviews(menteeReviews);
-  }, []);
 
   const reviewCon = reviews.content?.map((review) => {
     return review;
@@ -61,12 +53,14 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
                       <div className={styles.review}>
                         <img
                           className={styles.reviewImg}
-                          src={"/samples/lecture2.jpg"}
+                          src={
+                            review.lecture.thumbnail
+                              ? review.lecture.thumbnail
+                              : "/samples/lecture2.jpg"
+                          }
+                          alt={review.lecture.lectureTitle}
                         />
-                        {/* <img
-                src={review.lecture.thumbnail}
-                alt={review.lecture.lectureTitle}
-              /> */}
+
                         <div className={styles.writeReviewCnt}>
                           <p>
                             [ <span>{krSubject.join(",")}</span> ]
@@ -87,17 +81,16 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
                         {modal && (
                           <OptionModal
                             editClick={(e) => {
+                              {
+                                console.log(review.menteeReviewId);
+                              }
                               e.stopPropagation();
                               router.push(
                                 `/mentee/mypage/menteeReview/review/editPage/${review.menteeReviewId}`
                               );
                             }}
                             deleteClick={() => {
-                              deleteMenteeReivew(
-                                token,
-                                review.enrollmentId,
-                                review.menteeReviewId
-                              );
+                              deleteMenteeReivew(token, review.menteeReviewId);
                               router.reload("/mentee/mypage/menteeReview");
                             }}
                             modalHandler={handleModal}
