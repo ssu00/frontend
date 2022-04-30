@@ -42,7 +42,7 @@ const edit = ({ token, editId, viewLecture }) => {
 
   const lecture = reviews.lecture;
 
-  console.log(reviews);
+  console.log(token);
 
   return (
     <>

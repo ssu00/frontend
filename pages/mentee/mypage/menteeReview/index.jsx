@@ -26,8 +26,6 @@ const mypageMenteeReview = ({ token, unreviewedMentee, menteeReviews }) => {
     setTabCurrent(idx);
   };
 
-  console.log(menteeReviews, "menteeReviews");
-
   return (
     <>
       <section className={styles.contentSection}>

@@ -9,15 +9,21 @@ import deleteMenteeReivew from "../../../../core/api/Mentee/deleteMenteeReview";
 
 const WriteMenteeReview = ({ menteeReviews, token }) => {
   const [reviews, setReviews] = useState([]);
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState({});
 
   useEffect(() => {
     setReviews(menteeReviews);
+    for (let i = 0; i < menteeReviews.content.length; i++) {
+      setModal((prev) => ({
+        ...prev,
+        [menteeReviews.content[i].menteeReviewId]: false,
+      }));
+    }
   }, []);
 
-  const handleModal = (e) => {
+  const handleModal = (e, i) => {
     e.stopPropagation();
-    setModal(!modal);
+    setModal((prev) => ({ ...prev, [i]: !prev[i] }));
   };
 
   const reviewCon = reviews.content?.map((review) => {
@@ -28,7 +34,7 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
     <>
       {reviewCon?.length !== 0 ? (
         <>
-          {reviewCon?.map((review) => {
+          {reviewCon?.map((review, i) => {
             const lectureDate = review.createdAt.slice(0, 10);
             const dateDot = lectureDate.split("-").join(".");
 
@@ -77,13 +83,12 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
                             ))}
                           </p>
                         </div>
-                        <IC_Menu onClick={handleModal} />
-                        {modal && (
+                        <IC_Menu
+                          onClick={(e) => handleModal(e, review.menteeReviewId)}
+                        />
+                        {modal[review.menteeReviewId] && (
                           <OptionModal
                             editClick={(e) => {
-                              {
-                                console.log(review.menteeReviewId);
-                              }
                               e.stopPropagation();
                               router.push(
                                 `/mentee/mypage/menteeReview/review/editPage/${review.menteeReviewId}`
@@ -93,7 +98,9 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
                               deleteMenteeReivew(token, review.menteeReviewId);
                               router.reload("/mentee/mypage/menteeReview");
                             }}
-                            modalHandler={handleModal}
+                            modalHandler={(e) =>
+                              handleModal(e, review.menteeReviewId)
+                            }
                           />
                         )}
                       </div>
