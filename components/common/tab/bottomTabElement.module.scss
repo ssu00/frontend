@@ -1,23 +1,15 @@
 @import "../../../styles/main.module.scss";
-.elemBtn {
-  width: 76px;
-  height: 49px;
+.bottomTabElem {
+  @include basic-box(76px, 49px, 0, 0, 0);
   cursor: pointer;
   background-color: $white;
-  border: 0;
-  outline: none;
 
-  .elem {
-    display: flex;
-    align-items: center;
+  li {
+    @include flexBox(start, center);
     flex-direction: column;
 
-    .elemText_unselected {
+    span {
       @include text-style($fs-12, $light_gray, 400);
-    }
-
-    .elemText_selected {
-      @include text-style($fs-12, $main, 400);
     }
   }
 }

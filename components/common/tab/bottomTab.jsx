@@ -13,7 +13,7 @@ import {
 
 const BottomTab = ({ num }) => {
   return (
-    <ul className={styles.tab}>
+    <ul className={styles.bottomTab}>
       <BottomTabElem url={"/mentor/myclass/myClassList"} text={"홈"}>
         {num[0] === 0 ? <IC_Home /> : <IC_HomeFill />}
       </BottomTabElem>
