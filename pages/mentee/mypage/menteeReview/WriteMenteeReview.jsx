@@ -1,5 +1,4 @@
 import router from "next/router";
-
 import { useState, useEffect } from "react";
 import { IC_Menu } from "../../../../icons";
 import styles from "./menteeReview.module.scss";
@@ -84,10 +83,7 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
                             ))}
                           </p>
                         </div>
-                        <IC_Menu
-                          className={styles.zIndex}
-                          onClick={handleModal}
-                        />
+                        <IC_Menu onClick={handleModal} />
                         {modal && (
                           <OptionModal
                             editClick={(e) => {

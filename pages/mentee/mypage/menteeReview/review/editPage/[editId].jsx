@@ -15,6 +15,7 @@ import ConfirmModal from "../../../../../../components/mentee/ConfirmModal";
 import ReviewModal from "../../../../../../components/mentee/ReviewModal";
 import { editMenteeReview } from "../../../../../../core/api/Mentee/editMenteeReview";
 import { getOriginalReview } from "../../../../../../core/api/Mentee/getOriginalReview";
+import MyPageTopBar from "../../../../../../components/mentor/mypage/mypageTopBar";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -86,7 +87,7 @@ const edit = ({ token, editId, viewLecture, originalReview }) => {
           >
             <ConfirmModal
               mainText={"후기 등록"}
-              subText={`후기 등록이 완료되었습니다.\n수강하시느라 고생 많으셨습니다.`}
+              subText={`후기 등록이 수정되었습니다.\n수강하시느라 고생 많으셨습니다.`}
               confirm={() => {
                 router.push("/mentee/mypage/menteeReview");
               }}
@@ -95,6 +96,7 @@ const edit = ({ token, editId, viewLecture, originalReview }) => {
         ) : (
           <></>
         )}
+
         <section className={styles.topSection}>
           <TopBar
             text={"후기 수정"}
@@ -102,16 +104,19 @@ const edit = ({ token, editId, viewLecture, originalReview }) => {
               router.push("/mentee/mypage/menteeReview");
             }}
           />
-          <IC_Logo />
         </section>
         <section className={styles.contentSection}>
-          <article className={styles.bg}>
-            <div className={styles.review}>
+          <article className={styles.lectureInfoSection}>
+            <div className={styles.lectureInfo}>
               <img
-                className={styles.reviewImg}
-                src={originalReview.thumbnail}
+                className={styles.lectureInfoImg}
+                src={
+                  originalReview.thumbnail
+                    ? originalReview.thumbnail
+                    : "/samples/lecture.png"
+                }
               />
-              <div>
+              <div className={styles.lectureInfoText}>
                 <p className={styles.lectureTitle}>{lecture.title}</p>
                 <p className={styles.mentorNickname}>
                   {lecture?.mentorNickname}
@@ -134,7 +139,9 @@ const edit = ({ token, editId, viewLecture, originalReview }) => {
             </div>
           </article>
 
-          <article className={styles.bg}>
+          <div className={styles.line} />
+
+          <article className={styles.editSection}>
             <div className={styles.editCon}>
               <p className={styles.editTitle}>강의는 만족하셨나요?</p>
 
@@ -154,36 +161,36 @@ const edit = ({ token, editId, viewLecture, originalReview }) => {
             </div>
           </article>
 
-          <article className={styles.bg}>
-            <div className={styles.editCon}>
-              <p className={styles.editTitle}>상세한 후기를 작성해주세요.</p>
-              <textarea
-                className={styles.textCon}
-                onChange={onChange}
-                defaultValue={modifyReview.content}
-              />
-            </div>
+          <div className={styles.line} />
+
+          <article className={styles.editSection}>
+            <p className={styles.editTitle}>상세한 후기를 작성해주세요.</p>
+            <textarea
+              className={styles.textCon}
+              onChange={onChange}
+              defaultValue={modifyReview.content}
+            />
           </article>
 
-          <article className={classNames(styles.bg, styles.pb13)}>
-            <div className={styles.infoCon}>
-              <p className={styles.infoTitle}>후기 작성 안내</p>
-              <ul>
-                <li className={styles.infoList}>
-                  <p>
-                    후기 내용은 20자 이상 작성합니다. 강의와 관련없는 내용,
-                    이메일, 휴대전화 번호 등의 개인정보/광고/비속어가 포함 된
-                    후기는 블라인드 처리 됩니다.
-                  </p>
-                </li>
-                <li className={styles.infoList}>
-                  <p>
-                    최종 등록된 후기는 공개되어 튜터랩 사용자가 조회 가능하며,
-                    댓글이 등록될 수 있습니다.
-                  </p>
-                </li>
-              </ul>
-            </div>
+          <div className={styles.line} />
+
+          <article className={styles.infoSection}>
+            <p className={styles.infoTitle}>후기 작성 안내</p>
+            <ul>
+              <li className={styles.infoList}>
+                <p>
+                  후기 내용은 20자 이상 작성합니다. 강의와 관련없는 내용,
+                  이메일, 휴대전화 번호 등의 개인정보/광고/비속어가 포함 된
+                  후기는 블라인드 처리 됩니다.
+                </p>
+              </li>
+              <li className={styles.infoList}>
+                <p>
+                  최종 등록된 후기는 공개되어 튜터랩 사용자가 조회 가능하며,
+                  댓글이 등록될 수 있습니다.
+                </p>
+              </li>
+            </ul>
           </article>
         </section>
       </section>
