@@ -102,9 +102,27 @@ const Login = () => {
       <div className={styles.snsCon}>
         <p>SNS 로그인</p>
         <div className={styles.snsBtn}>
-          <IC_Google />
-          <IC_Naver />
-          <IC_Kakao />
+          <IC_Google
+            onClick={() => {
+              router.push(
+                `${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/google`
+              );
+            }}
+          />
+          <IC_Naver
+            onClick={() => {
+              router.push(
+                `${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/naver`
+              );
+            }}
+          />
+          <IC_Kakao
+            onClick={() => {
+              router.push(
+                `${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/kakao`
+              );
+            }}
+          />
         </div>
       </div>
       <NameLogo />

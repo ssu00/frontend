@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Content.module.scss";
 import Image from "next/image";
+import router from "next/router";
 
 function Content() {
   return (
