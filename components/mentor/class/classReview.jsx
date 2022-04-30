@@ -75,7 +75,7 @@ const MentorReview = ({ token, cid, mentee, data }) => {
 };
 
 const ClassReview = ({ token, cid, mentee }) => {
-  const child = mentee.child;
+  const child = mentee?.child;
   return (
     <section
       className={

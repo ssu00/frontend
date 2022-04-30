@@ -1,0 +1,48 @@
+@import "../../../styles/main.module";
+
+.home {
+  position: relative;
+  max-width: 376px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: $white;
+
+  main {
+    position: relative;
+    padding: 17px 20px;
+  }
+}
+
+.inputBox {
+  position: relative;
+
+  input {
+    width: 100%;
+    padding: 8px 12px 8px 56px;
+    font-size: 14px;
+    border: 1px solid $main;
+    border-radius: 8px;
+
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 1px $main;
+    }
+
+    &::placeholder {
+      color: $light_gray;
+    }
+  }
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  pointer-events: none;
+  transform: translateY(-50%);
+
+  circle,
+  path {
+    stroke: $main;
+  }
+}

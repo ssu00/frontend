@@ -9,8 +9,9 @@ import {
 } from "../../components/common";
 import { Login_API } from "../../core/api/Login";
 import { setCookie } from "../../utils/cookie";
-import { IC_Logo } from "../../icons";
+import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../icons";
 import { NameLogo } from "../../components/common/icons/nameLogo";
+import GetUserRoleType from "../../core/api/Login/roleTypeCheck";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -20,11 +21,21 @@ const Login = () => {
   const checkAccount = async () => {
     const res = await Login_API(username, password);
     if (res.status == 200) {
-      router.push("/mentor/myclass/myClassList");
+      const role = await GetUserRoleType(res.data);
       setCookie("accessToken", res.data, {
         path: "/",
         secure: true,
       });
+      setCookie("role", role.loginType, {
+        path: "/",
+        secure: true,
+      });
+      if (role.loginType === "MENTOR") {
+        router.push("/mentor/myclass/myClassList");
+      }
+      if (role.loginType === "MENTEE") {
+        router.push("/mentee");
+      }
     } else {
       setError(true);
     }
@@ -88,6 +99,14 @@ const Login = () => {
         </span>
       </div>
 
+      <div className={styles.snsCon}>
+        <p>SNS 로그인</p>
+        <div className={styles.snsBtn}>
+          <IC_Google />
+          <IC_Naver />
+          <IC_Kakao />
+        </div>
+      </div>
       <NameLogo />
     </section>
   );

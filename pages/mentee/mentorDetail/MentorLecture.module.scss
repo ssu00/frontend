@@ -1,0 +1,164 @@
+@import "../../../styles/main.module.scss";
+
+.lectureSection {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+  grid-gap: 16px;
+  gap: 16px;
+  width: 335px;
+  margin: 0 auto;
+
+  .classCard {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0, 19, 37, 0.1);
+
+    @media (hover: hover) {
+      &:hover {
+        box-shadow: 0 0 0 2px $main;
+      }
+    }
+  }
+
+  .imageContainer {
+    position: relative;
+    height: 110px;
+  }
+
+  .labels {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    display: flex;
+    gap: 8px;
+  }
+
+  .label {
+    @include text-style(12px, $white, 500);
+    padding: 2px 8px 3px;
+    border: 1px solid $white;
+    border-radius: 8px;
+  }
+
+  .informationBox {
+    padding: 16px;
+    background-color: $white;
+
+    h2,
+    h3 {
+      @include text-style(16px, $sub, 500, start);
+    }
+  }
+
+  .tags {
+    display: flex;
+    gap: 8px;
+  }
+
+  .tag {
+    @include text-style(10px, $green, 600, start);
+    padding: 2.5px 6px 3.5px;
+    margin-bottom: 7px;
+    background: rgba(89, 195, 99, 0.15);
+    border-radius: 6px;
+  }
+
+  .tutorName {
+    @include text-style(12px, $light_gray, 400, start);
+    margin: 8px 0 7px;
+  }
+
+  .rating {
+    display: flex;
+    align-items: center;
+    span {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 15px;
+      /* identical to box height */
+
+      /* light gray */
+
+      // color: #949bad;
+    }
+    .height_bar {
+      margin: 0 8px;
+    }
+
+    .stars {
+      display: flex;
+      align-items: center;
+    }
+    .review_num {
+      margin-left: 4px;
+      font-family: Noto Sans KR;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 17px;
+
+      /* light gray */
+
+      color: #949bad;
+    }
+  }
+
+  .price_box {
+    .sale {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17px;
+      /* identical to box height */
+
+      /* red */
+
+      color: #ee5a5a;
+    }
+
+    .price {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 22px;
+      margin-left: 5px;
+      /* identical to box height */
+
+      /* sub color */
+
+      color: #2c343f;
+    }
+    .won {
+      font-family: Noto Sans KR;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      line-height: 17px;
+      letter-spacing: 0.1em;
+      margin-left: 2px;
+
+      /* sub color */
+
+      color: #2c343f;
+    }
+
+    .month {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13px;
+      line-height: 16px;
+      margin-left: 4px;
+      /* light gray */
+
+      color: #949bad;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import styles from "./basicRadio.module.scss";
-const BasicRadio = ({ reason, name }) => {
+const BasicRadio = ({ reason, name, handleReason }) => {
   return (
     <label htmlFor={reason}>
       <section className={styles.radioSection}>
@@ -9,6 +9,7 @@ const BasicRadio = ({ reason, name }) => {
           value={reason}
           className={styles.radioBtn}
           id={reason}
+          onChange={() => handleReason(reason)}
         />
         <span>{reason}</span>
       </section>
