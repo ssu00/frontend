@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import styles from "./changePW.module.scss";
 import { BottomBlueBtn, TopBar, BasicInputBox } from "../../components/common";
 import * as cookie from "cookie";
 import ChangePassword from "../../core/api/User/changePW";
-
+import router from "next/router";
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
+  const role = cookie.parse(context.req.headers.cookie).role;
 
   return {
     props: {
       token,
+      role,
     },
   };
 };
 
-const ChangePW = ({ token }) => {
+const ChangePW = ({ token, role }) => {
   const [pw, setPW] = useState({
     newPassword: "",
     newPasswordConfirm: "",
@@ -28,6 +29,12 @@ const ChangePW = ({ token }) => {
     error: false,
     errorMsg: "",
   });
+
+  const goBack = () => {
+    return role === "MENTEE"
+      ? router.push("/mentee/mypage/profileEdit")
+      : router.push("/mentor/mypage");
+  };
 
   useEffect(() => {
     setResult({ success: false, error: false, errorMsg: "" });
@@ -50,7 +57,7 @@ const ChangePW = ({ token }) => {
 
   return (
     <section className={styles.changePW}>
-      <TopBar text={"비밀번호 변경"} />
+      <TopBar text={"비밀번호 변경"} onClick={goBack} />
       <p className={styles.text}>
         주기적인 비밀번호 변경을 통해
         <br />

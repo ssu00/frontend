@@ -1,0 +1,57 @@
+@import "../../../styles/main.module.scss";
+.profileEditSection {
+  @extend %page-base;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .imgSection {
+    @include flexBox;
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+    height: 200px;
+
+    input {
+      display: none;
+    }
+
+    .img_icon {
+      position: relative;
+
+      .profileImage {
+        @include avatar(100px, 100px);
+        cursor: pointer;
+      }
+
+      .editIcon {
+        @include pos(absolute, false, 3px, 0, false);
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        cursor: pointer;
+        background-color: $main;
+        border-radius: 50%;
+      }
+    }
+
+    .errMsg {
+      @include text-style($fs-14, $red, 400);
+      display: block;
+      margin-top: 10px;
+    }
+  }
+
+  .line {
+    width: 100%;
+    height: 8px;
+    background-color: $bg-color;
+  }
+
+  .editBtnSection {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 21px 70px;
+  }
+}

@@ -69,11 +69,11 @@ const MentorReview = ({ token, cid, mentee, data }) => {
 };
 
 const ClassReview = ({ token, cid, mentee }) => {
-  const child = mentee.child;
+  const child = mentee?.child;
   return (
     <section
       className={
-        child.reviewId
+        child?.reviewId
           ? styles.classReviewSectionNoCursor
           : styles.classReviewSection
       }
@@ -81,14 +81,14 @@ const ClassReview = ({ token, cid, mentee }) => {
       <MenteeReview
         data={mentee}
         onClick={() => {
-          if (!child.reviewId) {
+          if (!child?.reviewId) {
             router.push(
               `/mentor/myclass/classDetail/${cid}/review/${mentee.reviewId}`
             );
           }
         }}
       />
-      {child.reviewId ? (
+      {child?.reviewId ? (
         <MentorReview token={token} cid={cid} mentee={mentee} data={child} />
       ) : (
         <></>

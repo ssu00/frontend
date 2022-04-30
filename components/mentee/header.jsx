@@ -13,7 +13,7 @@ function Header() {
   useEffect(() => {
     const changeHeaderBackground = () => {
       if (window.scrollY > 0) headerRef.current.classList.add(styles.scroll);
-      else headerRef.current.classList.remove(styles.scroll);
+      else headerRef?.current?.classList.remove(styles.scroll);
     };
 
     window.addEventListener("scroll", changeHeaderBackground);

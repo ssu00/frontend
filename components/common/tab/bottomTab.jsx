@@ -1,5 +1,6 @@
 import styles from "./bottomTab.module.scss";
 import BottomTabElem from "./bottomTabElement";
+import * as cookie from "cookie";
 import {
   IC_Board,
   IC_BoardFill,
@@ -11,19 +12,25 @@ import {
   IC_PersonFill,
 } from "../../../icons";
 
-const BottomTab = ({ num }) => {
+const BottomTab = ({ num, role }) => {
   return (
     <ul className={styles.tab}>
-      <BottomTabElem url={"/mentor/myclass/myClassList"} text={"홈"}>
+      <BottomTabElem
+        url={role === "MENTEE" ? "/mentee" : "/mentor/myclass/myClassList"}
+        text={"홈"}
+      >
         {num[0] === 0 ? <IC_Home /> : <IC_HomeFill />}
       </BottomTabElem>
-      <BottomTabElem url={"/board"} text={"자유게시판"}>
+      <BottomTabElem url={"/mentee/board"} text={"자유게시판"}>
         {num[1] === 0 ? <IC_Board /> : <IC_BoardFill />}
       </BottomTabElem>
       <BottomTabElem url={"/mentor/chat/chatList"} text={"채팅"}>
         {num[2] === 0 ? <IC_Chat /> : <IC_ChatFill />}
       </BottomTabElem>
-      <BottomTabElem url={"/mentor/mypage"} text={"마이페이지"}>
+      <BottomTabElem
+        url={role === "MENTEE" ? "/mentee/mypage" : "/mentor/mypage"}
+        text={"마이페이지"}
+      >
         {num[3] === 0 ? <IC_Person /> : <IC_PersonFill />}
       </BottomTabElem>
     </ul>
