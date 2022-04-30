@@ -16,7 +16,7 @@ function LectureImage({ classData, mentorData, params }) {
         alt="thumbnail"
       />
       <div className={styles.classSystemTag}>
-        <span>{LevelToKor(classData)}</span>
+        <span>{LevelToKor(classData.difficulty)}</span>
       </div>
       <div className={styles.mentorProfileBlock}>
         <Image
