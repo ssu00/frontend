@@ -9,13 +9,19 @@ import {
   GetReview,
   DeleteLecture,
 } from "../../../../../core/api/Lecture";
-import { TopBar, BasicBtn, MenuBtn } from "../../../../../components/common";
-import { transLevel } from "../../../../../components/mentor/class/classCard";
+import {
+  TopBar,
+  BasicBtn,
+  MenuBtn,
+  ModalWithBackground,
+  BasicModal,
+} from "../../../../../components/common";
 import ClassReview from "../../../../../components/mentor/class/classReview";
 import {
   Rating,
   RatingBig,
 } from "../../../../../components/mentor/class/rating";
+import { LevelToKor } from "../../../../../utils/class/classLevel";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -30,6 +36,8 @@ export async function getServerSideProps(context) {
 
 const ClassDetail = ({ token, classData, reviewData }) => {
   const [select, setSelect] = useState(true);
+  const [modal, setModal] = useState(false);
+
   const subjectOnly = classData.lectureSubjects.map(
     (data, i) => data.krSubject
   );
@@ -38,10 +46,23 @@ const ClassDetail = ({ token, classData, reviewData }) => {
       ? classData.scoreAverage + ".0"
       : classData.scoreAverage;
 
-  console.log(classData);
-
   return (
     <section className={styles.classDetailSection}>
+      {modal && (
+        <ModalWithBackground prevent={false} setModal={setModal}>
+          <BasicModal
+            notice={"강의를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다."}
+            btnText={"강의 삭제"}
+            modalStyle={"square"}
+            btnClick={async () => {
+              const res = await DeleteLecture(token, classData.id);
+              if (res == 200) {
+                router.push("/mentor/myclass/myClassList");
+              }
+            }}
+          />
+        </ModalWithBackground>
+      )}
       <TopBar onClick={() => router.push("/mentor/myclass/myClassList")} />
       <div className={styles.imageBlock}>
         <Image
@@ -65,16 +86,11 @@ const ClassDetail = ({ token, classData, reviewData }) => {
           <BasicBtn
             text={"삭제"}
             btnStyle={styles.removeBtn}
-            onClick={async () => {
-              const res = await DeleteLecture(token, classData.id);
-              if (res == 200) {
-                router.push("/mentor/myclass/myClassList");
-              }
-            }}
+            onClick={() => setModal(true)}
           />
         </div>
         <div className={styles.classSystemTag}>
-          <span>{transLevel(classData)}</span>
+          <span>{LevelToKor(classData.difficulty)}</span>
         </div>
         <div className={styles.mentorProfileBlock}>
           <Image
@@ -152,6 +168,9 @@ const ClassDetail = ({ token, classData, reviewData }) => {
           </div>
           <div className={styles.reviews}>
             <h1 className={styles.reviewTitle}>강의 후기</h1>
+            {reviewData.content.length == 0 && (
+              <div className={styles.noReview}>아직 강의 후기가 없습니다.</div>
+            )}
             {reviewData.content.map((data, i) => {
               return (
                 <ClassReview

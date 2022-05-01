@@ -15,6 +15,8 @@ const ModalIcon = ({ btnText }) => {
       return <IC_CloseRoundGray width="24" height="24" />;
     case "확인-no err":
       return <IC_Check width="24" height="24" />;
+    default:
+      return <></>;
   }
 };
 
