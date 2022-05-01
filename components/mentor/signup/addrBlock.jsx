@@ -20,40 +20,30 @@ const AddrBlock = ({ datas }) => {
     GetSi(addr.statePick);
   }, []);
 
+  const InitAddress = (values, valuePick, res) => {
+    setAddr((prev) => ({
+      ...prev,
+      [values]: res.data.map((data) => data),
+      [valuePick]: res.data[0],
+    }));
+  };
+
   const GetAddr = async () => {
     if (Array.isArray(addr.state) && addr.state.length == 0) {
-      await GetStates().then((res) => {
-        setAddr((prev) => ({
-          ...prev,
-          state: res.data.map((data) => data.value),
-        }));
-      });
+      await GetStates().then((res) => InitAddress("state", "statePick", res));
     }
   };
 
   const GetSi = async (state) => {
-    await GetSiGunGus(state).then((res) => {
-      let sigunguBase = "";
-      setAddr((prev) => ({
-        ...prev,
-        sigungu: res.data.map((data, i) => {
-          if (i == 0) {
-            sigunguBase = data.value;
-          }
-          return data.value;
-        }),
-        sigunguPick: sigunguBase,
-      }));
-    });
+    await GetSiGunGus(state).then((res) =>
+      InitAddress("sigungu", "sigunguPick", res)
+    );
   };
 
   const GetDong = async (state, siGunGu) => {
-    await GetDongs(state, siGunGu).then((res) => {
-      setAddr((prev) => ({
-        ...prev,
-        dong: res.data.map((data) => data.value),
-      }));
-    });
+    await GetDongs(state, siGunGu).then((res) =>
+      InitAddress("dong", "dongPick", res)
+    );
   };
 
   return (
