@@ -32,7 +32,7 @@ const MyPage = ({ userInfo, uncheckedCnt }) => {
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
             <Image
-              src={userInfo.image ? userInfo.image : "/samples/lecture.png"}
+              src={userInfo.image ? userInfo.image : "/samples/mentor.svg"}
               width={56}
               height={56}
               className={styles.profileImg}
@@ -43,7 +43,7 @@ const MyPage = ({ userInfo, uncheckedCnt }) => {
             <div className={styles.mentorTag}>
               <span>{UserRole(userInfo.role)}</span>
             </div>
-            <span className={styles.name}>{userInfo.name}</span>
+            <span className={styles.name}>{userInfo.nickname}</span>
           </div>
 
           <BasicBtn

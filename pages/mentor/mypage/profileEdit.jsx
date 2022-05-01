@@ -92,7 +92,11 @@ const ProfileEdit = ({ token, userInfo }) => {
             router.push("/");
           }}
         />
-        <CategoryBtn text={"회원탈퇴"} arrow={true} />
+        <CategoryBtn
+          text={"회원탈퇴"}
+          arrow={true}
+          onClick={() => router.push("/common/withdraw")}
+        />
       </section>
       <BottomTab num={[0, 0, 0, 1]} />
     </section>

@@ -35,7 +35,7 @@ const ProfileEdit = ({ token, userInfo }) => {
     const imgRegister = await RegisterProfileImg(token, imgUrl.data.url);
     console.log("imgRef", imgRegister);
     if (imgRegister.status == 200) {
-      Router.reload(window.location.pathname);
+      RefreshPage();
       setErr("");
     } else {
       setErr("프로필 사진 등록에 실패했습니다.");
