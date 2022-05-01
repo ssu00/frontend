@@ -5,15 +5,11 @@
   border-bottom: 1px solid $line;
 
   .radioBtn {
-    width: 15px;
-    height: 15px;
-    margin: 0;
-    margin-right: 18px;
-    border: 1px solid $light_gray;
-    outline: none;
+    @include basic-box(15px, 15px, 0, 0, 1px solid $light_gray);
+    margin: 0 18px 0 0;
   }
 
-  .reason {
+  span {
     @include text-style($fs-13, $sub, 400);
     display: block;
   }

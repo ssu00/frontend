@@ -2,6 +2,7 @@ import IC_AlarmActive from "./assets/alarm_active.svg";
 import IC_Alarm from "./assets/alarm.svg";
 import IC_ArrowDoubleTriangle from "./assets/arrow_double_triangle.svg";
 import IC_ArrowLeft from "./assets/arrow_left.svg";
+import IC_ArrowRight from "./assets/arrow_right.svg";
 import IC_BoardFill from "./assets/board_fill.svg";
 import IC_Board from "./assets/board.svg";
 import IC_Bookmark from "./assets/bookmark.svg";
@@ -64,6 +65,15 @@ import IC_TalkFill from "./assets/talk_fill.svg";
 import IC_TalkOutline from "./assets/talk_outline.svg";
 import IC_ToggleActive from "./assets/toggle_active.svg";
 import IC_Toggle from "./assets/toggle.svg";
+import IC_Google from "./assets/google.svg";
+import IC_Naver from "./assets/naver.svg";
+import IC_Kakao from "./assets/kakao.svg";
+import IC_HeightBar from "./assets/height_bar.svg";
+import IC_HeartRedFill from "./assets/heart_red_fill.svg";
+import IC_HeartEmptySm from "./assets/heart_empty_sm.svg";
+import IC_HeartRedFill_Lg from "./assets/heart_red_fill_lg.svg";
+import IC_AvatarBg from "./assets/avatar_bg.svg";
+import IC_WriteReview from "./assets/write_review.svg";
 
 export {
   IC_AlarmActive,
@@ -132,4 +142,14 @@ export {
   IC_TalkOutline,
   IC_ToggleActive,
   IC_Toggle,
+  IC_Google,
+  IC_Naver,
+  IC_Kakao,
+  IC_HeightBar,
+  IC_HeartRedFill,
+  IC_HeartEmptySm,
+  IC_ArrowRight,
+  IC_AvatarBg,
+  IC_HeartRedFill_Lg,
+  IC_WriteReview,
 };

@@ -4,15 +4,10 @@
   width: 90px;
   height: 30px;
 
-  .inputBox {
+  input {
     @include text-style($fs-14, $main, 600, right);
-    width: 90px;
-    height: 30px;
-    padding: 6px 32px 6px 9px;
+    @include basic-box(90px, 30px, 6px 32px 6px 9px, 1px solid $line, 15px);
     background-color: $bg-color;
-    border: 1px solid $line;
-    border-radius: 15px;
-    outline: none;
   }
 
   input[type="number"]::-webkit-outer-spin-button,
@@ -20,7 +15,7 @@
     -webkit-appearance: none;
   }
 
-  .unit {
+  strong {
     @include text-style($fs-13, $sub, 700);
     @include pos(absolute, 5px, 9px, 6px, false);
   }

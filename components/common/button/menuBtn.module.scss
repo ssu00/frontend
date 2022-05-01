@@ -1,12 +1,10 @@
 @import "../../../styles/main.module.scss";
 .selectedBtn {
   @include flexBox;
-  width: 50%;
+  @include basic-box(50%, 100%, 0, 0, 0);
   cursor: pointer;
   background-color: $white;
-  border: 0;
   border-bottom: 2.5px solid $main;
-  outline: none;
 
   .selectedText {
     @include text-style($fs-16, $main, 700);
@@ -15,12 +13,10 @@
 
 .unselectedBtn {
   @include flexBox;
-  width: 50%;
+  @include basic-box(50%, 100%, 0, 0, 0);
   cursor: pointer;
   background-color: $white;
-  border: 0;
   border-bottom: 2.5px solid $line;
-  outline: none;
 
   .unselectedText {
     @include text-style($fs-16, $sub, 500);

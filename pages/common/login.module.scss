@@ -14,12 +14,12 @@
   }
 
   .imageLogo {
-    margin: 165px auto 80px;
+    margin: 90px auto 80px;
   }
 
   .btns {
     width: 100%;
-    margin: 0 auto 160px;
+    margin: 0 auto 60px;
 
     .loginInputBox {
       @include inputBox(40px, 8px 17px);
@@ -58,6 +58,19 @@
       .textBtnText {
         @include text-style($fs-15, $light_gray, 400);
       }
+    }
+  }
+
+  .snsCon {
+    text-align: center;
+    margin-bottom: 110px;
+    p {
+      color: $light_gray;
+    }
+    .snsBtn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 }

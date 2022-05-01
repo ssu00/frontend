@@ -1,0 +1,49 @@
+@import "../../../styles/main.module";
+
+.home {
+  position: relative;
+  max-width: 376px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: $white;
+
+  main {
+    position: relative;
+    padding: 17px 20px;
+    .mainBoard {
+      .profileContainer {
+        display: flex;
+        justify-content: space-between;
+        .leftPannel {
+          display: flex;
+          align-items: center;
+        }
+        .rightPannel {
+          font-family: "Noto Sans KR";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 9px;
+          line-height: 10px;
+          /* identical to box height */
+
+          text-decoration-line: underline;
+
+          color: #949bad;
+        }
+      }
+    }
+    .name {
+      font-family: "Noto Sans KR";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 11px;
+    }
+    .date {
+      font-family: "Noto Sans KR";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 11px;
+      color: #949bad;
+    }
+  }
+}

@@ -1,15 +1,19 @@
 @import "../../../styles/main.module.scss";
 .classRegistrationInputBox {
-  width: 330px;
-  height: 80px;
-  padding: 13px 21px;
-  background-color: $bg-color;
-  border: 1px solid $line;
-  border-radius: 10px;
-  outline: none;
-  resize: none;
-}
+  position: relative;
 
-.classRegistrationInputBox::placeholder {
-  @include text-style($fs-13, $light_gray, 400, left);
+  textarea {
+    @include basic-box(330px, 80px, 13px 21px, 1px solid $line, 10px);
+    background-color: $bg-color;
+    resize: none;
+  }
+
+  textarea::placeholder {
+    @include text-style($fs-13, $light_gray, 400, left);
+  }
+
+  span {
+    @include pos(absolute, false, 15px, 15px, false);
+    @include text-style(10px, $light_gray, 400);
+  }
 }

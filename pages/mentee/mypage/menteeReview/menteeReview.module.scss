@@ -1,0 +1,130 @@
+@import "../../../../styles/main.module.scss";
+
+.pointer {
+  cursor: pointer;
+}
+
+.line {
+  height: 8px;
+  background-color: $bg-color;
+  border-top: 1px solid $line;
+}
+
+.line2 {
+  border-bottom: 1px solid $line;
+}
+
+.line3 {
+  border-top: 1px solid $line;
+}
+
+.noReviews {
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+  @include flexBox(center, center);
+}
+
+.topSection {
+  width: 375px;
+  margin: 0 auto;
+  background-color: $white;
+
+  .title {
+    @include text-style($fs-20, $sub, 400);
+    padding-top: 8px;
+    margin-bottom: 19px;
+  }
+
+  .category {
+    display: flex;
+    width: 100%;
+    height: 48px;
+  }
+}
+
+.contentSection {
+  @extend %page-base;
+  position: relative;
+  background: $bg-color;
+  margin-bottom: 75px;
+  border-bottom: 1px solid $line;
+
+  .bg {
+    background: $white;
+    padding: 15px 20px;
+  }
+
+  .unWriteSection:last-of-type {
+    padding-bottom: 75px;
+  }
+
+  .btnRadius {
+    padding: 8px 11px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: $fs-13;
+  }
+
+  .day {
+    font-family: Montserrat !important;
+    font-style: normal;
+    font-size: $fs-15;
+  }
+
+  .contentText {
+    font-size: $fs-12;
+    margin: 0;
+    flex-basis: 330px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .review {
+    display: flex;
+    align-items: center;
+
+    p {
+      margin: 0;
+      font-size: $fs-12;
+    }
+
+    .reviewInfoText {
+      color: $light_gray;
+    }
+
+    .reviewImg {
+      width: 70px;
+      height: 70px;
+      border-radius: 5%;
+    }
+
+    .reviewCnt {
+      flex-basis: 160px;
+      margin-left: 10px;
+      margin-right: 15px;
+    }
+
+    .writeReviewCnt {
+      flex-basis: 200px;
+      margin-left: 10px;
+      margin-right: 15px;
+    }
+  }
+
+  .writeReview {
+    @include flexBox(start, center);
+
+    .score {
+      margin-right: 2px;
+    }
+
+    p {
+      font-family: Montserrat !important;
+      font-style: normal;
+      font-size: 10px;
+      color: $light_gray;
+    }
+  }
+}

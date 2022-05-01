@@ -23,7 +23,9 @@ const MyPage = () => {
   };
 
   const redirect = () => {
-    window.location.assign("https://github.com/tutor-lab/tutor-lab-front/wiki/%EC%9D%B4%EC%9A%A9%EC%95%BD%EA%B4%80");
+    window.location.assign(
+      "https://github.com/tutor-lab/tutor-lab-front/wiki/%EC%9D%B4%EC%9A%A9%EC%95%BD%EA%B4%80"
+    );
   };
 
   useEffect(() => {

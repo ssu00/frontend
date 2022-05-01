@@ -1,12 +1,10 @@
 import styles from "./classRegistrationInputBox.module.scss";
-const ClassRegistrationInputBox = ({ placeholder, value, onChange }) => {
+const ClassRegistrationInputBox = ({ placeholder, value, onChange, limit }) => {
   return (
-    <textarea
-      className={styles.classRegistrationInputBox}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-    />
+    <div className={styles.classRegistrationInputBox}>
+      <textarea placeholder={placeholder} value={value} onChange={onChange} />
+      <span className={styles.textLimit}>{limit}</span>
+    </div>
   );
 };
 

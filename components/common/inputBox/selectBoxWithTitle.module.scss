@@ -1,10 +1,10 @@
 @import "../../../styles/main.module.scss";
-.selectBox {
+.selectBoxWithTitle {
   position: relative;
   display: inline-block;
   margin: 0 12px 0 0;
 
-  .title {
+  span {
     @include text-style($fs-12, $light_gray, 400, left);
     @include pos(absolute, 6px, 0, 0, 17px);
     z-index: 2;
@@ -12,29 +12,24 @@
     pointer-events: none;
   }
 
-  .sel {
+  select {
     @include text-style($fs-14, $main, 500, left);
-    width: 130px;
-    height: 60px;
-    padding: 30px 17px 6px;
+    @include basic-box(130px, 60px, 30px 17px 6px, 1px solid $line, 10px);
     background-color: $bg-color;
-    border: 1px solid $line;
-    border-radius: 10px;
-    outline: none;
     appearance: none;
 
-    .option {
+    option {
       @include text-style($fs-14, $main, 500, left);
     }
+  }
+
+  select::-ms-expand {
+    display: none;
   }
 
   .arrow {
     position: absolute;
     right: 17px;
     bottom: 11px;
-  }
-
-  select::-ms-expand {
-    display: none;
   }
 }

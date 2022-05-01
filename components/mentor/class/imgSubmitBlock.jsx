@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import Image from "next/image";
 import classNames from "classnames";
@@ -34,9 +34,16 @@ const ImgCrop = ({ value, handleChange, token }) => {
   const [croppedUrl, setCroppedUrl] = useState("");
   const [fileName, setFileName] = useState("");
   const [imgType, setImgType] = useState("");
+  const [clickDisable, setClickDisable] = useState(true);
   let testCrop = "";
   const imgRef = useRef(null);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (imgSrc != "") {
+      setClickDisable(false);
+    }
+  }, [imgSrc]);
 
   const onSelectFile = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -182,7 +189,11 @@ const ImgCrop = ({ value, handleChange, token }) => {
         </button>
         <button
           type="button"
-          className={classNames(styles.submitBtn, basicBtnStyle.btn_blue)}
+          className={classNames(
+            styles.submitBtn,
+            !clickDisable ? basicBtnStyle.btn_blue : basicBtnStyle.btn_gray
+          )}
+          disabled={clickDisable}
           onClick={async () => {
             await onCropComplete();
             const file = DataURIToBlob(testCrop);
@@ -192,6 +203,7 @@ const ImgCrop = ({ value, handleChange, token }) => {
             const res = await UploadImage(formData, token);
             if (res.status == 200) {
               handleChange("image", res.data.url);
+              setClickDisable(true);
             }
           }}
         >
