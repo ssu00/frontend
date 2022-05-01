@@ -1,6 +1,7 @@
 @import "../../../styles/main.module.scss";
 .modalWithBackground {
   @extend %modal-background;
+  z-index: 1000;
 
   .modal {
     @extend %modal-base;

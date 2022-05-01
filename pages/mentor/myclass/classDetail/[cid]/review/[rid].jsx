@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import router from "next/router";
 import * as cookie from "cookie";
 import styles from "./reviewDetail.module.scss";
@@ -14,6 +14,7 @@ import {
   WriteMentorReview,
   EditMentorReview,
 } from "../../../../../../core/api/Lecture";
+import PreventEnterKey from "../../../../../../utils/preventEnterKey";
 
 export async function getServerSideProps(context) {
   const classID = context.query.cid;
@@ -36,17 +37,61 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
   const [modal, setModal] = useState(false);
   const [writeType, setWriteType] = useState("register");
   const [err, setErr] = useState(false);
+  const [keydown, setKeyDown] = useState(0);
+
+  if (typeof document !== "undefined") {
+    const documentRef = useRef(document);
+    const reviewBtn = documentRef.current.getElementById("reviewBtn");
+    PreventEnterKey(reviewBtn, keydown, setKeyDown);
+  }
 
   useEffect(() => {
-    if (reviewData.child.mentorReviewId) {
+    if (reviewData?.child?.mentorReviewId) {
       setWriteType("edit");
-      setComment(reviewData.child.content);
+      setComment(reviewData?.child?.content);
     }
   }, []);
 
+  const ReviewRegister = async () => {
+    keydown == 1 &&
+      (await WriteMentorReview(
+        parsedCookies.accessToken,
+        classID,
+        reviewID,
+        comment
+      ).then((res) => {
+        if (res == 201) {
+          setModal(true);
+          setErr("");
+        } else {
+          setModal(false);
+          setErr("실패");
+        }
+      }));
+  };
+
+  const ReviewEdit = async () => {
+    keydown == 1 &&
+      (await EditMentorReview(
+        parsedCookies.accessToken,
+        classID,
+        reviewID,
+        reviewData?.child?.mentorReviewId,
+        comment
+      ).then((res) => {
+        if (res == 200) {
+          setModal(true);
+          setErr("");
+        } else {
+          setModal(false);
+          setErr("실패");
+        }
+      }));
+  };
+
   return (
     <section className={styles.reviewDetailSection}>
-      {modal ? (
+      {modal && (
         <ModalWithBackground setModal={setModal} prevent={true}>
           <BasicModal
             notice={
@@ -63,8 +108,6 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
             }
           />
         </ModalWithBackground>
-      ) : (
-        <></>
       )}
       <TopBar
         text={"후기 상세보기"}
@@ -83,41 +126,9 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
         ></textarea>
       </div>
       <BottomBlueBtn
+        id={"reviewBtn"}
         text={writeType == "register" ? "등록" : "수정"}
-        onClick={async () => {
-          if (writeType == "register") {
-            await WriteMentorReview(
-              parsedCookies.accessToken,
-              classID,
-              reviewID,
-              comment
-            ).then((res) => {
-              if (res == 201) {
-                setModal(true);
-                setErr("");
-              } else {
-                setModal(false);
-                setErr("실패");
-              }
-            });
-          } else {
-            await EditMentorReview(
-              parsedCookies.accessToken,
-              classID,
-              reviewID,
-              reviewData.child.mentorReviewId,
-              comment
-            ).then((res) => {
-              if (res == 200) {
-                setModal(true);
-                setErr("");
-              } else {
-                setModal(false);
-                setErr("실패");
-              }
-            });
-          }
-        }}
+        onClick={writeType == "register" ? ReviewRegister : ReviewEdit}
       />
     </section>
   );

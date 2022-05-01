@@ -49,14 +49,13 @@ const MentorReview = ({ token, cid, mentee, data }) => {
 
           <BasicBtn
             text={"삭제"}
-            onClick={() => {
-              DeleteMentorReview(
+            onClick={async () => {
+              await DeleteMentorReview(
                 token,
                 cid,
                 mentee.menteeReviewId,
                 data.mentorReviewId
               );
-              router.push(`/mentor/myclass/myClassList`);
               RefreshPage();
             }}
             btnStyle={classNames(basicBtnStyle.btn_transparent, styles.textBtn)}
