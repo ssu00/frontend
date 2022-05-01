@@ -87,6 +87,21 @@
   .classPriceBlock {
     padding: 15px 25px;
     border-top: 1px solid $line;
+
+    .price {
+      display: flex;
+      align-items: center;
+
+      span {
+        @include text-style(14px, $light_gray, 500);
+        width: 30px;
+      }
+
+      h1 {
+        @include text-style(20px, $sub, 500);
+        margin-left: 10px;
+      }
+    }
   }
 
   .line {
