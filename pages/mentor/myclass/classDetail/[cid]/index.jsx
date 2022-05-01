@@ -22,6 +22,7 @@ import {
   RatingBig,
 } from "../../../../../components/mentor/class/rating";
 import { LevelToKor } from "../../../../../utils/class/classLevel";
+import EmptyDataNotice from "../../../../../components/common/emptyDataNotice";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -168,9 +169,7 @@ const ClassDetail = ({ token, classData, reviewData }) => {
           </div>
           <div className={styles.reviews}>
             <h1 className={styles.reviewTitle}>강의 후기</h1>
-            {reviewData.content.length == 0 && (
-              <div className={styles.noReview}>아직 강의 후기가 없습니다.</div>
-            )}
+            <EmptyDataNotice data={reviewData.content} content="강의 후기" />
             {reviewData.content.map((data, i) => {
               return (
                 <ClassReview
