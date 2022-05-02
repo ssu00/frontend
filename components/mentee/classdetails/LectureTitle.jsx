@@ -9,9 +9,9 @@ import renderHTML from "react-render-html";
 import classNames from "classnames";
 import { transGroup } from "../classCard";
 
-function LectureTitle({ token, classData, reviewData }) {
+function LectureTitle({ token, classData, reviewData, role }) {
   const [select, setSelect] = useState(true);
-
+  console.log(classData);
   const score =
     classData?.scoreAverage % 1 == 0
       ? classData?.scoreAverage + ".0"
@@ -83,6 +83,7 @@ function LectureTitle({ token, classData, reviewData }) {
                     cid={classData.id}
                     mentee={data}
                     key={i}
+                    role={role}
                   />
                 );
               })}

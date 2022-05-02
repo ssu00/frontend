@@ -10,7 +10,7 @@ export const GetLecture = async (token, data) => {
         return qs.stringify(params, { arrayFormat: "repeat" });
       },
     });
-    console.log(res.data);
+
     return res.data;
   } catch (err) {
     return err;
