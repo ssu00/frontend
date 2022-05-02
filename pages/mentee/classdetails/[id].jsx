@@ -9,17 +9,12 @@ import * as cookie from "cookie";
 import styles from "./classdetails.module.scss";
 import GetLectureDetails from "../../../core/api/Mentee/getLectureDetails";
 import { GetReview } from "../../../core/api/Lecture";
-import GetViewMentor from "../../../core/api/Mentor/getViewMentor";
 
-const ClassDetails = ({ token, classData, reviewData, params, mentorData }) => {
+const ClassDetails = ({ token, classData, reviewData, params }) => {
   return (
     <section className={styles.container}>
       <TopMenu />
-      <LectureImage
-        classData={classData}
-        mentorData={mentorData}
-        params={mentorData.mentorId}
-      />
+      <LectureImage classData={classData} params={params.mentorId} />
       <LectureTitle classData={classData} reviewData={reviewData} />
       <BottomNavBar classData={classData} token={token} params={params} />
     </section>
@@ -33,10 +28,6 @@ export async function getServerSideProps(context) {
 
   const classData = await GetLectureDetails(token, params);
   const reviewData = await GetReview(params);
-  const mentorData = await GetViewMentor(
-    token,
-    classData.lectureMentor.mentorId
-  );
 
   return {
     props: {
@@ -44,7 +35,6 @@ export async function getServerSideProps(context) {
       params,
       classData,
       reviewData,
-      mentorData,
     },
   };
 }
