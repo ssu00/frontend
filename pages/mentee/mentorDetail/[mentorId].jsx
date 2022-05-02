@@ -37,7 +37,6 @@ const MentorCon = ({ mentorData, lectureListData, params, token }) => {
   const tabMenu = ["멘토", "강의내역", "멘티 후기", ""];
   const user = mentorData.user;
 
-  console.log(mentorData);
   return (
     <section className={styles.mentorIntroductionSection}>
       <TopBar

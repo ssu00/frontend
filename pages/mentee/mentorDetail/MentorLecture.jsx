@@ -2,15 +2,29 @@ import { Rating } from "@mui/material";
 import Image from "next/image";
 import { IC_HeartEmptySm, IC_HeartRedFill, IC_HeightBar } from "../../../icons";
 import styles from "./MentorLecture.module.scss";
+import router from "next/router";
 
 const MentorLecture = ({ lectureListData }) => {
   const lectureCon = lectureListData.content;
 
+  console.log(lectureListData);
   return (
     <section className={styles.lectureSection}>
       {lectureCon?.map((info) => {
         return (
-          <article className={styles.classCard} key={info.id}>
+          <article
+            className={styles.classCard}
+            key={info.id}
+            onClick={() => {
+              router.push({
+                pathname: `/mentee/classdetails/${info.lectureId}`,
+                query: {
+                  lecturePriceId: info.lecturePrice.lecturePriceId,
+                  mentorId: info.lectureMentor.mentorId,
+                },
+              });
+            }}
+          >
             <div className={styles.imageContainer}>
               <Image
                 src={info.thumbnail ? info.thumbnail : "/samples/lecture.png"}
