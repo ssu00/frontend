@@ -1,75 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import * as cookie from "cookie";
 import styles from "./boardDetail.module.scss";
 import TopBar from "../../../components/mentee/board/TopBar";
-import Image from "next/image";
+
 import {
   GetBoardDetail,
   GetBoardDetailComments,
 } from "../../../core/api/Mentee/board";
-import { IC_CommentBubble, IC_HeartRedFill, IC_Report } from "../../../icons";
+
 import BoardComment from "../../../components/mentee/board/BoardComment";
+import MainBoard from "../../../components/mentee/board/MainBoard";
+import BottomButton from "../../../components/mentee/board/BottomButton";
+import BoardOptionModal from "../../../components/mentee/board/BoardOptionModal";
 
-const BoardDetail = ({ postComments, postDetail }) => {
+const BoardDetail = ({ token, postComments, postDetail }) => {
+  const [modal, setModal] = useState(false);
+
+  const handleOptionModal = () => {
+    setModal(!modal);
+  };
   return (
-    <div className={styles.home}>
-      <TopBar />
-      <main>
-        <section className={styles.mainBoard}>
-          <div className={styles.profileContainer}>
-            <div className={styles.leftPannel}>
-              <div className={styles.image}>
-                <Image
-                  src={postDetail.userImage ? postDetail.userImage : "/"}
-                  alt="profile"
-                  width="40px"
-                  height="40px"
-                  x
-                />
-              </div>
-            </div>
-            <div className={styles.rightPannel}>
-              <span className={styles.name}>{postDetail?.userNickname}</span>
-              <div className={styles.rightBottom}>
-                <span className={styles.date}>{postDetail?.createdAt}</span>
-                <span className={styles.seen}>
-                  {`조회수 ${postDetail?.hits} 댓글 ${postDetail.commentCount}`}
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className={styles.contentContainer}>
-            <div className={styles.requestLecture}>강의요청</div>
-            <span className={styles.title}>{postDetail.title}</span>
-            <span className={styles.content}>{postDetail.content}</span>
-          </div>
-
-          <div className={styles.buttonContainer}>
-            <div className={styles.leftSide}>
-              <button className={styles.likesButton}>
-                <IC_HeartRedFill />
-                {`좋아요 ${postDetail.likingCount}`}
-              </button>
-              <button className={styles.commentsButton}>
-                <IC_CommentBubble />
-                {`댓글 ${postDetail.commentCount}`}
-              </button>
-            </div>
-            <div className={styles.rightSide}>
-              <button className={styles.reportButton}>
-                <IC_Report />
-                신고
-              </button>
-            </div>
-          </div>
-        </section>
-        <section className={styles.commentSection}>
-          {postComments?.content?.map((content) => (
-            <BoardComment key={content.postId} content={content} />
-          ))}
-        </section>
-      </main>
-    </div>
+    <>
+      <div className={styles.home}>
+        <TopBar handleOptionModal={handleOptionModal} />
+        <main>
+          <section className={styles.mainBoard}>
+            <MainBoard postDetail={postDetail} />
+          </section>
+          <section className={styles.commentSection}>
+            {postComments?.content?.map((content, idx) => (
+              <BoardComment key={idx} content={content} />
+            ))}
+          </section>
+        </main>
+        <BottomButton token={token} postId={postDetail.postId} />
+      </div>
+      {modal ? (
+        <BoardOptionModal
+          handleOptionModal={handleOptionModal}
+          postId={postDetail.postId}
+        />
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 
@@ -82,6 +56,7 @@ export const getServerSideProps = async (context) => {
   const postComments = await GetBoardDetailComments(token, params.id);
   return {
     props: {
+      token,
       role,
       params,
       postDetail,
