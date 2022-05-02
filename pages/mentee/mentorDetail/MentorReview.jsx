@@ -105,7 +105,7 @@ const MentorReview = ({ params, token }) => {
 
           const reviewDate = review.createdAt.slice(0, 10);
           const dateDot = reviewDate.split("-").join(".");
-          console.log(review, "review");
+
           return (
             <>
               <div
