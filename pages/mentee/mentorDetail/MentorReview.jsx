@@ -1,23 +1,39 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./MentorReview.module.scss";
 import { getOneMentorLecture } from "../../../core/api/Mentor/getOneMentorLecture";
 import { Rating, RatingBig } from "../../../components/mentor/class/rating";
 import Image from "next/image";
 import classNames from "classnames";
+import router from "next/router";
 
 const MentorReview = ({ params, token }) => {
   const [page, setPage] = useState(1);
   const [reviewInfo, setReviewInfo] = useState([]);
+  const lectureRouter = useRef(null);
 
-  const oneMentorLecture = useCallback(async () => {
+  const oneMentorLecture = async () => {
     const review = await getOneMentorLecture(token, params, page);
     setReviewInfo(review);
-  });
+  };
 
   useEffect(() => {
     oneMentorLecture();
   }, []);
 
+  const handleLecturePage = (e) => {
+    e.stopPropagation();
+    lectureRouter.current;
+    router.back();
+    // router.push({
+    //   pathname: `/mentee/classdetails/${review.lectureId}`,
+    //   query: {
+    //     lecturePriceId: review.lecturePrice.lecturePriceId,
+    //     mentorId: review.lectureMentor.mentorId,
+    //   },
+    // });
+  };
+
+  console.log(lectureRouter);
   return (
     <section className={styles.reviewInfoSection}>
       <article className={styles.ratingSection}>
@@ -90,6 +106,11 @@ const MentorReview = ({ params, token }) => {
               <div
                 className={classNames(styles.reviewerSection, styles.pointer)}
                 key={review.menteeReivewId}
+                onClick={() => {
+                  router.push(
+                    `/mentee/mypage/menteeReview/review/detailPage/${review.menteeReviewId}`
+                  );
+                }}
               >
                 <div className={styles.reviewerInfo}>
                   <div className={styles.reviewer}>
@@ -122,7 +143,13 @@ const MentorReview = ({ params, token }) => {
                 <div className={styles.reviewCon}>
                   <p className={styles.reviewText}>{review.content}</p>
 
-                  <div className={styles.lectureCon}>
+                  <div
+                    className={styles.lectureCon}
+                    ref={lectureRouter}
+                    onClick={(e) => {
+                      handleLecturePage(e);
+                    }}
+                  >
                     <p
                       className={classNames(styles.lectureText, styles.pointer)}
                     >
