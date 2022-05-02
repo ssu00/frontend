@@ -4,7 +4,6 @@ const BasicInputBox = ({ type, style, placeholder, onChange, value }) => {
       type={type}
       className={style}
       placeholder={placeholder}
-      // onChange={(e) => onChange(e.target.value)}
       onChange={onChange}
       value={value}
     />

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const GetRegisteredLectures = async (token, page) => {
   try {
-    const res = await axios.get(`/mentees/my-lectures`, {
+    const res = await axios.get(`/mentees/my-enrollments`, {
       headers: { Authorization: token },
       params: page,
     });

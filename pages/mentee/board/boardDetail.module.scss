@@ -1,0 +1,21 @@
+@import "../../../styles/main.module";
+
+.home {
+  position: relative;
+  max-width: 376px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: $white;
+
+  main {
+    position: relative;
+
+    .mainBoard {
+      padding: 17px 20px;
+      border-bottom: 8px solid #f3f5f8;
+    }
+    .commentSection {
+      padding: 17px 20px 110px;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./LectureImage.module.scss";
 import { IC_AvatarBg, IC_Enlarge } from "../../../icons";
-import { transLevel } from "../../mentor/class/classCard";
+import { LevelToKor } from "../../../utils/class/classLevel";
 import Image from "next/image";
 import router from "next/router";
 import classNames from "classnames";
@@ -16,7 +16,7 @@ function LectureImage({ classData }) {
         alt="thumbnail"
       />
       <div className={styles.classSystemTag}>
-        <span>{transLevel(classData)}</span>
+        <span>{LevelToKor(classData.difficulty)}</span>
       </div>
       <div className={styles.mentorProfileBlock}>
         <Image

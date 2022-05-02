@@ -24,6 +24,7 @@ import IC_ClipL from "./assets/clip_L.svg";
 import IC_ClipS from "./assets/clip_S.svg";
 import IC_CloseCircle from "./assets/close_circle.svg";
 import IC_CloseRound from "./assets/close_round.svg";
+import IC_CloseRoundGray from "./assets/close_round_gray.svg";
 import IC_Close from "./assets/close.svg";
 import IC_Coupon from "./assets/coupon.svg";
 import IC_Drawer from "./assets/drawer.svg";
@@ -73,6 +74,8 @@ import IC_HeartEmptySm from "./assets/heart_empty_sm.svg";
 import IC_HeartRedFill_Lg from "./assets/heart_red_fill_lg.svg";
 import IC_AvatarBg from "./assets/avatar_bg.svg";
 import IC_WriteReview from "./assets/write_review.svg";
+import IC_CommentBubble from "./assets/comment_bubble.svg";
+import IC_Report from "./assets/report.svg";
 
 export {
   IC_AlarmActive,
@@ -100,6 +103,7 @@ export {
   IC_ClipS,
   IC_CloseCircle,
   IC_CloseRound,
+  IC_CloseRoundGray,
   IC_Close,
   IC_Coupon,
   IC_Drawer,
@@ -150,4 +154,6 @@ export {
   IC_AvatarBg,
   IC_HeartRedFill_Lg,
   IC_WriteReview,
+  IC_Report,
+  IC_CommentBubble,
 };

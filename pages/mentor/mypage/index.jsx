@@ -13,24 +13,26 @@ import MyPageTopBar from "../../../components/mentor/mypage/mypageTopBar";
 import { IC_Bookmark, IC_Student } from "../../../icons";
 import { GetMyInfo } from "../../../core/api/User";
 import UserRole from "../../../utils/userRole";
+import GetUncheckedNotificationCount from "../../../core/api/Notification/getUncheckedNotificatonCount";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const userInfo = await GetMyInfo(token);
+  const uncheckedCnt = await GetUncheckedNotificationCount(token);
   return {
-    props: { userInfo },
+    props: { userInfo, uncheckedCnt },
   };
 };
 
-const MyPage = ({ userInfo }) => {
+const MyPage = ({ userInfo, uncheckedCnt }) => {
   return (
     <section className={styles.mypageSection}>
-      <MyPageTopBar />
+      <MyPageTopBar count={uncheckedCnt} />
       <section className={styles.profileSection}>
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
             <Image
-              src={userInfo.image ? userInfo.image : "/samples/lecture.png"}
+              src={userInfo.image ? userInfo.image : "/samples/mentor.svg"}
               width={56}
               height={56}
               className={styles.profileImg}
@@ -41,7 +43,7 @@ const MyPage = ({ userInfo }) => {
             <div className={styles.mentorTag}>
               <span>{UserRole(userInfo.role)}</span>
             </div>
-            <span className={styles.name}>{userInfo.name}</span>
+            <span className={styles.name}>{userInfo.nickname}</span>
           </div>
 
           <BasicBtn

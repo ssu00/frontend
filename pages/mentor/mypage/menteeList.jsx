@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as cookie from "cookie";
 import { BottomTab, TopBar } from "../../../components/common";
 import styles from "./menteeList.module.scss";
@@ -6,19 +6,12 @@ import router from "next/router";
 import { DecideOpenOrClose } from "../../../components/mentor/mypage/menteeListLine";
 import GetMyMentees from "../../../core/api/Mentor/getMyMentees";
 import { ModalWithBackground, BasicModal } from "../../../components/common";
+import EmptyDataNotice from "../../../components/common/emptyDataNotice";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   let myMenteeClosed = await GetMyMentees(token, 1, true);
   let myMenteeOpened = await GetMyMentees(token, 1, false);
-  // if (!menteeClosed) {
-  //   menteeClosed = null;
-  // }
-  // if (!menteeOpened) {
-  //   menteeOpened = null;
-  // }
-  // const myMenteeClosed = JSON.stringify(menteeClosed);
-  // const myMenteeOpened = JSON.stringify(menteeOpened);
 
   return {
     props: { token, myMenteeClosed, myMenteeOpened },
@@ -50,14 +43,16 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
       />
       <div className={styles.ing}>
         <div className={styles.titleBox}>
-          <h1 className={styles.title}>강의 진행 중인 멘티</h1>
+          <h1 className={styles.title}>진행 중인 강의의 멘티</h1>
         </div>
-        {closedMentee.content.map((data, i) => {
+        <EmptyDataNotice data={openedMentee.content} content={"멘티"} />
+        {openedMentee.content.map((data, i) => {
           return (
             <DecideOpenOrClose
+              key={i}
               data={data}
               token={token}
-              closed={false}
+              closed={true}
               page={page}
               setModal={setModal}
             />
@@ -69,14 +64,16 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
 
       <div className={styles.finished}>
         <div className={styles.titleBox}>
-          <h1 className={styles.title}>강의 종료된 멘티</h1>
+          <h1 className={styles.title}>종료된 강의의 멘티</h1>
         </div>
-        {openedMentee.content.map((data, i) => {
+        <EmptyDataNotice data={closedMentee.content} content={"멘티"} />
+        {closedMentee.content.map((data, i) => {
           return (
             <DecideOpenOrClose
+              key={i}
               data={data}
               token={token}
-              closed={true}
+              closed={false}
               page={page}
               setModal={setModal}
             />

@@ -10,6 +10,7 @@ import { IC_EditFill } from "../../../icons";
 import UploadImage from "../../../core/api/Image/uploadImage";
 import RegisterProfileImg from "../../../core/api/Image/registerProfileImg";
 import Router from "next/router";
+import { removeCookie } from "../../../utils/cookie";
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const userInfo = await GetMyInfo(token);
@@ -23,7 +24,7 @@ const ProfileEdit = ({ token, userInfo }) => {
   const [err, setErr] = useState("");
 
   useEffect(() => {
-    if (userInfo.image == null) setProfile("/samples/lecture.png");
+    if (userInfo.image == null) setProfile("/samples/mentor.svg");
     else setProfile(userInfo?.image);
     console.log("userinfo=", userInfo);
   }, []);
@@ -32,7 +33,7 @@ const ProfileEdit = ({ token, userInfo }) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("file", file);
-    const imgUrl = await UploadImage(formData);
+    const imgUrl = await UploadImage(formData, token);
     const imgRegister = await RegisterProfileImg(token, imgUrl.data.url);
     console.log("imgRef", imgRegister);
     if (imgRegister.status == 200) {
@@ -59,7 +60,7 @@ const ProfileEdit = ({ token, userInfo }) => {
         <label htmlFor="profile">
           <div className={styles.img_icon}>
             <Image
-              src={profile ? profile : "/samples/lecture.png"}
+              src={profile ? profile : "/samples/mentor.svg"}
               width={100}
               height={100}
               className={styles.profileImage}
@@ -78,9 +79,24 @@ const ProfileEdit = ({ token, userInfo }) => {
           onClick={() => router.push("/mentor/mypage/mentorIntroduction")}
         />
         <CategoryBtn text={"회원정보 수정"} arrow={true} />
-        <CategoryBtn text={"비밀번호 변경"} arrow={true} />
-        <CategoryBtn text={"로그아웃"} arrow={true} />
-        <CategoryBtn text={"회원탈퇴"} arrow={true} />
+        <CategoryBtn
+          text={"비밀번호 변경"}
+          arrow={true}
+          onClick={() => router.push("/common/changePW")}
+        />
+        <CategoryBtn
+          text={"로그아웃"}
+          arrow={true}
+          onClick={() => {
+            removeCookie("accessToken", { path: "/" });
+            router.push("/");
+          }}
+        />
+        <CategoryBtn
+          text={"회원탈퇴"}
+          arrow={true}
+          onClick={() => router.push("/common/withdraw")}
+        />
       </section>
       <BottomTab num={[0, 0, 0, 1]} />
     </section>

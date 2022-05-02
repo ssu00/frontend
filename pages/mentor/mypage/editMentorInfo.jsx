@@ -100,7 +100,7 @@ const EditMentorInfo = ({ token, myBio, myCareer, myNewEdu }) => {
         <h1 className={styles.editInfoTitle}>소개</h1>
         <InfoEditBox
           title={"소개"}
-          value={myBio}
+          value={bio}
           ownStyle={classNames(styles.firstBox, styles.lastBox)}
           makeChange={(e) => setBio(e.target.value)}
         />

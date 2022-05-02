@@ -22,3 +22,56 @@ export const UploadPost = async (token, data) => {
     return err.response;
   }
 };
+
+export const GetBoardDetail = async (token, post_id) => {
+  try {
+    const res = await axios.get(`/posts/${post_id}`, {
+      headers: { Authorization: token },
+    });
+    return res.data;
+  } catch (err) {
+    return err;
+  }
+};
+
+export const GetBoardDetailComments = async (token, post_id) => {
+  try {
+    const res = await axios.get(`/posts/${post_id}/comments`, {
+      headers: { Authorization: token },
+    });
+    return res.data;
+  } catch (err) {
+    return err;
+  }
+};
+
+export const UploadBoardComments = async (token, post_id, data) => {
+  try {
+    const res = await axios.post(`/posts/${post_id}/comments`, data, {
+      headers: { Authorization: token },
+    });
+    return res;
+  } catch (err) {
+    return err.response;
+  }
+};
+
+export const EditBoardPosts = async (token, post_id, data) => {
+  console.log(token, post_id, data);
+  try {
+    const res = await axios.put(
+      `/users/my-posts/${post_id}`,
+      {
+        category: data.category,
+        content: data.content,
+        title: data.title,
+        image: data.image,
+      },
+      { headers: { Authorization: token } }
+    );
+
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};

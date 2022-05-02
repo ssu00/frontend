@@ -4,6 +4,7 @@ import { BottomBlueBtn, TopBar, BasicInputBox } from "../../components/common";
 import * as cookie from "cookie";
 import ChangePassword from "../../core/api/User/changePW";
 import router from "next/router";
+
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const role = cookie.parse(context.req.headers.cookie).role;

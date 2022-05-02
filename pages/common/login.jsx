@@ -85,16 +85,16 @@ const Login = () => {
 
         <span className={styles.textButtons}>
           <BasicBtn
-            text={"아이디찾기"}
+            text={"회원가입하기"}
             btnStyle={classNames(styles.textBtn, basicBtnStyle.btn_transparent)}
             textStyle={styles.textBtnText}
-            onClick={() => router.push("/mentor/findID")}
+            onClick={() => router.push("/mentor/signup")}
           />
           <BasicBtn
             text={"비밀번호찾기"}
             btnStyle={classNames(styles.textBtn, basicBtnStyle.btn_transparent)}
             textStyle={styles.textBtnText}
-            onClick={() => router.push("/mentor/findPW")}
+            onClick={() => router.push("/common/findPW")}
           />
         </span>
       </div>
@@ -102,9 +102,27 @@ const Login = () => {
       <div className={styles.snsCon}>
         <p>SNS 로그인</p>
         <div className={styles.snsBtn}>
-          <IC_Google />
-          <IC_Naver />
-          <IC_Kakao />
+          <IC_Google
+            onClick={() => {
+              router.push(
+                `${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/google`
+              );
+            }}
+          />
+          <IC_Naver
+            onClick={() => {
+              router.push(
+                `${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/naver`
+              );
+            }}
+          />
+          <IC_Kakao
+            onClick={() => {
+              router.push(
+                `${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/kakao`
+              );
+            }}
+          />
         </div>
       </div>
       <NameLogo />

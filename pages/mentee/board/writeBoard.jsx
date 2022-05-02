@@ -12,9 +12,9 @@ import router from "next/router";
 
 const WriteBoard = ({ token }) => {
   const [inquiryInfo, setInquiryInfo] = useState({
-    content: "LECTURE_REQUEST",
+    content: "",
     title: "",
-    category: "",
+    category: "LECTURE_REQUEST",
     image: "",
   });
   const [errMsg, setErrMsg] = useState("");
@@ -44,9 +44,9 @@ const WriteBoard = ({ token }) => {
         <BasicInputBox
           type={"text"}
           placeholder={"카테고리"}
-          onChange={(e) =>
-            setInquiryInfo({ ...inquiryInfo, category: e.target.value })
-          }
+          // onChange={(e) =>
+          //   setInquiryInfo({ ...inquiryInfo, category: e.target.value })
+          // }
           style={styles.titleBox}
         />
         <BasicInputBox

@@ -11,7 +11,7 @@ const BasicRadio = ({ reason, name, handleReason }) => {
           id={reason}
           onChange={() => handleReason(reason)}
         />
-        <span className={styles.reason}>{reason}</span>
+        <span>{reason}</span>
       </section>
     </label>
   );

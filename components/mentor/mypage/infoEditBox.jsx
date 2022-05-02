@@ -2,8 +2,7 @@ import classNames from "classnames";
 import styles from "./infoEditBox.module.scss";
 
 const InfoEditBox = ({ title, value, ownStyle, makeChange }) => {
-  const arr = ["초등학교", "중학교", "고등학교", "대학교"];
-  let selected = false;
+  const arr = ["초등학교", "중학교", "고등학교", "대학교", "대학원"];
   return (
     <section className={classNames(ownStyle, styles.infoEditBox)}>
       <span className={styles.title}>{title}</span>

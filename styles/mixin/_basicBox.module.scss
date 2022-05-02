@@ -1,0 +1,8 @@
+@mixin basic-box($w, $h, $p, $border, $radius) {
+  width: $w;
+  height: $h;
+  padding: $p;
+  border: $border;
+  border-radius: $radius;
+  outline: none;
+}

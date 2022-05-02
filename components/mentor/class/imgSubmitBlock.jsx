@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import Image from "next/image";
 import classNames from "classnames";
@@ -23,7 +23,7 @@ const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
   );
 };
 
-const ImgCrop = ({ value, handleChange }) => {
+const ImgCrop = ({ value, handleChange, token }) => {
   const [crop, setCrop] = useState();
   const [imgSrc, setImgSrc] = useState("");
   const [completedCrop, setCompletedCrop] = useState();
@@ -34,9 +34,16 @@ const ImgCrop = ({ value, handleChange }) => {
   const [croppedUrl, setCroppedUrl] = useState("");
   const [fileName, setFileName] = useState("");
   const [imgType, setImgType] = useState("");
+  const [clickDisable, setClickDisable] = useState(true);
   let testCrop = "";
   const imgRef = useRef(null);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (imgSrc != "") {
+      setClickDisable(false);
+    }
+  }, [imgSrc]);
 
   const onSelectFile = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -182,16 +189,21 @@ const ImgCrop = ({ value, handleChange }) => {
         </button>
         <button
           type="button"
-          className={classNames(styles.submitBtn, basicBtnStyle.btn_blue)}
+          className={classNames(
+            styles.submitBtn,
+            !clickDisable ? basicBtnStyle.btn_blue : basicBtnStyle.btn_gray
+          )}
+          disabled={clickDisable}
           onClick={async () => {
             await onCropComplete();
             const file = DataURIToBlob(testCrop);
             let file2 = new File([file], fileName, { type: imgType });
             const formData = new FormData();
             formData.append("file", file2);
-            const res = await UploadImage(formData);
+            const res = await UploadImage(formData, token);
             if (res.status == 200) {
               handleChange("image", res.data.url);
+              setClickDisable(true);
             }
           }}
         >

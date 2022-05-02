@@ -11,7 +11,7 @@ import {
 } from "../../common";
 import ImgCrop from "./imgSubmitBlock";
 
-const Step01 = ({ form, handleChange, imgChange, MoveStep }) => {
+const Step01 = ({ form, handleChange, imgChange, MoveStep, token }) => {
   const [modal, setModal] = useState(false);
   return (
     <div className={styles.step}>
@@ -42,7 +42,7 @@ const Step01 = ({ form, handleChange, imgChange, MoveStep }) => {
           <h3 className={styles.question}>
             1. 강의 소개 메인 이미지를 등록해주세요.
           </h3>
-          <ImgCrop value={form.image} handleChange={imgChange} />
+          <ImgCrop value={form.image} handleChange={imgChange} token={token} />
         </div>
         <div className={styles.questionBlock}>
           <h3 className={styles.question}>2. 강의 타이틀을 입력해주세요.</h3>
@@ -50,6 +50,7 @@ const Step01 = ({ form, handleChange, imgChange, MoveStep }) => {
             placeholder={"최대 20자"}
             value={form.title}
             onChange={handleChange("title")}
+            limit={`${form.title.length}/20`}
           />
         </div>
         <div className={styles.questionBlock}>
@@ -58,6 +59,7 @@ const Step01 = ({ form, handleChange, imgChange, MoveStep }) => {
             placeholder={"최대 30자"}
             value={form.subtitle}
             onChange={handleChange("subtitle")}
+            limit={`${form.subtitle.length}/30`}
           />
         </div>
         <div className={styles.questionBlock}>
@@ -68,6 +70,7 @@ const Step01 = ({ form, handleChange, imgChange, MoveStep }) => {
             placeholder={"최대 20자"}
             value={form.introduction}
             onChange={handleChange("introduction")}
+            limit={`${form.introduction.length}/20`}
           />
         </div>
       </section>

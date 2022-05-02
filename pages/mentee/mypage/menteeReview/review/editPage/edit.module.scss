@@ -1,0 +1,94 @@
+@import "../../../../../../styles/main.module.scss";
+
+.line {
+  width: 100%;
+  height: 8px;
+  background: $bg-color;
+}
+.contentSection {
+  @extend %page-base;
+  background: $white;
+  white-space: pre-line;
+
+  .lectureInfoSection {
+    margin: 15px 20px;
+
+    .lectureInfo {
+      display: flex;
+
+      .lectureInfoImg {
+        width: 84px;
+        height: 84px;
+        border-radius: 8px;
+        margin-right: 12px;
+      }
+    }
+
+    .lectureInfoText {
+      flex-basis: 240px;
+      .lectureTitle {
+        font-size: $fs-14;
+        color: $sub;
+        margin: 0;
+      }
+      .mentorNickname {
+        font-size: $fs-12;
+        color: $light-gray;
+        margin: 0;
+      }
+
+      .system {
+        font-size: $fs-12;
+        color: $light-gray;
+        margin-top: 13px;
+      }
+    }
+  }
+
+  .editSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px 20px;
+
+    .editTitle {
+      @include text-style($fs-16, $sub, 600);
+    }
+
+    .textCon {
+      width: 330px;
+      height: 170px;
+      padding: 13px 21px;
+      background-color: $bg-color;
+      border: 1px solid $line;
+      border-radius: 10px;
+      outline: none;
+      resize: none;
+      color: $light_gray;
+
+      .textCon::placeholder {
+        @include text-style($fs-13, $light_gray, 400, left);
+      }
+    }
+  }
+
+  .infoSection {
+    margin: 15px 20px;
+    padding-bottom: 80px;
+
+    .infoTitle {
+      font-size: 13px;
+      color: $sub;
+      font-weight: 600;
+    }
+
+    .infoList {
+      font-size: 10px;
+      color: $light-gray;
+
+      li {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

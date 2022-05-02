@@ -6,11 +6,10 @@ import List from "../../../components/mentee/board/List";
 import { IC_SearchS } from "../../../icons";
 import styles from "./board.module.scss";
 import * as cookie from "cookie";
-import router from "next/router";
+
 import { GetBoardList } from "../../../core/api/Mentee/board";
 
-const Board = ({ role }) => {
-  //   console.log(boardList);
+const Board = ({ role, boardList }) => {
   return (
     <div className={styles.home}>
       <Header />
@@ -20,7 +19,7 @@ const Board = ({ role }) => {
           <IC_SearchS className={styles.searchIcon} />
         </div>
       </main>
-      <List />
+      <List boardList={boardList.content} />
       <BottomTab num={[0, 1, 0, 0]} role={role} />
     </div>
   );
@@ -34,6 +33,7 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       role,
+      boardList,
     },
   };
 };

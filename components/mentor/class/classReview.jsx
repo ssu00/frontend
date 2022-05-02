@@ -5,6 +5,7 @@ import styles from "./classReview.module.scss";
 import { BasicBtn, basicBtnStyle } from "../../common";
 import { DeleteMentorReview } from "../../../core/api/Lecture";
 import RefreshPage from "../../../utils/refreshPage";
+import { Rating } from "./rating";
 
 const MenteeReview = ({ data, onClick }) => {
   return (
@@ -16,7 +17,7 @@ const MenteeReview = ({ data, onClick }) => {
 
         <div className={styles.alignColumn}>
           <span className={styles.name}>{data.userNickname}</span>
-          <div className={styles.name}>별</div>
+          <Rating w={55} h={11} fillRating={data.score} />
         </div>
 
         <span className={styles.date}>{data.createdAt.substring(0, 10)}</span>
@@ -27,35 +28,48 @@ const MenteeReview = ({ data, onClick }) => {
   );
 };
 
-const MentorReview = ({ token, cid, mentee, data }) => {
+const MentorReview = ({ token, cid, mentee, data, role }) => {
   return (
     <section className={styles.mentorReviewSection}>
       <div className={styles.mentorProfileBlock}>
         <div className={styles.profileImg}>
           <Image src={"/samples/lecture.png"} width={32} height={32} />
         </div>
+        {role === "MENTEE" ? (
+          <div></div>
+        ) : (
+          <div className={styles.textBtnSection}>
+            <BasicBtn
+              text={"수정"}
+              onClick={() =>
+                router.push(
+                  `/mentor/myclass/classDetail/${cid}/review/${mentee.menteeReviewId}`
+                )
+              }
+              btnStyle={classNames(
+                basicBtnStyle.btn_transparent,
+                styles.textBtn
+              )}
+            />
 
-        <div className={styles.textBtnSection}>
-          <BasicBtn
-            text={"수정"}
-            onClick={() =>
-              router.push(
-                `/mentor/myclass/classDetail/${cid}/review/${mentee.reviewId}`
-              )
-            }
-            btnStyle={classNames(basicBtnStyle.btn_transparent, styles.textBtn)}
-          />
-
-          <BasicBtn
-            text={"삭제"}
-            onClick={() => {
-              DeleteMentorReview(token, cid, mentee.reviewId, data.reviewId);
-              router.push(`/mentor/myclass/myClassList`);
-              RefreshPage();
-            }}
-            btnStyle={classNames(basicBtnStyle.btn_transparent, styles.textBtn)}
-          />
-        </div>
+            <BasicBtn
+              text={"삭제"}
+              onClick={async () => {
+                await DeleteMentorReview(
+                  token,
+                  cid,
+                  mentee.menteeReviewId,
+                  data.mentorReviewId
+                );
+                RefreshPage();
+              }}
+              btnStyle={classNames(
+                basicBtnStyle.btn_transparent,
+                styles.textBtn
+              )}
+            />
+          </div>
+        )}
 
         <div className={styles.alignColumn}>
           <span className={styles.name}>{data.userNickname}</span>
@@ -68,12 +82,13 @@ const MentorReview = ({ token, cid, mentee, data }) => {
   );
 };
 
-const ClassReview = ({ token, cid, mentee }) => {
-  const child = mentee.child;
+const ClassReview = ({ token, cid, mentee, role }) => {
+  const child = mentee?.child;
+
   return (
     <section
       className={
-        child.reviewId
+        child?.mentorReviewId
           ? styles.classReviewSectionNoCursor
           : styles.classReviewSection
       }
@@ -81,15 +96,21 @@ const ClassReview = ({ token, cid, mentee }) => {
       <MenteeReview
         data={mentee}
         onClick={() => {
-          if (!child.reviewId) {
+          if (!child?.mentorReviewId) {
             router.push(
-              `/mentor/myclass/classDetail/${cid}/review/${mentee.reviewId}`
+              `/mentor/myclass/classDetail/${cid}/review/${mentee.menteeReviewId}`
             );
           }
         }}
       />
-      {child.reviewId ? (
-        <MentorReview token={token} cid={cid} mentee={mentee} data={child} />
+      {child?.mentorReviewId ? (
+        <MentorReview
+          token={token}
+          cid={cid}
+          mentee={mentee}
+          data={child}
+          role={role}
+        />
       ) : (
         <></>
       )}

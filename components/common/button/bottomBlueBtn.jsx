@@ -3,10 +3,11 @@ import classNames from "classnames";
 import { BasicBtn } from "..";
 import { basicBtnStyle } from "..";
 
-const BottomBlueBtn = ({ text, onClick, disabled }) => {
+const BottomBlueBtn = ({ id, text, onClick, disabled }) => {
   return (
-    <div className={styles.footer}>
+    <div className={styles.bottomBlueBtn}>
       <BasicBtn
+        id={id}
         text={text}
         onClick={onClick}
         disabled={disabled}
