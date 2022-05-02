@@ -9,31 +9,35 @@ import router from "next/router";
 const MentorReview = ({ params, token }) => {
   const [page, setPage] = useState(1);
   const [reviewInfo, setReviewInfo] = useState([]);
+  const [reviewList, setReviewList] = useState([]);
   const lectureRouter = useRef(null);
 
   const oneMentorLecture = async () => {
     const review = await getOneMentorLecture(token, params, page);
     setReviewInfo(review);
+
+    for (let i = 0; i < review.reviews.content.length; i++) {
+      setReviewList(review.reviews.content[i]);
+    }
   };
 
   useEffect(() => {
     oneMentorLecture();
   }, []);
 
-  const handleLecturePage = (e) => {
-    e.stopPropagation();
-    lectureRouter.current;
-    router.back();
-    // router.push({
-    //   pathname: `/mentee/classdetails/${review.lectureId}`,
-    //   query: {
-    //     lecturePriceId: review.lecturePrice.lecturePriceId,
-    //     mentorId: review.lectureMentor.mentorId,
-    //   },
-    // });
+  const handleLecturePage = (e, i) => {
+    if (i === reviewList.lecture?.id) {
+      e.stopPropagation();
+      lectureRouter.current;
+      router.push({
+        pathname: `/mentee/classdetails/${reviewList.lecture?.id}`,
+        query: {
+          lecturePriceId: reviewList.lecture?.lecturePrice?.lecturePriceId,
+        },
+      });
+    }
   };
 
-  console.log(lectureRouter);
   return (
     <section className={styles.reviewInfoSection}>
       <article className={styles.ratingSection}>
@@ -68,7 +72,7 @@ const MentorReview = ({ params, token }) => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g clip-path="url(#clip0_1168_2381)">
+                <g clipPath="url(#clip0_1168_2381)">
                   <path
                     d="M3 13.5002L2.99976 14.0002L1.99976 13.9998L2 13.4998L3 13.5002ZM2.00366 5.96028L2.0039 5.46028L3.0039 5.46077L3.00366 5.96077L2.00366 5.96028ZM1.34998 7.33078L0.992882 7.68075L0.292929 6.96656L0.650024 6.61659L1.34998 7.33078ZM2.50366 5.5L2.15368 5.14291L2.50451 4.79907L2.8545 5.14376L2.50366 5.5ZM4.35085 6.61744L4.70709 6.96829L4.0054 7.68077L3.64915 7.32992L4.35085 6.61744ZM2 13.4998L2.00366 5.96028L3.00366 5.96077L3 13.5002L2 13.4998ZM0.650024 6.61659L2.15368 5.14291L2.85363 5.85709L1.34998 7.33078L0.650024 6.61659ZM2.8545 5.14376L4.35085 6.61744L3.64915 7.32992L2.15281 5.85624L2.8545 5.14376Z"
                     fill="#434A58"
@@ -101,6 +105,7 @@ const MentorReview = ({ params, token }) => {
 
           const reviewDate = review.createdAt.slice(0, 10);
           const dateDot = reviewDate.split("-").join(".");
+          console.log(review, "review");
           return (
             <>
               <div
@@ -147,16 +152,16 @@ const MentorReview = ({ params, token }) => {
                     className={styles.lectureCon}
                     ref={lectureRouter}
                     onClick={(e) => {
-                      handleLecturePage(e);
+                      handleLecturePage(e, review.lecture.id);
                     }}
                   >
                     <p
                       className={classNames(styles.lectureText, styles.pointer)}
                     >
                       <span className={styles.lecturePointText}>
-                        [ {review.lecture.lectureSubjects[0].learningKind} ]
+                        [ {review.lecture.lectureSubjects[0].krSubject} ]
                       </span>{" "}
-                      <span>{review.lecture.lectureSubjects[0].krSubject}</span>
+                      <span>{review.lecture.title}</span>
                     </p>
 
                     <svg
@@ -169,9 +174,9 @@ const MentorReview = ({ params, token }) => {
                       <path
                         d="M8.53613 7L15.5361 12.5L8.53613 18"
                         stroke="#2C343F"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   </div>
