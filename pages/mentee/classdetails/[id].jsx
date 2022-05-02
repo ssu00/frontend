@@ -12,6 +12,7 @@ import { GetReview } from "../../../core/api/Lecture";
 import GetMenteeReview from "../../../core/api/Mentee/getMenteeReview";
 
 const ClassDetails = ({ token, classData, reviewData, params, role }) => {
+  console.log(classData);
   return (
     <section className={styles.container}>
       <TopMenu />

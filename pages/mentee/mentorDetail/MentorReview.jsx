@@ -15,26 +15,32 @@ const MentorReview = ({ params, token }) => {
   const oneMentorLecture = async () => {
     const review = await getOneMentorLecture(token, params, page);
     setReviewInfo(review);
-
-    for (let i = 0; i < review.reviews.content.length; i++) {
-      setReviewList(review.reviews.content[i]);
-    }
+    setReviewList(review.reviews.content);
   };
 
   useEffect(() => {
     oneMentorLecture();
   }, []);
 
-  const handleLecturePage = (e, i) => {
-    if (i === reviewList.lecture?.id) {
-      e.stopPropagation();
-      lectureRouter.current;
-      router.push({
-        pathname: `/mentee/classdetails/${reviewList.lecture?.id}`,
-        query: {
-          lecturePriceId: reviewList.lecture?.lecturePrice?.lecturePriceId,
-        },
-      });
+  const handleLecturePage = (e, lectureId, lecturePriceId) => {
+    for (let i = 0; i < reviewList.length; i++) {
+      console.log(
+        reviewList[i].lecture.lecturePrice.lecturePriceId,
+        "reviewList[i].lecture.lecturePrice.lecturePriceId"
+      );
+      if (
+        lectureId === reviewList[i].lecture.id &&
+        lecturePriceId === reviewList[i].lecture.lecturePrice.lecturePriceId
+      ) {
+        e.stopPropagation();
+        lectureRouter.current;
+        router.push({
+          pathname: `/mentee/classdetails/${reviewList[i].lecture.id}`,
+          query: {
+            lecturePriceId: reviewList[i].lecture.lecturePrice.lecturePriceId,
+          },
+        });
+      }
     }
   };
 
@@ -152,7 +158,11 @@ const MentorReview = ({ params, token }) => {
                     className={styles.lectureCon}
                     ref={lectureRouter}
                     onClick={(e) => {
-                      handleLecturePage(e, review.lecture.id);
+                      handleLecturePage(
+                        e,
+                        review.lecture.id,
+                        review.lecture.lecturePrice.lecturePriceId
+                      );
                     }}
                   >
                     <p
