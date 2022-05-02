@@ -151,7 +151,7 @@
 
 .reviewSection {
   padding-top: 36px;
-
+  padding-bottom: 114px;
   .ratingBig {
     @include flexBox(center, center);
     flex-direction: column;

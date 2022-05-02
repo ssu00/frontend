@@ -74,6 +74,8 @@ import IC_HeartEmptySm from "./assets/heart_empty_sm.svg";
 import IC_HeartRedFill_Lg from "./assets/heart_red_fill_lg.svg";
 import IC_AvatarBg from "./assets/avatar_bg.svg";
 import IC_WriteReview from "./assets/write_review.svg";
+import IC_CommentBubble from "./assets/comment_bubble.svg";
+import IC_Report from "./assets/report.svg";
 
 export {
   IC_AlarmActive,
@@ -152,4 +154,6 @@ export {
   IC_AvatarBg,
   IC_HeartRedFill_Lg,
   IC_WriteReview,
+  IC_Report,
+  IC_CommentBubble,
 };
