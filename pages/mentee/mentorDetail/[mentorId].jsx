@@ -37,6 +37,7 @@ const MentorCon = ({ mentorData, lectureListData, params, token }) => {
   const tabMenu = ["멘토", "강의내역", "멘티 후기", ""];
   const user = mentorData.user;
 
+  console.log(mentorData);
   return (
     <section className={styles.mentorIntroductionSection}>
       <TopBar
@@ -44,23 +45,35 @@ const MentorCon = ({ mentorData, lectureListData, params, token }) => {
           router.back();
         }}
       />
+
       <section className={styles.basicInfo}>
         <article className={styles.mentorInfoCon}>
-          <div className={styles.mentorImg}>
+          <div className={styles.mentorImgInfo}>
             <Image
               src={user.image ? user.image : "/samples/lecture.png"}
               className={styles.mentorImg}
               alt={user.name}
-              width={88}
-              height={88}
+              width={"88px"}
+              height={"88px"}
             />
           </div>
 
           <div>
-            <p>
-              <span className={styles.role}>멘토</span>
-              <span className={styles.mentorName}>{user.nickname}</span>
-            </p>
+            <div>
+              <p>
+                <span className={styles.role}>멘토</span>
+                <span className={styles.mentorName}>{user.nickname}</span>
+              </p>
+            </div>
+            <div>
+              <p className={styles.menteeCount}>
+                누적멘티{" "}
+                <span className={styles.menteeNumber}>
+                  {mentorData.accumulatedMenteeCount}
+                </span>
+                명
+              </p>
+            </div>
           </div>
         </article>
         <article className={styles.mentorCon}>

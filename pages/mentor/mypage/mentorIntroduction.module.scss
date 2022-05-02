@@ -36,6 +36,20 @@
       @include text-style($fs-14, $sub, 700, left);
       margin: 0 0 10px 0;
     }
+
+    .mentorImgInfo {
+      .mentorImg {
+        border-radius: 50%;
+      }
+    }
+    .menteeCount {
+      color: #949bad;
+      font-size: 13px;
+
+      .menteeNumber {
+        font-weight: 600;
+      }
+    }
   }
 
   .basicInfo {

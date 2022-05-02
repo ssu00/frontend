@@ -23,6 +23,9 @@ const MentorInfo = ({ mentorData }) => {
           </div>
         </div>
       </section>
+
+      <span className={styles.line} />
+
       <section className={styles.additionalInfo}>
         <h1 className={styles.title}>학력정보</h1>
         <div>

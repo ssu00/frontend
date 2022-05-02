@@ -9,10 +9,6 @@ const MentorLecture = ({ lectureListData }) => {
   return (
     <section className={styles.lectureSection}>
       {lectureCon?.map((info) => {
-        const score =
-          info?.scoreAverage % 1 == 0
-            ? info?.scoreAverage + ".0"
-            : info?.scoreAverage;
         return (
           <article className={styles.classCard} key={info.id}>
             <div className={styles.imageContainer}>
@@ -80,7 +76,12 @@ const MentorLecture = ({ lectureListData }) => {
                     {pries.totalPrice}
                   </span>
                 ))}
-                <span className={styles.won}>원</span>
+                <span className={styles.infoWon}>
+                  {info?.lecturePrice.totalPrice
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  원
+                </span>
                 <span className={styles.month}>/1개월 기준</span>
               </div>
             </div>

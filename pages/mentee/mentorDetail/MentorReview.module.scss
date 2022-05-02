@@ -1,12 +1,157 @@
 @import "../../../styles/main.module.scss";
 
-.ratingSection {
-  margin: 21px 0;
-  h2 {
-    @include text-style(14px, $sub, 500);
+.pointer {
+  cursor: pointer;
+}
+
+.line {
+  display: block;
+  width: 100%;
+  height: 8px;
+  background-color: $bg-color;
+}
+
+.line2 {
+  border-top: 1px solid $line;
+}
+
+.line3 {
+  display: block;
+  width: 100%;
+  height: 8px;
+  background-color: $bg-color;
+  border-top: 1px solid $line;
+}
+
+.reviewInfoSection {
+  @extend %page-base;
+  position: relative;
+  padding-bottom: 80px;
+
+  .ratingSection {
+    padding: 0 30px 20px 30px;
+
+    h2 {
+      @include text-style(14px, $sub, 500);
+      margin-bottom: 12px;
+    }
+
+    .star {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ratingScore {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 600;
+      font-size: $fs-16;
+      color: $main;
+      margin-left: 6.62px;
+    }
+
+    .ratingScoreAll {
+      color: $light-gray;
+    }
   }
 
-  .rating {
-    display: flex;
+  .reviewFilterSection {
+    padding: 2px 30px;
+
+    .reviewCount {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .reviewInfoText {
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .filterIcon {
+        display: flex;
+        align-items: center;
+        border: 1px solid $line;
+        border-radius: 9px;
+        padding: 1px 10px;
+
+        p {
+          margin: 0 0 0 6px;
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+
+  .reviewerSection {
+    padding: 17px 30px;
+
+    .reviewerInfo {
+      display: flex;
+      justify-content: space-between;
+
+      .reviewer {
+        display: flex;
+
+        .reviewerImg {
+          border-radius: 50%;
+        }
+        .reviewScore {
+          margin-left: 12px;
+          .userNickname {
+            margin: 0;
+            font-size: 12px;
+          }
+        }
+      }
+
+      .day {
+        font-size: 12px;
+        font-family: Montserrat;
+        font-style: normal;
+        color: $light-gray;
+      }
+    }
+
+    .reviewCon {
+      .reviewText {
+        position: relative;
+        margin-top: 13px;
+        margin-bottom: 12px;
+        font-size: 12px;
+        color: $sub;
+        &:before {
+          content: "";
+          position: absolute;
+          bottom: -12px;
+          width: 50px;
+          height: 2px;
+          background: #e8eaef;
+        }
+      }
+
+      .lectureCon {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        padding-top: 10px;
+
+        .lectureText {
+          flex-basis: 303px;
+          margin: 0;
+          font-size: 11px;
+          font-weight: 500;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+
+          .lecturePointText {
+            color: $main;
+          }
+        }
+      }
+    }
   }
 }
