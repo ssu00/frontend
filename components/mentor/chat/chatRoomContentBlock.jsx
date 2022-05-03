@@ -31,7 +31,7 @@ const OtherChat = ({ name, text, sentAt }) => {
   );
 };
 
-const ChatRoomContentBlock = ({ my, sentAt, msg, otherName }) => {
+const ChatRoomContentBlock = ({ my, other, sentAt, msg }) => {
   const [converted, setConverted] = useState({
     date: "",
     time: "",
@@ -53,7 +53,7 @@ const ChatRoomContentBlock = ({ my, sentAt, msg, otherName }) => {
     return (
       <OtherChat
         text={msg}
-        name={"김하나"}
+        name={other.nickname}
         sentAt={converted.sameDay ? converted.time : converted.date}
       />
     );

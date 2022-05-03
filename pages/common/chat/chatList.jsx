@@ -9,17 +9,19 @@ import ChatListTopBar from "../../../components/mentor/chat/chatListTopBar";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const myChatRooms = await GetMyChatRooms(token);
+  const role = cookie.parse(context.req.headers.cookie).role;
+  const myChatRooms = await GetMyChatRooms(token, role);
 
   return {
     props: {
-      token,
+      role,
       myChatRooms,
     },
   };
 };
 
-const ChatList = ({ token, myChatRooms }) => {
+const ChatList = ({ myChatRooms, role }) => {
+  const othersRole = role == "ROLE_MENTOR" ? "멘티" : "멘토"; //상대방 role 출력해야 해서 반대로
   return (
     <>
       <div className={styles.chatList}>
@@ -31,25 +33,10 @@ const ChatList = ({ token, myChatRooms }) => {
         )}
         {myChatRooms != undefined &&
           myChatRooms?.content?.map((data, i) => {
-            return <ChatPreview chatData={data} key={i} />;
+            return (
+              <ChatPreview chatData={data} key={i} othersRole={othersRole} />
+            );
           })}
-        {/* <ChatListTitleBox newAlarm={alarm} />
-        <section className={styles.listSection}>
-          <ChatListSearchBox />
-          <div className={styles.chatPreviews}>
-            {chatList !== undefined &&
-              chatList.map((item, index) => (
-                <ChatPreview data={item} key={index} newChat={2} />
-              ))}
-          </div>
-          {chatExists ? (
-            ""
-          ) : (
-            <span className={styles.background}>
-              <span className={styles.basicImg} />
-            </span>
-          )}
-        </section> */}
         <BottomTab num={[0, 0, 1, 0]} />
       </div>
     </>

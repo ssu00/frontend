@@ -5,22 +5,20 @@ import GetMyChatHistory from "../../../../core/api/Chat/mentor/getMyChatHistory"
 import ChatRoomTyping from "../../../../components/mentor/chat/chatRoomTyping";
 import ChatRoomTopBar from "../../../../components/mentor/chat/chatRoomTopBar";
 import ChatRoomContentBlock from "../../../../components/mentor/chat/chatRoomContentBlock";
-import GetMenteeInfo from "../../../../core/api/Mentee/getMenteeInfo";
-import { GetMyInfoAsMentor } from "../../../../core/api/Mentor";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
+import { GetMyInfo } from "../../../../core/api/User";
+import GetUserInfo from "../../../../core/api/User/getUserInfo";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const chatRoomId = context.query.chid;
-  const menteeId = context.query.mentee;
+  const othersId = context.query.other;
   const history = await GetMyChatHistory(token, chatRoomId);
   let historyData = "";
-  const mentee = await GetMenteeInfo(menteeId);
-  const menteeInfo = JSON.stringify(mentee);
 
-  const mentor = await GetMyInfoAsMentor(token);
-  const mentorInfo = JSON.stringify(mentor);
+  const other = await GetUserInfo(token, othersId);
+  const my = await GetMyInfo(token);
 
   if (Array.isArray(history) && history.length != 0) {
     historyData = history;
@@ -30,22 +28,16 @@ export async function getServerSideProps(context) {
     props: {
       historyData,
       chatRoomId,
-      menteeInfo,
-      mentorInfo,
+      other,
+      my,
     },
   };
 }
 
-const Chat = ({ historyData, chatRoomId, menteeInfo, mentorInfo }) => {
-  const mentee = JSON.parse(menteeInfo).user;
-  const mentor = JSON.parse(mentorInfo).user;
+const Chat = ({ historyData, chatRoomId, other, my }) => {
   const [chatContents, setChatContents] = useState([]);
-
   let sockJS = new SockJS("http://13.124.128.220:8080/ws");
   let ws = Stomp.over(sockJS);
-  // useEffect(() => {
-  //   console.log("historyData=", historyData);
-  // }, []);
 
   // 렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
   useEffect(() => {
@@ -58,20 +50,14 @@ const Chat = ({ historyData, chatRoomId, menteeInfo, mentorInfo }) => {
   // 웹소켓 연결, 구독
   function wsConnectSubscribe() {
     try {
-      ws.connect(
-        {},
-        // {
-        //   token: token,
-        // },
-        () => {
-          ws.subscribe(`/sub/chat/room/${chatRoomId}`, (data) => {
-            console.log("subscribe=", data);
-            const newMessage = JSON.parse(data.body);
-            setChatContents((prev) => [...prev, newMessage]);
-            dispatch(chatActions.getMessages(newMessage));
-          });
-        }
-      );
+      ws.connect({}, () => {
+        ws.subscribe(`/sub/chat/room/${chatRoomId}`, (data) => {
+          console.log("subscribe=", data);
+          const newMessage = JSON.parse(data.body);
+          setChatContents((prev) => [...prev, newMessage]);
+          dispatch(chatActions.getMessages(newMessage));
+        });
+      });
     } catch (error) {
       console.log(error);
     }
@@ -97,20 +83,21 @@ const Chat = ({ historyData, chatRoomId, menteeInfo, mentorInfo }) => {
     setChatContents((prev) => [...prev, content]);
   };
 
-  console.log("mentee=", mentee);
   return (
     <div className={styles.chatRoom}>
-      <ChatRoomTopBar nickname={mentee?.nickname} />
+      <ChatRoomTopBar
+        nickname={other?.nickname}
+        othersRole={other?.role == "MENTEE" ? "멘티" : "멘토"}
+      />
       <div className={styles.chatContentSection} id="chatContents">
         <div className={styles.chatContents}>
           {chatContents.length != 0 &&
             chatContents?.map((data, i) => {
-              const my = data.senderNickname == mentor.nickname;
-              console.log("ddddd===", data);
               return (
                 <ChatRoomContentBlock
                   key={i}
                   my={my}
+                  other={other}
                   sentAt={data.sentAt}
                   msg={data.message}
                 />
