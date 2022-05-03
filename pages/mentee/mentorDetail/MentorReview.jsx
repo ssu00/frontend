@@ -24,10 +24,6 @@ const MentorReview = ({ params, token }) => {
 
   const handleLecturePage = (e, lectureId, lecturePriceId) => {
     for (let i = 0; i < reviewList.length; i++) {
-      console.log(
-        reviewList[i].lecture.lecturePrice.lecturePriceId,
-        "reviewList[i].lecture.lecturePrice.lecturePriceId"
-      );
       if (
         lectureId === reviewList[i].lecture.id &&
         lecturePriceId === reviewList[i].lecture.lecturePrice.lecturePriceId
