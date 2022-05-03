@@ -7,6 +7,8 @@ import ChatRoomTopBar from "../../../../components/mentor/chat/chatRoomTopBar";
 import ChatRoomContentBlock from "../../../../components/mentor/chat/chatRoomContentBlock";
 import GetMenteeInfo from "../../../../core/api/Mentee/getMenteeInfo";
 import { GetMyInfoAsMentor } from "../../../../core/api/Mentor";
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -37,110 +39,74 @@ export async function getServerSideProps(context) {
 const Chat = ({ historyData, chatRoomId, menteeInfo, mentorInfo }) => {
   const mentee = JSON.parse(menteeInfo).user;
   const mentor = JSON.parse(mentorInfo).user;
-
-  const [socketConnected, setSocketConnected] = useState(false);
-  const [sessionId, setSessionId] = useState("");
-  const [msgCnt, setMsgCnt] = useState(0);
   const [chatContents, setChatContents] = useState([]);
 
-  const webSocketUrl = `ws://13.124.128.220:8080/ws/chat/${chatRoomId}`;
-  const ws = useRef(null);
+  let sockJS = new SockJS("http://13.124.128.220:8080/ws");
+  let ws = Stomp.over(sockJS);
+  // useEffect(() => {
+  //   console.log("historyData=", historyData);
+  // }, []);
 
+  // 렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
   useEffect(() => {
-    // const height = document.body.scrollHeight;
-    // document.getElementById("chatContents").scroll();
-
-    if (!ws.current) {
-      ws.current = new WebSocket(`${webSocketUrl}${chatRoomId}`);
-      ws.current.onopen = () => {
-        console.log("open!");
-        setSocketConnected(true);
-      };
-      ws.current.onclose = (error) => {
-        console.log("close!");
-        !error && setSocketConnected(false);
-      };
-      ws.current.onerror = (error) => {
-        console.log("error!");
-        error && setSocketConnected(false);
-      };
-      ws.current.onmessage = (e) => {
-        console.log("onmessage called");
-        console.log("e==", e);
-        setSessionId(JSON.parse(e.data).sessionId);
-        setMsgCnt(msgCnt + 1);
-        console.log("onmessage finished");
-      };
-    }
+    wsConnectSubscribe();
     return () => {
-      ws.current.close();
+      wsDisConnectUnsubscribe();
     };
-  }, []);
+  }, [chatRoomId]);
+
+  // 웹소켓 연결, 구독
+  function wsConnectSubscribe() {
+    try {
+      ws.connect(
+        {},
+        // {
+        //   token: token,
+        // },
+        () => {
+          ws.subscribe(`/sub/chat/room/${chatRoomId}`, (data) => {
+            console.log("subscribe=", data);
+            const newMessage = JSON.parse(data.body);
+            setChatContents((prev) => [...prev, newMessage]);
+            dispatch(chatActions.getMessages(newMessage));
+          });
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     console.log("chatContent=", chatContents);
   }, [chatContents]);
 
-  useEffect(() => {
-    setChatContents(historyData);
-  }, [historyData]);
-
-  const sendMsg = (data) => {
-    if (socketConnected) {
-      var msg = {
-        type: "message",
-        sessionId: sessionId,
-        chatroomId: parseInt(chatRoomId),
-        senderNickname: mentor.nickname,
-        receiverId: mentee.userId,
-        message: data,
-      };
-      ws.current.send(JSON.stringify(msg));
-      console.log("ws=", ws.current);
-      setChatContents((prev) => [...prev, msg]);
-      setMsgCnt(msgCnt + 1);
+  // 연결해제, 구독해제
+  function wsDisConnectUnsubscribe() {
+    try {
+      ws.disconnect(() => {
+        ws.unsubscribe("sub-0");
+      });
+    } catch (error) {
+      console.log(error);
     }
+  }
+
+  const sendMsg = (content) => {
+    ws.send("/pub/chat", {}, JSON.stringify(content));
+    setChatContents((prev) => [...prev, content]);
   };
 
-  // useEffect(() => {
-  //   console.log("ws.current==", ws.current);
-  //   console.log("msgCnt==", msgCnt);
-  //   if (!ws.current) return;
-  //   else if (msgCnt != 0) {
-  //     console.log("before onmessage");
-  //     ws.current.onmessage = (e) => {
-  //       console.log("onmessage called");
-  //       console.log("e==", e);
-  //       setSessionId(JSON.parse(e.data).sessionId);
-  //       setMsgCnt(msgCnt + 1);
-  //       // console.log("e=", JSON.parse(e.data));
-  //       setChatContents((prev) => [...prev, e.data]);
-  //       console.log("onmessage finished");
-  //     };
-  //     console.log("after onmessage");
-  //   }
-  // }, [msgCnt]);
-
-  useEffect(() => {
-    ws.current.onmessage = (e) => {
-      console.log("onmessage called");
-      console.log("e==", e);
-      setSessionId(JSON.parse(e.data).sessionId);
-      setMsgCnt(msgCnt + 1);
-      // console.log("e=", JSON.parse(e.data));
-      // setChatContents((prev) => [...prev, e.data]);
-      console.log("onmessage finished");
-    };
-  }, []);
-
+  console.log("mentee=", mentee);
   return (
     <div className={styles.chatRoom}>
-      <ChatRoomTopBar nickname={mentee.nickname} />
+      <ChatRoomTopBar nickname={mentee?.nickname} />
       <div className={styles.chatContentSection} id="chatContents">
         <div className={styles.chatContents}>
           {chatContents.length != 0 &&
             chatContents?.map((data, i) => {
               const my = data.senderNickname == mentor.nickname;
+              console.log("ddddd===", data);
               return (
                 <ChatRoomContentBlock
                   key={i}
