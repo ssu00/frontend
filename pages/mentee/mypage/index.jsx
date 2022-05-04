@@ -14,11 +14,11 @@ import { IC_Bookmark, IC_Student } from "../../../icons";
 import { GetMyInfo } from "../../../core/api/User";
 import Role from "../../../components/common/tag/role";
 
-const MyPage = ({ userInfo, role }) => {
+const MyPage = ({ userInfo, role , token }) => {
   console.log(role);
   return (
     <section className={styles.mypageSection}>
-      <MyPageTopBar />
+      <MyPageTopBar token={token} />
       <section className={styles.profileSection}>
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
@@ -104,11 +104,12 @@ const MyPage = ({ userInfo, role }) => {
 
 export async function getServerSideProps(context) {
   const parsedCookies = cookie.parse(context.req.headers.cookie);
+  const token = parsedCookies.accessToken;
   const role = parsedCookies.role;
   const userInfo = await GetMyInfo(parsedCookies.accessToken);
 
   return {
-    props: { userInfo, role },
+    props: { userInfo, role , token },
   };
 }
 
