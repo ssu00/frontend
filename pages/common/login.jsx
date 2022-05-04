@@ -22,6 +22,7 @@ const Login = () => {
     const res = await Login_API(username, password);
     if (res.status == 200) {
       const role = await GetUserRoleType(res.data);
+      console.log(role);
       setCookie("accessToken", res.data, {
         path: "/",
         secure: true,
@@ -30,10 +31,10 @@ const Login = () => {
         path: "/",
         secure: true,
       });
-      if (role.loginType === "MENTOR") {
+      if (role.loginType === "ROLE_MENTOR") {
         router.push("/mentor/myclass/myClassList");
       }
-      if (role.loginType === "MENTEE") {
+      if (role.loginType === "ROLE_MENTEE") {
         router.push("/mentee");
       }
     } else {

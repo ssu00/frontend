@@ -1,8 +1,9 @@
 import Image from "next/image";
 import React from "react";
+import { DeleteBoardComments } from "../../../core/api/Mentee/board";
 import styles from "./BoardComment.module.scss";
 
-const BoardComment = ({ content }) => {
+const BoardComment = ({ token, content }) => {
   return (
     <div className={styles.commentSection}>
       <div className={styles.profileContainer}>
@@ -22,6 +23,23 @@ const BoardComment = ({ content }) => {
         </div>
       </div>
       <div className={styles.boardContent}>{content.content}</div>
+      <form
+        className={styles.buttonContainer}
+        onSubmit={async () => {
+          const res = await DeleteBoardComments(
+            token,
+            content.postId,
+            content.commentId
+          );
+          if (res.status == 200) {
+            alert("게시물이 삭제되었습니다.");
+          } else {
+            console.log(res.data.message);
+          }
+        }}
+      >
+        <button>삭제</button>
+      </form>
     </div>
   );
 };

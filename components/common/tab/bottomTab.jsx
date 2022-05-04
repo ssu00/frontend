@@ -16,7 +16,7 @@ const BottomTab = ({ num, role }) => {
   return (
     <ul className={styles.bottomTab}>
       <BottomTabElem
-        url={role === "MENTEE" ? "/mentee" : "/mentor/myclass/myClassList"}
+        url={role === "ROLE_MENTEE" ? "/mentee" : "/mentor/myclass/myClassList"}
         text={"홈"}
       >
         {num[0] === 0 ? <IC_Home /> : <IC_HomeFill />}
@@ -28,7 +28,7 @@ const BottomTab = ({ num, role }) => {
         {num[2] === 0 ? <IC_Chat /> : <IC_ChatFill />}
       </BottomTabElem>
       <BottomTabElem
-        url={role === "MENTEE" ? "/mentee/mypage" : "/mentor/mypage"}
+        url={role === "ROLE_MENTEE" ? "/mentee/mypage" : "/mentor/mypage"}
         text={"마이페이지"}
       >
         {num[3] === 0 ? <IC_Person /> : <IC_PersonFill />}

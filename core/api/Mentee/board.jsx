@@ -57,7 +57,6 @@ export const UploadBoardComments = async (token, post_id, data) => {
 };
 
 export const EditBoardPosts = async (token, post_id, data) => {
-  console.log(token, post_id, data);
   try {
     const res = await axios.put(
       `/users/my-posts/${post_id}`,
@@ -69,6 +68,30 @@ export const EditBoardPosts = async (token, post_id, data) => {
       },
       { headers: { Authorization: token } }
     );
+
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const DeleteBoardPosts = async (token, post_id) => {
+  try {
+    const res = await axios.delete(`/users/my-posts/${post_id}`, {
+      headers: { Authorization: token },
+    });
+
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const DeleteBoardComments = async (token, post_id, comment_id) => {
+  try {
+    const res = await axios.delete(`/posts/${post_id}/comments/${comment_id}`, {
+      headers: { Authorization: token },
+    });
 
     return res;
   } catch (e) {

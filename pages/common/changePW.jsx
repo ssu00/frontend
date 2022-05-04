@@ -32,7 +32,7 @@ const ChangePW = ({ token, role }) => {
   });
 
   const goBack = () => {
-    return role === "MENTEE"
+    return role === "ROLE_MENTEE"
       ? router.push("/mentee/mypage/profileEdit")
       : router.push("/mentor/mypage");
   };

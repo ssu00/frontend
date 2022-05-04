@@ -35,7 +35,7 @@ const MentorReview = ({ token, cid, mentee, data, role }) => {
         <div className={styles.profileImg}>
           <Image src={"/samples/lecture.png"} width={32} height={32} />
         </div>
-        {role === "MENTEE" ? (
+        {role === "ROLE_MENTEE" ? (
           <div></div>
         ) : (
           <div className={styles.textBtnSection}>

@@ -78,17 +78,18 @@ const EditPost = ({ token, post_id }) => {
         통보 삭제되며 서비스 이용이 일시적 제한될 수 있습니다.
       </p>
       <BottomBlueBtn
-        text={"업로드"}
+        text={"수정"}
         disabled={!(errMsg == "")}
         onClick={async () => {
           const res = await EditBoardPosts(token, post_id, inquiryInfo);
-          if (res.status == 201)
+          if (res.status == 200) {
             setResult({ success: true, error: false, errorMsg: "" });
-          else
+            router.push(`/mentee/board/${post_id}`);
+          } else
             setResult({
               success: false,
               error: true,
-              errorMsg: "res?.data?.errorDetails[0]",
+              errorMsg: res?.data?.errorDetails[0],
             });
         }}
       />
@@ -97,7 +98,7 @@ const EditPost = ({ token, post_id }) => {
         {result.errorMsg}
       </span>
       <span className={styles.successMsg}>
-        {result.success && "게시판이 등록되었습니다."}
+        {result.success && "게시판이 수정되었습니다."}
       </span>
     </section>
   );
