@@ -81,9 +81,10 @@ const WriteBoard = ({ token }) => {
         disabled={!(errMsg == "")}
         onClick={async () => {
           const res = await UploadPost(token, inquiryInfo);
-          if (res.status == 201)
+          if (res.status == 201) {
             setResult({ success: true, error: false, errorMsg: "" });
-          else
+            router.push(`/mentee/board`);
+          } else
             setResult({
               success: false,
               error: true,

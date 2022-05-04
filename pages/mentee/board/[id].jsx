@@ -19,6 +19,7 @@ const BoardDetail = ({ token, postComments, postDetail }) => {
   const handleOptionModal = () => {
     setModal(!modal);
   };
+
   return (
     <>
       <div className={styles.home}>
@@ -29,7 +30,7 @@ const BoardDetail = ({ token, postComments, postDetail }) => {
           </section>
           <section className={styles.commentSection}>
             {postComments?.content?.map((content, idx) => (
-              <BoardComment key={idx} content={content} />
+              <BoardComment key={idx} content={content} token={token} />
             ))}
           </section>
         </main>
@@ -39,6 +40,7 @@ const BoardDetail = ({ token, postComments, postDetail }) => {
         <BoardOptionModal
           handleOptionModal={handleOptionModal}
           postId={postDetail.postId}
+          token={token}
         />
       ) : (
         ""
