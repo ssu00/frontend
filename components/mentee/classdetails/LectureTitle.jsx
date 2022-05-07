@@ -9,7 +9,7 @@ import renderHTML from "react-render-html";
 import classNames from "classnames";
 import { transGroup } from "../classCard";
 
-function LectureTitle({ token, classData, reviewData }) {
+function LectureTitle({ token, classData, reviewData, role }) {
   const [select, setSelect] = useState(true);
 
   const score =
@@ -83,6 +83,7 @@ function LectureTitle({ token, classData, reviewData }) {
                     cid={classData.id}
                     mentee={data}
                     key={i}
+                    role={role}
                   />
                 );
               })}

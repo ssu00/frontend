@@ -22,7 +22,7 @@ const WithDraw = ({ token, role }) => {
   const [password, setPassword] = useState("");
 
   const goBack = () => {
-    return role === "MENTEE"
+    return role === "ROLE_MENTEE"
       ? router.push("/mentee/mypage/profileEdit")
       : router.push("/mentor/mypage");
   };

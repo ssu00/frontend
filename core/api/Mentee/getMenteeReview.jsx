@@ -1,16 +1,18 @@
 import axios from "axios";
-const GetMyChatRooms = async (token, role) => {
+const GetMenteeReview = async (token, data) => {
   try {
     const res = await axios.get(
-      role == "ROLE_MENTOR" ? "/mentors/my-chatrooms" : "/mentees/my-chatrooms",
+      `/lectures/${data.id}/lecturePrices/${data.lecturePriceId}/reviews`,
       {
         headers: { Authorization: token },
+        params: { page: 1 },
       }
     );
+
     return res.data;
   } catch (err) {
     return err;
   }
 };
 
-export default GetMyChatRooms;
+export default GetMenteeReview;

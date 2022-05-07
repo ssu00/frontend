@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
+import styles from "../writeboard.module.scss";
+import * as cookie from "cookie";
+import router from "next/router";
+import { EditBoardPosts } from "../../../../core/api/Mentee/board";
 import {
   BasicInputBox,
   BottomBlueBtn,
   TopBar,
-} from "../../../components/common";
-import BasicTextAreaBox from "../../../components/common/inputBox/basicTextAreaBox";
-import { UploadPost } from "../../../core/api/Mentee/board";
-import styles from "./writeboard.module.scss";
-import * as cookie from "cookie";
-import router from "next/router";
+} from "../../../../components/common";
+import BasicTextAreaBox from "../../../../components/common/inputBox/basicTextAreaBox";
 
-const WriteBoard = ({ token }) => {
+const EditPost = ({ token, post_id }) => {
   const [inquiryInfo, setInquiryInfo] = useState({
     content: "",
     title: "",
@@ -77,18 +78,18 @@ const WriteBoard = ({ token }) => {
         통보 삭제되며 서비스 이용이 일시적 제한될 수 있습니다.
       </p>
       <BottomBlueBtn
-        text={"업로드"}
+        text={"수정"}
         disabled={!(errMsg == "")}
         onClick={async () => {
-          const res = await UploadPost(token, inquiryInfo);
-          if (res.status == 201) {
+          const res = await EditBoardPosts(token, post_id, inquiryInfo);
+          if (res.status == 200) {
             setResult({ success: true, error: false, errorMsg: "" });
-            router.push(`/mentee/board`);
+            router.push(`/mentee/board/${post_id}`);
           } else
             setResult({
               success: false,
               error: true,
-              errorMsg: res.data.errorDetails[0],
+              errorMsg: res?.data?.errorDetails[0],
             });
         }}
       />
@@ -97,7 +98,7 @@ const WriteBoard = ({ token }) => {
         {result.errorMsg}
       </span>
       <span className={styles.successMsg}>
-        {result.success && "게시판이 등록되었습니다."}
+        {result.success && "게시판이 수정되었습니다."}
       </span>
     </section>
   );
@@ -105,13 +106,14 @@ const WriteBoard = ({ token }) => {
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const role = cookie.parse(context.req.headers.cookie).role;
+  const post_id = context.query.id;
 
   return {
     props: {
       token,
+      post_id,
     },
   };
 };
 
-export default WriteBoard;
+export default EditPost;

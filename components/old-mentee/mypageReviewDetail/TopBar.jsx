@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./TopBar.module.scss";
 import Image from "next/image";
 import router from "next/router";
-import OptionModal from "../OptionModal";
+import OptionModal from "../../mentee/menteeModal/OptionModal";
 
 function TopBar() {
   const [Modal, setModal] = useState(false);

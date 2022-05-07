@@ -42,8 +42,6 @@ const WriteMentee = ({ token, reviewId, viewLecture }) => {
     setContent(e.target.value);
   };
 
-  console.log();
-
   return (
     <>
       <section className={styles.contentSection}>

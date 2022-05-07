@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./ReviewContent.module.scss";
 import Image from "next/image";
-import OptionModal from "../OptionModal";
+import OptionModal from "../../mentee/menteeModal/OptionModal";
 import router from "next/router";
 
 function ReviewContent() {

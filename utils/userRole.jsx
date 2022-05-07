@@ -1,7 +1,7 @@
 const UserRole = (role) => {
-  if (role == "MENTOR") {
+  if (role == "ROLE_MENTOR") {
     return "멘토";
-  } else if (role == "MENTEE") {
+  } else if (role == "ROLE_MENTEE") {
     return "멘티";
   }
 };

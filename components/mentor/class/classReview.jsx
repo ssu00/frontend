@@ -28,39 +28,48 @@ const MenteeReview = ({ data, onClick }) => {
   );
 };
 
-const MentorReview = ({ token, cid, mentee, data }) => {
+const MentorReview = ({ token, cid, mentee, data, role }) => {
   return (
     <section className={styles.mentorReviewSection}>
       <div className={styles.mentorProfileBlock}>
         <div className={styles.profileImg}>
           <Image src={"/samples/lecture.png"} width={32} height={32} />
         </div>
+        {role === "ROLE_MENTEE" ? (
+          <div></div>
+        ) : (
+          <div className={styles.textBtnSection}>
+            <BasicBtn
+              text={"수정"}
+              onClick={() =>
+                router.push(
+                  `/mentor/myclass/classDetail/${cid}/review/${mentee.menteeReviewId}`
+                )
+              }
+              btnStyle={classNames(
+                basicBtnStyle.btn_transparent,
+                styles.textBtn
+              )}
+            />
 
-        <div className={styles.textBtnSection}>
-          <BasicBtn
-            text={"수정"}
-            onClick={() =>
-              router.push(
-                `/mentor/myclass/classDetail/${cid}/review/${mentee.menteeReviewId}`
-              )
-            }
-            btnStyle={classNames(basicBtnStyle.btn_transparent, styles.textBtn)}
-          />
-
-          <BasicBtn
-            text={"삭제"}
-            onClick={async () => {
-              await DeleteMentorReview(
-                token,
-                cid,
-                mentee.menteeReviewId,
-                data.mentorReviewId
-              );
-              RefreshPage();
-            }}
-            btnStyle={classNames(basicBtnStyle.btn_transparent, styles.textBtn)}
-          />
-        </div>
+            <BasicBtn
+              text={"삭제"}
+              onClick={async () => {
+                await DeleteMentorReview(
+                  token,
+                  cid,
+                  mentee.menteeReviewId,
+                  data.mentorReviewId
+                );
+                RefreshPage();
+              }}
+              btnStyle={classNames(
+                basicBtnStyle.btn_transparent,
+                styles.textBtn
+              )}
+            />
+          </div>
+        )}
 
         <div className={styles.alignColumn}>
           <span className={styles.name}>{data.userNickname}</span>
@@ -73,8 +82,9 @@ const MentorReview = ({ token, cid, mentee, data }) => {
   );
 };
 
-const ClassReview = ({ token, cid, mentee }) => {
+const ClassReview = ({ token, cid, mentee, role }) => {
   const child = mentee?.child;
+
   return (
     <section
       className={
@@ -94,7 +104,13 @@ const ClassReview = ({ token, cid, mentee }) => {
         }}
       />
       {child?.mentorReviewId ? (
-        <MentorReview token={token} cid={cid} mentee={mentee} data={child} />
+        <MentorReview
+          token={token}
+          cid={cid}
+          mentee={mentee}
+          data={child}
+          role={role}
+        />
       ) : (
         <></>
       )}

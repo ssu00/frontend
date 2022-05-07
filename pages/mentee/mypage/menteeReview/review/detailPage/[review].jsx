@@ -8,7 +8,7 @@ import { IC_Menu } from "../../../../../../icons";
 import router from "next/router";
 import classNames from "classnames";
 import { Rating } from "../../../../../../components/mentor/class/rating";
-import OptionModal from "../../../../../../components/old-mentee/OptionModal";
+import OptionModal from "../../../../../../components/mentee/menteeModal/OptionModal";
 import RefreshPage from "../../../../../../utils/RefreshPage";
 import deleteMenteeReivew from "../../../../../../core/api/Mentee/deleteMenteeReview";
 

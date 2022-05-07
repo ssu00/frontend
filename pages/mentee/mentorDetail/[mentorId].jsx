@@ -8,24 +8,26 @@ import MentorInfo from "./MentorInfo";
 import MentorLecture from "./MentorLecture";
 import { useState } from "react";
 import router from "next/router";
+import MentorReview from "./MentorReview";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const params = context.query;
-  params.id = params.mentorId;
+  const params = context.query.mentorId;
 
-  const mentorData = await GetViewMentor(token, params.id);
-  const mentorLectureList = await getMentorLectureList(token, params.id);
+  const mentorData = await GetViewMentor(token, params);
+  const mentorLectureList = await getMentorLectureList(token, params);
 
   return {
     props: {
+      token,
+      params,
       mentorData: JSON.parse(JSON.stringify(mentorData)),
       lectureListData: JSON.parse(JSON.stringify(mentorLectureList)),
     },
   };
 }
 
-const MentorCon = ({ mentorData, lectureListData }) => {
+const MentorCon = ({ mentorData, lectureListData, params, token }) => {
   const [tabCurrent, setTabCurrent] = useState(0);
 
   const onClick = (idx) => {
@@ -42,23 +44,35 @@ const MentorCon = ({ mentorData, lectureListData }) => {
           router.back();
         }}
       />
+
       <section className={styles.basicInfo}>
         <article className={styles.mentorInfoCon}>
-          <div className={styles.mentorImg}>
+          <div className={styles.mentorImgInfo}>
             <Image
               src={user.image ? user.image : "/samples/lecture.png"}
               className={styles.mentorImg}
               alt={user.name}
-              width={88}
-              height={88}
+              width={"88px"}
+              height={"88px"}
             />
           </div>
 
           <div>
-            <p>
-              <span className={styles.role}>멘토</span>
-              <span className={styles.mentorName}>{user.nickname}</span>
-            </p>
+            <div>
+              <p>
+                <span className={styles.role}>멘토</span>
+                <span className={styles.mentorName}>{user.nickname}</span>
+              </p>
+            </div>
+            <div>
+              <p className={styles.menteeCount}>
+                누적멘티{" "}
+                <span className={styles.menteeNumber}>
+                  {mentorData.accumulatedMenteeCount}
+                </span>
+                명
+              </p>
+            </div>
           </div>
         </article>
         <article className={styles.mentorCon}>
@@ -90,7 +104,7 @@ const MentorCon = ({ mentorData, lectureListData }) => {
 
       {tabCurrent === 0 && <MentorInfo mentorData={mentorData} />}
       {tabCurrent === 1 && <MentorLecture lectureListData={lectureListData} />}
-      {tabCurrent === 2 && <div>ㅎㅎㅎㅎ</div>}
+      {tabCurrent === 2 && <MentorReview token={token} params={params} />}
 
       <BottomTab num={[0, 0, 0, 1]} />
     </section>

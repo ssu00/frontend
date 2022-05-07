@@ -5,7 +5,7 @@ import styles from "./chatPreview.module.scss";
 import Role from "../../common/tag/role";
 import ConvertTime from "../../../utils/common/convertTime";
 
-const ChatPreview = ({ chatData }) => {
+const ChatPreview = ({ chatData, othersRole }) => {
   const [converted, setConverted] = useState({
     date: "",
     time: "",
@@ -19,14 +19,18 @@ const ChatPreview = ({ chatData }) => {
     }
   }, []);
 
+  const nickname =
+    othersRole == "멘티" ? chatData.menteeNickname : chatData.mentorNickname;
+  const userId = othersRole == "멘티" ? chatData.menteeId : chatData.mentorId;
+
   return (
     <button
       type="button"
       className={styles.chatPreviewBlock}
       onClick={() =>
         router.push({
-          pathname: `/mentor/chat/chatDetail/${chatData.chatroomId}`,
-          query: { mentee: chatData.menteeId },
+          pathname: `/common/chat/chatDetail/${chatData.chatroomId}`,
+          query: { other: userId },
         })
       }
     >
@@ -35,8 +39,8 @@ const ChatPreview = ({ chatData }) => {
       </div>
       <div className={styles.mentorChat}>
         <div className={styles.nameSection}>
-          <Role role={"멘티"} otherStyle={styles.roleTag} />
-          <strong className={styles.name}>{chatData.menteeNickname}</strong>
+          <Role role={othersRole} otherStyle={styles.roleTag} />
+          <strong className={styles.name}>{nickname}</strong>
         </div>
         <p className={styles.chatContent}>
           {chatData?.lastMessage?.message.length > 20

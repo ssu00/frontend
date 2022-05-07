@@ -9,41 +9,13 @@
 
   main {
     position: relative;
-    padding: 17px 20px;
+
     .mainBoard {
-      .profileContainer {
-        display: flex;
-        justify-content: space-between;
-        .leftPannel {
-          display: flex;
-          align-items: center;
-        }
-        .rightPannel {
-          font-family: "Noto Sans KR";
-          font-style: normal;
-          font-weight: 400;
-          font-size: 9px;
-          line-height: 10px;
-          /* identical to box height */
-
-          text-decoration-line: underline;
-
-          color: #949bad;
-        }
-      }
+      padding: 17px 20px;
+      border-bottom: 8px solid #f3f5f8;
     }
-    .name {
-      font-family: "Noto Sans KR";
-      font-style: normal;
-      font-weight: 700;
-      font-size: 11px;
-    }
-    .date {
-      font-family: "Noto Sans KR";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 11px;
-      color: #949bad;
+    .commentSection {
+      padding: 17px 20px 110px;
     }
   }
 }

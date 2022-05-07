@@ -23,6 +23,10 @@
     }
   }
 
+  .classCard:last-of-type {
+    margin-bottom: 90px;
+  }
+
   .imageContainer {
     position: relative;
     height: 110px;
@@ -142,6 +146,19 @@
       font-size: 12px;
       line-height: 17px;
       letter-spacing: 0.1em;
+      margin-left: 2px;
+
+      /* sub color */
+
+      color: #2c343f;
+    }
+
+    .infoWon {
+      font-family: Noto Sans KR;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 16px;
+
       margin-left: 2px;
 
       /* sub color */

@@ -6,7 +6,7 @@ import Image from "next/image";
 import router from "next/router";
 import classNames from "classnames";
 
-function LectureImage({ classData, mentorData, params }) {
+function LectureImage({ classData }) {
   return (
     <div className={styles.imageBlock}>
       <Image
@@ -30,7 +30,9 @@ function LectureImage({ classData, mentorData, params }) {
           className={classNames(styles.mentorImg, styles.pointer)}
           alt="avatar"
           onClick={() => {
-            router.push(`/mentee/mentorDetail/${params}`);
+            router.push(
+              `/mentee/mentorDetail/${classData.lectureMentor.mentorId}`
+            );
           }}
         />
         <span className={styles.mentorName}>

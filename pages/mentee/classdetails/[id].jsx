@@ -9,18 +9,15 @@ import * as cookie from "cookie";
 import styles from "./classdetails.module.scss";
 import GetLectureDetails from "../../../core/api/Mentee/getLectureDetails";
 import { GetReview } from "../../../core/api/Lecture";
-import GetViewMentor from "../../../core/api/Mentor/getViewMentor";
+import GetMenteeReview from "../../../core/api/Mentee/getMenteeReview";
 
-const ClassDetails = ({ token, classData, reviewData, params, mentorData }) => {
+const ClassDetails = ({ token, classData, reviewData, params, role }) => {
+  console.log(classData);
   return (
     <section className={styles.container}>
       <TopMenu />
-      <LectureImage
-        classData={classData}
-        mentorData={mentorData}
-        params={mentorData.mentorId}
-      />
-      <LectureTitle classData={classData} reviewData={reviewData} />
+      <LectureImage classData={classData} params={params.mentorId} />
+      <LectureTitle classData={classData} reviewData={reviewData} role={role} />
       <BottomNavBar classData={classData} token={token} params={params} />
     </section>
   );
@@ -28,23 +25,20 @@ const ClassDetails = ({ token, classData, reviewData, params, mentorData }) => {
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
+  const role = cookie.parse(context.req.headers.cookie).role;
 
   const params = context.query;
 
   const classData = await GetLectureDetails(token, params);
-  const reviewData = await GetReview(params);
-  const mentorData = await GetViewMentor(
-    token,
-    classData.lectureMentor.mentorId
-  );
+  const reviewData = await GetMenteeReview(token, params);
 
   return {
     props: {
       token,
       params,
+      role,
       classData,
       reviewData,
-      mentorData,
     },
   };
 }

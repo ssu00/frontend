@@ -2,21 +2,35 @@ import { Rating } from "@mui/material";
 import Image from "next/image";
 import { IC_HeartEmptySm, IC_HeartRedFill, IC_HeightBar } from "../../../icons";
 import styles from "./MentorLecture.module.scss";
+import router from "next/router";
 
 const MentorLecture = ({ lectureListData }) => {
   const lectureCon = lectureListData.content;
 
+  console.log(lectureListData);
   return (
     <section className={styles.lectureSection}>
       {lectureCon?.map((info) => {
-        const score =
-          info?.scoreAverage % 1 == 0
-            ? info?.scoreAverage + ".0"
-            : info?.scoreAverage;
         return (
-          <article className={styles.classCard} key={info.id}>
+          <article
+            className={styles.classCard}
+            key={info.id}
+            onClick={() => {
+              router.push({
+                pathname: `/mentee/classdetails/${info.lectureId}`,
+                query: {
+                  lecturePriceId: info.lecturePrice.lecturePriceId,
+                  mentorId: info.lectureMentor.mentorId,
+                },
+              });
+            }}
+          >
             <div className={styles.imageContainer}>
-              <Image src={info.thumbnail} layout="fill" objectFit="cover" />
+              <Image
+                src={info.thumbnail ? info.thumbnail : "/samples/lecture.png"}
+                layout="fill"
+                objectFit="cover"
+              />
               <div className={styles.labels}>
                 <p className={styles.label}>
                   {info.difficulty === "BASIC" && "입문"}
@@ -76,7 +90,12 @@ const MentorLecture = ({ lectureListData }) => {
                     {pries.totalPrice}
                   </span>
                 ))}
-                <span className={styles.won}>원</span>
+                <span className={styles.infoWon}>
+                  {info?.lecturePrice.totalPrice
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  원
+                </span>
                 <span className={styles.month}>/1개월 기준</span>
               </div>
             </div>
