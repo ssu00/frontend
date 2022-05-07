@@ -30,56 +30,40 @@ export async function getServerSideProps(context) {
       chatRoomId,
       other,
       my,
+      token,
     },
   };
 }
 
-const Chat = ({ historyData, chatRoomId, other, my }) => {
-  const [chatContents, setChatContents] = useState([]);
-  let sockJS = new SockJS("http://13.124.128.220:8080/ws");
-  let ws = Stomp.over(sockJS);
+let sockJS = new SockJS("http://13.124.128.220:8080/ws");
+let ws = Stomp.over(sockJS);
 
-  // 렌더링 될 때마다 연결,구독 다른 방으로 옮길 때 연결, 구독 해제
+const Chat = ({ historyData, chatRoomId, other, my, token }) => {
+  const [chatContents, setChatContents] = useState([]);
+
   useEffect(() => {
-    wsConnectSubscribe();
-    return () => {
-      wsDisConnectUnsubscribe();
-    };
+    ws.connect({}, () => {
+      ws.subscribe(`/sub/chat/room/${chatRoomId}`, (data) => {
+        console.log("subscribe-====================================", data);
+        // const newMessage = JSON.parse(data.body);
+        // console.log("newMessage=================================", newMessage);
+        // setChatContents((prev) => [...prev, newMessage]);
+        // dispatch(chatActions.getMessages(newMessage));
+      });
+    });
   }, [chatRoomId]);
 
-  // 웹소켓 연결, 구독
-  function wsConnectSubscribe() {
-    try {
-      ws.connect({}, () => {
-        ws.subscribe(`/sub/chat/room/${chatRoomId}`, (data) => {
-          console.log("subscribe=", data);
-          const newMessage = JSON.parse(data.body);
-          setChatContents((prev) => [...prev, newMessage]);
-          dispatch(chatActions.getMessages(newMessage));
-        });
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    console.log("chatContent=", chatContents);
-  }, [chatContents]);
-
-  // 연결해제, 구독해제
-  function wsDisConnectUnsubscribe() {
-    try {
-      ws.disconnect(() => {
-        ws.unsubscribe("sub-0");
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   const sendMsg = (content) => {
-    ws.send("/pub/chat", {}, JSON.stringify(content));
+    var msg = {
+      type: "MESSAGE",
+      chatroomId: parseInt(chatRoomId),
+      senderId: my.userId,
+      senderNickname: my.nickname,
+      receiverId: other.userId,
+      receiverNickname: other.nickname,
+      message: content,
+    };
+    ws.send("/pub/chat", {}, JSON.stringify(msg));
     setChatContents((prev) => [...prev, content]);
   };
 
