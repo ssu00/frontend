@@ -1,9 +1,7 @@
 import axios from "axios";
-const GetMyLectures = async (token, pageNum) => {
+const GetMyLectures = async (pageNum) => {
   try {
-    const res = await axios.get(`/mentors/my-lectures?page=${pageNum}`, {
-      headers: { Authorization: token },
-    });
+    const res = await axios.get(`/mentors/my-lectures?page=${pageNum}`);
     return res.data;
   } catch (err) {
     return err;
