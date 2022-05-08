@@ -12,12 +12,16 @@ const ChatRoomTyping = ({ sendMsg }) => {
           type="text"
           placeholder="메세지를 입력하세요"
           className={styles.textInput}
+          value={msg}
           onChange={(e) => setMsg(e.target.value)}
         />
         <button
           type="button"
           className={styles.sendBtn}
-          onClick={() => sendMsg(msg)}
+          onClick={() => {
+            sendMsg(msg);
+            setMsg("");
+          }}
         >
           <span>보내기</span>
         </button>
