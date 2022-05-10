@@ -13,7 +13,7 @@ const Start = () => {
         <IC_Logo width="56" height="56" />
       </span>
       <span className={styles.textLogo}>
-        <IC_LogoText width="90" height="46" />
+        <IC_LogoText />
       </span>
       <div className={styles.buttons}>
         <BasicBtn

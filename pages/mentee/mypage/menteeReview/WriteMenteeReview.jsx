@@ -4,7 +4,7 @@ import { IC_Menu } from "../../../../icons";
 import styles from "./menteeReview.module.scss";
 import { NoWriteReviews } from "./NoWriteReviews";
 import { Rating } from "../../../../components/mentor/class/rating";
-import OptionModal from "../../../../components/old-mentee/OptionModal";
+import OptionModal from "../../../../components/mentee/menteeModal/OptionModal";
 import deleteMenteeReivew from "../../../../core/api/Mentee/deleteMenteeReview";
 
 const WriteMenteeReview = ({ menteeReviews, token }) => {
