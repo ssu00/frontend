@@ -3,8 +3,8 @@ const Login_API = async (id, pw) => {
   try {
     const res = await axios.post(
       "/login",
-      { password: pw, username: id }
-      // { withCredentials: true }
+      { password: pw, username: id },
+      { withCredentials: true }
     );
     console.log("login res==", res);
     return res;

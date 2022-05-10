@@ -31,12 +31,12 @@ const Login = () => {
         path: "/",
         secure: true,
       });
-      // if (role.loginType === "ROLE_MENTOR") {
-      //   router.push("/mentor/myclass/myClassList");
-      // }
-      // if (role.loginType === "ROLE_MENTEE") {
-      //   router.push("/mentee");
-      // }
+      if (role.loginType === "ROLE_MENTOR") {
+        router.push("/mentor/myclass/myClassList");
+      }
+      if (role.loginType === "ROLE_MENTEE") {
+        router.push("/mentee");
+      }
     } else {
       setError(true);
     }
