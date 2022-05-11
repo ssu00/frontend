@@ -28,7 +28,7 @@ MyApp.getInitialProps = async (context) => {
       ? cookie.parse(context.ctx.req.headers.cookie).accessToken
       : "";
   axios.defaults.headers.common["Authorization"] = token;
-  axios.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
   return {};
 };
 
