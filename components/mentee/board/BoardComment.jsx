@@ -10,10 +10,12 @@ const BoardComment = ({ token, content }) => {
         <div className={styles.leftPannel}>
           <div className={styles.image}>
             <Image
-              src={content.userImage ? content.userImage : "/"}
+              src={
+                content.userImage ? content.userImage : "/samples/lecture.png"
+              }
               alt=""
-              width="40px"
-              height="40px"
+              width="32px"
+              height="32px"
             />
           </div>
         </div>
