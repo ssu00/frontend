@@ -29,6 +29,7 @@ MyApp.getInitialProps = async (context) => {
       : "";
   axios.defaults.withCredentials = true;
   axios.defaults.headers.common["Authorization"] = token;
+  // axios.defaults.withCredentials = true;
   return {};
 };
 
