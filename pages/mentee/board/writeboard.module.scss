@@ -8,6 +8,11 @@
     margin: 0;
   }
 
+  .infoText {
+    @include text-style($fs-13, $light_gray, 400, left);
+    padding-bottom: 70px;
+  }
+
   .line {
     width: 100%;
     height: 8px;
@@ -31,6 +36,7 @@
 
     .areaBox {
       @include inputBox(372px, 15px 18px);
+      resize: none;
     }
   }
 

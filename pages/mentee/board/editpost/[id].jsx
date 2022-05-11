@@ -70,7 +70,7 @@ const EditPost = ({ token, post_id }) => {
           style={styles.areaBox}
         />
       </section>
-      <p className={styles.text}>
+      <p className={styles.infoText}>
         질문게시판은 강의 및 개발 관련해서 자유롭게 묻고 답하는 게
         <br />
         시판 입니다. 게시판 목적과 다른 내용의 글이 올라올 경우, 무
