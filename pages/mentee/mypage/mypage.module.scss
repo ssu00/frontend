@@ -48,6 +48,11 @@
       @include flexBox(between, center);
       width: 100%;
 
+      button {
+        span {
+          margin-top: 3px;
+        }
+      }
       .bigBlueBtn {
         @include flexBox(center, center);
         @include btn-style(72px, 8px);

@@ -10,7 +10,7 @@ import {
   basicBtnStyle,
 } from "../../../components/common";
 import MyPageTopBar from "../../../components/mentor/mypage/mypageTopBar";
-import { IC_Bookmark, IC_Student } from "../../../icons";
+import { IC_LectureBoxIcon, IC_WishHeart } from "../../../icons";
 import { GetMyInfo } from "../../../core/api/User";
 import Role from "../../../components/common/tag/role";
 
@@ -52,7 +52,7 @@ const MyPage = ({ userInfo, role }) => {
               router.push("/mentee/mypage/mypageRegisteredLecture")
             }
           >
-            <IC_Bookmark />
+            <IC_LectureBoxIcon />
             <span className={styles.bigBtnText}>신청한 강의</span>
           </button>
 
@@ -61,7 +61,7 @@ const MyPage = ({ userInfo, role }) => {
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
             onClick={() => router.push("/mentee/mypage/mypageWishList")}
           >
-            <IC_Student w="30" h="30" />
+            <IC_WishHeart w="30" h="30" />
             <span className={styles.bigBtnText}>위시리스트</span>
           </button>
         </div>

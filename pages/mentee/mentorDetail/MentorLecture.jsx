@@ -7,7 +7,6 @@ import router from "next/router";
 const MentorLecture = ({ lectureListData }) => {
   const lectureCon = lectureListData.content;
 
-  console.log(lectureListData);
   return (
     <section className={styles.lectureSection}>
       {lectureCon?.map((info) => {
