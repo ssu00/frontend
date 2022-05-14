@@ -4,6 +4,7 @@ import Image from "next/image";
 import styles from "./chatPreview.module.scss";
 import Role from "../../common/tag/role";
 import ConvertTime from "../../../utils/common/convertTime";
+import { IC_PersonBlue } from "../../../icons";
 
 const ChatPreview = ({ chatData, othersRole }) => {
   const [converted, setConverted] = useState({
@@ -37,11 +38,11 @@ const ChatPreview = ({ chatData, othersRole }) => {
       }
     >
       <div className={styles.profileImg}>
-        <Image
-          src={userImg == null ? "/samples/lecture.png" : userImg}
-          width={56}
-          height={56}
-        />
+        {userImg == null ? (
+          <IC_PersonBlue width={56} height={56} />
+        ) : (
+          <Image src={userImg} width={56} height={56} />
+        )}
       </div>
       <div className={styles.mentorChat}>
         <div className={styles.nameSection}>
