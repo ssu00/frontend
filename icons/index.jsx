@@ -77,6 +77,8 @@ import IC_AvatarBg from "./assets/avatar_bg.svg";
 import IC_WriteReview from "./assets/write_review.svg";
 import IC_CommentBubble from "./assets/comment_bubble.svg";
 import IC_Report from "./assets/report.svg";
+import IC_WishHeart from "./assets/wish_heart.svg";
+import IC_LectureBoxIcon from "./assets/lecture_box_icon.svg";
 
 export {
   IC_AlarmActive,
@@ -158,4 +160,6 @@ export {
   IC_WriteReview,
   IC_Report,
   IC_CommentBubble,
+  IC_WishHeart,
+  IC_LectureBoxIcon,
 };

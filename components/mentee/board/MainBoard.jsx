@@ -10,7 +10,11 @@ const MainBoard = ({ postDetail }) => {
         <div className={styles.leftPannel}>
           <div className={styles.image}>
             <Image
-              src={postDetail.userImage ? postDetail.userImage : "/"}
+              src={
+                postDetail.userImage
+                  ? postDetail.userImage
+                  : "/samples/lecture.png"
+              }
               alt="profile"
               width="40px"
               height="40px"

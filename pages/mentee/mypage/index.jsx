@@ -11,8 +11,8 @@ import {
 } from "../../../components/common";
 import MyPageTopBar from "../../../components/mentor/mypage/mypageTopBar";
 import {
-  IC_Bookmark,
-  IC_Student,
+  IC_LectureBoxIcon,
+  IC_WishHeart,
   IC_Toggle,
   IC_PersonBlue,
 } from "../../../icons";
@@ -78,7 +78,7 @@ const MyPage = ({ token, userInfo, role }) => {
               router.push("/mentee/mypage/mypageRegisteredLecture")
             }
           >
-            <IC_Bookmark />
+            <IC_LectureBoxIcon />
             <span className={styles.bigBtnText}>신청한 강의</span>
           </button>
 
@@ -87,7 +87,7 @@ const MyPage = ({ token, userInfo, role }) => {
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
             onClick={() => router.push("/mentee/mypage/mypageWishList")}
           >
-            <IC_Student w="30" h="30" />
+            <IC_WishHeart w="30" h="30" />
             <span className={styles.bigBtnText}>위시리스트</span>
           </button>
         </div>
