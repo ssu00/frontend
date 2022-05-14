@@ -57,7 +57,7 @@ const MyClassList = ({ classes }) => {
           })}
         </InfiniteScroll>
 
-        <BottomTab num={[1, 0, 0, 0]} />
+        <BottomTab num={[1, 0, 0, 0]} role={"ROLE_MENTOR"} />
       </section>
     </>
   );
