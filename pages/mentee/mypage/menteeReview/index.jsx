@@ -54,7 +54,7 @@ const mypageMenteeReview = ({ token, unreviewedMentee, menteeReviews }) => {
         ) : (
           <WriteMenteeReview menteeReviews={menteeReviews} token={token} />
         )}
-        <BottomTab num={[0, 0, 0, 1]} />
+        <BottomTab num={[0, 0, 0, 1]} role={"ROLE_MENTEE"} />
       </section>
     </>
   );

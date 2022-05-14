@@ -36,7 +36,7 @@ const ChatList = ({ myChatRooms, role }) => {
               <ChatPreview chatData={data} key={i} othersRole={othersRole} />
             );
           })}
-        <BottomTab num={[0, 0, 1, 0]} />
+        <BottomTab num={[0, 0, 1, 0]} role={role} />
       </div>
     </>
   );

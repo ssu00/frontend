@@ -106,7 +106,7 @@ const MentorCon = ({ mentorData, lectureListData, params, token }) => {
       {tabCurrent === 1 && <MentorLecture lectureListData={lectureListData} />}
       {tabCurrent === 2 && <MentorReview token={token} params={params} />}
 
-      <BottomTab num={[0, 0, 0, 1]} />
+      <BottomTab num={[0, 0, 0, 1]} role={"ROLE_MENTEE"} />
     </section>
   );
 };

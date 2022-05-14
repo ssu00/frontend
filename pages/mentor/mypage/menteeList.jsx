@@ -81,7 +81,7 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
         })}
       </div>
 
-      <BottomTab num={[0, 0, 0, 1]} />
+      <BottomTab num={[0, 0, 0, 1]} role={"ROLE_MENTOR"} />
     </section>
   );
 };

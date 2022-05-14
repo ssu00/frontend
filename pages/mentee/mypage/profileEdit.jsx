@@ -88,7 +88,7 @@ const ProfileEdit = ({ token, userInfo }) => {
           onClick={() => router.push("/common/withdraw")}
         />
       </section>
-      <BottomTab num={[0, 0, 0, 1]} />
+      <BottomTab num={[0, 0, 0, 1]} role={"ROLE_MENTEE"} />
     </section>
   );
 };
