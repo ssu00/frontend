@@ -20,17 +20,29 @@ const Login = () => {
 
   const checkAccount = async () => {
     const res = await Login_API(username, password);
+    setCookie(
+      "accessToken",
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMTAzQGVtYWlsLmNvbSIsInJvbGUiOiJST0xFX01FTlRFRSIsImV4cCI6MTY1MjcwNTEyNywiaWF0IjoxNjUyNjE4NzI3LCJ1c2VybmFtZSI6InVzZXIxMDNAZW1haWwuY29tIn0.Ld0LHmSO1PKjSGqJ_c5ebN11lwuvSAPrvsgG5AM_N3o",
+      {
+        path: "/",
+        secure: true,
+      }
+    );
+    setCookie("role", "ROLE_MENTEE", {
+      path: "/",
+      secure: true,
+    });
     if (res.status == 200) {
       const role = await GetUserRoleType(res.data);
       console.log(role);
-      setCookie("accessToken", res.data, {
-        path: "/",
-        secure: true,
-      });
-      setCookie("role", role.loginType, {
-        path: "/",
-        secure: true,
-      });
+      //   setCookie("accessToken", res.data, {
+      //     path: "/",
+      //     secure: true,
+      //   });
+      //   setCookie("role", role.loginType, {
+      //     path: "/",
+      //     secure: true,
+      //   });
       if (role.loginType === "ROLE_MENTOR") {
         router.push("/mentor/myclass/myClassList");
       }
