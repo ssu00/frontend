@@ -14,11 +14,15 @@ const MyChat = ({ text, sentAt }) => {
   );
 };
 
-const OtherChat = ({ name, text, sentAt }) => {
+const OtherChat = ({ image, name, text, sentAt }) => {
   return (
     <div className={styles.othersChat}>
       <div className={styles.profileImg}>
-        <Image src={"/samples/lecture.png"} width={44} height={44} />
+      {image == null ? (
+          <IC_PersonBlue width={56} height={56} />
+        ) : (
+          <Image src={image} width={44} height={44} />
+        )}
       </div>
       <div className={styles.menteeChat}>
         <span className={styles.name}>{name} </span>
@@ -31,18 +35,17 @@ const OtherChat = ({ name, text, sentAt }) => {
   );
 };
 
-const ChatRoomContentBlock = ({ my, other, sentAt, msg }) => {
+const ChatRoomContentBlock = ({ my, other, sender, sentAt, msg }) => {
   const [converted, setConverted] = useState({
     date: "",
     time: "",
     sameDay: false,
   });
-
   useEffect(() => {
     ConvertTime(sentAt, setConverted);
   }, []);
 
-  if (my) {
+  if (my.userId==sender) {
     return (
       <MyChat
         text={msg}
@@ -52,6 +55,7 @@ const ChatRoomContentBlock = ({ my, other, sentAt, msg }) => {
   } else {
     return (
       <OtherChat
+      image={other.image}
         text={msg}
         name={other.nickname}
         sentAt={converted.sameDay ? converted.time : converted.date}
