@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import ConvertTime from "../../../utils/common/convertTime";
 import styles from "./chatRoomContentBlock.module.scss";
+import { IC_PersonBlue } from "../../../icons";
 
 const MyChat = ({ text, sentAt }) => {
   return (
@@ -18,7 +19,7 @@ const OtherChat = ({ image, name, text, sentAt }) => {
   return (
     <div className={styles.othersChat}>
       <div className={styles.profileImg}>
-      {image == null ? (
+        {image == null ? (
           <IC_PersonBlue width={56} height={56} />
         ) : (
           <Image src={image} width={44} height={44} />
@@ -45,7 +46,7 @@ const ChatRoomContentBlock = ({ my, other, sender, sentAt, msg }) => {
     ConvertTime(sentAt, setConverted);
   }, []);
 
-  if (my.userId==sender) {
+  if (my.userId == sender) {
     return (
       <MyChat
         text={msg}
@@ -55,7 +56,7 @@ const ChatRoomContentBlock = ({ my, other, sender, sentAt, msg }) => {
   } else {
     return (
       <OtherChat
-      image={other.image}
+        image={other.image}
         text={msg}
         name={other.nickname}
         sentAt={converted.sameDay ? converted.time : converted.date}
