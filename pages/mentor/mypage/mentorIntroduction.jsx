@@ -84,7 +84,7 @@ const MentorIntroduction = ({ myInfoAsMentor }) => {
       >
         <IC_EditFill width="26.36" height="26.36" />
       </button>
-      <BottomTab num={[0, 0, 0, 1]} />
+      <BottomTab num={[0, 0, 0, 1]} role={"ROLE_MENTOR"} />
     </section>
   );
 };

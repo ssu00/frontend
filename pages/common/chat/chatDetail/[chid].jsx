@@ -102,6 +102,7 @@ const Chat = ({ token, history, chatRoomId, other, my }) => {
                     key={i}
                     my={my}
                     other={other}
+                    sender={data.senderId}
                     sentAt={data.createdAt}
                     msg={data.text}
                   />

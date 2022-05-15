@@ -10,11 +10,18 @@ import {
   basicBtnStyle,
 } from "../../../components/common";
 import MyPageTopBar from "../../../components/mentor/mypage/mypageTopBar";
-import { IC_LectureBoxIcon, IC_WishHeart } from "../../../icons";
+import {
+  IC_LectureBoxIcon,
+  IC_WishHeart,
+  IC_Toggle,
+  IC_PersonBlue,
+} from "../../../icons";
 import { GetMyInfo } from "../../../core/api/User";
 import Role from "../../../components/common/tag/role";
+import ChangeType from "../../../core/api/Login/changeType";
+import { setCookie } from "../../../utils/cookie";
 
-const MyPage = ({ userInfo, role }) => {
+const MyPage = ({ token, userInfo, role }) => {
   console.log(role);
   return (
     <section className={styles.mypageSection}>
@@ -22,13 +29,16 @@ const MyPage = ({ userInfo, role }) => {
       <section className={styles.profileSection}>
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
-            <Image
-              src={userInfo.image}
-              width={56}
-              height={56}
-              className={styles.profileImg}
-              alt=""
-            />
+            {userInfo.image == null ? (
+              <IC_PersonBlue width={56} height={56} />
+            ) : (
+              <Image
+                src={userInfo.image}
+                width={56}
+                height={56}
+                className={styles.profileImg}
+              />
+            )}
           </div>
 
           <div className={styles.role_name}>
@@ -36,12 +46,28 @@ const MyPage = ({ userInfo, role }) => {
             <span className={styles.name}>{userInfo.name}</span>
           </div>
 
-          <BasicBtn
-            text={"프로필 수정"}
-            onClick={() => router.push("/mentee/mypage/profileEdit")}
-            btnStyle={styles.profileEditBtn}
-            textStyle={styles.profileEditBtnText}
-          />
+          <div className={styles.toggle_btn}>
+            <BasicBtn
+              text={"프로필 수정"}
+              onClick={() => router.push("/mentee/mypage/profileEdit")}
+              btnStyle={styles.profileEditBtn}
+              textStyle={styles.profileEditBtnText}
+            />
+            <IC_Toggle
+              onClick={async () => {
+                const res = await ChangeType(token);
+                setCookie("accessToken", res.data, {
+                  path: "/",
+                  secure: true,
+                });
+                setCookie("role", "ROLE_MENTOR", {
+                  path: "/",
+                  secure: true,
+                });
+                router.push("/mentor/mypage");
+              }}
+            />
+          </div>
         </div>
 
         <div className={styles.btns}>
@@ -104,11 +130,12 @@ const MyPage = ({ userInfo, role }) => {
 
 export async function getServerSideProps(context) {
   const parsedCookies = cookie.parse(context.req.headers.cookie);
+  const token = parsedCookies.accessToken;
   const role = parsedCookies.role;
   const userInfo = await GetMyInfo(parsedCookies.accessToken);
 
   return {
-    props: { userInfo, role },
+    props: { token, userInfo, role },
   };
 }
 
