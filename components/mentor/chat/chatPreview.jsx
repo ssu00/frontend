@@ -39,7 +39,7 @@ const ChatPreview = ({ chatData, othersRole }) => {
     >
       <div className={styles.profileImg}>
         {userImg == null ? (
-          <IC_PersonBlue width={56} height={56} />
+          <IC_PersonBlue width={56} height={56} className={styles.person}/>
         ) : (
           <Image src={userImg} width={56} height={56} />
         )}
