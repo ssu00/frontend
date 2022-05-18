@@ -1,13 +1,7 @@
-import axios from "axios";
+import myAxios from "../apiController";
 const GetUncheckedNotificationCount = async (token) => {
-  try {
-    const res = await axios.get(`/users/my-notifications/count-unchecked`, {
-      headers: { Authorization: token },
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+  const res = await myAxios.get("/users/my-notifications/count-unchecked");
+  return res.data;
 };
 
 export default GetUncheckedNotificationCount;
