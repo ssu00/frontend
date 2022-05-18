@@ -1,13 +1,7 @@
-import axios from "axios";
+import myAxios from "../apiController";
 const ChangeType = async (token) => {
-  try {
-    const res = await axios.get("/change-type", {
-      headers: { Authorization: token },
-    });
-    return res;
-  } catch (err) {
-    console.log("err===============", err.response);
-    return err;
-  }
+  return await myAxios.get("/change-type", {
+    headers: { Authorization: token },
+  });
 };
 export default ChangeType;

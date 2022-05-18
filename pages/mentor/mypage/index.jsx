@@ -20,7 +20,7 @@ import { GetMyInfo } from "../../../core/api/User";
 import UserRole from "../../../utils/userRole";
 import GetUncheckedNotificationCount from "../../../core/api/Notification/getUncheckedNotificatonCount";
 import ChangeType from "../../../core/api/Login/changeType";
-import { setCookie } from "../../../utils/cookie";
+import { cookieForAuth } from "../../../utils/cookie";
 import RefreshPage from "../../../utils/refreshPage";
 
 export const getServerSideProps = async (context) => {
@@ -68,14 +68,7 @@ const MyPage = ({ token, userInfo, uncheckedCnt }) => {
             <IC_ToggleActive
               onClick={async () => {
                 const res = await ChangeType(token);
-                setCookie("accessToken", res.data, {
-                  path: "/",
-                  secure: true,
-                });
-                setCookie("role", "ROLE_MENTEE", {
-                  path: "/",
-                  secure: true,
-                });
+                cookieForAuth(res, { loginType: "ROLE_MENTEE" });
                 router.push("/mentee/mypage");
               }}
             />
