@@ -8,7 +8,7 @@ import {
   basicBtnStyle,
 } from "../../components/common";
 import { Login_API } from "../../core/api/Login";
-import { setCookie } from "../../utils/cookie";
+import { cookieForAuth } from "../../utils/cookie";
 import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../icons";
 import { NameLogo } from "../../components/common/icons/nameLogo";
 import GetUserRoleType from "../../core/api/Login/roleTypeCheck";
@@ -20,29 +20,9 @@ const Login = () => {
 
   const checkAccount = async () => {
     const res = await Login_API(username, password);
-    setCookie(
-      "accessToken",
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyMTAzQGVtYWlsLmNvbSIsInJvbGUiOiJST0xFX01FTlRFRSIsImV4cCI6MTY1MjcwNTEyNywiaWF0IjoxNjUyNjE4NzI3LCJ1c2VybmFtZSI6InVzZXIxMDNAZW1haWwuY29tIn0.Ld0LHmSO1PKjSGqJ_c5ebN11lwuvSAPrvsgG5AM_N3o",
-      {
-        path: "/",
-        secure: true,
-      }
-    );
-    setCookie("role", "ROLE_MENTEE", {
-      path: "/",
-      secure: true,
-    });
     if (res.status == 200) {
-      const role = await GetUserRoleType(res.data);
-      console.log(role);
-      //   setCookie("accessToken", res.data, {
-      //     path: "/",
-      //     secure: true,
-      //   });
-      //   setCookie("role", role.loginType, {
-      //     path: "/",
-      //     secure: true,
-      //   });
+      const role = await GetUserRoleType(res.headers["x-access-token"]);
+      cookieForAuth(res, role);
       if (role.loginType === "ROLE_MENTOR") {
         router.push("/mentor/myclass/myClassList");
       }
