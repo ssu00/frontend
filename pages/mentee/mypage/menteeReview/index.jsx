@@ -1,8 +1,10 @@
 import { useState } from "react";
 import * as cookie from "cookie";
 import router from "next/router";
-import { getUnreviewedMentee } from "../../../../core/api/Mentee/getUnreviewedMentee";
-import { getReviewMentee } from "../../../../core/api/Mentee/getReviewMentee";
+import {
+  getUnreviewedMentee,
+  getReviewMentee,
+} from "../../../../core/api/Mentee";
 import styles from "./menteeReview.module.scss";
 import { MenuBtn, TopBar, BottomTab } from "../../../../components/common";
 import WriteMenteeReview from "./WriteMenteeReview";

@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import * as cookie from "cookie";
 import styles from "./boardDetail.module.scss";
 import TopBar from "../../../components/mentee/board/TopBar";
-
 import {
-  GetBoardDetail,
-  GetBoardDetailComments,
-} from "../../../core/api/Mentee/board";
-
+  getBoardDetail,
+  getBoardDetailComments,
+} from "../../../core/api/Mentee";
 import BoardComment from "../../../components/mentee/board/BoardComment";
 import MainBoard from "../../../components/mentee/board/MainBoard";
 import BottomButton from "../../../components/mentee/board/BottomButton";
@@ -54,8 +52,8 @@ export const getServerSideProps = async (context) => {
   const role = cookie.parse(context.req.headers.cookie).role;
   const params = context.query;
 
-  const postDetail = await GetBoardDetail(token, params.id);
-  const postComments = await GetBoardDetailComments(token, params.id);
+  const postDetail = await getBoardDetail(token, params.id);
+  const postComments = await getBoardDetailComments(token, params.id);
   return {
     props: {
       token,

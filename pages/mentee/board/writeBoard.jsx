@@ -5,7 +5,7 @@ import {
   TopBar,
 } from "../../../components/common";
 import BasicTextAreaBox from "../../../components/common/inputBox/basicTextAreaBox";
-import { UploadPost } from "../../../core/api/Mentee/board";
+import { uploadPost } from "../../../core/api/Mentee";
 import styles from "./writeboard.module.scss";
 import * as cookie from "cookie";
 import router from "next/router";
@@ -80,7 +80,7 @@ const WriteBoard = ({ token }) => {
         text={"업로드"}
         disabled={!(errMsg == "")}
         onClick={async () => {
-          const res = await UploadPost(token, inquiryInfo);
+          const res = await uploadPost(token, inquiryInfo);
           if (res.status == 201) {
             setResult({ success: true, error: false, errorMsg: "" });
             router.push(`/mentee/board`);

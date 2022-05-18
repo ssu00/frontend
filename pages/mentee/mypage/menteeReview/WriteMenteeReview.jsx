@@ -5,7 +5,7 @@ import styles from "./menteeReview.module.scss";
 import { NoWriteReviews } from "./NoWriteReviews";
 import { Rating } from "../../../../components/mentor/class/rating";
 import OptionModal from "../../../../components/mentee/menteeModal/OptionModal";
-import deleteMenteeReivew from "../../../../core/api/Mentee/deleteMenteeReview";
+import { deleteMenteeReivew } from "../../../../core/api/Mentee";
 
 const WriteMenteeReview = ({ menteeReviews, token }) => {
   const [reviews, setReviews] = useState([]);

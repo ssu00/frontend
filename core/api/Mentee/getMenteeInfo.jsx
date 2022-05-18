@@ -1,5 +1,5 @@
 import axios from "axios";
-const GetMenteeInfo = async (mentee_id) => {
+export const getMenteeInfo = async (mentee_id) => {
   try {
     const res = await axios.get(`/mentees/${mentee_id}`);
     console.log("mentee res=", res.data);
@@ -8,5 +8,3 @@ const GetMenteeInfo = async (mentee_id) => {
     return err;
   }
 };
-
-export default GetMenteeInfo;

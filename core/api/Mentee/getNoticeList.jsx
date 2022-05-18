@@ -1,5 +1,5 @@
 import axios from "axios";
-export const GetNoticeList = async (token, page) => {
+export const getNoticeList = async (token, page) => {
   try {
     const res = await axios.get(`/notices`, {
       headers: { Authorization: token },
@@ -11,5 +11,3 @@ export const GetNoticeList = async (token, page) => {
     return err;
   }
 };
-
-export default GetNoticeList;
