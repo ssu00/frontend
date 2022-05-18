@@ -23,7 +23,7 @@ function LectureImage({ classData }) {
           src={
             classData.lectureMentor.image
               ? classData.lectureMentor.image
-              : "/s/lecture.png"
+              : "/samples/lecture.png"
           }
           width={72}
           height={72}

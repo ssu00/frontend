@@ -1,15 +1,5 @@
-import axios from "axios";
+import myAxios from "../apiController";
 const Login_API = async (id, pw) => {
-  try {
-    const res = await axios.post(
-      "/login",
-      { password: pw, username: id }
-      // { withCredentials: true }
-    );
-    console.log("login res==", res);
-    return res;
-  } catch (err) {
-    return err;
-  }
+  return await myAxios.post("/login", { password: pw, username: id });
 };
 export default Login_API;

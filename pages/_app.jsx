@@ -8,6 +8,7 @@ import * as cookie from "cookie";
 import router from "next/router";
 import "nprogress/nprogress.css";
 import Loading from "../components/common/Loading";
+import myAxios from "../core/api/apiController";
 
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
@@ -41,19 +42,25 @@ function MyApp({ Component, pageProps }) {
         <meta property="og:title" content={title ? title : "멘토릿지"} />
       </Head>
       <Component {...pageProps} />
+      {/* <Component {...pageProps} access={accessToken} refresh={refreshToken} /> */}
     </>
   );
 }
 
 MyApp.getInitialProps = async (context) => {
-  const token =
+  const accessToken =
     context.ctx.req && context.ctx.req.headers.cookie
       ? cookie.parse(context.ctx.req.headers.cookie).accessToken
       : "";
+  // const refreshToken =
+  //   context.ctx.req && context.ctx.req.headers.cookie
+  //     ? cookie.parse(context.ctx.req.headers.cookie).refreshToken
+  //     : "";
   axios.defaults.withCredentials = true;
-  axios.defaults.headers.common["Authorization"] = token;
-  // axios.defaults.withCredentials = true;
+  axios.defaults.headers.common["Authorization"] = accessToken;
+  myAxios.defaults.headers.common["Authorization"] = accessToken;
   return {};
+  // return { accessToken, refreshToken };
 };
 
 export default wrapper.withRedux(MyApp);

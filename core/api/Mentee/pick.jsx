@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const UpdatePicks = async (token, params) => {
+export const updatePicks = async (token, params) => {
   try {
     const res = await axios.post(
       `/lectures/${params.id}/lecturePrices/${params.lecturePriceId}/picks`,

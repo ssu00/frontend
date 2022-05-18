@@ -102,6 +102,7 @@ const MentorReview = ({ params, token }) => {
 
       <article className={styles.reviewSection}>
         {reviewInfo.reviews?.content.map((review, i) => {
+          console.log("review===", review);
           const score =
             review.score % 1 === 0 ? review.score + ".0" : review.score;
 

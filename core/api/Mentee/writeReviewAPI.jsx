@@ -1,5 +1,5 @@
 import axios from "axios";
-const writeReviewAPI = async (token, writeID, content, score) => {
+export const writeReviewAPI = async (token, writeID, content, score) => {
   try {
     const res = await axios.post(
       `/mentees/my-enrollments/${writeID}/reviews`,
@@ -12,5 +12,3 @@ const writeReviewAPI = async (token, writeID, content, score) => {
     return err;
   }
 };
-
-export default writeReviewAPI;

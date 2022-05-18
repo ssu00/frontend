@@ -1,14 +1,8 @@
-import axios from "axios";
+import myAxios from "../apiController";
 
 const GetMyInfo = async (token) => {
-  try {
-    const res = await axios.get("/users/my-info", {
-      headers: { Authorization: token },
-    });
-    return res.data;
-  } catch (err) {
-    console.log(err);
-  }
+  const res = await myAxios.get("/users/my-info");
+  return res.data;
 };
 
 export default GetMyInfo;

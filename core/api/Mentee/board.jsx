@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GetBoardList = async (token, page) => {
+export const getBoardList = async (token, page) => {
   try {
     const res = await axios.get(`/posts`, {
       headers: { Authorization: token },
@@ -12,7 +12,7 @@ export const GetBoardList = async (token, page) => {
   }
 };
 
-export const UploadPost = async (token, data) => {
+export const uploadPost = async (token, data) => {
   try {
     const res = await axios.post("/posts", data, {
       headers: { Authorization: token },
@@ -23,7 +23,7 @@ export const UploadPost = async (token, data) => {
   }
 };
 
-export const GetBoardDetail = async (token, post_id) => {
+export const getBoardDetail = async (token, post_id) => {
   try {
     const res = await axios.get(`/posts/${post_id}`, {
       headers: { Authorization: token },
@@ -34,7 +34,7 @@ export const GetBoardDetail = async (token, post_id) => {
   }
 };
 
-export const GetBoardDetailComments = async (token, post_id) => {
+export const getBoardDetailComments = async (token, post_id) => {
   try {
     const res = await axios.get(`/posts/${post_id}/comments`, {
       headers: { Authorization: token },
@@ -45,7 +45,7 @@ export const GetBoardDetailComments = async (token, post_id) => {
   }
 };
 
-export const UploadBoardComments = async (token, post_id, data) => {
+export const uploadBoardComments = async (token, post_id, data) => {
   try {
     const res = await axios.post(`/posts/${post_id}/comments`, data, {
       headers: { Authorization: token },
@@ -56,7 +56,7 @@ export const UploadBoardComments = async (token, post_id, data) => {
   }
 };
 
-export const EditBoardPosts = async (token, post_id, data) => {
+export const editBoardPosts = async (token, post_id, data) => {
   try {
     const res = await axios.put(
       `/users/my-posts/${post_id}`,
@@ -75,7 +75,7 @@ export const EditBoardPosts = async (token, post_id, data) => {
   }
 };
 
-export const DeleteBoardPosts = async (token, post_id) => {
+export const deleteBoardPosts = async (token, post_id) => {
   try {
     const res = await axios.delete(`/users/my-posts/${post_id}`, {
       headers: { Authorization: token },
@@ -87,7 +87,7 @@ export const DeleteBoardPosts = async (token, post_id) => {
   }
 };
 
-export const DeleteBoardComments = async (token, post_id, comment_id) => {
+export const deleteBoardComments = async (token, post_id, comment_id) => {
   try {
     const res = await axios.delete(`/posts/${post_id}/comments/${comment_id}`, {
       headers: { Authorization: token },

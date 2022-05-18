@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const deleteMenteeReivew = async (token, reviewId) => {
+export const deleteMenteeReivew = async (token, reviewId) => {
   try {
     const res = await axios.delete(`/mentees/my-reviews/${reviewId}`, {
       headers: { Authorization: token },
@@ -11,5 +11,3 @@ const deleteMenteeReivew = async (token, reviewId) => {
     return err;
   }
 };
-
-export default deleteMenteeReivew;

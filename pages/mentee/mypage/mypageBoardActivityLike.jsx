@@ -5,7 +5,7 @@ import List from "../../../components/mentee/mypageBoardActivityLike/List";
 import * as cookie from "cookie";
 
 import styles from "./template.module.scss";
-import { GetMyLikes } from "../../../core/api/Mentee/getMypageBoard";
+import { getMyLikes } from "../../../core/api/Mentee";
 import TopBar from "../../../components/mentee/mypageBoardActivity/TopBar";
 
 function MypageBoardActivityLike({ likeList, role }) {
@@ -24,7 +24,7 @@ export async function getServerSideProps(context) {
   const role = parsedCookies.role;
   const token = parsedCookies.accessToken;
 
-  const likeList = await GetMyLikes(token, { page: 1 });
+  const likeList = await getMyLikes(token, { page: 1 });
 
   return {
     props: { likeList, role },

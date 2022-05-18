@@ -5,7 +5,7 @@ import List from "../../../components/mentee/mypageBoardActivity/List";
 
 import * as cookie from "cookie";
 import styles from "./template.module.scss";
-import { GetMyPosts } from "../../../core/api/Mentee/getMypageBoard";
+import { getMyPosts } from "../../../core/api/Mentee";
 import TopBar from "../../../components/mentee/mypageBoardActivity/TopBar";
 import { useRouter } from "next/router";
 
@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
   const role = parsedCookies.role;
   const token = parsedCookies.accessToken;
 
-  const boardList = await GetMyPosts(token, { page: 1 });
+  const boardList = await getMyPosts(token, { page: 1 });
 
   return {
     props: { boardList, role },

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GetMyPosts = async (token, page) => {
+export const getMyPosts = async (token, page) => {
   try {
     const res = await axios.get(`/users/my-posts`, {
       headers: { Authorization: token },
@@ -12,7 +12,7 @@ export const GetMyPosts = async (token, page) => {
   }
 };
 
-export const GetMyComments = async (token, page) => {
+export const getMyComments = async (token, page) => {
   try {
     const res = await axios.get(`/users/my-posts/commenting`, {
       headers: { Authorization: token },
@@ -24,7 +24,7 @@ export const GetMyComments = async (token, page) => {
   }
 };
 
-export const GetMyLikes = async (token, page) => {
+export const getMyLikes = async (token, page) => {
   try {
     const res = await axios.get(`/users/my-posts/liking`, {
       headers: { Authorization: token },

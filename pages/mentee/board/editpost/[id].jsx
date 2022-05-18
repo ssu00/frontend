@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-
 import styles from "../writeboard.module.scss";
 import * as cookie from "cookie";
 import router from "next/router";
-import { EditBoardPosts } from "../../../../core/api/Mentee/board";
+import { editBoardPosts } from "../../../../core/api/Mentee";
 import {
   BasicInputBox,
   BottomBlueBtn,
@@ -81,7 +80,7 @@ const EditPost = ({ token, post_id }) => {
         text={"수정"}
         disabled={!(errMsg == "")}
         onClick={async () => {
-          const res = await EditBoardPosts(token, post_id, inquiryInfo);
+          const res = await editBoardPosts(token, post_id, inquiryInfo);
           if (res.status == 200) {
             setResult({ success: true, error: false, errorMsg: "" });
             router.push(`/mentee/board/${post_id}`);
