@@ -1,16 +1,18 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import styles from "./BottomNavBar.module.scss";
 import { IC_HeartEmpty, IC_HeartRedFill_Lg } from "../../../icons";
 import { IC_Share } from "../../../icons";
 import Drawer from "react-bottom-drawer";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import EnrollClass from "../../../core/api/Mentee/enrollClass";
-import { UpdatePicks } from "../../../core/api/Mentee/pick";
+import { updatePicks } from "../../../core/api/Mentee/pick";
 
 function BottomNavBar({ classData, token, params }) {
   // const [isVisible, setIsVisible] = useState(false);
   // const [systemType, setSystemType] = useState("");
   // const [group, setGroup] = useState("");
+
+  const [liked, setLiked] = useState(false);
 
   const handleEnrollClass = async () => {
     const res = await EnrollClass(token, params);
@@ -21,11 +23,6 @@ function BottomNavBar({ classData, token, params }) {
     }
   };
 
-  const handlePicks = async () => {
-    const res = await UpdatePicks(token, params);
-
-    console.log(res);
-  };
   // const handleSelection = (value, setValue) => {
   //   setValue(value);
   // };
@@ -37,10 +34,24 @@ function BottomNavBar({ classData, token, params }) {
   // const onClose = useCallback(() => {
   //   setIsVisible(false);
   // }, []);
+
+  const handlePicks = async () => {
+    const res = await updatePicks(token, params);
+    if (res) {
+      setLiked(true);
+    } else if (res === "") {
+      setLiked(false);
+    }
+  };
+
+  useEffect(() => {
+    setLiked;
+  }, [setLiked]);
+
   return (
     <div className={styles.container}>
       <button onClick={handlePicks}>
-        {classData.picked ? (
+        {liked ? (
           <IC_HeartRedFill_Lg />
         ) : (
           <IC_HeartEmpty width={"24px"} height={"24px"} />
