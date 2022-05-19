@@ -152,7 +152,6 @@ const Home = ({ classes, role, token }) => {
   //   getFilteredClassList();
   // }, [classes]);
 
-  console.log(classData, "classData");
   return (
     <div className={styles.home}>
       <div className={styles.background}>

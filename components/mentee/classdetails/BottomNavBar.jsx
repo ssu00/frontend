@@ -1,9 +1,7 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./BottomNavBar.module.scss";
 import { IC_HeartEmpty, IC_HeartRedFill_Lg } from "../../../icons";
 import { IC_Share } from "../../../icons";
-import Drawer from "react-bottom-drawer";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import EnrollClass from "../../../core/api/Mentee/enrollClass";
 import { updatePicks } from "../../../core/api/Mentee/pick";
 
@@ -23,6 +21,24 @@ function BottomNavBar({ classData, token, params }) {
     }
   };
 
+  const getPicked = () => {
+    if (classData.picked) setLiked(true);
+  };
+
+  const handlePicks = async () => {
+    const res = await updatePicks(token, params);
+
+    if (res) {
+      setLiked(true);
+    } else if (res === "") {
+      setLiked(false);
+    }
+  };
+
+  useEffect(() => {
+    getPicked();
+  }, []);
+
   // const handleSelection = (value, setValue) => {
   //   setValue(value);
   // };
@@ -34,19 +50,6 @@ function BottomNavBar({ classData, token, params }) {
   // const onClose = useCallback(() => {
   //   setIsVisible(false);
   // }, []);
-
-  const handlePicks = async () => {
-    const res = await updatePicks(token, params);
-    if (res) {
-      setLiked(true);
-    } else if (res === "") {
-      setLiked(false);
-    }
-  };
-
-  useEffect(() => {
-    setLiked;
-  }, [setLiked]);
 
   return (
     <div className={styles.container}>

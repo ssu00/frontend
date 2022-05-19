@@ -65,7 +65,7 @@ const ClassCard = ({ classDetail }) => {
             ) : (
               <IC_HeartEmpty width="16px" height="18px" />
             )}
-            <span>{classDetail.enrollmentCount}</span>
+            <span>{classDetail.pickCount}</span>
             <IC_HeightBar width="1" height="8" className={styles.height_bar} />
             <Rating w={55} h={11} fillRating={classDetail.scoreAverage} />
             <span
