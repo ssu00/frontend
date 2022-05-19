@@ -1,16 +1,11 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 
-export const UpdatePicks = async (token, params) => {
-  try {
-    const res = await axios.post(
-      `/lectures/${params.id}/lecturePrices/${params.lecturePriceId}/picks`,
-      {},
-      {
-        headers: { Authorization: token },
-      }
-    );
-    return res;
-  } catch (err) {
-    return err.response;
-  }
+export const updatePicks = async (token, params) => {
+  const res = await Api({
+    method: METHOD.POST,
+    url: `/lectures/${params.id}/lecturePrices/${params.lecturePriceId}/picks`,
+    headers: { Authorization: token },
+  });
+
+  return res.data;
 };
