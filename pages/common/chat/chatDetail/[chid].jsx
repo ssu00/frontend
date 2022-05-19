@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import * as cookie from "cookie";
 import styles from "./chat.module.scss";
-import GetMyChatHistory from "../../../../core/api/Chat/getMyChatHistory";
+import { getMyChatHistory, readChat } from "../../../../core/api/Chat";
 import ChatRoomTyping from "../../../../components/mentor/chat/chatRoomTyping";
 import ChatRoomTopBar from "../../../../components/mentor/chat/chatRoomTopBar";
 import ChatRoomContentBlock from "../../../../components/mentor/chat/chatRoomContentBlock";
@@ -9,19 +9,18 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 import { GetMyInfo } from "../../../../core/api/User";
 import GetUserInfo from "../../../../core/api/User/getUserInfo";
-import ReadChat from "../../../../core/api/Chat/readChat";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const chatRoomId = context.query.chid;
   const othersId = context.query.other;
-  const history = await GetMyChatHistory(token, chatRoomId, 1);
+  const history = await getMyChatHistory(chatRoomId, 1);
 
   const other = await GetUserInfo(token, othersId);
   const my = await GetMyInfo(token);
 
-  await ReadChat(chatRoomId);
+  await readChat(chatRoomId);
 
   return {
     props: {
@@ -50,7 +49,7 @@ const Chat = ({ token, history, chatRoomId, other, my }) => {
   useEffect(() => {
     const fetchMore = async () => {
       if (pageNum != 1) {
-        const moreHistory = await GetMyChatHistory(token, chatRoomId, pageNum);
+        const moreHistory = await getMyChatHistory(chatRoomId, pageNum);
         setLast(moreHistory.last);
         setChatContents([...moreHistory.content.reverse(), ...chatContents]);
       }

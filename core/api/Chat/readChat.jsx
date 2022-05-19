@@ -1,10 +1,8 @@
-import axios from "axios";
-const ReadChat = async (chid) => {
-  try {
-    const res = await axios.put(`/chat/rooms/${chid}/enter`);
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+import Api, { METHOD } from "../apiController";
+export const readChat = async (chid) => {
+  const res = await Api({
+    method: METHOD.PUT,
+    url: `/chat/rooms/${chid}/enter`,
+  });
+  return res.data;
 };
-export default ReadChat;
