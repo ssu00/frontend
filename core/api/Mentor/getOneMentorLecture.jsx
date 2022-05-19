@@ -1,14 +1,8 @@
-//
-import axios from "axios";
-
-export const getOneMentorLecture = async (token, mentorId, page) => {
-  try {
-    const res = await axios.get(`/mentors/${mentorId}/reviews?page=${page}`, {
-      headers: { Authorization: token },
-    });
-
-    return res.data;
-  } catch (e) {
-    console.log(e);
-  }
+import Api, { METHOD } from "../apiController";
+export const getOneMentorLecture = async (mentorId, page) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/mentors/${mentorId}/reviews?page=${page}`,
+  });
+  return res.data;
 };

@@ -1,13 +1,8 @@
-import axios from "axios";
-const GetMyInfoAsMentor = async (token) => {
-  try {
-    const res = await axios.get("/mentors/my-info", {
-      headers: { Authorization: token },
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+import Api, { METHOD } from "../apiController";
+export const getMyInfoAsMentor = async () => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/mentors/my-info`,
+  });
+  return res.data;
 };
-
-export default GetMyInfoAsMentor;

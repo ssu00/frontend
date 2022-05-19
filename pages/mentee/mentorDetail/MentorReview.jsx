@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./MentorReview.module.scss";
-import { getOneMentorLecture } from "../../../core/api/Mentor/getOneMentorLecture";
+import { getOneMentorLecture } from "../../../core/api/Mentor";
 import { Rating, RatingBig } from "../../../components/mentor/class/rating";
 import Image from "next/image";
 import classNames from "classnames";
@@ -13,7 +13,7 @@ const MentorReview = ({ params, token }) => {
   const lectureRouter = useRef(null);
 
   const oneMentorLecture = async () => {
-    const review = await getOneMentorLecture(token, params, page);
+    const review = await getOneMentorLecture(params, page);
     setReviewInfo(review);
     setReviewList(review.reviews.content);
   };

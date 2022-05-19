@@ -1,36 +1,17 @@
-import axios from "axios";
-const GetMyMentees = async (token, page, closed) => {
-  try {
-    const res = await axios.get(
-      `/mentors/my-mentees?closed=${closed}&page=${page}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
-    console.log("res=", res);
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+import Api, { METHOD } from "../apiController";
+export const getMyMentees = async (page, closed) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/mentors/my-mentees?closed=${closed}&page=${page}`,
+  });
+  return res.data;
 };
 
-const GetMenteeLecture = async (token, mentee, closed, page) => {
-  try {
-    const res = await axios.get(
-      `/mentors/my-mentees/${mentee}?closed=${closed}&page=${page}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+export const getMenteeLecture = async (token, mentee, closed, page) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/mentors/my-mentees/${mentee}?closed=${closed}&page=${page}`,
+    headers: { Authorization: token },
+  });
+  return res.data;
 };
-
-export { GetMenteeLecture };
-export default GetMyMentees;

@@ -1,6 +1,5 @@
 import * as cookie from "cookie";
-import { getViewMentor } from "../../../core/api/Mentor/getViewMentor";
-import { getMentorLectureList } from "../../../core/api/Mentor/getMentorLectureList";
+import { getViewMentor, getMentorLectureList } from "../../../core/api/Mentor";
 import styles from "../../mentor/mypage/mentorIntroduction.module.scss";
 import { BottomTab, MenuBtn, TopBar } from "../../../components/common";
 import Image from "next/image";
