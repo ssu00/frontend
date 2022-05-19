@@ -1,10 +1,8 @@
-import axios from "axios";
-const GetMyChatRooms = async () => {
-  try {
-    const res = await axios.get("/chat/rooms");
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+import Api, { METHOD } from "../apiController";
+export const getMyChatRooms = async () => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/chat/rooms`,
+  });
+  return res.data;
 };
-export default GetMyChatRooms;

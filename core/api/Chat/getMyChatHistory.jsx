@@ -1,12 +1,8 @@
-import axios from "axios";
-const GetMyChatHistory = async (token, chid, page) => {
-  try {
-    const res = await axios.get(`/chat/rooms/${chid}/messages?page=${page}`, {
-      headers: { Authorization: token },
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+import Api, { METHOD } from "../apiController";
+export const getMyChatHistory = async (chid, page) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/chat/rooms/${chid}/messages?page=${page}`,
+  });
+  return res.data;
 };
-export default GetMyChatHistory;
