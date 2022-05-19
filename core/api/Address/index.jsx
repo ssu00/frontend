@@ -1,4 +1,4 @@
-import GetStates from "./getStates";
-import GetSiGunGus from "./getSiGunGus";
-import GetDongs from "./getDongs";
-export { GetStates, GetSiGunGus, GetDongs };
+import { getStates } from "./getStates";
+import { getSiGunGus } from "./getSiGunGus";
+import { getDongs } from "./getDongs";
+export { getStates, getSiGunGus, getDongs };
