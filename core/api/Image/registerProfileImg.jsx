@@ -1,17 +1,9 @@
-import axios from "axios";
-const RegisterProfileImg = async (token, imgUrl) => {
-  try {
-    const res = await axios.put(
-      "/users/my-info/image",
-      { image: imgUrl },
-      {
-        headers: { Authorization: token },
-      }
-    );
-    return res;
-  } catch (err) {
-    return err;
-  }
+import Api, { METHOD } from "../apiController";
+export const registerProfileImg = async (token, imgUrl) => {
+  return await Api({
+    method: METHOD.PUT,
+    url: `/users/my-info/image`,
+    data: { image: imgUrl },
+    headers: { Authorization: token },
+  });
 };
-
-export default RegisterProfileImg;
