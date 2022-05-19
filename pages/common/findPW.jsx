@@ -2,7 +2,7 @@ import { useState } from "react";
 import router from "next/router";
 import classNames from "classnames";
 import styles from "./findPW.module.scss";
-import FindPassword from "../../core/api/Login/findPW";
+import { findPassword } from "../../core/api/Login";
 import { EmailValidation } from "../../utils/validation";
 import {
   BasicInputBox,
@@ -62,7 +62,7 @@ const MentorFindPW = () => {
               errMsg: "",
               noticeMsg: "메일 보내는 중...",
             });
-            const res = await FindPassword(email);
+            const res = await findPassword(email);
             if (res.status == 200) {
               setMsg({
                 errMsg: "",

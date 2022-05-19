@@ -3,7 +3,7 @@ import styles from "./EditInfo.module.scss";
 
 import { IC_Check } from "../../../icons";
 import { BasicBtn, BasicInputBox, basicBtnStyle } from "../../common";
-import { NickNameDupCheck, EmailDupCheck } from "../../../core/api/Login";
+import { nickNameDupCheck, emailDupCheck } from "../../../core/api/Login";
 import { EmailValidation } from "../../../utils/validation";
 
 const EditInfo = ({ datas }) => {
@@ -32,7 +32,7 @@ const EditInfo = ({ datas }) => {
           <BasicBtn
             text={"중복확인"}
             onClick={async () => {
-              const nicknameDup = await NickNameDupCheck(user.nickname);
+              const nicknameDup = await nickNameDupCheck(user.nickname);
               if (nicknameDup) {
                 SetDupState("nicknameDupError", "nicknameDupSuccess");
               } else {
@@ -63,7 +63,7 @@ const EditInfo = ({ datas }) => {
               if (!EmailValidation(user.email)) {
                 return;
               } else {
-                const emailDup = await EmailDupCheck(user.email);
+                const emailDup = await emailDupCheck(user.email);
                 if (emailDup) {
                   SetDupState("emailDupError", "emailDupSuccess");
                 } else {

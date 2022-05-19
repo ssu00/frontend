@@ -7,11 +7,10 @@ import {
   BasicBtn,
   basicBtnStyle,
 } from "../../components/common";
-import { Login_API } from "../../core/api/Login";
+import { login, getUserRoleType } from "../../core/api/Login";
 import { cookieForAuth } from "../../utils/cookie";
 import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../icons";
 import { NameLogo } from "../../components/common/icons/nameLogo";
-import GetUserRoleType from "../../core/api/Login/roleTypeCheck";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -19,9 +18,9 @@ const Login = () => {
   const [error, setError] = useState(false);
 
   const checkAccount = async () => {
-    const res = await Login_API(username, password);
+    const res = await login(username, password);
     if (res.status == 200) {
-      const role = await GetUserRoleType(res.headers["x-access-token"]);
+      const role = await getUserRoleType(res.headers["x-access-token"]);
       cookieForAuth(res, role);
       if (role.loginType === "ROLE_MENTOR") {
         router.push("/mentor/myclass/myClassList");
