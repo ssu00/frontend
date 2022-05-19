@@ -18,7 +18,7 @@ import {
 } from "../../../icons";
 import { GetMyInfo } from "../../../core/api/User";
 import Role from "../../../components/common/tag/role";
-import ChangeType from "../../../core/api/Login/changeType";
+import { changeType } from "../../../core/api/Login";
 import { cookieForAuth, setCookie } from "../../../utils/cookie";
 
 const MyPage = ({ token, userInfo, role }) => {
@@ -55,7 +55,7 @@ const MyPage = ({ token, userInfo, role }) => {
             />
             <IC_Toggle
               onClick={async () => {
-                const res = await ChangeType(token);
+                const res = await changeType(token);
                 cookieForAuth(res, { loginType: "ROLE_MENTOR" });
                 router.push("/mentor/mypage");
               }}

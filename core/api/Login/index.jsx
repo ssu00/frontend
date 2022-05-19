@@ -1,5 +1,16 @@
-import Login_API from "./login";
-import SignUp_API from "./signUp";
-import { EmailDupCheck, NickNameDupCheck } from "./checkForSignup";
+import { changeType } from "./changeType";
+import { emailDupCheck, nickNameDupCheck } from "./checkForSignup";
+import { findPassword } from "./findPW";
+import { login } from "./login";
+import { getUserRoleType } from "./roleTypeCheck";
+import { signUp } from "./signUp";
 
-export { Login_API, SignUp_API, EmailDupCheck, NickNameDupCheck };
+export {
+  changeType,
+  emailDupCheck,
+  nickNameDupCheck,
+  findPassword,
+  login,
+  getUserRoleType,
+  signUp,
+};
