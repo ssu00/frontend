@@ -1,11 +1,7 @@
-import axios from "axios";
-const GetStates = () => {
-  return new Promise((resolve, reject) => {
-    axios
-      .get("/addresses/states")
-      .then((res) => resolve(res))
-      .catch((err) => reject(err));
+import Api, { METHOD } from "../apiController";
+export const getStates = async () => {
+  return await Api({
+    method: METHOD.GET,
+    url: `/addresses/states`,
   });
 };
-
-export default GetStates;
