@@ -5,11 +5,11 @@ import { TopBar, BottomTab } from "../../../components/common";
 import MyPageInfoLine from "../../../components/mentor/mypage/mypageInfoLine";
 import { TransEduLevelToKor } from "../../../components/mentor/transform";
 import { IC_EditFill } from "../../../icons";
-import { GetMyInfoAsMentor } from "../../../core/api/Mentor";
+import { getMyInfoAsMentor } from "../../../core/api/Mentor";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const myInfo = await GetMyInfoAsMentor(token);
+  const myInfo = await getMyInfoAsMentor();
   const myInfoAsMentor = myInfo == null ? "" : myInfo;
   return {
     props: {
