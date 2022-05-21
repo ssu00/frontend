@@ -16,16 +16,16 @@ import {
   IC_Student,
   IC_ToggleActive,
 } from "../../../icons";
-import { GetMyInfo } from "../../../core/api/User";
+import { getMyInfo } from "../../../core/api/User";
 import UserRole from "../../../utils/userRole";
-import GetUncheckedNotificationCount from "../../../core/api/Notification/getUncheckedNotificatonCount";
+import { getUncheckedNotificationCount } from "../../../core/api/Notification";
 import { changeType } from "../../../core/api/Login";
 import { cookieForAuth } from "../../../utils/cookie";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const userInfo = await GetMyInfo(token);
-  const uncheckedCnt = await GetUncheckedNotificationCount(token);
+  const userInfo = await getMyInfo(token);
+  const uncheckedCnt = await getUncheckedNotificationCount(token);
   return {
     props: { token, userInfo, uncheckedCnt },
   };

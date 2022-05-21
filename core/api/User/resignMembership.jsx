@@ -1,10 +1,12 @@
 import Api, { METHOD } from "../apiController";
 
-export const getMyNotification = async (token, page) => {
+export const resignMembership = async (token, data) => {
   const res = await Api({
-    method: METHOD.GET,
-    url: `/users/my-notifications?page=${page}`,
+    method: METHOD.DELETE,
+    url: "/users",
     headers: { Authorization: token },
+    data,
   });
+
   return res.data;
 };

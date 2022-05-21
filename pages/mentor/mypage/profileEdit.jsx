@@ -3,7 +3,7 @@ import router from "next/router";
 import Image from "next/image";
 import * as cookie from "cookie";
 import styles from "./profileEdit.module.scss";
-import { GetMyInfo } from "../../../core/api/User";
+import { getMyInfo } from "../../../core/api/User";
 import { BottomTab, TopBar, CategoryBtn } from "../../../components/common";
 import { IC_EditFill } from "../../../icons";
 import { uploadImage, registerProfileImg } from "../../../core/api/Image";
@@ -12,7 +12,7 @@ import { removeCookie } from "../../../utils/cookie";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const userInfo = await GetMyInfo(token);
+  const userInfo = await getMyInfo(token);
   return {
     props: { token, userInfo },
   };

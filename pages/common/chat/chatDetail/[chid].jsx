@@ -7,8 +7,8 @@ import ChatRoomTopBar from "../../../../components/mentor/chat/chatRoomTopBar";
 import ChatRoomContentBlock from "../../../../components/mentor/chat/chatRoomContentBlock";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import { GetMyInfo } from "../../../../core/api/User";
-import GetUserInfo from "../../../../core/api/User/getUserInfo";
+import { getMyInfo } from "../../../../core/api/User";
+import { getUserInfo } from "../../../../core/api/User";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export async function getServerSideProps(context) {
@@ -17,8 +17,8 @@ export async function getServerSideProps(context) {
   const othersId = context.query.other;
   const history = await getMyChatHistory(chatRoomId, 1);
 
-  const other = await GetUserInfo(token, othersId);
-  const my = await GetMyInfo(token);
+  const other = await getUserInfo(token, othersId);
+  const my = await getMyInfo(token);
 
   await readChat(chatRoomId);
 

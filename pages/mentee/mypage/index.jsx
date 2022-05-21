@@ -16,13 +16,12 @@ import {
   IC_Toggle,
   IC_PersonBlue,
 } from "../../../icons";
-import { GetMyInfo } from "../../../core/api/User";
+import { getMyInfo } from "../../../core/api/User";
 import Role from "../../../components/common/tag/role";
 import { changeType } from "../../../core/api/Login";
 import { cookieForAuth, setCookie } from "../../../utils/cookie";
 
 const MyPage = ({ token, userInfo, role }) => {
-  console.log(role);
   return (
     <section className={styles.mypageSection}>
       <MyPageTopBar />
@@ -125,7 +124,7 @@ export async function getServerSideProps(context) {
   const parsedCookies = cookie.parse(context.req.headers.cookie);
   const token = parsedCookies.accessToken;
   const role = parsedCookies.role;
-  const userInfo = await GetMyInfo(parsedCookies.accessToken);
+  const userInfo = await getMyInfo(parsedCookies.accessToken);
 
   return {
     props: { token, userInfo, role },

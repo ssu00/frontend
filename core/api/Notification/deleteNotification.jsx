@@ -1,17 +1,10 @@
-import axios from "axios";
-const DeleteNotification = async (token, notificationId) => {
-  try {
-    const res = await axios.delete(
-      `/users/my-notifications/${notificationId}`,
-      {
-        headers: { Authorization: token },
-      }
-    );
-    console.log("res=", res);
-    return res.status;
-  } catch (err) {
-    return err;
-  }
-};
+import Api, { METHOD } from "../apiController";
 
-export default DeleteNotification;
+export const deleteNotification = async (token, notificationId) => {
+  const res = await Api({
+    method: METHOD.DELETE,
+    url: `/users/my-notifications/${notificationId}`,
+    headers: { Authorization: token },
+  });
+  return res.status;
+};

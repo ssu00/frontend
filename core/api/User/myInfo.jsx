@@ -1,8 +1,10 @@
-import myAxios from "../apiController";
+import Api, { METHOD } from "../apiController";
 
-const GetMyInfo = async (token) => {
-  const res = await myAxios.get("/users/my-info");
+export const getMyInfo = async () => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: "/users/my-info",
+  });
+
   return res.data;
 };
-
-export default GetMyInfo;

@@ -1,10 +1,11 @@
 import Api, { METHOD } from "../apiController";
 
-export const getMyNotification = async (token, page) => {
+export const getUncheckedNotificationCount = async (token) => {
   const res = await Api({
     method: METHOD.GET,
-    url: `/users/my-notifications?page=${page}`,
+    url: "/users/my-notifications/count-unchecked",
     headers: { Authorization: token },
   });
+
   return res.data;
 };
