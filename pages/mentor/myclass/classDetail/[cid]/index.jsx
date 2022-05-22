@@ -43,9 +43,9 @@ const ClassDetail = ({ token, classData, reviewData }) => {
     (data, i) => data.krSubject
   );
   const score =
-    classData.scoreAverage % 1 == 0
-      ? classData.scoreAverage + ".0"
-      : classData.scoreAverage;
+    classData?.scoreAverage % 1 == 0
+      ? classData?.scoreAverage + ".0"
+      : Math.round(classData?.scoreAverage * 10) / 10;
 
   return (
     <section className={styles.classDetailSection}>

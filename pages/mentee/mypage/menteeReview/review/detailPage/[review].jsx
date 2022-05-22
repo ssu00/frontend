@@ -44,7 +44,11 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
 
   const lecture = lecturesCon.lecture;
 
-  const score = detail.score % 1 === 0 ? detail.score + ".0" : detail.score;
+  const score =
+    detail.score % 1 == 0
+      ? detail.score + ".0"
+      : Math.round(detail.score * 10) / 10;
+
   const reviewData = String(detail.createdAt).substr(0, 10);
   const dateDot = reviewData.split("-").join(".");
 

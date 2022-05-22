@@ -102,9 +102,10 @@ const MentorReview = ({ params, token }) => {
 
       <article className={styles.reviewSection}>
         {reviewInfo.reviews?.content.map((review, i) => {
-          console.log("review===", review);
           const score =
-            review.score % 1 === 0 ? review.score + ".0" : review.score;
+            review.score % 1 == 0
+              ? review.score + ".0"
+              : Math.round(review.score * 10) / 10;
 
           const reviewDate = review.createdAt.slice(0, 10);
           const dateDot = reviewDate.split("-").join(".");
