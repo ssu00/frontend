@@ -9,6 +9,8 @@ function BottomNavBar({ classData, token, params }) {
   // const [systemType, setSystemType] = useState("");
   // const [group, setGroup] = useState("");
 
+  const [liked, setLiked] = useState(false);
+
   const handleEnrollClass = async () => {
     const res = await enrollClass(token, params);
     if (res.status === 201) {
@@ -18,11 +20,24 @@ function BottomNavBar({ classData, token, params }) {
     }
   };
 
+  const getPicked = () => {
+    if (classData.picked) setLiked(true);
+  };
+
   const handlePicks = async () => {
     const res = await updatePicks(token, params);
 
-    console.log(res);
+    if (res) {
+      setLiked(true);
+    } else if (res === "") {
+      setLiked(false);
+    }
   };
+
+  useEffect(() => {
+    getPicked();
+  }, []);
+
   // const handleSelection = (value, setValue) => {
   //   setValue(value);
   // };
@@ -34,10 +49,11 @@ function BottomNavBar({ classData, token, params }) {
   // const onClose = useCallback(() => {
   //   setIsVisible(false);
   // }, []);
+
   return (
     <div className={styles.container}>
       <button onClick={handlePicks}>
-        {classData.picked ? (
+        {liked ? (
           <IC_HeartRedFill_Lg />
         ) : (
           <IC_HeartEmpty width={"24px"} height={"24px"} />
