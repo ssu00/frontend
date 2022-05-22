@@ -39,7 +39,10 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
             const dateDot = lectureDate.split("-").join(".");
 
             const score =
-              review.score % 1 === 0 ? review.score + ".0" : review.score;
+              review.score % 1 == 0
+                ? review.score + ".0"
+                : Math.round(review.score * 10) / 10;
+
             const krSubject = review.lecture.lectureSubjects?.map(
               (subjects) => subjects.krSubject
             );

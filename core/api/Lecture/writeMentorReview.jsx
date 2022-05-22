@@ -1,16 +1,13 @@
-import axios from "axios";
-const WriteMentorReview = async (token, classID, parentID, comment) => {
-  try {
-    const res = await axios.post(
-      `/mentors/my-lectures/${classID}/reviews/${parentID}`,
-      { content: comment },
-      { headers: { Authorization: token } }
-    );
-    console.log(res);
-    return res.status;
-  } catch (err) {
-    return err;
-  }
-};
+import Api, { METHOD } from "../apiController";
 
-export default WriteMentorReview;
+export const writeMentorReview = async (token, classID, parentID, comment) => {
+  const res = await Api({
+    method: METHOD.POST,
+    url: `/mentors/my-lectures/${classID}/reviews/${parentID}`,
+    data: { content: comment },
+
+    headers: { Authorization: token },
+  });
+
+  return res.status;
+};

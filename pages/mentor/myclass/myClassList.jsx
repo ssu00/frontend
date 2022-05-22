@@ -4,14 +4,14 @@ import router from "next/router";
 import styles from "./myClassList.module.scss";
 import { BottomTab, MenuBtn, TopBar } from "../../../components/common";
 import ClassCard from "../../../components/mentor/class/classCard";
-import { GetMyLectures } from "../../../core/api/Lecture";
+import { getMyLectures } from "../../../core/api/Lecture";
 
 const MyClassList = ({ classes }) => {
   const [pageNum, setPageNum] = useState(1);
   const [allClass, setAllClass] = useState(classes.content);
 
   const GetMoreClasses = async () => {
-    const classesNewPage = await GetMyLectures(pageNum);
+    const classesNewPage = await getMyLectures(pageNum);
     setAllClass([...allClass, ...classesNewPage.content]);
   };
 
@@ -64,7 +64,7 @@ const MyClassList = ({ classes }) => {
 };
 
 export const getStaticProps = async () => {
-  const classes = await GetMyLectures(1);
+  const classes = await getMyLectures(1);
   return {
     props: {
       classes,

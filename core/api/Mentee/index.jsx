@@ -28,6 +28,7 @@ import { getUnreviewedMentee } from "./getUnreviewedMentee";
 import { getWriteReview } from "./getWriteReview";
 import { updatePicks } from "./pick";
 import { writeReviewAPI } from "./writeReviewAPI";
+import { getViewLecture } from "./getViewLecture";
 
 export {
   getBoardList,
@@ -60,4 +61,5 @@ export {
   getWriteReview,
   updatePicks,
   writeReviewAPI,
+  getViewLecture,
 };

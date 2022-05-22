@@ -1,13 +1,11 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 
 export const getReviewIndividualInquiry = async (token, menteeReviewId) => {
-  try {
-    const res = await axios.get(`/mentees/my-reviews/${menteeReviewId}`, {
-      headers: { Authorization: token },
-    });
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/mentees/my-reviews/${menteeReviewId}`,
+    headers: { Authorization: token },
+  });
 
-    return res.data;
-  } catch (e) {
-    console.log(e);
-  }
+  return res.data;
 };

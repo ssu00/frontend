@@ -15,7 +15,7 @@ function LectureTitle({ token, classData, reviewData, role }) {
   const score =
     classData?.scoreAverage % 1 == 0
       ? classData?.scoreAverage + ".0"
-      : classData?.scoreAverage;
+      : Math.round(classData?.scoreAverage * 10) / 10;
   return (
     <>
       <div className={styles.container}>
@@ -40,7 +40,7 @@ function LectureTitle({ token, classData, reviewData, role }) {
                 otherStyle={styles.ratingSmallFill}
                 fillRating={score}
               />
-              <span>{classData.scoreAverage}</span>
+              <span>{score}</span>
             </div>
             <a href="#">{`${classData.reviewCount} 개의 후기`}</a>
           </div>

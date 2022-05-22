@@ -1,7 +1,7 @@
-import GetSubjects from "../../core/api/Lecture/getSubjects";
+import { getSubjects } from "../../core/api/Lecture";
 const SubjectArrToID = async (subjects) => {
   const subjectID = [];
-  const subjectInfo = await GetSubjects();
+  const subjectInfo = await getSubjects();
   subjects.forEach((myData) => {
     subjectInfo.forEach((originData) => {
       if (myData.krSubject == originData.krSubject) {
