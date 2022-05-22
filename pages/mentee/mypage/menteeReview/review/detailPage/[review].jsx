@@ -8,7 +8,7 @@ import { Rating } from "../../../../../../components/mentor/class/rating";
 import OptionModal from "../../../../../../components/mentee/menteeModal/OptionModal";
 import RefreshPage from "../../../../../../utils/RefreshPage";
 import {
-  getReviewIndividualInquiry,
+  getReviewInfo,
   getMyReviews,
   deleteMenteeReivew,
 } from "../../../../../../core/api/Mentee";
@@ -17,7 +17,7 @@ import * as cookie from "cookie";
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const review = context.query.review;
-  const menteeReviews = await getReviewIndividualInquiry(token, review);
+  const menteeReviews = await getReviewInfo(token, review);
 
   const lecturesCon = await getMyReviews(review);
 

@@ -21,7 +21,7 @@ import { getMyReviews } from "./getMyReviews";
 import { getNoticeDetail } from "./getNoticeDetail";
 import { getNoticeList } from "./getNoticeList";
 import { getRegisteredLectures } from "./getRegisteredLectures";
-import { getReviewIndividualInquiry } from "./getReviewIndividualInquiry";
+
 import { getReviewInfo } from "./getReviewInfo";
 import { getReviewMentee } from "./getReviewMentee";
 import { getUnreviewedMentee } from "./getUnreviewedMentee";
@@ -54,7 +54,6 @@ export {
   getNoticeDetail,
   getNoticeList,
   getRegisteredLectures,
-  getReviewIndividualInquiry,
   getReviewInfo,
   getReviewMentee,
   getUnreviewedMentee,

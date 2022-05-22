@@ -43,9 +43,6 @@ const LectureBlock = ({ lecture }) => {
             onClick={() =>
               router.push({
                 pathname: `/mentee/mypage/menteeReview/review/${lecture.lectureId}`,
-                // query: {
-                //   lecturePriceId: lecture.lecturePrice.lecturePriceId,
-                // },
               })
             }
           >
