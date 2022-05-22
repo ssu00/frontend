@@ -42,7 +42,7 @@ const MyPage = ({ token, userInfo, role }) => {
 
           <div className={styles.role_name}>
             <Role role={"멘티"} />
-            <span className={styles.name}>{userInfo.name}</span>
+            <span className={styles.name}>{userInfo.nickname}</span>
           </div>
 
           <div className={styles.toggle_btn}>
@@ -102,7 +102,7 @@ const MyPage = ({ token, userInfo, role }) => {
       </section>
 
       <section className={styles.categorySection}>
-        <h1 className={styles.title}>TUTOR LAB</h1>
+        <h1 className={styles.title}>MENTORIDGE</h1>
         <CategoryBtn
           text={"공지사항"}
           onClick={() => router.push("/mentee/mypage/mypageNotice")}

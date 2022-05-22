@@ -10,7 +10,7 @@ export const editMentorReview = async (
   const res = await Api({
     method: METHOD.PUT,
     url: `/mentors/my-lectures/${classID}/reviews/${parentID}/children/${childID}`,
-    content: comment,
+    data: { content: comment },
     headers: { Authorization: token },
   });
 
