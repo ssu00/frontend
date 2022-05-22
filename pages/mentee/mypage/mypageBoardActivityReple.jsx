@@ -5,7 +5,7 @@ import List from "../../../components/mentee/mypageBoardActivityReple/List";
 import * as cookie from "cookie";
 
 import styles from "./template.module.scss";
-import { GetMyComments } from "../../../core/api/Mentee/getMypageBoard";
+import { getMyComments } from "../../../core/api/Mentee";
 import TopBar from "../../../components/mentee/mypageBoardActivity/TopBar";
 
 function MypageBoardActivityReple({ commentList, role }) {

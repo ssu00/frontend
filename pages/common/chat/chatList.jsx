@@ -1,7 +1,7 @@
 import styles from "./chatList.module.scss";
 import { BottomTab } from "../../../components/common";
 import React from "react";
-import GetMyChatRooms from "../../../core/api/Chat/getMyChatRooms";
+import { getMyChatRooms } from "../../../core/api/Chat";
 import * as cookie from "cookie";
 import ChatPreview from "../../../components/mentor/chat/chatPreview";
 import { IC_SmilingMan } from "../../../icons";
@@ -9,7 +9,7 @@ import ChatListTopBar from "../../../components/mentor/chat/chatListTopBar";
 
 export const getServerSideProps = async (context) => {
   const role = cookie.parse(context.req.headers.cookie).role;
-  const myChatRooms = await GetMyChatRooms();
+  const myChatRooms = await getMyChatRooms();
 
   return {
     props: {

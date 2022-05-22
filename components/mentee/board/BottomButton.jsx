@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { UploadBoardComments } from "../../../core/api/Mentee/board";
+import { uploadBoardComments } from "../../../core/api/Mentee";
 import styles from "./BottomButton.module.scss";
 
 const BottomButton = ({ token, postId }) => {
@@ -7,7 +7,7 @@ const BottomButton = ({ token, postId }) => {
 
   const uploadComment = async () => {
     try {
-      await UploadBoardComments(token, postId, { content: value });
+      await uploadBoardComments(token, postId, { content: value });
     } catch (error) {
       console.error(error);
     }

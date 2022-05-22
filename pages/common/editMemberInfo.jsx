@@ -5,7 +5,7 @@ import styles from "../mentor/signup.module.scss";
 import BasicDataBlock from "../../components/mentor/signup/basicDataBlock";
 import AddrBlock from "../../components/mentor/signup/addrBlock";
 import * as cookie from "cookie";
-import EditMyInfo from "../../core/api/User/editMyInfo";
+import { editMyInfo } from "../../core/api/User/editMyInfo";
 import EditInfo from "../../components/mentee/profileEdit/EditInfo";
 import EditInfoErr from "../../utils/errorHandling/editInfoErr";
 
@@ -68,7 +68,7 @@ const EditMemberInfo = ({ token, role }) => {
     };
 
     try {
-      await EditMyInfo(token, params);
+      await editMyInfo(token, params);
       router.back();
     } catch (error) {
       console.error(error);

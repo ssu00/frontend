@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styles from "./addrBlock.module.scss";
 import { BasicSelectBox } from "../../common";
-import { GetSiGunGus, GetStates, GetDongs } from "../../../core/api/Address";
+import { getSiGunGus, getStates, getDongs } from "../../../core/api/Address";
 
 const AddrBlock = ({ datas }) => {
   const { addr, setAddr } = datas;
@@ -30,20 +30,19 @@ const AddrBlock = ({ datas }) => {
 
   const GetAddr = async () => {
     if (Array.isArray(addr.state) && addr.state.length == 0) {
-      await GetStates().then((res) => InitAddress("state", "statePick", res));
+      const res = await getStates();
+      InitAddress("state", "statePick", res);
     }
   };
 
   const GetSi = async (state) => {
-    await GetSiGunGus(state).then((res) =>
-      InitAddress("sigungu", "sigunguPick", res)
-    );
+    const res = await getSiGunGus(state);
+    InitAddress("sigungu", "sigunguPick", res);
   };
 
   const GetDong = async (state, siGunGu) => {
-    await GetDongs(state, siGunGu).then((res) =>
-      InitAddress("dong", "dongPick", res)
-    );
+    const res = await getDongs(state, siGunGu);
+    InitAddress("dong", "dongPick", res);
   };
 
   return (

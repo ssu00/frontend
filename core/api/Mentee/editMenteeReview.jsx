@@ -13,5 +13,3 @@ export const editMenteeReview = async (reviewId, token, content, score) => {
     console.log(e);
   }
 };
-
-export default editMenteeReview;

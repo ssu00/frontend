@@ -1,6 +1,5 @@
 import * as cookie from "cookie";
-import GetViewMentor from "../../../core/api/Mentor/getViewMentor";
-import { getMentorLectureList } from "../../../core/api/Mentor/getMentorLectureList";
+import { getViewMentor, getMentorLectureList } from "../../../core/api/Mentor";
 import styles from "../../mentor/mypage/mentorIntroduction.module.scss";
 import { BottomTab, MenuBtn, TopBar } from "../../../components/common";
 import Image from "next/image";
@@ -14,8 +13,8 @@ export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const params = context.query.mentorId;
 
-  const mentorData = await GetViewMentor(token, params);
-  const mentorLectureList = await getMentorLectureList(token, params);
+  const mentorData = await getViewMentor(params);
+  const mentorLectureList = await getMentorLectureList(params);
 
   return {
     props: {

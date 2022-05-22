@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const GetRegisteredLectures = async (token, page) => {
+export const getRegisteredLectures = async (token, page) => {
   try {
     const res = await axios.get(`/mentees/my-enrollments`, {
       headers: { Authorization: token },
@@ -12,5 +12,3 @@ export const GetRegisteredLectures = async (token, page) => {
     return err;
   }
 };
-
-export default GetRegisteredLectures;

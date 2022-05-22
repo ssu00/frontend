@@ -1,18 +1,8 @@
-import axios from "axios";
-const GetMenteeReview = async (token, data) => {
-  try {
-    const res = await axios.get(
-      `/lectures/${data.id}/lecturePrices/${data.lecturePriceId}/reviews`,
-      {
-        headers: { Authorization: token },
-        params: { page: 1 },
-      }
-    );
-
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+import Api, { METHOD } from "../apiController";
+export const getMenteeReview = async (data) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/lectures/${data.id}/lecturePrices/${data.lecturePriceId}/reviews`,
+  });
+  return res.data;
 };
-
-export default GetMenteeReview;

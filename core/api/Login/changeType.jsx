@@ -1,7 +1,8 @@
-import myAxios from "../apiController";
-const ChangeType = async (token) => {
-  return await myAxios.get("/change-type", {
+import Api, { METHOD } from "../apiController";
+export const changeType = async (token) => {
+  return await Api({
+    method: METHOD.GET,
+    url: "/change-type",
     headers: { Authorization: token },
   });
 };
-export default ChangeType;

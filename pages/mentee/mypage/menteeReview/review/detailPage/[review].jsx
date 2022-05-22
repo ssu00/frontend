@@ -1,7 +1,4 @@
 import { React, useState, useEffect } from "react";
-import { getReviewIndividualInquiry } from "../../../../../../core/api/Mentee/getReviewIndividualInquiry";
-import { getMyReviews } from "../../../../../../core/api/Mentee/getMyReviews";
-import * as cookie from "cookie";
 import styles from "./detailReview.module.scss";
 import { TopBar } from "../../../../../../components/common";
 import { IC_Menu } from "../../../../../../icons";
@@ -10,7 +7,12 @@ import classNames from "classnames";
 import { Rating } from "../../../../../../components/mentor/class/rating";
 import OptionModal from "../../../../../../components/mentee/menteeModal/OptionModal";
 import RefreshPage from "../../../../../../utils/RefreshPage";
-import deleteMenteeReivew from "../../../../../../core/api/Mentee/deleteMenteeReview";
+import {
+  getReviewIndividualInquiry,
+  getMyReviews,
+  deleteMenteeReivew,
+} from "../../../../../../core/api/Mentee";
+import * as cookie from "cookie";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -47,7 +49,7 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
   const dateDot = reviewData.split("-").join(".");
 
   return (
-    <div key={menteeReviews.id}>
+    <div>
       <section className={styles.topSection}>
         {modal && (
           <OptionModal
@@ -78,8 +80,12 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
       <section className={styles.contentSection}>
         <article className={classNames(styles.bg, styles.line)}>
           <div className={styles.detailInfo}>
-            <img className={styles.detailReviewImg} src={lecture.thumbnail} />
-
+            <img
+              className={styles.detailReviewImg}
+              src={
+                lecture.thumbnail ? lecture.thumbnail : "/samples/lecture.png"
+              }
+            />
             <div>
               <p>{lecture.title}</p>
               <p className={styles.mentorName}>{lecture.mentorNickname}</p>
@@ -103,10 +109,14 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
           <div className={styles.detailReviewCon}>
             <div className={styles.menteeCon}>
               <div className={styles.menteeInfo}>
-                <img className={styles.menteeImg} src={detail.userImage} />
+                <img
+                  className={styles.menteeImg}
+                  src={
+                    detail.userImage ? detail.userImage : "/samples/lecture.png"
+                  }
+                />
                 <div className={styles.menteeName}>
                   <p>{detail.userNickname}</p>
-
                   <Rating
                     w={"50px"}
                     h={"10px"}

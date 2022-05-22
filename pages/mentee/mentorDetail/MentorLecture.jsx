@@ -26,7 +26,7 @@ const MentorLecture = ({ lectureListData }) => {
         return (
           <article
             className={styles.classCard}
-            key={info.id}
+            key={info.lecturePriceId}
             onClick={() => {
               router.push({
                 pathname: `/mentee/classdetails/${info.lectureId}`,

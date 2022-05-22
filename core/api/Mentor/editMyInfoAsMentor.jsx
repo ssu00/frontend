@@ -1,29 +1,22 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 import { TransEduLevelToEng } from "../../../components/mentor/transform";
-
-const EditMyInfoAsMentor = async (bio, career, education, token) => {
+export const editMyInfoAsMentor = async (bio, career, education, token) => {
   const eduLevel = TransEduLevelToEng(education.educationLevel);
-  try {
-    const res = await axios.put(
-      "/mentors/my-info",
-      {
-        bio: bio,
-        careers: [career],
-        educations: [
-          {
-            ...education,
-            educationLevel: eduLevel,
-          },
-        ],
-      },
-      {
-        headers: { Authorization: token },
-      }
-    );
-    return res.status;
-  } catch (err) {
-    return err;
-  }
-};
+  const res = await Api({
+    method: METHOD.PUT,
+    url: "/mentors/my-info",
+    headers: { Authorization: token },
+    data: {
+      bio: bio,
+      careers: [career],
+      educations: [
+        {
+          ...education,
+          educationLevel: eduLevel,
+        },
+      ],
+    },
+  });
 
-export default EditMyInfoAsMentor;
+  return res.status;
+};
