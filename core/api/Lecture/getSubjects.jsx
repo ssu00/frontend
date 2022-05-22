@@ -1,12 +1,10 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 
-const GetSubjects = async () => {
-  try {
-    const res = await axios.get("/subjects");
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+export const getSubjects = async () => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: "/subjects",
+  });
+
+  return res.data;
 };
-
-export default GetSubjects;

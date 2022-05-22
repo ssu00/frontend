@@ -1,13 +1,10 @@
-import axios from "axios";
-const GetReviewOnlyOne = async (classID, reviewID) => {
-  try {
-    const res = await axios.get(
-      `/mentors/my-lectures/${classID}/reviews/${reviewID}`
-    );
-    return res.data;
-  } catch (err) {
-    return err;
-  }
-};
+import Api, { METHOD } from "../apiController";
 
-export default GetReviewOnlyOne;
+export const getReviewOnlyOne = async (classID, reviewID) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/mentors/my-lectures/${classID}/reviews/${reviewID}`,
+  });
+
+  return res.data;
+};

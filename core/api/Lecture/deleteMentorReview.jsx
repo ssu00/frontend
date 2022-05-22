@@ -1,15 +1,10 @@
-import axios from "axios";
-const DeleteMentorReview = async (token, classID, parentID, childID) => {
-  try {
-    const res = await axios.delete(
-      `/mentors/my-lectures/${classID}/reviews/${parentID}/children/${childID}`,
-      { headers: { Authorization: token } }
-    );
-    console.log(res);
-    return res.status;
-  } catch (err) {
-    return err;
-  }
-};
+import Api, { METHOD } from "../apiController";
 
-export default DeleteMentorReview;
+export const deleteMentorReview = async (token, classID, parentID, childID) => {
+  const res = await Api({
+    method: METHOD.DELETE,
+    url: `/mentors/my-lectures/${classID}/reviews/${parentID}/children/${childID}`,
+    headers: { Authorization: token },
+  });
+  return res.status;
+};

@@ -1,100 +1,80 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 
 export const getBoardList = async (token, page) => {
-  try {
-    const res = await axios.get(`/posts`, {
-      headers: { Authorization: token },
-      params: page,
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/posts`,
+    params: page,
+    headers: { Authorization: token },
+  });
+  return res.data;
 };
 
 export const uploadPost = async (token, data) => {
-  try {
-    const res = await axios.post("/posts", data, {
-      headers: { Authorization: token },
-    });
-    return res;
-  } catch (err) {
-    return err.response;
-  }
+  const res = await Api({
+    method: METHOD.POST,
+    url: `/posts`,
+    data,
+    headers: { Authorization: token },
+  });
+  return res;
 };
 
 export const getBoardDetail = async (token, post_id) => {
-  try {
-    const res = await axios.get(`/posts/${post_id}`, {
-      headers: { Authorization: token },
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/posts/${post_id}`,
+    headers: { Authorization: token },
+  });
+  return res.data;
 };
 
 export const getBoardDetailComments = async (token, post_id) => {
-  try {
-    const res = await axios.get(`/posts/${post_id}/comments`, {
-      headers: { Authorization: token },
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/posts/${post_id}/comments`,
+    headers: { Authorization: token },
+  });
+  return res.data;
 };
 
 export const uploadBoardComments = async (token, post_id, data) => {
-  try {
-    const res = await axios.post(`/posts/${post_id}/comments`, data, {
-      headers: { Authorization: token },
-    });
-    return res;
-  } catch (err) {
-    return err.response;
-  }
+  const res = await Api({
+    method: METHOD.POST,
+    url: `/posts/${post_id}/comments`,
+    data,
+    headers: { Authorization: token },
+  });
+  return res;
 };
 
 export const editBoardPosts = async (token, post_id, data) => {
-  try {
-    const res = await axios.put(
-      `/users/my-posts/${post_id}`,
-      {
-        category: data.category,
-        content: data.content,
-        title: data.title,
-        image: data.image,
-      },
-      { headers: { Authorization: token } }
-    );
-
-    return res;
-  } catch (e) {
-    return e.response;
-  }
+  const res = await Api({
+    method: METHOD.PUT,
+    url: `/users/my-posts/${post_id}`,
+    category: data.category,
+    content: data.content,
+    title: data.title,
+    image: data.image,
+    headers: { Authorization: token },
+  });
+  return res;
 };
 
 export const deleteBoardPosts = async (token, post_id) => {
-  try {
-    const res = await axios.delete(`/users/my-posts/${post_id}`, {
-      headers: { Authorization: token },
-    });
-
-    return res;
-  } catch (e) {
-    return e.response;
-  }
+  const res = await Api({
+    method: METHOD.DELETE,
+    url: `/users/my-posts/${post_id}`,
+    headers: { Authorization: token },
+  });
+  return res;
 };
 
 export const deleteBoardComments = async (token, post_id, comment_id) => {
-  try {
-    const res = await axios.delete(`/posts/${post_id}/comments/${comment_id}`, {
-      headers: { Authorization: token },
-    });
-
-    return res;
-  } catch (e) {
-    return e.response;
-  }
+  const res = await Api({
+    method: METHOD.DELETE,
+    url: `/posts/${post_id}/comments/${comment_id}`,
+    headers: { Authorization: token },
+  });
+  return res;
 };

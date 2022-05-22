@@ -8,14 +8,14 @@ import {
   SelectBoxWithTitle,
 } from "../../common";
 import { IC_PlusCircle } from "../../../icons";
-import { GetSubjects } from "../../../core/api/Lecture";
+import { getSubjects } from "../../../core/api/Lecture";
 import LectureSubjectPick from "./lectureSubjectPick";
 
 const Step02 = ({ form, handleChange, MoveStep, token }) => {
   const [subject, setSubject] = useState([]);
 
   useEffect(() => {
-    GetSubjects().then((res) => setSubject(res));
+    getSubjects().then((res) => setSubject(res));
   }, []);
 
   useEffect(() => {

@@ -1,14 +1,10 @@
-import axios from "axios";
-const DeleteLecture = async (token, classID) => {
-  try {
-    const res = await axios.delete(`/lectures/${classID}`, {
-      headers: { Authorization: token },
-    });
-    console.log(res);
-    return res.status;
-  } catch (err) {
-    return err;
-  }
-};
+import Api, { METHOD } from "../apiController";
 
-export default DeleteLecture;
+export const deleteLecture = async (token, classID) => {
+  const res = await Api({
+    method: METHOD.DELETE,
+    url: `/lectures/${classID}`,
+    headers: { Authorization: token },
+  });
+  return res.status;
+};

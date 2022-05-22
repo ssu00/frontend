@@ -3,7 +3,7 @@ import router from "next/router";
 import classNames from "classnames";
 import styles from "./classReview.module.scss";
 import { BasicBtn, basicBtnStyle } from "../../common";
-import { DeleteMentorReview } from "../../../core/api/Lecture";
+import { deleteMentorReview } from "../../../core/api/Lecture";
 import RefreshPage from "../../../utils/refreshPage";
 import { Rating } from "./rating";
 
@@ -55,7 +55,7 @@ const MentorReview = ({ token, cid, mentee, data, role }) => {
             <BasicBtn
               text={"삭제"}
               onClick={async () => {
-                await DeleteMentorReview(
+                await deleteMentorReview(
                   token,
                   cid,
                   mentee.menteeReviewId,

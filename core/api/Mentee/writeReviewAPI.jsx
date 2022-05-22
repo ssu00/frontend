@@ -1,14 +1,13 @@
-import axios from "axios";
-export const writeReviewAPI = async (token, writeID, content, score) => {
-  try {
-    const res = await axios.post(
-      `/mentees/my-enrollments/${writeID}/reviews`,
-      { content: content, score: score },
-      { headers: { Authorization: token } }
-    );
+import Api, { METHOD } from "../apiController";
 
-    return res.status;
-  } catch (err) {
-    return err;
-  }
+export const writeReviewAPI = async (token, writeID, content, score) => {
+  const res = await Api({
+    method: METHOD.POST,
+    url: `/mentees/my-enrollments/${writeID}/reviews`,
+    content: content,
+    score: score,
+    headers: { Authorization: token },
+  });
+
+  return res.status;
 };

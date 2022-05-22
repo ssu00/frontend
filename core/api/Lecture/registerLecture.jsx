@@ -1,10 +1,10 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 import { LevelToEng } from "../../../utils/class/classLevel";
 import { SystemToArr } from "../../../utils/class/classSystem";
 import { PriceToArray } from "../../../utils/class/classPrice";
 import { FilterSubjectArr } from "../../../utils/class/classSubject";
 
-const LectureRegister = async ({ form, token }) => {
+export const lectureRegister = async ({ form, token }) => {
   const data = {
     title: form.title,
     subTitle: form.subtitle,
@@ -17,14 +17,10 @@ const LectureRegister = async ({ form, token }) => {
     thumbnail: form.image,
   };
 
-  try {
-    const res = await axios.post("/lectures", data, {
-      headers: { Authorization: token },
-    });
-    return res;
-  } catch (err) {
-    return err;
-  }
+  const res = await Api({
+    method: METHOD.POST,
+    url: "/lectures",
+    headers: { Authorization: token },
+    data,
+  });
 };
-
-export default LectureRegister;

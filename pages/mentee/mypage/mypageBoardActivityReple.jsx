@@ -24,7 +24,7 @@ export async function getServerSideProps(context) {
   const role = parsedCookies.role;
   const token = parsedCookies.accessToken;
 
-  const commentList = await GetMyComments(token, { page: 1 });
+  const commentList = await getMyComments(token, { page: 1 });
 
   return {
     props: { commentList, role },

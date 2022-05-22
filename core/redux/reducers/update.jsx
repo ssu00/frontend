@@ -2,8 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import createRequestSaga from "./createRequestSaga";
 import { createRequestActionTypes } from "./createRequestSaga";
-import LectureRegister from "../../api/Lecture/registerLecture";
-import EditLecture from "../../api/Lecture/editLecture";
+import { editLecture, lectureRegister } from "../../api/Lecture";
 import { takeLatest } from "@redux-saga/core/effects";
 
 const INITIALIZE = "lecture/INITIALIZE";
@@ -66,8 +65,8 @@ export const LectureEdit = createAction(
   })
 );
 
-const UpdateSaga = createRequestSaga(LECTURE_UPDATE, LectureRegister);
-const EditSaga = createRequestSaga(LECTURE_EDIT, EditLecture);
+const UpdateSaga = createRequestSaga(LECTURE_UPDATE, lectureRegister);
+const EditSaga = createRequestSaga(LECTURE_EDIT, editLecture);
 export function* Saga() {
   yield takeLatest(LECTURE_UPDATE, UpdateSaga);
   yield takeLatest(LECTURE_EDIT, EditSaga);

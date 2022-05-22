@@ -1,10 +1,10 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
+
 export const getMenteeInfo = async (mentee_id) => {
-  try {
-    const res = await axios.get(`/mentees/${mentee_id}`);
-    console.log("mentee res=", res.data);
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/mentees/${mentee_id}`,
+  });
+
+  return res.data;
 };

@@ -1,37 +1,34 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 
 export const getMyPosts = async (token, page) => {
-  try {
-    const res = await axios.get(`/users/my-posts`, {
-      headers: { Authorization: token },
-      params: page,
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/users/my-posts`,
+    params: page,
+    headers: { Authorization: token },
+  });
+
+  return res.data;
 };
 
 export const getMyComments = async (token, page) => {
-  try {
-    const res = await axios.get(`/users/my-posts/commenting`, {
-      headers: { Authorization: token },
-      params: page,
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/users/my-posts/commenting`,
+    params: page,
+    headers: { Authorization: token },
+  });
+
+  return res.data;
 };
 
 export const getMyLikes = async (token, page) => {
-  try {
-    const res = await axios.get(`/users/my-posts/liking`, {
-      headers: { Authorization: token },
-      params: page,
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/users/my-posts/liking`,
+    params: page,
+    headers: { Authorization: token },
+  });
+
+  return res.data;
 };
