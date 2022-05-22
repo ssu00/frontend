@@ -1,13 +1,11 @@
-import axios from "axios";
-const Inquire = async (token, data) => {
-  try {
-    const res = await axios.post("/users/my-inquiry", data, {
-      headers: { Authorization: token },
-    });
-    return res;
-  } catch (err) {
-    return err.response;
-  }
-};
+import Api, { METHOD } from "../apiController";
+export const inquire = async (token, data) => {
+  const res = await Api({
+    method: METHOD.POST,
+    url: "/users/my-inquiry",
+    data,
+    headers: { Authorization: token },
+  });
 
-export default Inquire;
+  return res;
+};

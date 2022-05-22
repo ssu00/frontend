@@ -1,9 +1,11 @@
 import Api, { METHOD } from "../apiController";
-export const getUserRoleType = async (token) => {
+
+export const getUncheckedNotificationCount = async (token) => {
   const res = await Api({
     method: METHOD.GET,
-    url: "/session-user",
+    url: "/users/my-notifications/count-unchecked",
     headers: { Authorization: token },
   });
+
   return res.data;
 };

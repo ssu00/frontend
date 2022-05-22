@@ -1,18 +1,13 @@
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React from "react";
 import BottomNavBar from "../../../components/mentee/classdetails/BottomNavBar";
 import LectureImage from "../../../components/mentee/classdetails/LectureImage";
 import LectureTitle from "../../../components/mentee/classdetails/LectureTitle";
 import TopMenu from "../../../components/mentee/classdetails/TopMenu";
-
 import * as cookie from "cookie";
 import styles from "./classdetails.module.scss";
-import GetLectureDetails from "../../../core/api/Mentee/getLectureDetails";
-import { GetReview } from "../../../core/api/Lecture";
-import GetMenteeReview from "../../../core/api/Mentee/getMenteeReview";
+import { getLectureDetails, getMenteeReview } from "../../../core/api/Mentee";
 
 const ClassDetails = ({ token, classData, reviewData, params, role }) => {
-  console.log(classData);
   return (
     <section className={styles.container}>
       <TopMenu />
@@ -29,8 +24,8 @@ export async function getServerSideProps(context) {
 
   const params = context.query;
 
-  const classData = await GetLectureDetails(token, params);
-  const reviewData = await GetMenteeReview(token, params);
+  const classData = await getLectureDetails(params);
+  const reviewData = await getMenteeReview(params);
 
   return {
     props: {

@@ -1,6 +1,5 @@
 import axios from "axios";
-
-export const GetMenteePicks = async (token, page) => {
+export const getMenteePicks = async (token, page) => {
   try {
     const res = await axios.get(`/mentees/my-picks`, {
       headers: { Authorization: token },
@@ -11,5 +10,3 @@ export const GetMenteePicks = async (token, page) => {
     return err;
   }
 };
-
-export default GetMenteePicks;

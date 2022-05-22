@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./noticedetail.module.scss";
 import * as cookie from "cookie";
-import GetNoticeDetail from "../../../../core/api/Mentee/getNoticeDetail";
+import { getNoticeDetail } from "../../../../core/api/Mentee";
 import TopBar from "../../../../components/mentee/TopBar";
 
 const NoticeDetail = ({ notice }) => {
@@ -19,7 +19,7 @@ export async function getServerSideProps(context) {
   const role = cookie.parse(context.req.headers.cookie).role;
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const noticeId = context.query.id;
-  const notice = await GetNoticeDetail(token, noticeId);
+  const notice = await getNoticeDetail(token, noticeId);
 
   return {
     props: { role, notice },

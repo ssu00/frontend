@@ -7,11 +7,13 @@ import {
 } from "../../../../../../components/common";
 import router from "next/router";
 import styles from "./edit.module.scss";
-import { getReviewInfo } from "../../../../../../core/api/Mentee/getReviewInfo";
 import MenteeStar from "../../../../../../components/mentee/MenteeStar";
 import ConfirmModal from "../../../../../../components/mentee/ConfirmModal";
 import ReviewModal from "../../../../../../components/mentee/ReviewModal";
-import { editMenteeReview } from "../../../../../../core/api/Mentee/editMenteeReview";
+import {
+  getReviewInfo,
+  editMenteeReview,
+} from "../../../../../../core/api/Mentee";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;

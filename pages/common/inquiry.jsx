@@ -8,7 +8,7 @@ import {
 } from "../../components/common";
 import * as cookie from "cookie";
 import router from "next/router";
-import Inquire from "../../core/api/User/inquire";
+import { inquire } from "../../core/api/User";
 import BasicTextAreaBox from "../../components/common/inputBox/basicTextAreaBox";
 
 export const getServerSideProps = async (context) => {
@@ -117,7 +117,7 @@ const Inquiry = ({ token, role }) => {
         text={"문의"}
         disabled={!(errMsg == "")}
         onClick={async () => {
-          const res = await Inquire(token, inquiryInfo);
+          const res = await inquire(token, inquiryInfo);
           if (res.status == 201)
             setResult({ success: true, error: false, errorMsg: "" });
           else

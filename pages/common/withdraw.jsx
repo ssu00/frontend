@@ -3,7 +3,7 @@ import { TopBar, BottomBlueBtn, BasicRadio } from "../../components/common";
 import router from "next/router";
 import * as cookie from "cookie";
 import { useState } from "react";
-import ResignMembership from "../../core/api/User/withdraw";
+import { resignMembership } from "../../core/api/User";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -28,7 +28,7 @@ const WithDraw = ({ token, role }) => {
   };
 
   const handleWithDraw = async () => {
-    const res = await ResignMembership(token, {
+    const res = await resignMembership(token, {
       password,
       reason: select,
       reasonId: 0,

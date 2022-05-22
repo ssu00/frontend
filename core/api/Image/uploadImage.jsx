@@ -1,13 +1,9 @@
-import axios from "axios";
-const UploadImage = async (data, token) => {
-  try {
-    const res = await axios.post("/uploads/images", data, {
-      headers: { Authorization: token },
-    });
-    return res;
-  } catch (err) {
-    return err;
-  }
+import Api, { METHOD } from "../apiController";
+export const uploadImage = async (data, token) => {
+  return await Api({
+    method: METHOD.POST,
+    url: `/uploads/images`,
+    data: data,
+    headers: { Authorization: token },
+  });
 };
-
-export default UploadImage;

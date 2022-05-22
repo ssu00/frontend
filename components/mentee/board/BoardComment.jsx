@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { DeleteBoardComments } from "../../../core/api/Mentee/board";
+import { deleteBoardComments } from "../../../core/api/Mentee";
 import styles from "./BoardComment.module.scss";
 
 const BoardComment = ({ token, content }) => {
@@ -28,7 +28,7 @@ const BoardComment = ({ token, content }) => {
       <form
         className={styles.buttonContainer}
         onSubmit={async () => {
-          const res = await DeleteBoardComments(
+          const res = await deleteBoardComments(
             token,
             content.postId,
             content.commentId

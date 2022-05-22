@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./changePW.module.scss";
 import { BottomBlueBtn, TopBar, BasicInputBox } from "../../components/common";
 import * as cookie from "cookie";
-import ChangePassword from "../../core/api/User/changePW";
+import { changePassword } from "../../core/api/User";
 import router from "next/router";
 
 export const getServerSideProps = async (context) => {
@@ -89,7 +89,7 @@ const ChangePW = ({ token, role }) => {
         text={"저장"}
         disabled={!(errMsg == "")}
         onClick={async () => {
-          const res = await ChangePassword(token, pw);
+          const res = await changePassword(token, pw);
           if (res.status == 200)
             setResult({ success: true, error: false, errorMsg: "" });
           else

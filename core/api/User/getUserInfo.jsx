@@ -1,14 +1,11 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 
-const GetUserInfo = async (token, id) => {
-  try {
-    const res = await axios.get(`/users/${id}`, {
-      headers: { Authorization: token },
-    });
-    return res.data;
-  } catch (err) {
-    console.log(err);
-  }
+export const getUserInfo = async (token, id) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/users/${id}`,
+    headers: { Authorization: token },
+  });
+
+  return res.data;
 };
-
-export default GetUserInfo;

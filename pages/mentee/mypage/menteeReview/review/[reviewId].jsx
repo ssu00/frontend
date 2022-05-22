@@ -10,9 +10,8 @@ import {
 import styles from "./editPage/edit.module.scss";
 import router from "next/router";
 import MenteeStar from "../../../../../components/mentee/MenteeStar";
-import writeReviewAPI from "../../../../../core/api/Mentee/writeReviewAPI";
 import ReviewModal from "../../../../../components/mentee/ReviewModal";
-import { getViewLecture } from "../../../../../core/api/Mentee/getViewLecture";
+import { getViewLecture, writeReviewAPI } from "../../../../../core/api/Mentee";
 import ConfirmModal from "../../../../../components/mentee/ConfirmModal";
 
 export async function getServerSideProps(context) {

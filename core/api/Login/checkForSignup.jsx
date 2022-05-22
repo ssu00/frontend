@@ -1,22 +1,16 @@
-import axios from "axios";
-const NickNameDupCheck = async (nickname) => {
-  try {
-    const res = await axios.get(`/check-nickname?nickname=${nickname}`);
-    console.log(res);
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+import Api, { METHOD } from "../apiController";
+export const nickNameDupCheck = async (nickname) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/check-nickname?nickname=${nickname}`,
+  });
+  return res.data;
 };
 
-const EmailDupCheck = async (email) => {
-  try {
-    const res = await axios.get(`/check-username?username=${email}`);
-    console.log(res);
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+export const emailDupCheck = async (email) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/check-username?username=${email}`,
+  });
+  return res.data;
 };
-
-export { NickNameDupCheck, EmailDupCheck };

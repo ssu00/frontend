@@ -6,12 +6,12 @@ import router from "next/router";
 import { BottomTab, TopBar } from "../../../components/common";
 import { IC_ArrowRight } from "../../../icons";
 import LectureBlock from "../../../components/mentee/myRegisteredLecture/LectureBlock";
-import GetRegisteredLectures from "../../../core/api/Mentee/getRegisteredLectures";
+import { getRegisteredLectures } from "../../../core/api/Mentee";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const role = cookie.parse(context.req.headers.cookie).role;
-  const lectures = await GetRegisteredLectures(token, 1);
+  const lectures = await getRegisteredLectures(token, 1);
 
   return {
     props: { token, lectures: JSON.parse(JSON.stringify(lectures)), role },

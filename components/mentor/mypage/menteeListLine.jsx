@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import router from "next/router";
 import Image from "next/image";
 import classNames from "classnames";
-import { GetMenteeLecture } from "../../../core/api/Mentor/getMyMentees";
+import { getMenteeLecture } from "../../../core/api/Mentor";
 import styles from "./menteeListLine.module.scss";
 import {
   IC_BubbleStarOutline,
@@ -29,7 +29,7 @@ const MenteeListBlock = ({ data, setOpen, baseData, setModal }) => {
   const [systems, setSystems] = useState("");
   const GetMenteeLectureInfo = async () => {
     setMenteeLecture(
-      await GetMenteeLecture(
+      await getMenteeLecture(
         baseData.token,
         data.menteeId,
         baseData.closed,
