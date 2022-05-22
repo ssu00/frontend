@@ -1,12 +1,6 @@
 import styles from "./classCard.module.scss";
-import Image from "next/image";
 import classNames from "classnames";
-import {
-  IC_HeartEmpty,
-  IC_HeartEmptySm,
-  IC_HeartRedFill,
-  IC_HeightBar,
-} from "../../icons";
+import { IC_HeartRedFill, IC_HeightBar } from "../../icons";
 import Rating from "@mui/material/Rating";
 import { useRouter } from "next/router";
 import { LevelToKor } from "../../utils/class/classLevel";
