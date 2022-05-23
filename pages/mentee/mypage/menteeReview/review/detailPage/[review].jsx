@@ -17,17 +17,14 @@ import * as cookie from "cookie";
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const review = context.query.review;
-  const menteeReviews = await getViewLecture(token, review);
-
   const lecturesCon = await getMyReviews(review);
 
   return {
-    props: { token, menteeReviews, lecturesCon, review },
+    props: { token, lecturesCon, review },
   };
 }
 
-const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
-  const [detail, setDetail] = useState([]);
+const detailReview = ({ token, lecturesCon, review }) => {
   const [lectureConInfo, setLectureConInfo] = useState([]);
 
   const [modal, setModal] = useState(false);
@@ -38,18 +35,17 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
   };
 
   useEffect(() => {
-    setDetail(menteeReviews);
     setLectureConInfo(lecturesCon);
   }, []);
 
   const lecture = lecturesCon.lecture;
 
   const score =
-    detail.score % 1 == 0
-      ? detail.score + ".0"
-      : Math.round(detail.score * 10) / 10;
+    lecturesCon.score % 1 == 0
+      ? lecturesCon.score + ".0"
+      : Math.round(lecturesCon.score * 10) / 10;
 
-  const reviewData = String(detail.createdAt).substr(0, 10);
+  const reviewData = String(lecturesCon.createdAt).substr(0, 10);
   const dateDot = reviewData.split("-").join(".");
 
   return (
@@ -116,11 +112,13 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
                 <img
                   className={styles.menteeImg}
                   src={
-                    detail.userImage ? detail.userImage : "/samples/lecture.png"
+                    lecturesCon.userImage
+                      ? lecturesCon.userImage
+                      : "/samples/lecture.png"
                   }
                 />
                 <div className={styles.menteeName}>
-                  <p>{detail.userNickname}</p>
+                  <p>{lecturesCon.userNickname}</p>
                   <Rating
                     w={"50px"}
                     h={"10px"}
@@ -146,7 +144,7 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
                 </p>
 
                 <div className={styles.reivewText}>
-                  <p>{detail.content}</p>
+                  <p>{lecturesCon.content}</p>
                 </div>
               </div>
             </div>
