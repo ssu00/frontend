@@ -4,7 +4,7 @@ import { IC_HeartEmpty, IC_HeartRedFill, IC_HeightBar } from "../../icons";
 import { useRouter } from "next/router";
 import { LevelToKor } from "../../utils/class/classLevel";
 import { Rating } from "../mentor/class/rating";
-import Image from "next/Image";
+import Image from "next/image";
 
 export const transGroup = (status) => {
   if (!status) return "개인";

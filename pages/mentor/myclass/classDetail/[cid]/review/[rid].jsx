@@ -14,7 +14,7 @@ import {
   writeMentorReview,
   editMentorReview,
 } from "../../../../../../core/api/Lecture";
-import PreventEnterKey from "../../../../../../utils/preventEnterKey";
+import PreventDuplicateSubmit from "../../../../../../utils/preventDuplicateSubmit";
 
 export async function getServerSideProps(context) {
   const classID = context.query.cid;
@@ -42,7 +42,7 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
   if (typeof document !== "undefined") {
     const documentRef = useRef(document);
     const reviewBtn = documentRef.current.getElementById("reviewBtn");
-    PreventEnterKey(reviewBtn, keydown, setKeyDown);
+    PreventDuplicateSubmit(reviewBtn, keydown, setKeyDown);
   }
 
   useEffect(() => {
@@ -128,7 +128,9 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
       <BottomBlueBtn
         id={"reviewBtn"}
         text={writeType == "register" ? "등록" : "수정"}
-        onClick={writeType == "register" ? ReviewRegister : ReviewEdit}
+        onClick={() => {
+          writeType == "register" ? ReviewRegister() : ReviewEdit();
+        }}
       />
     </section>
   );

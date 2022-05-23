@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./BottomNavBar.module.scss";
 import { IC_HeartEmpty, IC_HeartRedFill_Lg } from "../../../icons";
 import { IC_Share } from "../../../icons";
