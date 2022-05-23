@@ -111,7 +111,7 @@ const MentorReview = ({ params, token }) => {
           const dateDot = reviewDate.split("-").join(".");
 
           return (
-            <>
+            <div key={i}>
               <div
                 className={classNames(styles.reviewerSection, styles.pointer)}
                 key={review.menteeReivewId}
@@ -190,8 +190,8 @@ const MentorReview = ({ params, token }) => {
                   </div>
                 </div>
               </div>
-              <div className={styles.line3} key={i} />
-            </>
+              <div className={styles.line3} />
+            </div>
           );
         })}
       </article>

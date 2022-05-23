@@ -13,7 +13,7 @@ const LectureBlock = ({ lecture }) => {
       <div className={styles.lectureInfo}>
         <div className={styles.lectureImg}>
           <Image
-            src={lecture.thumbnail ? lecture.thumbnail : "/"}
+            src={lecture.thumbnail ? lecture.thumbnail : "/samples/lecture.png"}
             width={84}
             height={84}
             alt="thumbnail"
@@ -42,10 +42,7 @@ const LectureBlock = ({ lecture }) => {
           <span
             onClick={() =>
               router.push({
-                pathname: `/mentee/mypage/menteeReview/WriteMenteeReview`,
-                // query: {
-                //   lecturePriceId: lecture.lecturePrice.lecturePriceId,
-                // },
+                pathname: `/mentee/mypage/menteeReview/review/${lecture.lectureId}`,
               })
             }
           >

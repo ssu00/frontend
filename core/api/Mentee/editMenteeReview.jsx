@@ -4,8 +4,7 @@ export const editMenteeReview = async (reviewId, token, content, score) => {
   const res = await Api({
     method: METHOD.PUT,
     url: `/mentees/my-reviews/${reviewId}`,
-    content: content,
-    score: score,
+    data: { content: content, score: score },
     headers: { Authorization: token },
   });
 
