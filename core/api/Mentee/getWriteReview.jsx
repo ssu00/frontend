@@ -4,8 +4,7 @@ export const getWriteReview = async (reviewID, content, score, token) => {
   const res = await Api({
     method: METHOD.POST,
     url: `/mentees/my-lectures/${reviewID}/reviews`,
-    content: content,
-    score: score,
+    data: { content: content, score: score },
     headers: { Authorization: token },
   });
 

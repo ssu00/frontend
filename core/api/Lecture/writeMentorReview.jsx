@@ -4,7 +4,8 @@ export const writeMentorReview = async (token, classID, parentID, comment) => {
   const res = await Api({
     method: METHOD.POST,
     url: `/mentors/my-lectures/${classID}/reviews/${parentID}`,
-    content: comment,
+    data: { content: comment },
+
     headers: { Authorization: token },
   });
 

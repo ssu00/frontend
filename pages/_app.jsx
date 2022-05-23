@@ -9,6 +9,7 @@ import router from "next/router";
 import "nprogress/nprogress.css";
 import Loading from "../components/common/Loading";
 import myAxios from "../core/api/apiController";
+import Image from "next/Image";
 
 function MyApp({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
