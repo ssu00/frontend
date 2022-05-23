@@ -7,5 +7,5 @@ export const updatePicks = async (token, params) => {
     headers: { Authorization: token },
   });
 
-  return res;
+  return res.data;
 };
