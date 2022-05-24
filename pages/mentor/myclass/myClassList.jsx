@@ -52,7 +52,7 @@ const MyClassList = ({ classes }) => {
           hasMore={!classes.last}
           className={styles.infiniteScroll}
         >
-          {allClass.map((data, i) => {
+          {allClass?.map((data, i) => {
             return <ClassCard key={i} data={data} />;
           })}
         </InfiniteScroll>

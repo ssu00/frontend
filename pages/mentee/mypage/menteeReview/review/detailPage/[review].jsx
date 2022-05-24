@@ -6,7 +6,7 @@ import router from "next/router";
 import classNames from "classnames";
 import { Rating } from "../../../../../../components/mentor/class/rating";
 import OptionModal from "../../../../../../components/mentee/menteeModal/OptionModal";
-import RefreshPage from "../../../../../../utils/RefreshPage";
+import RefreshPage from "../../../../../../utils/refreshPage";
 import {
   getViewLecture,
   getMyReviews,
