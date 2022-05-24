@@ -1,19 +1,22 @@
 import { useState, useEffect, useRef } from "react";
-import GetMyNotification from "../../../core/api/Notification/getMyNotification";
+
 import * as cookie from "cookie";
 import styles from "./notification.module.scss";
 import { TopBar } from "../../../components/common";
 import { IC_Caution } from "../../../icons";
 import NotificationBlock from "../../../components/mentor/notification/notificationBlock";
 import InfiniteScroll from "react-infinite-scroll-component";
-import CheckNotification from "../../../core/api/Notification/checkNotification";
+import {
+  checkNotification,
+  getMyNotification,
+  deleteNotification,
+} from "../../../core/api/Notification";
 import router from "next/router";
-import DeleteNotification from "../../../core/api/Notification/deleteNotification";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const notiData = await GetMyNotification(token, 1);
-  await CheckNotification(token);
+  const notiData = await getMyNotification(token, 1);
+  await checkNotification();
 
   return {
     props: { token, notiData },
@@ -28,7 +31,7 @@ const Notification = ({ token, notiData }) => {
   const deleteBtn = useRef();
 
   const GetMoreNoti = async () => {
-    const moreNoti = await GetMyNotification(token, pageNum);
+    const moreNoti = await getMyNotification(token, pageNum);
     setLast(moreNoti.last);
     setAllNoti([...allNoti, ...moreNoti.content]);
   };
@@ -67,7 +70,7 @@ const Notification = ({ token, notiData }) => {
                   date={data.createdAt.substring(0, 10)}
                   content={data.content}
                   deleteAlarm={async () => {
-                    const res = await DeleteNotification(
+                    const res = await deleteNotification(
                       token,
                       data.notificationId
                     );

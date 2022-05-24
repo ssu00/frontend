@@ -1,17 +1,12 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 
 export const editMenteeReview = async (reviewId, token, content, score) => {
-  try {
-    const res = await axios.put(
-      `/mentees/my-reviews/${reviewId}`,
-      { content: content, score: score },
-      { headers: { Authorization: token } }
-    );
+  const res = await Api({
+    method: METHOD.PUT,
+    url: `/mentees/my-reviews/${reviewId}`,
+    data: { content: content, score: score },
+    headers: { Authorization: token },
+  });
 
-    return res;
-  } catch (e) {
-    console.log(e);
-  }
+  return res;
 };
-
-export default editMenteeReview;

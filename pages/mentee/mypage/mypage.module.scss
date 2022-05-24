@@ -32,15 +32,21 @@
         }
       }
 
-      .profileEditBtn {
-        @include btn-style(36px, 50px);
-        width: 82px;
-        background-color: $white;
-        border: 1px solid $line;
-      }
+      .toggle_btn {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
 
-      .profileEditBtnText {
-        @include text-style($fs-12, $gray, 400);
+        .profileEditBtn {
+          @include btn-style(36px, 50px);
+          width: 82px;
+          background-color: $white;
+          border: 1px solid $line;
+        }
+
+        .profileEditBtnText {
+          @include text-style($fs-12, $gray, 400);
+        }
       }
     }
 
@@ -48,6 +54,11 @@
       @include flexBox(between, center);
       width: 100%;
 
+      button {
+        span {
+          margin-top: 3px;
+        }
+      }
       .bigBlueBtn {
         @include flexBox(center, center);
         @include btn-style(72px, 8px);

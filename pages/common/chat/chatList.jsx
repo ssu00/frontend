@@ -1,16 +1,15 @@
 import styles from "./chatList.module.scss";
 import { BottomTab } from "../../../components/common";
-import React, { useState, useEffect } from "react";
-import GetMyChatRooms from "../../../core/api/Chat/mentor/getMyChatRooms";
+import React from "react";
+import { getMyChatRooms } from "../../../core/api/Chat";
 import * as cookie from "cookie";
 import ChatPreview from "../../../components/mentor/chat/chatPreview";
 import { IC_SmilingMan } from "../../../icons";
 import ChatListTopBar from "../../../components/mentor/chat/chatListTopBar";
 
 export const getServerSideProps = async (context) => {
-  const token = cookie.parse(context.req.headers.cookie).accessToken;
   const role = cookie.parse(context.req.headers.cookie).role;
-  const myChatRooms = await GetMyChatRooms(token, role);
+  const myChatRooms = await getMyChatRooms();
 
   return {
     props: {
@@ -37,7 +36,7 @@ const ChatList = ({ myChatRooms, role }) => {
               <ChatPreview chatData={data} key={i} othersRole={othersRole} />
             );
           })}
-        <BottomTab num={[0, 0, 1, 0]} />
+        <BottomTab num={[0, 0, 1, 0]} role={role} />
       </div>
     </>
   );

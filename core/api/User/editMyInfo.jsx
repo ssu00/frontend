@@ -1,14 +1,12 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 
-const EditMyInfo = async (token, params) => {
-  try {
-    const res = await axios.put("/users/my-info", params, {
-      headers: { Authorization: token },
-    });
-    return res.data;
-  } catch (err) {
-    console.log(err);
-  }
+export const editMyInfo = async (token, params) => {
+  const res = await Api({
+    method: METHOD.PUT,
+    url: "/users/my-info",
+    params,
+    headers: { Authorization: token },
+  });
+
+  return res.data;
 };
-
-export default EditMyInfo;

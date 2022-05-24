@@ -1,7 +1,4 @@
 import { React, useState, useEffect } from "react";
-import { getReviewIndividualInquiry } from "../../../../../../core/api/Mentee/getReviewIndividualInquiry";
-import { getMyReviews } from "../../../../../../core/api/Mentee/getMyReviews";
-import * as cookie from "cookie";
 import styles from "./detailReview.module.scss";
 import { TopBar } from "../../../../../../components/common";
 import { IC_Menu } from "../../../../../../icons";
@@ -9,23 +6,25 @@ import router from "next/router";
 import classNames from "classnames";
 import { Rating } from "../../../../../../components/mentor/class/rating";
 import OptionModal from "../../../../../../components/mentee/menteeModal/OptionModal";
-import RefreshPage from "../../../../../../utils/RefreshPage";
-import deleteMenteeReivew from "../../../../../../core/api/Mentee/deleteMenteeReview";
+import RefreshPage from "../../../../../../utils/refreshPage";
+import {
+  getViewLecture,
+  getMyReviews,
+  deleteMenteeReivew,
+} from "../../../../../../core/api/Mentee";
+import * as cookie from "cookie";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const review = context.query.review;
-  const menteeReviews = await getReviewIndividualInquiry(token, review);
-
   const lecturesCon = await getMyReviews(review);
 
   return {
-    props: { token, menteeReviews, lecturesCon, review },
+    props: { token, lecturesCon, review },
   };
 }
 
-const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
-  const [detail, setDetail] = useState([]);
+const detailReview = ({ token, lecturesCon, review }) => {
   const [lectureConInfo, setLectureConInfo] = useState([]);
 
   const [modal, setModal] = useState(false);
@@ -36,18 +35,21 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
   };
 
   useEffect(() => {
-    setDetail(menteeReviews);
     setLectureConInfo(lecturesCon);
   }, []);
 
   const lecture = lecturesCon.lecture;
 
-  const score = detail.score % 1 === 0 ? detail.score + ".0" : detail.score;
-  const reviewData = String(detail.createdAt).substr(0, 10);
+  const score =
+    lecturesCon.score % 1 == 0
+      ? lecturesCon.score + ".0"
+      : Math.round(lecturesCon.score * 10) / 10;
+
+  const reviewData = String(lecturesCon.createdAt).substr(0, 10);
   const dateDot = reviewData.split("-").join(".");
 
   return (
-    <div key={menteeReviews.id}>
+    <div>
       <section className={styles.topSection}>
         {modal && (
           <OptionModal
@@ -78,8 +80,12 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
       <section className={styles.contentSection}>
         <article className={classNames(styles.bg, styles.line)}>
           <div className={styles.detailInfo}>
-            <img className={styles.detailReviewImg} src={lecture.thumbnail} />
-
+            <img
+              className={styles.detailReviewImg}
+              src={
+                lecture.thumbnail ? lecture.thumbnail : "/samples/lecture.png"
+              }
+            />
             <div>
               <p>{lecture.title}</p>
               <p className={styles.mentorName}>{lecture.mentorNickname}</p>
@@ -103,10 +109,16 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
           <div className={styles.detailReviewCon}>
             <div className={styles.menteeCon}>
               <div className={styles.menteeInfo}>
-                <img className={styles.menteeImg} src={detail.userImage} />
+                <img
+                  className={styles.menteeImg}
+                  src={
+                    lecturesCon.userImage
+                      ? lecturesCon.userImage
+                      : "/samples/lecture.png"
+                  }
+                />
                 <div className={styles.menteeName}>
-                  <p>{detail.userNickname}</p>
-
+                  <p>{lecturesCon.userNickname}</p>
                   <Rating
                     w={"50px"}
                     h={"10px"}
@@ -132,7 +144,7 @@ const detailReview = ({ menteeReviews, token, lecturesCon, review }) => {
                 </p>
 
                 <div className={styles.reivewText}>
-                  <p>{detail.content}</p>
+                  <p>{lecturesCon.content}</p>
                 </div>
               </div>
             </div>

@@ -1,37 +1,34 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 
-export const GetMyPosts = async (token, page) => {
-  try {
-    const res = await axios.get(`/users/my-posts`, {
-      headers: { Authorization: token },
-      params: page,
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+export const getMyPosts = async (token, page) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/users/my-posts`,
+    params: page,
+    headers: { Authorization: token },
+  });
+
+  return res.data;
 };
 
-export const GetMyComments = async (token, page) => {
-  try {
-    const res = await axios.get(`/users/my-posts/commenting`, {
-      headers: { Authorization: token },
-      params: page,
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+export const getMyComments = async (token, page) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/users/my-posts/commenting`,
+    params: page,
+    headers: { Authorization: token },
+  });
+
+  return res.data;
 };
 
-export const GetMyLikes = async (token, page) => {
-  try {
-    const res = await axios.get(`/users/my-posts/liking`, {
-      headers: { Authorization: token },
-      params: page,
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+export const getMyLikes = async (token, page) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/users/my-posts/liking`,
+    params: page,
+    headers: { Authorization: token },
+  });
+
+  return res.data;
 };

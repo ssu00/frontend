@@ -22,9 +22,10 @@ function ContentList({ wish }) {
       <article>
         <div className={styles.image_box}>
           <Image
-            src={"/images/mypage_wishlist/article.png"}
+            src={wish.thumbnail ? wish.thumbnail : "/samples/lecture.png"}
             width={"160px"}
             height={"140px"}
+            layout="fill"
           />
           <div className={styles.category_box}>
             <span>그룹</span>

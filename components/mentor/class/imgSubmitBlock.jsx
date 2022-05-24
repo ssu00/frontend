@@ -3,7 +3,7 @@ import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
 import Image from "next/image";
 import classNames from "classnames";
 import styles from "./imgSubmitBlock.module.scss";
-import UploadImage from "../../../core/api/Image/uploadImage";
+import { uploadImage } from "../../../core/api/Image";
 import { basicBtnStyle, canvasPreview, useDebounceEffect } from "../../common";
 import { IC_PlusCircle } from "../../../icons";
 
@@ -200,7 +200,7 @@ const ImgCrop = ({ value, handleChange, token }) => {
             let file2 = new File([file], fileName, { type: imgType });
             const formData = new FormData();
             formData.append("file", file2);
-            const res = await UploadImage(formData, token);
+            const res = await uploadImage(formData, token);
             if (res.status == 200) {
               handleChange("image", res.data.url);
               setClickDisable(true);

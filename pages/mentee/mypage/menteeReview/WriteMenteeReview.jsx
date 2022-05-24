@@ -5,7 +5,7 @@ import styles from "./menteeReview.module.scss";
 import { NoWriteReviews } from "./NoWriteReviews";
 import { Rating } from "../../../../components/mentor/class/rating";
 import OptionModal from "../../../../components/mentee/menteeModal/OptionModal";
-import deleteMenteeReivew from "../../../../core/api/Mentee/deleteMenteeReview";
+import { deleteMenteeReivew } from "../../../../core/api/Mentee";
 
 const WriteMenteeReview = ({ menteeReviews, token }) => {
   const [reviews, setReviews] = useState([]);
@@ -39,7 +39,10 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
             const dateDot = lectureDate.split("-").join(".");
 
             const score =
-              review.score % 1 === 0 ? review.score + ".0" : review.score;
+              review.score % 1 == 0
+                ? review.score + ".0"
+                : Math.round(review.score * 10) / 10;
+
             const krSubject = review.lecture.lectureSubjects?.map(
               (subjects) => subjects.krSubject
             );

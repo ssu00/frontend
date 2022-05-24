@@ -10,16 +10,16 @@ import {
 } from "../../../../../../components/common";
 import { MenteeReview } from "../../../../../../components/mentor/class/classReview";
 import {
-  GetReviewOnlyOne,
-  WriteMentorReview,
-  EditMentorReview,
+  getReviewOnlyOne,
+  writeMentorReview,
+  editMentorReview,
 } from "../../../../../../core/api/Lecture";
-import PreventEnterKey from "../../../../../../utils/preventEnterKey";
+import PreventDuplicateSubmit from "../../../../../../utils/preventDuplicateSubmit";
 
 export async function getServerSideProps(context) {
   const classID = context.query.cid;
   const reviewID = context.query.rid;
-  const reviewData = await GetReviewOnlyOne(classID, reviewID);
+  const reviewData = await getReviewOnlyOne(classID, reviewID);
   const parsedCookies = cookie.parse(context.req.headers.cookie);
 
   return {
@@ -42,7 +42,7 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
   if (typeof document !== "undefined") {
     const documentRef = useRef(document);
     const reviewBtn = documentRef.current.getElementById("reviewBtn");
-    PreventEnterKey(reviewBtn, keydown, setKeyDown);
+    PreventDuplicateSubmit(reviewBtn, keydown, setKeyDown);
   }
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
 
   const ReviewRegister = async () => {
     keydown == 1 &&
-      (await WriteMentorReview(
+      (await writeMentorReview(
         parsedCookies.accessToken,
         classID,
         reviewID,
@@ -72,7 +72,7 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
 
   const ReviewEdit = async () => {
     keydown == 1 &&
-      (await EditMentorReview(
+      (await editMentorReview(
         parsedCookies.accessToken,
         classID,
         reviewID,
@@ -128,7 +128,9 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
       <BottomBlueBtn
         id={"reviewBtn"}
         text={writeType == "register" ? "등록" : "수정"}
-        onClick={writeType == "register" ? ReviewRegister : ReviewEdit}
+        onClick={() => {
+          writeType == "register" ? ReviewRegister() : ReviewEdit();
+        }}
       />
     </section>
   );

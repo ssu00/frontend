@@ -1,12 +1,8 @@
-import axios from "axios";
-
-export const getMentorLectureList = async (token, data) => {
-  try {
-    const res = await axios.get(`/mentors/${data}/lectures`, {
-      headers: { Authorization: token },
-    });
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+import Api, { METHOD } from "../apiController";
+export const getMentorLectureList = async (data) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/mentors/${data}/lectures`,
+  });
+  return res.data;
 };

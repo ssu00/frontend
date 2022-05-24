@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./MentorReview.module.scss";
-import { getOneMentorLecture } from "../../../core/api/Mentor/getOneMentorLecture";
+import { getOneMentorLecture } from "../../../core/api/Mentor";
 import { Rating, RatingBig } from "../../../components/mentor/class/rating";
 import Image from "next/image";
 import classNames from "classnames";
@@ -13,7 +13,7 @@ const MentorReview = ({ params, token }) => {
   const lectureRouter = useRef(null);
 
   const oneMentorLecture = async () => {
-    const review = await getOneMentorLecture(token, params, page);
+    const review = await getOneMentorLecture(params, page);
     setReviewInfo(review);
     setReviewList(review.reviews.content);
   };
@@ -103,13 +103,15 @@ const MentorReview = ({ params, token }) => {
       <article className={styles.reviewSection}>
         {reviewInfo.reviews?.content.map((review, i) => {
           const score =
-            review.score % 1 === 0 ? review.score + ".0" : review.score;
+            review.score % 1 == 0
+              ? review.score + ".0"
+              : Math.round(review.score * 10) / 10;
 
           const reviewDate = review.createdAt.slice(0, 10);
           const dateDot = reviewDate.split("-").join(".");
 
           return (
-            <>
+            <div key={i}>
               <div
                 className={classNames(styles.reviewerSection, styles.pointer)}
                 key={review.menteeReivewId}
@@ -188,8 +190,8 @@ const MentorReview = ({ params, token }) => {
                   </div>
                 </div>
               </div>
-              <div className={styles.line3} key={i} />
-            </>
+              <div className={styles.line3} />
+            </div>
           );
         })}
       </article>

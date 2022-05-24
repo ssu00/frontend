@@ -10,33 +10,44 @@ import {
   basicBtnStyle,
 } from "../../../components/common";
 import MyPageTopBar from "../../../components/mentor/mypage/mypageTopBar";
-import { IC_Bookmark, IC_Student } from "../../../icons";
-import { GetMyInfo } from "../../../core/api/User";
+import {
+  IC_Bookmark,
+  IC_PersonBlue,
+  IC_Student,
+  IC_ToggleActive,
+} from "../../../icons";
+import { getMyInfo } from "../../../core/api/User";
 import UserRole from "../../../utils/userRole";
-import GetUncheckedNotificationCount from "../../../core/api/Notification/getUncheckedNotificatonCount";
+import { getUncheckedNotificationCount } from "../../../core/api/Notification";
+import { changeType } from "../../../core/api/Login";
+import { cookieForAuth } from "../../../utils/cookie";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const userInfo = await GetMyInfo(token);
-  const uncheckedCnt = await GetUncheckedNotificationCount(token);
+  const userInfo = await getMyInfo(token);
+  const uncheckedCnt = await getUncheckedNotificationCount(token);
   return {
-    props: { userInfo, uncheckedCnt },
+    props: { token, userInfo, uncheckedCnt },
   };
 };
 
-const MyPage = ({ userInfo, uncheckedCnt }) => {
+const MyPage = ({ token, userInfo, uncheckedCnt }) => {
   return (
     <section className={styles.mypageSection}>
       <MyPageTopBar count={uncheckedCnt} />
       <section className={styles.profileSection}>
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
-            <Image
-              src={userInfo.image ? userInfo.image : "/samples/mentor.svg"}
-              width={56}
-              height={56}
-              className={styles.profileImg}
-            />
+            {userInfo.image == null ? (
+              <IC_PersonBlue width={56} height={56} />
+            ) : (
+              <Image
+                src={userInfo.image}
+                width={56}
+                height={56}
+                className={styles.profileImg}
+              />
+            )}
           </div>
 
           <div className={styles.role_name}>
@@ -46,12 +57,21 @@ const MyPage = ({ userInfo, uncheckedCnt }) => {
             <span className={styles.name}>{userInfo.nickname}</span>
           </div>
 
-          <BasicBtn
-            text={"프로필 수정"}
-            onClick={() => router.push("/mentor/mypage/profileEdit")}
-            btnStyle={styles.profileEditBtn}
-            textStyle={styles.profileEditBtnText}
-          />
+          <div className={styles.toggle_btn}>
+            <BasicBtn
+              text={"프로필 수정"}
+              onClick={() => router.push("/mentor/mypage/profileEdit")}
+              btnStyle={styles.profileEditBtn}
+              textStyle={styles.profileEditBtnText}
+            />
+            <IC_ToggleActive
+              onClick={async () => {
+                const res = await changeType(token);
+                cookieForAuth(res, { loginType: "ROLE_MENTEE" });
+                router.push("/mentee/mypage");
+              }}
+            />
+          </div>
         </div>
 
         <div className={styles.btns}>
@@ -84,7 +104,7 @@ const MyPage = ({ userInfo, uncheckedCnt }) => {
         <CategoryBtn text={"버전정보"} />
       </section>
 
-      <BottomTab num={[0, 0, 0, 1]} />
+      <BottomTab num={[0, 0, 0, 1]} role={"ROLE_MENTOR"} />
     </section>
   );
 };

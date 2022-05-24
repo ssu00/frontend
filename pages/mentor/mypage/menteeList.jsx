@@ -4,14 +4,14 @@ import { BottomTab, TopBar } from "../../../components/common";
 import styles from "./menteeList.module.scss";
 import router from "next/router";
 import { DecideOpenOrClose } from "../../../components/mentor/mypage/menteeListLine";
-import GetMyMentees from "../../../core/api/Mentor/getMyMentees";
+import { getMyMentees } from "../../../core/api/Mentor";
 import { ModalWithBackground, BasicModal } from "../../../components/common";
 import EmptyDataNotice from "../../../components/common/emptyDataNotice";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  let myMenteeClosed = await GetMyMentees(token, 1, true);
-  let myMenteeOpened = await GetMyMentees(token, 1, false);
+  let myMenteeClosed = await getMyMentees(1, true);
+  let myMenteeOpened = await getMyMentees(1, false);
 
   return {
     props: { token, myMenteeClosed, myMenteeOpened },
@@ -81,7 +81,7 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
         })}
       </div>
 
-      <BottomTab num={[0, 0, 0, 1]} />
+      <BottomTab num={[0, 0, 0, 1]} role={"ROLE_MENTOR"} />
     </section>
   );
 };

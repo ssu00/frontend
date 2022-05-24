@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-
 import styles from "../writeboard.module.scss";
 import * as cookie from "cookie";
 import router from "next/router";
-import { EditBoardPosts } from "../../../../core/api/Mentee/board";
+import { editBoardPosts } from "../../../../core/api/Mentee";
 import {
   BasicInputBox,
   BottomBlueBtn,
@@ -70,7 +69,7 @@ const EditPost = ({ token, post_id }) => {
           style={styles.areaBox}
         />
       </section>
-      <p className={styles.text}>
+      <p className={styles.infoText}>
         질문게시판은 강의 및 개발 관련해서 자유롭게 묻고 답하는 게
         <br />
         시판 입니다. 게시판 목적과 다른 내용의 글이 올라올 경우, 무
@@ -81,7 +80,7 @@ const EditPost = ({ token, post_id }) => {
         text={"수정"}
         disabled={!(errMsg == "")}
         onClick={async () => {
-          const res = await EditBoardPosts(token, post_id, inquiryInfo);
+          const res = await editBoardPosts(token, post_id, inquiryInfo);
           if (res.status == 200) {
             setResult({ success: true, error: false, errorMsg: "" });
             router.push(`/mentee/board/${post_id}`);

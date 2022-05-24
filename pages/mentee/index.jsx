@@ -16,7 +16,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Chip from "@mui/material/Chip";
-import GetLecture from "../../core/api/Mentee/getLecture";
+import { getLecture } from "../../core/api/Mentee";
 
 const filters = ["개발 분야", "수업 방식", "레벨"];
 const subjectsList = [
@@ -66,6 +66,8 @@ const Home = ({ classes, role, token }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [value, setValue] = useState("1");
 
+  console.log(token);
+
   // 필터 컨버팅
   const difficult = difficultyType.map((el) => converDifficulty(el));
   const group = isGroup.map((el) => convertGroup(el));
@@ -101,7 +103,7 @@ const Home = ({ classes, role, token }) => {
 
     if (Math.round(scrollTop + innerHeight) >= scrollHeight) {
       setPage(page + 1);
-      const showMore = await GetLecture(token, {
+      const showMore = await getLecture(token, {
         difficultyTypes: difficult,
         isGroup: group,
         page: page + 1,
@@ -129,7 +131,7 @@ const Home = ({ classes, role, token }) => {
       subjects: subjects.filter((el) => el !== "전체"),
       systemType: type,
     };
-    const newLecture = await GetLecture(token, data);
+    const newLecture = await getLecture(token, data);
     setClassData(newLecture.content);
     setIsVisible(false);
     setPage(1);
@@ -168,9 +170,9 @@ const Home = ({ classes, role, token }) => {
       <main>
         <SearchBox />
         <Breadcrumb filters={filters} openDrawer={openDrawer} />
-        <p className={styles.classesCount}>총 {classData.length}개의 강의</p>
+        <p className={styles.classesCount}>총 {classData?.length}개의 강의</p>
         <div className={styles.classCards}>
-          {classData.map((classDetail, index) => (
+          {classData?.map((classDetail, index) => (
             <ClassCard key={index} classDetail={classDetail} />
           ))}
         </div>
@@ -345,7 +347,7 @@ const Home = ({ classes, role, token }) => {
 export const getServerSideProps = async (context) => {
   const parsedCookies = cookie.parse(context.req.headers.cookie);
   const role = parsedCookies.role;
-  const classes = await GetLecture(parsedCookies.accessToken, { page: 1 });
+  const classes = await getLecture(parsedCookies.accessToken, { page: 1 });
 
   return {
     props: {

@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import Router from "next/router";
 import Image from "next/image";
 import * as cookie from "cookie";
 import styles from "./profileEdit.module.scss";
 import { BottomTab, TopBar, CategoryBtn } from "../../../components/common";
 import { IC_EditFill } from "../../../icons";
-import { GetMyInfo } from "../../../core/api/User";
-import UploadImage from "../../../core/api/Image/uploadImage";
-import RegisterProfileImg from "../../../core/api/Image/registerProfileImg";
+import { getMyInfo } from "../../../core/api/User";
+import { registerProfileImg, uploadImage } from "../../../core/api/Image";
 import router from "next/router";
+import RefreshPage from "../../../utils/refreshPage";
+
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const userInfo = await GetMyInfo(token);
+  const userInfo = await getMyInfo(token);
   return {
     props: { token, userInfo },
   };
@@ -31,8 +31,8 @@ const ProfileEdit = ({ token, userInfo }) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("file", file);
-    const imgUrl = await UploadImage(formData, token);
-    const imgRegister = await RegisterProfileImg(token, imgUrl.data.url);
+    const imgUrl = await uploadImage(formData, token);
+    const imgRegister = await registerProfileImg(token, imgUrl.data.url);
     console.log("imgRef", imgRegister);
     if (imgRegister.status == 200) {
       RefreshPage();
@@ -88,7 +88,7 @@ const ProfileEdit = ({ token, userInfo }) => {
           onClick={() => router.push("/common/withdraw")}
         />
       </section>
-      <BottomTab num={[0, 0, 0, 1]} />
+      <BottomTab num={[0, 0, 0, 1]} role={"ROLE_MENTEE"} />
     </section>
   );
 };

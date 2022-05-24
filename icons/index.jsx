@@ -46,6 +46,7 @@ import IC_Logo from "./assets/logo.svg";
 import IC_Menu from "./assets/menu.svg";
 import IC_PersonFill from "./assets/person_fill.svg";
 import IC_Person from "./assets/person.svg";
+import IC_PersonBlue from "./assets/person_blue.svg";
 import IC_PlusCircle from "./assets/plus_circle.svg";
 import IC_Plus from "./assets/plus.svg";
 import IC_Reason from "./assets/reason.svg";
@@ -76,6 +77,8 @@ import IC_AvatarBg from "./assets/avatar_bg.svg";
 import IC_WriteReview from "./assets/write_review.svg";
 import IC_CommentBubble from "./assets/comment_bubble.svg";
 import IC_Report from "./assets/report.svg";
+import IC_WishHeart from "./assets/wish_heart.svg";
+import IC_LectureBoxIcon from "./assets/lecture_box_icon.svg";
 
 export {
   IC_AlarmActive,
@@ -125,6 +128,7 @@ export {
   IC_Menu,
   IC_PersonFill,
   IC_Person,
+  IC_PersonBlue,
   IC_PlusCircle,
   IC_Plus,
   IC_Reason,
@@ -156,4 +160,6 @@ export {
   IC_WriteReview,
   IC_Report,
   IC_CommentBubble,
+  IC_WishHeart,
+  IC_LectureBoxIcon,
 };

@@ -1,24 +1,36 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import * as cookie from "cookie";
 import styles from "./boardDetail.module.scss";
 import TopBar from "../../../components/mentee/board/TopBar";
-
 import {
-  GetBoardDetail,
-  GetBoardDetailComments,
-} from "../../../core/api/Mentee/board";
-
+  getBoardDetail,
+  getBoardDetailComments,
+} from "../../../core/api/Mentee";
 import BoardComment from "../../../components/mentee/board/BoardComment";
 import MainBoard from "../../../components/mentee/board/MainBoard";
 import BottomButton from "../../../components/mentee/board/BottomButton";
 import BoardOptionModal from "../../../components/mentee/board/BoardOptionModal";
+import { getMyInfo } from "../../../core/api/User";
+import { likeBoardPosts } from "../../../core/api/Mentee/board";
 
-const BoardDetail = ({ token, postComments, postDetail }) => {
+const BoardDetail = ({ token, params, postComments, postDetail, myInfo }) => {
   const [modal, setModal] = useState(false);
+  const [postData, setPostData] = useState(postDetail);
 
   const handleOptionModal = () => {
-    setModal(!modal);
+    if (postDetail.userNickname === myInfo.nickname) setModal(!modal);
+    else alert("권한이 없습니다.");
   };
+
+  const getBoard = useCallback(async () => {
+    const newPost = await getBoardDetail(token, params.id);
+    setPostData(newPost);
+  }, [postData]);
+
+  const updateLike = useCallback(async () => {
+    await likeBoardPosts(token, postDetail.postId);
+    getBoard();
+  }, []);
 
   return (
     <>
@@ -26,20 +38,25 @@ const BoardDetail = ({ token, postComments, postDetail }) => {
         <TopBar handleOptionModal={handleOptionModal} />
         <main>
           <section className={styles.mainBoard}>
-            <MainBoard postDetail={postDetail} />
+            <MainBoard postData={postData} updateLike={updateLike} />
           </section>
           <section className={styles.commentSection}>
             {postComments?.content?.map((content, idx) => (
-              <BoardComment key={idx} content={content} token={token} />
+              <BoardComment
+                key={idx}
+                content={content}
+                token={token}
+                myInfo={myInfo}
+              />
             ))}
           </section>
         </main>
-        <BottomButton token={token} postId={postDetail.postId} />
+        <BottomButton token={token} postId={postData.postId} />
       </div>
       {modal ? (
         <BoardOptionModal
           handleOptionModal={handleOptionModal}
-          postId={postDetail.postId}
+          postId={postData.postId}
           token={token}
         />
       ) : (
@@ -54,8 +71,9 @@ export const getServerSideProps = async (context) => {
   const role = cookie.parse(context.req.headers.cookie).role;
   const params = context.query;
 
-  const postDetail = await GetBoardDetail(token, params.id);
-  const postComments = await GetBoardDetailComments(token, params.id);
+  const postDetail = await getBoardDetail(token, params.id);
+  const postComments = await getBoardDetailComments(token, params.id);
+  const myInfo = await getMyInfo(token);
   return {
     props: {
       token,
@@ -63,6 +81,7 @@ export const getServerSideProps = async (context) => {
       params,
       postDetail,
       postComments,
+      myInfo,
     },
   };
 };

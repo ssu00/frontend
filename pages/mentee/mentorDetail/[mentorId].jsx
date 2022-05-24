@@ -1,6 +1,5 @@
 import * as cookie from "cookie";
-import GetViewMentor from "../../../core/api/Mentor/getViewMentor";
-import { getMentorLectureList } from "../../../core/api/Mentor/getMentorLectureList";
+import { getViewMentor, getMentorLectureList } from "../../../core/api/Mentor";
 import styles from "../../mentor/mypage/mentorIntroduction.module.scss";
 import { BottomTab, MenuBtn, TopBar } from "../../../components/common";
 import Image from "next/image";
@@ -14,8 +13,8 @@ export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const params = context.query.mentorId;
 
-  const mentorData = await GetViewMentor(token, params);
-  const mentorLectureList = await getMentorLectureList(token, params);
+  const mentorData = await getViewMentor(params);
+  const mentorLectureList = await getMentorLectureList(params);
 
   return {
     props: {
@@ -106,7 +105,7 @@ const MentorCon = ({ mentorData, lectureListData, params, token }) => {
       {tabCurrent === 1 && <MentorLecture lectureListData={lectureListData} />}
       {tabCurrent === 2 && <MentorReview token={token} params={params} />}
 
-      <BottomTab num={[0, 0, 0, 1]} />
+      <BottomTab num={[0, 0, 0, 1]} role={"ROLE_MENTEE"} />
     </section>
   );
 };

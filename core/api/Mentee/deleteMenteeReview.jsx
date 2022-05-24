@@ -1,15 +1,11 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 
-const deleteMenteeReivew = async (token, reviewId) => {
-  try {
-    const res = await axios.delete(`/mentees/my-reviews/${reviewId}`, {
-      headers: { Authorization: token },
-    });
-    console.log(res);
-    return res;
-  } catch (err) {
-    return err;
-  }
+export const deleteMenteeReivew = async (token, reviewId) => {
+  const res = await Api({
+    method: METHOD.DELETE,
+    url: `/mentees/my-reviews/${reviewId}`,
+    headers: { Authorization: token },
+  });
+
+  return res;
 };
-
-export default deleteMenteeReivew;

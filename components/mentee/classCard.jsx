@@ -1,15 +1,10 @@
 import styles from "./classCard.module.scss";
-import Image from "next/image";
 import classNames from "classnames";
-import {
-  IC_HeartEmpty,
-  IC_HeartEmptySm,
-  IC_HeartRedFill,
-  IC_HeightBar,
-} from "../../icons";
-import Rating from "@mui/material/Rating";
+import { IC_HeartEmpty, IC_HeartRedFill, IC_HeightBar } from "../../icons";
 import { useRouter } from "next/router";
 import { LevelToKor } from "../../utils/class/classLevel";
+import { Rating } from "../mentor/class/rating";
+import Image from "next/image";
 
 export const transGroup = (status) => {
   if (!status) return "개인";
@@ -34,14 +29,20 @@ const ClassCard = ({ classDetail }) => {
         }
       >
         <div className={styles.imageContainer}>
-          {/* <Image
+          <Image
             layout="fill"
             objectFit="cover"
-            src={classDetail.thumbnail ? classDetail.thumbnail : "/"}
+            src={
+              classDetail.thumbnail
+                ? classDetail.thumbnail
+                : "/samples/lecture.png"
+            }
             alt={title}
-          /> */}
+          />
           <div className={styles.labels}>
-            <div className={styles.label}>{LevelToKor(classDetail)}</div>
+            <div className={styles.label}>
+              {LevelToKor(classDetail.difficulty)}
+            </div>
           </div>
         </div>
         <div className={styles.informationBox}>
@@ -59,21 +60,13 @@ const ClassCard = ({ classDetail }) => {
 
           <div className={styles.rating}>
             {classDetail.picked ? (
-              <IC_HeartRedFill width="16px" height="16px" />
+              <IC_HeartRedFill width="16px" height="18px" />
             ) : (
-              <IC_HeartRedFill width="16px" height="16px" />
+              <IC_HeartEmpty width="16px" height="18px" />
             )}
-
-            <span>{classDetail.enrollmentCount}</span>
+            <span>{classDetail.pickCount}</span>
             <IC_HeightBar width="1" height="8" className={styles.height_bar} />
-
-            <Rating
-              className={styles.stars}
-              name="simple-controlled"
-              value={classDetail.scoreAverage}
-              precision={0.5}
-            />
-
+            <Rating w={55} h={11} fillRating={classDetail.scoreAverage} />
             <span
               className={styles.review_num}
             >{`${classDetail.reviewCount}개 후기`}</span>

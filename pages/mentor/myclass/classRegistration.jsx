@@ -15,7 +15,7 @@ import Step01 from "../../../components/mentor/class/step01";
 import Step02 from "../../../components/mentor/class/step02";
 import Step03 from "../../../components/mentor/class/step03";
 import * as cookie from "cookie";
-import GetEachLecture from "../../../core/api/Lecture/getEachLecture";
+import { getEachLecture } from "../../../core/api/Lecture";
 import { LevelToKor } from "../../../utils/class/classLevel";
 import { SystemToObj } from "../../../utils/class/classSystem";
 import { PriceToObj } from "../../../utils/class/classPrice";
@@ -29,7 +29,7 @@ export const getServerSideProps = async (context) => {
 
   if (classID != undefined) {
     classIDReal = classID;
-    const individualClass = await GetEachLecture(token, classID);
+    const individualClass = await getEachLecture(token, classID);
     const classPrice = PriceToObj(individualClass.lecturePrices);
     const classSystem = SystemToObj(individualClass.systems);
     classData = {

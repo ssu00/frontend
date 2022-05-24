@@ -1,10 +1,7 @@
-import axios from "axios";
-const FindPassword = async (id) => {
-  try {
-    const res = await axios.get(`/find-password?username=${id}`);
-    return res;
-  } catch (err) {
-    return err.response;
-  }
+import Api, { METHOD } from "../apiController";
+export const findPassword = async (id) => {
+  return await Api({
+    method: METHOD.GET,
+    url: `/find-password?username=${id}`,
+  });
 };
-export default FindPassword;

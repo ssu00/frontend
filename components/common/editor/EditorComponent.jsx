@@ -1,7 +1,7 @@
 import React, { useRef, useMemo, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import UploadImage from "../../../core/api/Image/uploadImage";
+import { uploadImage } from "../../../core/api/Image";
 
 const EditorComponent = ({ value, onChange, token }) => {
   const quillRef = useRef();
@@ -21,7 +21,7 @@ const EditorComponent = ({ value, onChange, token }) => {
       if (range !== null && range !== undefined) {
         let quill = quillRef.current?.getEditor();
         quill.setSelection(range + 1);
-        const resImage = await UploadImage(formData, token);
+        const resImage = await uploadImage(formData, token);
         quill.insertEmbed(range, "image", resImage.data.url);
       }
     };

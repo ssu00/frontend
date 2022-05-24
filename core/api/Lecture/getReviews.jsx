@@ -1,11 +1,10 @@
-import axios from "axios";
-const GetReview = async (data) => {
-  try {
-    const res = await axios.get(`/mentors/my-lectures/${data}/reviews`);
-    return res.data;
-  } catch (err) {
-    return err;
-  }
-};
+import Api, { METHOD } from "../apiController";
 
-export default GetReview;
+export const getReview = async (data) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/mentors/my-lectures/${data}/reviews`,
+  });
+
+  return res.data;
+};

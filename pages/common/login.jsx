@@ -7,11 +7,10 @@ import {
   BasicBtn,
   basicBtnStyle,
 } from "../../components/common";
-import { Login_API } from "../../core/api/Login";
-import { setCookie } from "../../utils/cookie";
+import { login, getUserRoleType } from "../../core/api/Login";
+import { cookieForAuth } from "../../utils/cookie";
 import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../icons";
 import { NameLogo } from "../../components/common/icons/nameLogo";
-import GetUserRoleType from "../../core/api/Login/roleTypeCheck";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -19,18 +18,10 @@ const Login = () => {
   const [error, setError] = useState(false);
 
   const checkAccount = async () => {
-    const res = await Login_API(username, password);
+    const res = await login(username, password);
     if (res.status == 200) {
-      const role = await GetUserRoleType(res.data);
-      console.log(role);
-      setCookie("accessToken", res.data, {
-        path: "/",
-        secure: true,
-      });
-      setCookie("role", role.loginType, {
-        path: "/",
-        secure: true,
-      });
+      const role = await getUserRoleType(res.headers["x-access-token"]);
+      cookieForAuth(res, role);
       if (role.loginType === "ROLE_MENTOR") {
         router.push("/mentor/myclass/myClassList");
       }
@@ -103,27 +94,24 @@ const Login = () => {
       <div className={styles.snsCon}>
         <p>SNS 로그인</p>
         <div className={styles.snsBtn}>
-          <IC_Google
-            onClick={() => {
-              router.push(
-                `${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/google`
-              );
-            }}
-          />
-          <IC_Naver
-            onClick={() => {
-              router.push(
-                `${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/naver`
-              );
-            }}
-          />
-          <IC_Kakao
-            onClick={() => {
-              router.push(
-                `${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/kakao`
-              );
-            }}
-          />
+          <a
+            href={`${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/google`}
+            target="_blank"
+          >
+            <IC_Google />
+          </a>
+          <a
+            href={`${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/naver`}
+            target="_blank"
+          >
+            <IC_Naver />
+          </a>
+          <a
+            href={`${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/kakao`}
+            target="_blank"
+          >
+            <IC_Kakao />
+          </a>
         </div>
       </div>
       <NameLogo />

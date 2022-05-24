@@ -7,14 +7,26 @@ import router from "next/router";
 const MentorLecture = ({ lectureListData }) => {
   const lectureCon = lectureListData.content;
 
-  console.log(lectureListData);
+  const lectureLevel = (level) => {
+    switch (level) {
+      case "BASIC":
+        return "입문";
+      case "BEGINNER":
+        return "초급";
+      case "INTERMEDIATE":
+        return "중급";
+      case "ADVANCED":
+        return "고급";
+    }
+  };
+
   return (
     <section className={styles.lectureSection}>
       {lectureCon?.map((info) => {
         return (
           <article
             className={styles.classCard}
-            key={info.id}
+            key={info.lecturePriceId}
             onClick={() => {
               router.push({
                 pathname: `/mentee/classdetails/${info.lectureId}`,
@@ -32,12 +44,7 @@ const MentorLecture = ({ lectureListData }) => {
                 objectFit="cover"
               />
               <div className={styles.labels}>
-                <p className={styles.label}>
-                  {info.difficulty === "BASIC" && "입문"}
-                  {info.difficulty === "BEGINNER" && "초급"}
-                  {info.difficulty === "INTERMEDIATE" && "중급"}
-                  {info.difficulty === "ADVANCED" && "고급"}
-                </p>
+                <p className={styles.label}>{lectureLevel(info.difficulty)}</p>
 
                 {info.lecturePrices?.map((group, i) => (
                   <p key={i}>{group.isGroup ? "그룹" : null}</p>

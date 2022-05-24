@@ -7,16 +7,18 @@ import {
 } from "../../../../../../components/common";
 import router from "next/router";
 import styles from "./edit.module.scss";
-import { getReviewInfo } from "../../../../../../core/api/Mentee/getReviewInfo";
 import MenteeStar from "../../../../../../components/mentee/MenteeStar";
 import ConfirmModal from "../../../../../../components/mentee/ConfirmModal";
 import ReviewModal from "../../../../../../components/mentee/ReviewModal";
-import { editMenteeReview } from "../../../../../../core/api/Mentee/editMenteeReview";
+import {
+  getViewLecture,
+  editMenteeReview,
+} from "../../../../../../core/api/Mentee";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const editId = context.query.editId;
-  const viewLecture = await getReviewInfo(editId, token);
+  const viewLecture = await getViewLecture(editId, token);
 
   return {
     props: { token, editId, viewLecture },

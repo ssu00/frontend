@@ -5,9 +5,9 @@ import Image from "next/image";
 import * as cookie from "cookie";
 import styles from "./classDetail.module.scss";
 import {
-  GetLectureDetail,
-  GetReview,
-  DeleteLecture,
+  getLectureDetail,
+  getReview,
+  deleteLecture,
 } from "../../../../../core/api/Lecture";
 import {
   TopBar,
@@ -27,8 +27,8 @@ import EmptyDataNotice from "../../../../../components/common/emptyDataNotice";
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const classID = context.query.cid;
-  const classData = await GetLectureDetail(classID, token);
-  const reviewData = await GetReview(classID);
+  const classData = await getLectureDetail(classID, token);
+  const reviewData = await getReview(classID);
 
   return {
     props: { token, classData, reviewData },
@@ -43,9 +43,9 @@ const ClassDetail = ({ token, classData, reviewData }) => {
     (data, i) => data.krSubject
   );
   const score =
-    classData.scoreAverage % 1 == 0
-      ? classData.scoreAverage + ".0"
-      : classData.scoreAverage;
+    classData?.scoreAverage % 1 == 0
+      ? classData?.scoreAverage + ".0"
+      : Math.round(classData?.scoreAverage * 10) / 10;
 
   return (
     <section className={styles.classDetailSection}>
@@ -56,7 +56,7 @@ const ClassDetail = ({ token, classData, reviewData }) => {
             btnText={"강의 삭제"}
             modalStyle={"square"}
             btnClick={async () => {
-              const res = await DeleteLecture(token, classData.id);
+              const res = await deleteLecture(token, classData.id);
               if (res == 200) {
                 router.push("/mentor/myclass/myClassList");
               }

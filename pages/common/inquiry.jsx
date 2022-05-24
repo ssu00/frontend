@@ -8,7 +8,7 @@ import {
 } from "../../components/common";
 import * as cookie from "cookie";
 import router from "next/router";
-import Inquire from "../../core/api/User/inquire";
+import { inquire } from "../../core/api/User";
 import BasicTextAreaBox from "../../components/common/inputBox/basicTextAreaBox";
 
 export const getServerSideProps = async (context) => {
@@ -86,7 +86,8 @@ const Inquiry = ({ token, role }) => {
           arr={["오류문의", "튜터문의", "튜티문의", "강의문의", "기타"]}
           name={"문의 유형을 선택해주세요."}
           onChange={(e) => handleType(e)}
-          style={styles.select}
+          otherClassName={styles.select}
+          selectStyles={styles.selectCon}
         />
         <BasicInputBox
           type={"text"}
@@ -105,7 +106,7 @@ const Inquiry = ({ token, role }) => {
           style={styles.areaBox}
         />
       </section>
-      <p className={styles.text}>
+      <p className={styles.infoText}>
         * 문의 답변은 회원가입 시 입력해주신 이메일을
         <br />
         통해 보내드리며, 순차적 답변으로 다소 시일이
@@ -116,7 +117,7 @@ const Inquiry = ({ token, role }) => {
         text={"문의"}
         disabled={!(errMsg == "")}
         onClick={async () => {
-          const res = await Inquire(token, inquiryInfo);
+          const res = await inquire(token, inquiryInfo);
           if (res.status == 201)
             setResult({ success: true, error: false, errorMsg: "" });
           else

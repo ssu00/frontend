@@ -1,14 +1,11 @@
-import axios from "axios";
-export const GetNoticeDetail = async (token, notice_id) => {
-  try {
-    const res = await axios.get(`/notices/${notice_id}`, {
-      headers: { Authorization: token },
-    });
+import Api, { METHOD } from "../apiController";
 
-    return res.data;
-  } catch (err) {
-    return err;
-  }
+export const getNoticeDetail = async (token, notice_id) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/notices/${notice_id}`,
+    headers: { Authorization: token },
+  });
+
+  return res.data;
 };
-
-export default GetNoticeDetail;
