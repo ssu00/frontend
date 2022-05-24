@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./BottomNavBar.module.scss";
 import { IC_HeartEmpty, IC_HeartRedFill_Lg } from "../../../icons";
 import { IC_Share } from "../../../icons";
-import { enrollClass, updatePicks } from "../../../core/api/Mentee";
+import EnrollClass from "../../../core/api/Mentee/enrollClass";
+import { updatePicks } from "../../../core/api/Mentee/pick";
 
 function BottomNavBar({ classData, token, params }) {
   // const [isVisible, setIsVisible] = useState(false);
@@ -12,7 +13,7 @@ function BottomNavBar({ classData, token, params }) {
   const [liked, setLiked] = useState(false);
 
   const handleEnrollClass = async () => {
-    const res = await enrollClass(token, params);
+    const res = await EnrollClass(token, params);
     if (res.status === 201) {
       alert("강의등록 성공");
     } else {
