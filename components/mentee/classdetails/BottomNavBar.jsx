@@ -12,7 +12,7 @@ function BottomNavBar({ classData, token, params }) {
 
   const [liked, setLiked] = useState(false);
   const handleEnrollClass = async () => {
-    const res = await enrollClass(token, params);
+    const res = await EnrollClass(token, params);
     if (res.status === 201) {
       alert("강의등록 성공");
     } else {
