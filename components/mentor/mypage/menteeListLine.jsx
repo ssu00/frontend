@@ -87,7 +87,15 @@ const MenteeListBlock = ({ token, data, setOpen, baseData, setModal }) => {
             basicBtnStyle.btn_bg_color
           )}
           onClick={async () => {
-            await requestChatToMentee(token, data.menteeId);
+            const res = await requestChatToMentee(token, data.menteeId);
+            if (!isNaN(res)) {
+              router.push({
+                pathname: `/common/chat/chatDetail/${res}`,
+                query: { other: data?.menteeId },
+              });
+            } else {
+              console.log("채팅 요청 실패");
+            }
           }}
         >
           <IC_TalkDots width={16} height={16} className={styles.btnIcon} />
