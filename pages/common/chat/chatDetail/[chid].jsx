@@ -69,6 +69,7 @@ const Chat = ({ token, history, chatRoomId, other, my }) => {
     var msg = {
       type: "MESSAGE",
       chatroomId: parseInt(chatRoomId),
+      receiverId: other.userId,
       senderId: my.userId,
       text: content,
     };

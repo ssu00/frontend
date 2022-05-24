@@ -20,11 +20,17 @@ import { getMyInfo } from "../../../core/api/User";
 import Role from "../../../components/common/tag/role";
 import { changeType } from "../../../core/api/Login";
 import { cookieForAuth, setCookie } from "../../../utils/cookie";
+import { useContext } from "react";
+import { sockContext } from "../../_app";
 
 const MyPage = ({ token, userInfo, role }) => {
+  const alarm = useContext(sockContext);
+  console.log("alarm===================", alarm);
+  console.log("alarm===================", alarm.alarmCnt);
+
   return (
     <section className={styles.mypageSection}>
-      <MyPageTopBar />
+      <MyPageTopBar count={alarm.alarmCnt} />
       <section className={styles.profileSection}>
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
