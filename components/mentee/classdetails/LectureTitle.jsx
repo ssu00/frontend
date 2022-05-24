@@ -42,7 +42,10 @@ function LectureTitle({ token, classData, reviewData, role }) {
               />
               <span>{score}</span>
             </div>
-            <a href="#">{`${classData.reviewCount} 개의 후기`}</a>
+            <span
+              className={styles.reviewCountStyle}
+              onClick={() => setSelect(false)}
+            >{`${classData.reviewCount} 개의 후기`}</span>
           </div>
           <div className={styles.content}>{renderHTML(classData?.content)}</div>
         </div>
