@@ -15,10 +15,10 @@ export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const chatRoomId = context.query.chid;
   const othersId = context.query.other;
-  const history = await getMyChatHistory(chatRoomId, 1);
+  const history = await getMyChatHistory(token, chatRoomId, 1);
 
   const other = await getUserInfo(token, othersId);
-  const my = await getMyInfo(token);
+  const my = await getMyInfo();
 
   await readChat(chatRoomId);
 
@@ -33,10 +33,10 @@ export async function getServerSideProps(context) {
   };
 }
 
-let sockJS = new SockJS("http://13.124.128.220:8080/ws");
-let ws = Stomp.over(sockJS);
-
 const Chat = ({ token, history, chatRoomId, other, my }) => {
+  let sockJS = new SockJS("http://13.124.128.220:8080/ws");
+  let ws = Stomp.over(sockJS);
+
   const [chatContents, setChatContents] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [dataLen, setDataLen] = useState(10);
@@ -46,16 +46,15 @@ const Chat = ({ token, history, chatRoomId, other, my }) => {
     setChatContents(history.content.reverse());
   }, [history]);
 
-  useEffect(() => {
-    const fetchMore = async () => {
-      if (pageNum != 1) {
-        const moreHistory = await getMyChatHistory(chatRoomId, pageNum);
-        setLast(moreHistory.last);
-        setChatContents([...moreHistory.content.reverse(), ...chatContents]);
-      }
-    };
-    fetchMore();
-  }, [pageNum]);
+  const fetchMore = async () => {
+    if (pageNum != 1) {
+      const moreHistory = await getMyChatHistory(token, chatRoomId, pageNum);
+      setLast(moreHistory.last);
+      setChatContents([...moreHistory.content.reverse(), ...chatContents]);
+    }
+    setPageNum(pageNum + 1);
+    setDataLen(dataLen + 10);
+  };
 
   useEffect(() => {
     ws.connect({}, () => {
@@ -80,17 +79,14 @@ const Chat = ({ token, history, chatRoomId, other, my }) => {
     <div className={styles.chatRoom}>
       <ChatRoomTopBar
         nickname={other?.nickname}
-        othersRole={other?.role == "MENTEE" ? "멘티" : "멘토"}
+        othersRole={my?.role == "MENTEE" ? "멘토" : "멘티"}
       />
       <div className={styles.chatContentSection} id="chatContents">
         <div className={styles.chatContents}>
           <InfiniteScroll
             scrollableTarget={"chatContents"}
             dataLength={dataLen}
-            next={() => {
-              setPageNum(pageNum + 1);
-              setDataLen(dataLen + 10);
-            }}
+            next={fetchMore}
             hasMore={!last}
             inverse={true}
           >
