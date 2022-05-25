@@ -62,7 +62,7 @@ const MentorLecture = ({ lectureListData }) => {
               </div>
               <h2>{info.title}</h2>
               <p className={styles.tutorName}>
-                튜터 {info.lectureMentor.nickname}
+                멘토 {info.lectureMentor.nickname}
               </p>
 
               <div className={styles.rating}>
@@ -72,7 +72,7 @@ const MentorLecture = ({ lectureListData }) => {
                   <IC_HeartEmptySm width="16px" height="16px" />
                 )}
 
-                <span>{info.enrollmentCount}</span>
+                <span>{info.pickCount}</span>
                 <IC_HeightBar
                   width="1"
                   height="8"
@@ -85,9 +85,7 @@ const MentorLecture = ({ lectureListData }) => {
                   precision={0.5}
                 />
 
-                <p className={styles.review_num}>
-                  {info.lectureMentor.reviewCount}개 후기
-                </p>
+                <p className={styles.review_num}>{info.reviewCount}개 후기</p>
               </div>
 
               <div className={styles.price_box}>

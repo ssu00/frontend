@@ -14,7 +14,7 @@ function BottomNavBar({ classData, token, params }) {
   const handleEnrollClass = async () => {
     const res = await enrollClass(token, params);
     if (res.status === 201) {
-      alert("강의등록 성공");
+      alert("강의 신청 성공");
     } else {
       alert("동일한 수강내역이 존재합니다.");
     }
@@ -26,10 +26,11 @@ function BottomNavBar({ classData, token, params }) {
 
   const handlePicks = async () => {
     const res = await updatePicks(token, params);
+    console.log("res=====================", res);
 
-    if (res) {
+    if (res.data) {
       setLiked(true);
-    } else if (res === "") {
+    } else if (res.data === "") {
       setLiked(false);
     }
   };
@@ -84,7 +85,7 @@ function BottomNavBar({ classData, token, params }) {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             displayEmpty
-            value={systemType}
+            value={systemType} 
             onChange={(e) => handleSelection(e.target.value, setSystemType)}
             renderValue={(selected) => {
               if (selected.length === 0) {

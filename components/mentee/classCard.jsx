@@ -56,8 +56,7 @@ const ClassCard = ({ classDetail }) => {
           </div>
           <h2>{title}</h2>
           <h3>{explanation}</h3>
-          <p className={styles.tutorName}>{`튜터 ${lectureMentor.nickname}`}</p>
-
+          <p className={styles.tutorName}>{`멘토 ${lectureMentor.nickname}`}</p>
           <div className={styles.rating}>
             {classDetail.picked ? (
               <IC_HeartRedFill width="16px" height="18px" />
@@ -71,7 +70,6 @@ const ClassCard = ({ classDetail }) => {
               className={styles.review_num}
             >{`${classDetail.reviewCount}개 후기`}</span>
           </div>
-
           <div className={styles.price_box}>
             <span className={styles.sale}></span>
             <span className={styles.price}>

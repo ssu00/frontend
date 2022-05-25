@@ -47,6 +47,7 @@ import IC_Menu from "./assets/menu.svg";
 import IC_PersonFill from "./assets/person_fill.svg";
 import IC_Person from "./assets/person.svg";
 import IC_PersonBlue from "./assets/person_blue.svg";
+import IC_PersonBlueBig from "./assets/person_blue_big.svg";
 import IC_PlusCircle from "./assets/plus_circle.svg";
 import IC_Plus from "./assets/plus.svg";
 import IC_Reason from "./assets/reason.svg";
@@ -129,6 +130,7 @@ export {
   IC_PersonFill,
   IC_Person,
   IC_PersonBlue,
+  IC_PersonBlueBig,
   IC_PlusCircle,
   IC_Plus,
   IC_Reason,
