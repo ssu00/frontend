@@ -18,23 +18,24 @@ import {
 } from "../../../icons";
 import { getMyInfo } from "../../../core/api/User";
 import UserRole from "../../../utils/userRole";
-import { getUncheckedNotificationCount } from "../../../core/api/Notification";
 import { changeType } from "../../../core/api/Login";
 import { cookieForAuth } from "../../../utils/cookie";
+import { useContext } from "react";
+import { sockContext } from "../../_app";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const userInfo = await getMyInfo(token);
-  const uncheckedCnt = await getUncheckedNotificationCount(token);
   return {
-    props: { token, userInfo, uncheckedCnt },
+    props: { token, userInfo },
   };
 };
 
-const MyPage = ({ token, userInfo, uncheckedCnt }) => {
+const MyPage = ({ token, userInfo }) => {
+  const alarm = useContext(sockContext);
   return (
     <section className={styles.mypageSection}>
-      <MyPageTopBar count={uncheckedCnt} />
+      <MyPageTopBar count={alarm.alarmCnt} />
       <section className={styles.profileSection}>
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
+import router from "next/router";
 import styles from "./BottomNavBar.module.scss";
-import { IC_HeartEmpty, IC_HeartRedFill_Lg } from "../../../icons";
-import { IC_Share } from "../../../icons";
-import EnrollClass from "../../../core/api/Mentee/enrollClass";
-import { updatePicks } from "../../../core/api/Mentee/pick";
+import { IC_HeartEmpty, IC_HeartRedFill_Lg, IC_TalkDots } from "../../../icons";
+import { enrollClass, updatePicks } from "../../../core/api/Mentee";
+import { requestChatToMentor } from "../../../core/api/Chat";
 
 function BottomNavBar({ classData, token, params }) {
   // const [isVisible, setIsVisible] = useState(false);
@@ -11,9 +11,8 @@ function BottomNavBar({ classData, token, params }) {
   // const [group, setGroup] = useState("");
 
   const [liked, setLiked] = useState(false);
-
   const handleEnrollClass = async () => {
-    const res = await EnrollClass(token, params);
+    const res = await enrollClass(token, params);
     if (res.status === 201) {
       alert("강의등록 성공");
     } else {
@@ -60,8 +59,20 @@ function BottomNavBar({ classData, token, params }) {
           <IC_HeartEmpty width={"24px"} height={"24px"} />
         )}
       </button>
-      <button>
-        <IC_Share width={"24px"} height={"24px"} />
+      <button
+        onClick={async () => {
+          const res = await requestChatToMentor(token, params?.mentorId);
+          if (!isNaN(res)) {
+            router.push({
+              pathname: `/common/chat/chatDetail/${res}`,
+              query: { other: params?.mentorId },
+            });
+          } else {
+            console.log("채팅 요청 실패");
+          }
+        }}
+      >
+        <IC_TalkDots width={"24px"} height={"24px"} />
       </button>
       <button className={styles.subscription} onClick={handleEnrollClass}>
         강의 신청
