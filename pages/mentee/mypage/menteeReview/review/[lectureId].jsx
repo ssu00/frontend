@@ -38,7 +38,6 @@ const WriteMentee = ({ token, lectureId, unreviewedLecture }) => {
     setContent(e.target.value);
   };
 
-  console.log(unreviewedLecture, "unreviewedLecture");
   return (
     <>
       <section className={styles.contentSection}>
@@ -89,7 +88,7 @@ const WriteMentee = ({ token, lectureId, unreviewedLecture }) => {
           <TopBar
             text={"후기 작성"}
             onClick={() => {
-              router.back();
+              router.push("/mentee/mypage/menteeReview");
             }}
           />
         </article>

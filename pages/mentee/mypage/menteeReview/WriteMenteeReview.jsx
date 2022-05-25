@@ -92,8 +92,6 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
                         />
                         {modal[review.menteeReviewId] && (
                           <OptionModal
-                            prevent={false}
-                            setClick={setClick}
                             editClick={(e) => {
                               e.stopPropagation();
                               router.push(
