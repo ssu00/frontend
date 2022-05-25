@@ -23,7 +23,6 @@ export async function getServerSideProps(context) {
 const mypageMenteeReview = ({ token, unreviewedMentee, menteeReviews }) => {
   const tabMenu = ["후기작성", "후기내역"];
   const [tabCurrent, setTabCurrent] = useState(0);
-  console.log("unreviewd=========", unreviewedMentee);
 
   const onClick = (idx) => {
     setTabCurrent(idx);
