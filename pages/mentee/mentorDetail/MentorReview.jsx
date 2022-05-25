@@ -43,7 +43,7 @@ const MentorReview = ({ params, token }) => {
   return (
     <section className={styles.reviewInfoSection}>
       <article className={styles.ratingSection}>
-        <h2>튜터 평점</h2>
+        <h2>멘토 평점</h2>
         <div className={styles.star}>
           <RatingBig
             w={"140px"}

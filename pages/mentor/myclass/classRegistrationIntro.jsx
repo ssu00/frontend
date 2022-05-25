@@ -35,7 +35,7 @@ const ClassRegistrationIntro = ({}) => {
           >
             <p>
               새로운 강의를 등록하고
-              <br /> 더 많은 튜티들을 만나보세요.
+              <br /> 더 많은 멘티들을 만나보세요.
             </p>
             <IC_PlusCircle w="20" h="20" />
           </button>

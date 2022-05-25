@@ -10,7 +10,7 @@ import {
 } from "./board";
 import { deleteMenteeReivew } from "./deleteMenteeReview";
 import { editMenteeReview } from "./editMenteeReview";
-import { enrollClass } from "./enrollClass";
+import { enrollClass, getEnrolledClass } from "./enrollClass";
 import { getLecture } from "./getLecture";
 import { getLectureDetails } from "./getLectureDetails";
 import { getMenteeInfo } from "./getMenteeInfo";
@@ -40,6 +40,7 @@ export {
   deleteMenteeReivew,
   editMenteeReview,
   enrollClass,
+  getEnrolledClass,
   getLecture,
   getLectureDetails,
   getMenteeInfo,

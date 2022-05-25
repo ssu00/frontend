@@ -11,31 +11,29 @@ import styles from "./editPage/edit.module.scss";
 import router from "next/router";
 import MenteeStar from "../../../../../components/mentee/MenteeStar";
 import ReviewModal from "../../../../../components/mentee/ReviewModal";
-import { getViewLecture, writeReviewAPI } from "../../../../../core/api/Mentee";
+import {
+  writeReviewAPI,
+  getEnrolledClass,
+} from "../../../../../core/api/Mentee";
 import ConfirmModal from "../../../../../components/mentee/ConfirmModal";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const reviewId = context.query.reviewId;
-  const viewLecture = await getViewLecture(reviewId, token);
+
+  const unreviewedLecture = await getEnrolledClass(token, reviewId);
 
   return {
-    props: { token, reviewId, viewLecture },
+    props: { token, reviewId, unreviewedLecture },
   };
 }
 
-const WriteMentee = ({ token, reviewId, viewLecture }) => {
-  const [reviewInfo, setReviewInfo] = useState([]);
-
+const WriteMentee = ({ token, reviewId, unreviewedLecture }) => {
   const [modal, setModal] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
   const [content, setContent] = useState("");
   const [score, setScore] = useState(0);
-
-  useEffect(() => {
-    setReviewInfo(viewLecture);
-  }, []);
 
   const onChange = (e) => {
     setContent(e.target.value);
@@ -101,26 +99,26 @@ const WriteMentee = ({ token, reviewId, viewLecture }) => {
             <img
               className={styles.lectureInfoImg}
               src={
-                reviewInfo.thumbnail
-                  ? reviewInfo.thumbnail
+                unreviewedLecture.thumbnail
+                  ? unreviewedLecture.thumbnail
                   : "/samples/lecture.png"
               }
             />
             <div className={styles.lectureInfoText}>
-              <p className={styles.lectureTitle}>{reviewInfo.title}</p>
+              <p className={styles.lectureTitle}>{unreviewedLecture.title}</p>
               <p className={styles.mentorNickname}>
-                {reviewInfo.lectureMentor?.nickname}
+                {unreviewedLecture.lectureMentor?.nickname}
               </p>
               <p className={styles.system}>
                 옵션:
-                {reviewInfo.lecture?.systems.length === 2
+                {unreviewedLecture.systems.length === 2
                   ? "온라인/오프라인"
-                  : reviewInfo.lecture?.systems.name === "온라인"
+                  : unreviewedLecture.systems.name === "온라인"
                   ? "온라인"
                   : "오프라인"}
-                {reviewInfo.lecture?.lecturePrices?.map((group, i) => {
-                  return <span key={i}>{group.isGroup ? `/ 그룹` : null}</span>;
-                })}
+                <span>
+                  {unreviewedLecture.lecturePrice.isGroup ? `/그룹` : "/개인"}
+                </span>
               </p>
             </div>
           </div>
@@ -173,8 +171,8 @@ const WriteMentee = ({ token, reviewId, viewLecture }) => {
               처리 됩니다.
             </li>
             <li>
-              최종 등록된 후기는 공개되어 튜터랩 사용자가 조회 가능하며, 댓글이
-              등록될 수 있습니다.
+              최종 등록된 후기는 공개되어 멘토릿지 사용자가 조회 가능하며,
+              댓글이 등록될 수 있습니다.
             </li>
           </ul>
         </article>
