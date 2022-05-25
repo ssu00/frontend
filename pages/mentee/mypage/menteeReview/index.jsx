@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as cookie from "cookie";
 import router from "next/router";
 import {
@@ -23,11 +23,18 @@ export async function getServerSideProps(context) {
 const mypageMenteeReview = ({ token, unreviewedMentee, menteeReviews }) => {
   const tabMenu = ["후기작성", "후기내역"];
   const [tabCurrent, setTabCurrent] = useState(0);
-  console.log("unreviewd=========", unreviewedMentee);
 
   const onClick = (idx) => {
     setTabCurrent(idx);
+    localStorage.setItem("tab current", JSON.stringify(idx));
   };
+
+  useEffect(() => {
+    const tab = JSON.parse(localStorage.getItem("tab current"));
+    if (tab) {
+      setTabCurrent(tab);
+    }
+  }, []);
 
   return (
     <>
