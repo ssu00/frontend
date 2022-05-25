@@ -42,10 +42,10 @@ const Inquiry = ({ token, role }) => {
     if (value === "오류문의") {
       typeEng = "ERROR";
     }
-    if (value === "튜터문의") {
+    if (value === "멘토문의") {
       typeEng = "MENTOR";
     }
-    if (value === "튜티문의") {
+    if (value === "멘티문의") {
       typeEng = "MENTEE";
     }
     if (value === "강의문의") {
@@ -74,16 +74,16 @@ const Inquiry = ({ token, role }) => {
     <section className={styles.changeInquiry}>
       <TopBar text={"문의하기"} onClick={() => router.back()} />
       <p className={styles.text}>
-        튜터랩을 이용하면서 생긴 불편사항이나 개선사항을
+        멘토릿지를 이용하면서 생긴 불편사항이나 개선사항을
         <br />
         알려주세요. 전달해주신 소중한 의견으로 더 나은
         <br />
-        튜터랩이 되도록 노력하겠습니다.
+        멘토릿지가 되도록 노력하겠습니다.
       </p>
       <div className={styles.line} />
       <section className={styles.content}>
         <BasicSelectBox
-          arr={["오류문의", "튜터문의", "튜티문의", "강의문의", "기타"]}
+          arr={["오류문의", "멘토문의", "멘티문의", "강의문의", "기타"]}
           name={"문의 유형을 선택해주세요."}
           onChange={(e) => handleType(e)}
           otherClassName={styles.select}

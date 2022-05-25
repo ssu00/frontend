@@ -51,7 +51,6 @@ function LectureTitle({ token, classData, reviewData, role }) {
         </div>
         <LecturePrice classData={classData} />
         <span className={styles.line} />
-
         <div className={styles.btnBlock}>
           <MenuBtn
             selected={select}
@@ -66,7 +65,6 @@ function LectureTitle({ token, classData, reviewData, role }) {
             onClick={() => setSelect(false)}
           />
         </div>
-
         {select ? (
           <div className={styles.classIntroBlock}>
             {renderHTML(classData?.content)}

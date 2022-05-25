@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./LectureImage.module.scss";
-import { IC_AvatarBg, IC_Enlarge, IC_PersonBlue } from "../../../icons";
+import { IC_PersonBlueBig } from "../../../icons";
 import { LevelToKor } from "../../../utils/class/classLevel";
 import Image from "next/image";
 import router from "next/router";
@@ -33,12 +33,14 @@ function LectureImage({ classData }) {
             }}
           />
         ) : (
-          <IC_PersonBlue
+          <IC_PersonBlueBig
             onClick={() => {
               router.push(
                 `/mentee/mentorDetail/${classData.lectureMentor.mentorId}`
               );
             }}
+            width={72}
+            height={72}
           />
         )}
 
