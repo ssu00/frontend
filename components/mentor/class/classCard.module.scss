@@ -38,7 +38,7 @@
     padding: 9px 17px 16px;
 
     .subject {
-      @include text-style(9px, $gray, 900);
+      @include text-style(9px, $gray, 900, left);
     }
 
     .title {

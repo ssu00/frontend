@@ -1,0 +1,12 @@
+@import "../../styles/main.module.scss";
+
+.noReviews {
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+  @include flexBox(center, center);
+
+  .textCon {
+    color: $sub;
+  }
+}

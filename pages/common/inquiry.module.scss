@@ -41,7 +41,6 @@
 
     .areaBox {
       @include inputBox(220px, 15px 18px);
-
       resize: none;
     }
   }

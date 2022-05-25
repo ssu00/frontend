@@ -4,8 +4,10 @@ export const setCookie = (name, value, option) => {
   return cookies.set(name, value, { ...option });
 };
 
-export const removeCookie = (name, option) => {
-  return cookies.remove(name, { ...option });
+export const removeCookie = () => {
+  cookies.remove("role", { path: "/" });
+  cookies.remove("accessToken", { path: "/" });
+  cookies.remove("refreshToken", { path: "/" });
 };
 
 export const getCookie = (name) => {

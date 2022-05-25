@@ -7,9 +7,9 @@ import ChatRoomTopBar from "../../../../components/mentor/chat/chatRoomTopBar";
 import ChatRoomContentBlock from "../../../../components/mentor/chat/chatRoomContentBlock";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
-import { getMyInfo } from "../../../../core/api/User";
 import { getUserInfo } from "../../../../core/api/User";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { getUserRoleType } from "../../../../core/api/Login";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -18,7 +18,7 @@ export async function getServerSideProps(context) {
   const history = await getMyChatHistory(token, chatRoomId, 1);
 
   const other = await getUserInfo(token, othersId);
-  const my = await getMyInfo();
+  const my = await getUserRoleType(token);
 
   await readChat(chatRoomId);
 
@@ -80,7 +80,7 @@ const Chat = ({ token, history, chatRoomId, other, my }) => {
     <div className={styles.chatRoom}>
       <ChatRoomTopBar
         nickname={other?.nickname}
-        othersRole={my?.role == "MENTEE" ? "멘토" : "멘티"}
+        othersRole={my?.loginType == "ROLE_MENTEE" ? "멘토" : "멘티"}
       />
       <div className={styles.chatContentSection} id="chatContents">
         <div className={styles.chatContents}>
