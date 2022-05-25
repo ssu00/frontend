@@ -58,13 +58,15 @@ const MyPage = ({ token, userInfo, role }) => {
               btnStyle={styles.profileEditBtn}
               textStyle={styles.profileEditBtnText}
             />
-            <IC_Toggle
-              onClick={async () => {
-                const res = await changeType(token);
-                cookieForAuth(res, { loginType: "ROLE_MENTOR" });
-                router.push("/mentor/mypage");
-              }}
-            />
+            {userInfo.role == "MENTOR" && (
+              <IC_Toggle
+                onClick={async () => {
+                  const res = await changeType(token);
+                  cookieForAuth(res, { loginType: "ROLE_MENTOR" });
+                  router.push("/mentor/mypage");
+                }}
+              />
+            )}
           </div>
         </div>
 
@@ -96,6 +98,12 @@ const MyPage = ({ token, userInfo, role }) => {
       <section className={styles.categorySection}>
         <h1 className={styles.title}>계정정보</h1>
         <CategoryBtn text={"내 계정"} />
+        {userInfo.role == "MENTEE" && (
+          <CategoryBtn
+            text={"멘토 등록"}
+            onClick={() => router.push("/mentee/mypage/registerAsMentor")}
+          />
+        )}
         <CategoryBtn text={"내 강의"} />
         <CategoryBtn
           text={"강의 후기"}

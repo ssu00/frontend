@@ -6,7 +6,7 @@ export const signUp = async (user, addr) => {
     data: {
       birthYear: user.birth,
       gender: user.gender == "남자" ? "MALE" : "FEMALE",
-      image: "string",
+      image: null,
       name: user.name,
       nickname: user.nickname,
       password: user.pw,
