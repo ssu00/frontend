@@ -53,7 +53,7 @@ const MyPage = ({ token, userInfo }) => {
 
           <div className={styles.role_name}>
             <div className={styles.mentorTag}>
-              <span>{UserRole(userInfo.role)}</span>
+              <span>멘토</span>
             </div>
             <span className={styles.name}>{userInfo.nickname}</span>
           </div>

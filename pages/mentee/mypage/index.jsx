@@ -58,13 +58,15 @@ const MyPage = ({ token, userInfo, role }) => {
               btnStyle={styles.profileEditBtn}
               textStyle={styles.profileEditBtnText}
             />
-            <IC_Toggle
-              onClick={async () => {
-                const res = await changeType(token);
-                cookieForAuth(res, { loginType: "ROLE_MENTOR" });
-                router.push("/mentor/mypage");
-              }}
-            />
+            {userInfo.role == "MENTOR" && (
+              <IC_Toggle
+                onClick={async () => {
+                  const res = await changeType(token);
+                  cookieForAuth(res, { loginType: "ROLE_MENTOR" });
+                  router.push("/mentor/mypage");
+                }}
+              />
+            )}
           </div>
         </div>
 
