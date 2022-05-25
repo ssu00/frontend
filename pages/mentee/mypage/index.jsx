@@ -30,7 +30,7 @@ const MyPage = ({ token, userInfo, role }) => {
 
   return (
     <section className={styles.mypageSection}>
-      <MyPageTopBar count={alarm.alarmCnt} />
+      <MyPageTopBar count={alarm?.alarmCnt} />
       <section className={styles.profileSection}>
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
@@ -104,7 +104,6 @@ const MyPage = ({ token, userInfo, role }) => {
             onClick={() => router.push("/mentee/mypage/registerAsMentor")}
           />
         )}
-        <CategoryBtn text={"내 강의"} />
         <CategoryBtn
           text={"강의 후기"}
           onClick={() => router.push("/mentee/mypage/menteeReview")}
@@ -121,12 +120,12 @@ const MyPage = ({ token, userInfo, role }) => {
           text={"공지사항"}
           onClick={() => router.push("/mentee/mypage/mypageNotice")}
         />
-        <CategoryBtn text={"이용약관"} />
+        {/* <CategoryBtn text={"이용약관"} /> */}
         <CategoryBtn
           text={"문의하기"}
           onClick={() => router.push("/common/inquiry")}
         />
-        <CategoryBtn text={"버전정보"} />
+        {/* <CategoryBtn text={"버전정보"} /> */}
       </section>
 
       <BottomTab num={[0, 0, 0, 1]} role={role} />

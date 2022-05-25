@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import router from "next/router";
 import classNames from "classnames";
 import styles from "./login.module.scss";
@@ -8,7 +8,7 @@ import {
   basicBtnStyle,
 } from "../../components/common";
 import { login, getUserRoleType } from "../../core/api/Login";
-import { cookieForAuth } from "../../utils/cookie";
+import { cookieForAuth, removeCookie } from "../../utils/cookie";
 import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../icons";
 import { NameLogo } from "../../components/common/icons/nameLogo";
 
@@ -16,6 +16,10 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+
+  // useEffect(() => {
+  //   removeCookie(); //배포할 때 주석 풀기
+  // }, []);
 
   const checkAccount = async () => {
     const res = await login(username, password);

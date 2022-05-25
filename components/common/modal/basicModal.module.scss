@@ -2,6 +2,7 @@
 .roundModal {
   @extend %modal-base;
   height: 224px;
+  white-space: pre-line;
   border-radius: 10px;
 
   .closeIcon circle {
@@ -10,8 +11,8 @@
 
   p {
     @include text-style(17px, $sub, 500, center);
+    width: 200px;
     margin: 0 0 16px;
-    white-space: pre-line;
   }
 
   .btnStyle {
@@ -27,6 +28,7 @@
 .squareModal {
   @extend %modal-base;
   height: 175px;
+  white-space: pre-line;
   border-radius: 3px;
   box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.25);
 
@@ -36,8 +38,8 @@
 
   p {
     @include text-style(14px, $sub, 400, center);
+    width: 250px;
     margin: 0 0 16px;
-    white-space: pre-line;
   }
 
   .btnStyle {

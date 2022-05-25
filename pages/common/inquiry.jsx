@@ -25,8 +25,8 @@ export const getServerSideProps = async (context) => {
 
 const Inquiry = ({ token, role }) => {
   const [inquiryInfo, setInquiryInfo] = useState({
-    content: "TestOne",
-    title: "문의합니다",
+    content: "",
+    title: "",
     type: "ERROR",
   });
   const [errMsg, setErrMsg] = useState("");
@@ -115,7 +115,12 @@ const Inquiry = ({ token, role }) => {
       </p>
       <BottomBlueBtn
         text={"문의"}
-        disabled={!(errMsg == "")}
+        disabled={
+          !(errMsg == "") ||
+          inquiryInfo.content.length < 10 ||
+          inquiryInfo.content.length > 1500 ||
+          inquiryInfo.title.length > 20
+        }
         onClick={async () => {
           const res = await inquire(token, inquiryInfo);
           if (res.status == 201)

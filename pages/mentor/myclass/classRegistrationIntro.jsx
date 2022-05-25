@@ -41,11 +41,11 @@ const ClassRegistrationIntro = ({}) => {
           </button>
         </div>
 
-        <div>
+        {/* <div>
           <h3 className={styles.smallHeading}>
             심사 요청한 강의 총 {fakeData.testingcnt}개
           </h3>
-        </div>
+        </div> */}
         <BottomTab num={[1, 0, 0, 0]} role={"ROLE_MENTOR"} />
       </section>
     </>

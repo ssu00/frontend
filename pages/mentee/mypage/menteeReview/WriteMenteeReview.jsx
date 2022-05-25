@@ -2,9 +2,9 @@ import router from "next/router";
 import { useState, useEffect } from "react";
 import { IC_Menu } from "../../../../icons";
 import styles from "./menteeReview.module.scss";
-import { NoWriteReviews } from "./NoWriteReviews";
 import { Rating } from "../../../../components/mentor/class/rating";
 import OptionModal from "../../../../components/mentee/menteeModal/OptionModal";
+import NoWrite from "../../../../components/mentee/NoWrite";
 import { deleteMenteeReivew } from "../../../../core/api/Mentee";
 
 const WriteMenteeReview = ({ menteeReviews, token }) => {
@@ -131,7 +131,7 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
           })}
         </>
       ) : (
-        <NoWriteReviews text={"작성한 후기가 없습니다."} />
+        <NoWrite text={"작성한 후기가 없습니다."} />
       )}
     </>
   );

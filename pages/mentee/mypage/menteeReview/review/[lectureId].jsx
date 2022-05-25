@@ -1,7 +1,6 @@
 import React from "react";
 import * as cookie from "cookie";
 import { useState } from "react";
-import { useEffect } from "react";
 import {
   BottomBlueBtn,
   ModalWithBackground,
@@ -19,16 +18,16 @@ import ConfirmModal from "../../../../../components/mentee/ConfirmModal";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const reviewId = context.query.reviewId;
+  const lectureId = context.query.lectureId;
 
-  const unreviewedLecture = await getEnrolledClass(token, reviewId);
+  const unreviewedLecture = await getEnrolledClass(token, lectureId);
 
   return {
-    props: { token, reviewId, unreviewedLecture },
+    props: { token, lectureId, unreviewedLecture },
   };
 }
 
-const WriteMentee = ({ token, reviewId, unreviewedLecture }) => {
+const WriteMentee = ({ token, lectureId, unreviewedLecture }) => {
   const [modal, setModal] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
@@ -39,6 +38,7 @@ const WriteMentee = ({ token, reviewId, unreviewedLecture }) => {
     setContent(e.target.value);
   };
 
+  console.log(unreviewedLecture, "unreviewedLecture");
   return (
     <>
       <section className={styles.contentSection}>
@@ -56,7 +56,7 @@ const WriteMentee = ({ token, reviewId, unreviewedLecture }) => {
               confirmBtn={async () => {
                 const res = await writeReviewAPI(
                   token,
-                  reviewId,
+                  lectureId,
                   content,
                   score
                 );

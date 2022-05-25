@@ -4,7 +4,7 @@ import classNames from "classnames";
 import BasicBtn from "../../../../components/common/button/basicBtn";
 import { basicBtnStyle } from "../../../../components/common";
 import btn from "../../../../pages/start.module.scss";
-import { NoWriteReviews } from "./NoWriteReviews";
+import NoWrite from "../../../../components/mentee/NoWrite";
 import router from "next/router";
 
 const UnWriteMenteeReview = ({ unreviewedMentee }) => {
@@ -84,7 +84,7 @@ const UnWriteMenteeReview = ({ unreviewedMentee }) => {
           })}
         </>
       ) : (
-        <NoWriteReviews text={"작성 가능한 후기가 없습니다. "} />
+        <NoWrite text={"작성 가능한 후기가 없습니다. "} />
       )}
     </>
   );

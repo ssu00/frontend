@@ -19,14 +19,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const ProfileEdit = ({ token, userInfo }) => {
-  const [profile, setProfile] = useState("");
   const [err, setErr] = useState("");
-
-  useEffect(() => {
-    if (userInfo.image == null) setProfile("/samples/mentor.svg");
-    else setProfile(userInfo?.image);
-    console.log("userinfo=", userInfo);
-  }, []);
 
   const onChangeFile = async (e) => {
     const file = e.target.files[0];
@@ -58,12 +51,17 @@ const ProfileEdit = ({ token, userInfo }) => {
         />
         <label htmlFor="profile">
           <div className={styles.img_icon}>
-            <Image
-              src={profile ? profile : "/samples/mentor.svg"}
-              width={100}
-              height={100}
-              className={styles.profileImage}
-            />
+            {userInfo.image ? (
+              <Image
+                src={userInfo.image}
+                width={100}
+                height={100}
+                className={styles.profileImage}
+                alt="profile"
+              />
+            ) : (
+              <IC_PersonBlueBig />
+            )}
             <IC_EditFill width={19} height={19} className={styles.editIcon} />
           </div>
         </label>
@@ -87,7 +85,7 @@ const ProfileEdit = ({ token, userInfo }) => {
           text={"로그아웃"}
           arrow={true}
           onClick={() => {
-            removeCookie("accessToken", { path: "/" });
+            removeCookie();
             router.push("/");
           }}
         />

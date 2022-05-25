@@ -79,6 +79,7 @@ const MyPage = ({ token, userInfo }) => {
           <button
             type="button"
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
+            onClick={() => router.push("/mentor/myclass/myClassList")}
           >
             <IC_Bookmark />
             <span className={styles.bigBtnText}>강의 목록</span>
