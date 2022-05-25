@@ -17,7 +17,7 @@ export const lectureRegister = async ({ form, token }) => {
     thumbnail: form.image,
   };
 
-  const res = await Api({
+  return await Api({
     method: METHOD.POST,
     url: "/lectures",
     headers: { Authorization: token },
