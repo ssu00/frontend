@@ -37,17 +37,14 @@ const LectureBlock = ({ lecture }) => {
             styles.btnForlectureBlock,
             basicBtnStyle.btn_bg_color
           )}
+          onClick={() =>
+            router.push({
+              pathname: `/mentee/mypage/menteeReview/review/${lecture.lectureId}`,
+            })
+          }
         >
           <IC_WriteReview widht={14} height={14} className={styles.btnIcon} />
-          <span
-            onClick={() =>
-              router.push({
-                pathname: `/mentee/mypage/menteeReview/review/${lecture.lectureId}`,
-              })
-            }
-          >
-            후기작성
-          </span>
+          <span>후기작성</span>
         </button>
       </div>
     </div>

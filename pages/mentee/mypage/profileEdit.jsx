@@ -3,11 +3,12 @@ import Image from "next/image";
 import * as cookie from "cookie";
 import styles from "./profileEdit.module.scss";
 import { BottomTab, TopBar, CategoryBtn } from "../../../components/common";
-import { IC_EditFill } from "../../../icons";
+import { IC_EditFill, IC_PersonBlueBig } from "../../../icons";
 import { getMyInfo } from "../../../core/api/User";
 import { registerProfileImg, uploadImage } from "../../../core/api/Image";
 import router from "next/router";
 import RefreshPage from "../../../utils/refreshPage";
+import { removeCookie } from "../../../utils/cookie";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -18,14 +19,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const ProfileEdit = ({ token, userInfo }) => {
-  const [profile, setProfile] = useState("");
   const [err, setErr] = useState("");
-
-  useEffect(() => {
-    if (userInfo.image == null) setProfile("/samples/lecture.png");
-    else setProfile(userInfo?.image);
-    console.log("userinfo=", userInfo);
-  }, []);
 
   const onChangeFile = async (e) => {
     const file = e.target.files[0];
@@ -56,13 +50,18 @@ const ProfileEdit = ({ token, userInfo }) => {
         />
         <label htmlFor="profile">
           <div className={styles.img_icon}>
-            <Image
-              src={profile ? profile : "/samples/lecture.png"}
-              width={100}
-              height={100}
-              className={styles.profileImage}
-              alt=""
-            />
+            {userInfo.image ? (
+              <Image
+                src={userInfo.image}
+                width={100}
+                height={100}
+                className={styles.profileImage}
+                alt="profile"
+              />
+            ) : (
+              <IC_PersonBlueBig />
+            )}
+
             <IC_EditFill width={19} height={19} className={styles.editIcon} />
           </div>
         </label>
@@ -81,7 +80,14 @@ const ProfileEdit = ({ token, userInfo }) => {
           arrow={true}
           onClick={() => router.push("/common/changePW")}
         />
-        <CategoryBtn text={"로그아웃"} arrow={true} />
+        <CategoryBtn
+          text={"로그아웃"}
+          arrow={true}
+          onClick={() => {
+            removeCookie();
+            router.push("/");
+          }}
+        />
         <CategoryBtn
           text={"회원탈퇴"}
           arrow={true}

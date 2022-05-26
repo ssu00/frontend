@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as cookie from "cookie";
 import router from "next/router";
 import {
@@ -26,7 +26,15 @@ const mypageMenteeReview = ({ token, unreviewedMentee, menteeReviews }) => {
 
   const onClick = (idx) => {
     setTabCurrent(idx);
+    localStorage.setItem("tab current", JSON.stringify(idx));
   };
+
+  useEffect(() => {
+    const tab = JSON.parse(localStorage.getItem("tab current"));
+    if (tab) {
+      setTabCurrent(tab);
+    }
+  }, []);
 
   return (
     <>

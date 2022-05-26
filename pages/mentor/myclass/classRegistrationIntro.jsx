@@ -35,17 +35,17 @@ const ClassRegistrationIntro = ({}) => {
           >
             <p>
               새로운 강의를 등록하고
-              <br /> 더 많은 튜티들을 만나보세요.
+              <br /> 더 많은 멘티들을 만나보세요.
             </p>
             <IC_PlusCircle w="20" h="20" />
           </button>
         </div>
 
-        <div>
+        {/* <div>
           <h3 className={styles.smallHeading}>
             심사 요청한 강의 총 {fakeData.testingcnt}개
           </h3>
-        </div>
+        </div> */}
         <BottomTab num={[1, 0, 0, 0]} role={"ROLE_MENTOR"} />
       </section>
     </>

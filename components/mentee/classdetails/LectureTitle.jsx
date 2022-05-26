@@ -42,13 +42,15 @@ function LectureTitle({ token, classData, reviewData, role }) {
               />
               <span>{score}</span>
             </div>
-            <a href="#">{`${classData.reviewCount} 개의 후기`}</a>
+            <span
+              className={styles.reviewCountStyle}
+              onClick={() => setSelect(false)}
+            >{`${classData.reviewCount} 개의 후기`}</span>
           </div>
           <div className={styles.content}>{renderHTML(classData?.content)}</div>
         </div>
         <LecturePrice classData={classData} />
         <span className={styles.line} />
-
         <div className={styles.btnBlock}>
           <MenuBtn
             selected={select}
@@ -63,7 +65,6 @@ function LectureTitle({ token, classData, reviewData, role }) {
             onClick={() => setSelect(false)}
           />
         </div>
-
         {select ? (
           <div className={styles.classIntroBlock}>
             {renderHTML(classData?.content)}

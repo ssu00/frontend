@@ -1,5 +1,4 @@
-import { useState, useEffect, useRef } from "react";
-
+import { useState, useEffect, useRef, useContext } from "react";
 import * as cookie from "cookie";
 import styles from "./notification.module.scss";
 import { TopBar } from "../../../components/common";
@@ -12,23 +11,33 @@ import {
   deleteNotification,
 } from "../../../core/api/Notification";
 import router from "next/router";
+import { sockContext } from "../../_app";
+import { getMyInfo } from "../../../core/api/User";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const notiData = await getMyNotification(token, 1);
+
   await checkNotification();
+  const my = await getMyInfo();
 
   return {
-    props: { token, notiData },
+    props: { token, notiData, my },
   };
 }
 
-const Notification = ({ token, notiData }) => {
+const Notification = ({ token, notiData, my }) => {
   const [pageNum, setPageNum] = useState(1);
   const [allNoti, setAllNoti] = useState(notiData.content);
   const [last, setLast] = useState(notiData.last);
   const [dataLen, setDataLen] = useState(10);
   const deleteBtn = useRef();
+  const alarm = useContext(sockContext);
+  console.log("alarm===================", alarm.alarmContents);
+  useEffect(() => {
+    if (alarm.alarmContents?.content != "")
+      setAllNoti((prev) => [alarm.alarmContents, ...prev]);
+  }, [alarm]);
 
   const GetMoreNoti = async () => {
     const moreNoti = await getMyNotification(token, pageNum);
@@ -62,21 +71,21 @@ const Notification = ({ token, notiData }) => {
             hasMore={!last}
           >
             {allNoti.map((data, i) => {
-              console.log(data);
               return (
                 <NotificationBlock
                   key={i}
-                  title={data.type}
-                  date={data.createdAt.substring(0, 10)}
-                  content={data.content}
+                  // title={data?.type}
+                  title={data?.notificationId}
+                  date={data?.createdAt?.substring(0, 10)}
+                  content={data?.content}
                   deleteAlarm={async () => {
                     const res = await deleteNotification(
                       token,
-                      data.notificationId
+                      data?.notificationId
                     );
                     if (res == 200) {
                       const allNoti2 = allNoti.filter(
-                        (i) => i.notificationId != data.notificationId
+                        (i) => i.notificationId != data?.notificationId
                       );
                       setAllNoti(allNoti2);
                     }

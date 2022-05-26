@@ -10,6 +10,7 @@ import {
   IC_TalkDots,
 } from "../../../icons";
 import { basicBtnStyle } from "../../common";
+import { requestChatToMentee } from "../../../core/api/Chat";
 
 const MenteeListLine = ({ data, setOpen }) => {
   return (
@@ -17,14 +18,14 @@ const MenteeListLine = ({ data, setOpen }) => {
       <div className={styles.profileImg}>
         <Image src={"/samples/mentee.png"} width={32} height={32} />
       </div>
-      <span className={styles.menteeName}>{data?.name} 튜티</span>
+      <span className={styles.menteeName}>{data?.name} 멘티</span>
       {/* <span className={styles.classCnt}>{"1"}개의 강의</span> */}
       <IC_ChevronDownS className={styles.arrowBtn} />
     </button>
   );
 };
 
-const MenteeListBlock = ({ data, setOpen, baseData, setModal }) => {
+const MenteeListBlock = ({ token, data, setOpen, baseData, setModal }) => {
   const [menteeLecture, setMenteeLecture] = useState([]);
   const [systems, setSystems] = useState("");
   const GetMenteeLectureInfo = async () => {
@@ -58,7 +59,7 @@ const MenteeListBlock = ({ data, setOpen, baseData, setModal }) => {
         <div className={styles.profileImg}>
           <Image src={"/samples/mentee.png"} width={32} height={32} />
         </div>
-        <span className={styles.menteeName}>{data?.name} 튜티</span>
+        <span className={styles.menteeName}>{data?.name} 멘티</span>
         <IC_ChevronDownS className={styles.arrowBtnUp} />
       </button>
 
@@ -85,6 +86,17 @@ const MenteeListBlock = ({ data, setOpen, baseData, setModal }) => {
             styles.btnForMenteeBlock,
             basicBtnStyle.btn_bg_color
           )}
+          onClick={async () => {
+            const res = await requestChatToMentee(token, data.menteeId);
+            if (!isNaN(res)) {
+              router.push({
+                pathname: `/common/chat/chatDetail/${res}`,
+                query: { other: data?.menteeId },
+              });
+            } else {
+              console.log("채팅 요청 실패");
+            }
+          }}
         >
           <IC_TalkDots width={16} height={16} className={styles.btnIcon} />
           <span>대화 요청</span>
@@ -123,6 +135,7 @@ const DecideOpenOrClose = ({ data, token, closed, page, setModal }) => {
 
   return open ? (
     <MenteeListBlock
+      token={token}
       data={data}
       setOpen={() => setOpen(!open)}
       baseData={dataForMenteeLecture}

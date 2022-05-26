@@ -20,12 +20,25 @@ import { getMyInfo } from "../../../core/api/User";
 import Role from "../../../components/common/tag/role";
 import { changeType } from "../../../core/api/Login";
 import { cookieForAuth, setCookie } from "../../../utils/cookie";
+import { useContext } from "react";
+import { sockContext } from "../../_app";
 
+<<<<<<< HEAD
 const MyPage = ({ userInfo, role, token }) => {
   console.log(role);
   return (
     <section className={styles.mypageSection}>
       <MyPageTopBar token={token} />
+=======
+const MyPage = ({ token, userInfo, role }) => {
+  const alarm = useContext(sockContext);
+  console.log("alarm===================", alarm);
+  console.log("alarm===================", alarm.alarmCnt);
+
+  return (
+    <section className={styles.mypageSection}>
+      <MyPageTopBar count={alarm?.alarmCnt} />
+>>>>>>> 3e25f68fc997c99f073ccdc5bd3711e16b367954
       <section className={styles.profileSection}>
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
@@ -53,13 +66,15 @@ const MyPage = ({ userInfo, role, token }) => {
               btnStyle={styles.profileEditBtn}
               textStyle={styles.profileEditBtnText}
             />
-            <IC_Toggle
-              onClick={async () => {
-                const res = await changeType(token);
-                cookieForAuth(res, { loginType: "ROLE_MENTOR" });
-                router.push("/mentor/mypage");
-              }}
-            />
+            {userInfo.role == "MENTOR" && (
+              <IC_Toggle
+                onClick={async () => {
+                  const res = await changeType(token);
+                  cookieForAuth(res, { loginType: "ROLE_MENTOR" });
+                  router.push("/mentor/mypage");
+                }}
+              />
+            )}
           </div>
         </div>
 
@@ -91,7 +106,12 @@ const MyPage = ({ userInfo, role, token }) => {
       <section className={styles.categorySection}>
         <h1 className={styles.title}>계정정보</h1>
         <CategoryBtn text={"내 계정"} />
-        <CategoryBtn text={"내 강의"} />
+        {userInfo.role == "MENTEE" && (
+          <CategoryBtn
+            text={"멘토 등록"}
+            onClick={() => router.push("/mentee/mypage/registerAsMentor")}
+          />
+        )}
         <CategoryBtn
           text={"강의 후기"}
           onClick={() => router.push("/mentee/mypage/menteeReview")}
@@ -108,12 +128,12 @@ const MyPage = ({ userInfo, role, token }) => {
           text={"공지사항"}
           onClick={() => router.push("/mentee/mypage/mypageNotice")}
         />
-        <CategoryBtn text={"이용약관"} />
+        {/* <CategoryBtn text={"이용약관"} /> */}
         <CategoryBtn
           text={"문의하기"}
           onClick={() => router.push("/common/inquiry")}
         />
-        <CategoryBtn text={"버전정보"} />
+        {/* <CategoryBtn text={"버전정보"} /> */}
       </section>
 
       <BottomTab num={[0, 0, 0, 1]} role={role} />

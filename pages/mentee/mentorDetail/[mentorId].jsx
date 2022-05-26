@@ -5,7 +5,7 @@ import { BottomTab, MenuBtn, TopBar } from "../../../components/common";
 import Image from "next/image";
 import MentorInfo from "./MentorInfo";
 import MentorLecture from "./MentorLecture";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import router from "next/router";
 import MentorReview from "./MentorReview";
 
@@ -31,10 +31,18 @@ const MentorCon = ({ mentorData, lectureListData, params, token }) => {
 
   const onClick = (idx) => {
     setTabCurrent(idx);
+    localStorage.setItem("mentor tab", JSON.stringify(idx));
   };
 
   const tabMenu = ["멘토", "강의내역", "멘티 후기", ""];
   const user = mentorData.user;
+
+  useEffect(() => {
+    const tab = JSON.parse(localStorage.getItem("mentor tab"));
+    if (tab) {
+      setTabCurrent(tab);
+    }
+  }, []);
 
   return (
     <section className={styles.mentorIntroductionSection}>

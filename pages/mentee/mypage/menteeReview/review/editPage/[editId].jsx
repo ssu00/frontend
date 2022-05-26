@@ -36,15 +36,13 @@ const edit = ({ token, editId, viewLecture }) => {
   useEffect(() => {
     setReviews(viewLecture);
     setScore(reviews.score);
-  }, []);
+  }, [reviews]);
 
   const onChange = (e) => {
     setContent(e.target.value);
   };
 
   const lecture = reviews.lecture;
-
-  console.log(token);
 
   return (
     <>
@@ -96,7 +94,7 @@ const edit = ({ token, editId, viewLecture }) => {
           <TopBar
             text={"후기 수정"}
             onClick={() => {
-              router.push("/mentee/mypage/menteeReview");
+              router.back();
             }}
           />
         </section>
@@ -174,7 +172,7 @@ const edit = ({ token, editId, viewLecture }) => {
                 블라인드 처리 됩니다.
               </li>
               <li>
-                최종 등록된 후기는 공개되어 튜터랩 사용자가 조회 가능하며,
+                최종 등록된 후기는 공개되어 멘토릿지 사용자가 조회 가능하며,
                 댓글이 등록될 수 있습니다.
               </li>
             </ul>

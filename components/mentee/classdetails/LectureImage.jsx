@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./LectureImage.module.scss";
-import { IC_AvatarBg, IC_Enlarge } from "../../../icons";
+import { IC_PersonBlueBig } from "../../../icons";
 import { LevelToKor } from "../../../utils/class/classLevel";
 import Image from "next/image";
 import router from "next/router";
@@ -19,22 +19,31 @@ function LectureImage({ classData }) {
         <span>{LevelToKor(classData.difficulty)}</span>
       </div>
       <div className={styles.mentorProfileBlock}>
-        <Image
-          src={
-            classData.lectureMentor.image
-              ? classData.lectureMentor.image
-              : "/samples/lecture.png"
-          }
-          width={72}
-          height={72}
-          className={classNames(styles.mentorImg, styles.pointer)}
-          alt="avatar"
-          onClick={() => {
-            router.push(
-              `/mentee/mentorDetail/${classData.lectureMentor.mentorId}`
-            );
-          }}
-        />
+        {classData.lectureMentor.image ? (
+          <Image
+            src={classData.lectureMentor.image}
+            width={72}
+            height={72}
+            className={classNames(styles.mentorImg, styles.pointer)}
+            alt="avatar"
+            onClick={() => {
+              router.push(
+                `/mentee/mentorDetail/${classData.lectureMentor.mentorId}`
+              );
+            }}
+          />
+        ) : (
+          <IC_PersonBlueBig
+            onClick={() => {
+              router.push(
+                `/mentee/mentorDetail/${classData.lectureMentor.mentorId}`
+              );
+            }}
+            width={72}
+            height={72}
+          />
+        )}
+
         <span className={styles.mentorName}>
           <span className={styles.role}>멘토 </span>
           {classData.lectureMentor.nickname}

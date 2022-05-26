@@ -6,3 +6,12 @@ export const enrollClass = async (token, params) => {
     headers: { Authorization: token },
   });
 };
+
+export const getEnrolledClass = async (token, enrollmentId) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/mentees/my-enrollments/${enrollmentId}/lecture`,
+    headers: { Authorization: token },
+  });
+  return res.data;
+};

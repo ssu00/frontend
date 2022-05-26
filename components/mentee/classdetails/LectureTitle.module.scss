@@ -55,7 +55,7 @@
           color: #949bad;
         }
       }
-      a {
+      .reviewCountStyle {
         font-family: Noto Sans KR;
         font-style: normal;
         font-weight: normal;
@@ -64,6 +64,7 @@
         text-align: center;
         margin-left: 17px;
         border-bottom: 1px solid #6595f4;
+        cursor: pointer;
 
         /* MAIN */
 
