@@ -21,12 +21,8 @@ import Role from "../../../components/common/tag/role";
 import { changeType } from "../../../core/api/Login";
 import { cookieForAuth, setCookie } from "../../../utils/cookie";
 
-<<<<<<< HEAD
-const MyPage = ({ userInfo, role , token }) => {
+const MyPage = ({ userInfo, role, token }) => {
   console.log(role);
-=======
-const MyPage = ({ token, userInfo, role }) => {
->>>>>>> 13332abc35defd739b541e6fd6b9c5aed2987904
   return (
     <section className={styles.mypageSection}>
       <MyPageTopBar token={token} />
@@ -132,11 +128,7 @@ export async function getServerSideProps(context) {
   const userInfo = await getMyInfo(parsedCookies.accessToken);
 
   return {
-<<<<<<< HEAD
-    props: { userInfo, role , token },
-=======
-    props: { token, userInfo, role },
->>>>>>> 13332abc35defd739b541e6fd6b9c5aed2987904
+    props: { userInfo, role, token },
   };
 }
 

@@ -8,12 +8,11 @@ import { useState } from "react";
 import { setCookie } from "../../../utils/cookie";
 import ChangeRoleType from "../../../core/api/User/changeRole";
 
-const MyPageTopBar = ({ count , token }) => {
+const MyPageTopBar = ({ count, token }) => {
   const [checked, setChecked] = useState(false);
 
-  const handleChange = async(event) => {
-
-    const res = await ChangeRoleType(token)
+  const handleChange = async (event) => {
+    const res = await ChangeRoleType(token);
     console.log(token);
     // if (event.target.checked) {
     //   setCookie("role", "ROLE_MENTEE", {
@@ -28,12 +27,12 @@ const MyPageTopBar = ({ count , token }) => {
   return (
     <section className={styles.mypageTopBar}>
       <h1 className={styles.title}>마이페이지</h1>
-      <FormControlLabel
+      {/* <FormControlLabel
         checked={checked}
         onChange={handleChange}
         control={<Switch />}
         label={checked ? "멘티" : "멘토"}
-      />
+      /> */}
       <div className={styles.btns}>
         <button
           type="button"

@@ -66,8 +66,6 @@ const Home = ({ classes, role, token }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [value, setValue] = useState("1");
 
-  console.log(token);
-
   // 필터 컨버팅
   const difficult = difficultyType.map((el) => converDifficulty(el));
   const group = isGroup.map((el) => convertGroup(el));

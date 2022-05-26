@@ -5,7 +5,6 @@ import { IC_CommentBubble, IC_HeartRedFill, IC_Report } from "../../../icons";
 import styles from "./MainBoard.module.scss";
 
 const MainBoard = ({ postData, updateLike }) => {
-  console.log(postData);
   return (
     <div>
       <div className={styles.profileContainer}>
