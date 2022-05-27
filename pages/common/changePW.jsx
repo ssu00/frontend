@@ -4,6 +4,7 @@ import { BottomBlueBtn, TopBar, BasicInputBox } from "../../components/common";
 import * as cookie from "cookie";
 import { changePassword } from "../../core/api/User";
 import router from "next/router";
+import { ModalWithBackground, BasicModal } from "../../components/common";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -31,6 +32,8 @@ const ChangePW = ({ token, role }) => {
     errorMsg: "",
   });
 
+  const [modal, setModal] = useState(false);
+
   const goBack = () => {
     return role === "ROLE_MENTEE"
       ? router.push("/mentee/mypage/profileEdit")
@@ -38,7 +41,6 @@ const ChangePW = ({ token, role }) => {
   };
 
   useEffect(() => {
-    setResult({ success: false, error: false, errorMsg: "" });
     if (
       pw.newPassword == "" ||
       pw.newPasswordConfirm == "" ||
@@ -58,6 +60,26 @@ const ChangePW = ({ token, role }) => {
 
   return (
     <section className={styles.changePW}>
+      {modal && (
+        <ModalWithBackground
+          setModal={setModal}
+          prevent={result.success ? true : false}
+        >
+          <BasicModal
+            notice={
+              result.success
+                ? "비밀번호 변경이 완료되었습니다."
+                : result.errorMsg
+            }
+            btnText={"확인"}
+            modalStyle={"square"}
+            btnClick={() => {
+              setModal(false);
+              if (result.success == true) router.back();
+            }}
+          />
+        </ModalWithBackground>
+      )}
       <TopBar text={"비밀번호 변경"} onClick={goBack} />
       <p className={styles.text}>
         주기적인 비밀번호 변경을 통해
@@ -87,26 +109,23 @@ const ChangePW = ({ token, role }) => {
       </section>
       <BottomBlueBtn
         text={"저장"}
-        disabled={!(errMsg == "")}
         onClick={async () => {
-          const res = await changePassword(token, pw);
-          if (res.status == 200)
-            setResult({ success: true, error: false, errorMsg: "" });
-          else
-            setResult({
-              success: false,
-              error: true,
-              errorMsg: res.data.errorDetails[0],
-            });
+          if (errMsg !== "") {
+            setResult({ success: false, error: true, errorMsg: errMsg });
+          } else {
+            const res = await changePassword(token, pw);
+            if (res.status == 200)
+              setResult({ success: true, error: false, errorMsg: "" });
+            else
+              setResult({
+                success: false,
+                error: true,
+                errorMsg: res.data.errorDetails[0],
+              });
+          }
+          setModal(true);
         }}
       />
-      <span className={styles.msg}>
-        {errMsg}
-        {result.errorMsg}
-      </span>
-      <span className={styles.successMsg}>
-        {result.success && "비밀번호 변경이 완료되었습니다."}
-      </span>
     </section>
   );
 };
