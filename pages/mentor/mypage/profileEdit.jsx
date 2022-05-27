@@ -9,6 +9,7 @@ import { IC_EditFill } from "../../../icons";
 import { uploadImage, registerProfileImg } from "../../../core/api/Image";
 import Router from "next/router";
 import { removeCookie } from "../../../utils/cookie";
+import { IC_PersonBlueBig } from "../../../icons";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;

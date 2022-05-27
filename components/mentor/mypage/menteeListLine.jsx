@@ -18,7 +18,7 @@ const MenteeListLine = ({ data, setOpen }) => {
       <div className={styles.profileImg}>
         <Image src={"/samples/mentee.png"} width={32} height={32} />
       </div>
-      <span className={styles.menteeName}>{data?.name} 멘티</span>
+      <span className={styles.menteeName}>{data?.nickname} 멘티</span>
       {/* <span className={styles.classCnt}>{"1"}개의 강의</span> */}
       <IC_ChevronDownS className={styles.arrowBtn} />
     </button>
@@ -59,7 +59,7 @@ const MenteeListBlock = ({ token, data, setOpen, baseData, setModal }) => {
         <div className={styles.profileImg}>
           <Image src={"/samples/mentee.png"} width={32} height={32} />
         </div>
-        <span className={styles.menteeName}>{data?.name} 멘티</span>
+        <span className={styles.menteeName}>{data?.nickname} 멘티</span>
         <IC_ChevronDownS className={styles.arrowBtnUp} />
       </button>
 
