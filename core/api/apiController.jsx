@@ -21,18 +21,19 @@ myAxios.interceptors.response.use(
     console.log("non-err response================", response);
     return response;
   },
-  function async(error) {
-    console.log("err response================", error);
+  async function (error) {
+    console.log("err response================", error.response);
     // if (
     //   error.response.status == 401 &&
     //   error.response.message == "Token Expired"
     // ) {
     //   console.log("token expired");
-    //   // const data = await axios.post('/refresh-token',{
-    //   //   ['X-Access-Token']:getCookie("accessToken"),
-    //   //   ['X-Refresh-Token']:getCookie("refreshToken")
-    //   // });
-    //   // cookieForAuth(data,getCookie("role"));
+    //   const data = await axios.post("/refresh-token", {
+    //     ["X-Access-Token"]: getCookie("accessToken"),
+    //     ["X-Refresh-Token"]: getCookie("refreshToken"),
+    //     role: getCookie("role"),
+    //   });
+    //   cookieForAuth(data, getCookie("role"));
     // }
     return error.response;
   }

@@ -18,7 +18,7 @@ const ChatPreview = ({ chatData, othersRole }) => {
     if (sentAt != undefined) {
       ConvertTime(sentAt, setConverted);
     }
-  }, []);
+  }, [chatData.lastMessage]);
 
   const nickname =
     othersRole == "멘티" ? chatData.menteeNickname : chatData.mentorNickname;
@@ -39,7 +39,7 @@ const ChatPreview = ({ chatData, othersRole }) => {
     >
       <div className={styles.profileImg}>
         {userImg == null ? (
-          <IC_PersonBlue width={56} height={56} className={styles.person}/>
+          <IC_PersonBlue width={56} height={56} className={styles.person} />
         ) : (
           <Image src={userImg} width={56} height={56} />
         )}

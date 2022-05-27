@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import wrapper from "../core/redux/store";
 import "../styles/globals.css";
 import axios from "axios";
@@ -9,30 +9,14 @@ import router from "next/router";
 import "nprogress/nprogress.css";
 import Loading from "../components/common/Loading";
 import myAxios from "../core/api/apiController";
-import SockJS from "sockjs-client";
-import Stomp from "stompjs";
 import { getMyInfo } from "../core/api/User";
 import { getUncheckedNotificationCount } from "../core/api/Notification";
+import { allChatRooms } from "../core/api/Chat";
+import SocketProvider from "../core/provider";
 
-let alarmSock = new SockJS("http://13.124.128.220:8080/ws");
-let alarmWs = Stomp.over(alarmSock);
-export const sockContext = createContext();
-function MyApp({ my, uncheckedCnt, Component, pageProps }) {
+function MyApp({ my, uncheckedCnt, myChatRooms, Component, pageProps }) {
   const [loading, setLoading] = useState(false);
-  const [alarmContents, setAlarmContents] = useState();
-  const [alarmCnt, setAlarmCnt] = useState(uncheckedCnt);
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
-
-  useEffect(() => {
-    alarmWs?.connect({}, () => {
-      alarmWs?.subscribe(`/sub/notification/${my.userId}`, (data) => {
-        console.log("this is noti==================", data);
-        const newMessage = JSON.parse(data.body);
-        setAlarmContents(newMessage);
-        setAlarmCnt((prev) => prev + 1);
-      });
-    });
-  }, []);
 
   useEffect(() => {
     const start = () => {
@@ -59,12 +43,13 @@ function MyApp({ my, uncheckedCnt, Component, pageProps }) {
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
         <meta property="og:title" content={"멘토릿지"} />
       </Head>
-      <sockContext.Provider
-        value={{ alarmContents: alarmContents, alarmCnt: alarmCnt }}
+      <SocketProvider
+        my={my}
+        uncheckedCnt={uncheckedCnt}
+        myChatRooms={myChatRooms}
       >
         <Component {...pageProps} />
-      </sockContext.Provider>
-      {/* <Component {...pageProps} access={accessToken} refresh={refreshToken} /> */}
+      </SocketProvider>
     </>
   );
 }
@@ -83,8 +68,8 @@ MyApp.getInitialProps = async (context) => {
   myAxios.defaults.headers.common["Authorization"] = accessToken;
   const my = await getMyInfo();
   const uncheckedCnt = await getUncheckedNotificationCount(accessToken);
-  return { my, uncheckedCnt };
-  // return { accessToken, refreshToken };
+  const myChatRooms = await allChatRooms();
+  return { my, uncheckedCnt, myChatRooms };
 };
 
 export default wrapper.withRedux(MyApp);

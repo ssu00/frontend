@@ -6,3 +6,11 @@ export const getMyChatRooms = async () => {
   });
   return res.data;
 };
+
+export const allChatRooms = async () => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/chat/rooms/all`,
+  });
+  return res.data;
+};
