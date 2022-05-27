@@ -7,6 +7,7 @@ import { BottomBlueBtn, TopBar } from "../../../components/common";
 import InfoEditBox from "../../../components/mentor/mypage/infoEditBox";
 import ChangeObject from "../../../utils/changeObject";
 import { registerAsMentor } from "../../../core/api/Mentee/registerAsMentor";
+import { ModalWithBackground, BasicModal } from "../../../components/common";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -31,13 +32,27 @@ const RegisterAsMentor = ({ token }) => {
     others: "",
     schoolName: "",
   });
-
-  useEffect(() => {
-    console.log("edu==", edu);
-  }, [edu]);
+  const [modal, setModal] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   return (
     <section className={styles.editMentorInfoSection}>
+      {modal && (
+        <ModalWithBackground
+          setModal={setModal}
+          prevent={success ? true : false}
+        >
+          <BasicModal
+            notice={success ? "등록에 성공했습니다." : "등록에 실패했습니다."}
+            btnText={"확인"}
+            modalStyle={"square"}
+            btnClick={() => {
+              setModal(false);
+              if (success == true) router.back();
+            }}
+          />
+        </ModalWithBackground>
+      )}
       <TopBar text={"멘토로 등록"} onClick={() => router.back()} />
       <div className={styles.editInfoBlock}>
         <h1 className={styles.editInfoTitle}>학력정보</h1>
@@ -64,7 +79,6 @@ const RegisterAsMentor = ({ token }) => {
           makeChange={(e) => ChangeObject(setEdu, "others", e)}
         />
       </div>
-
       <div className={styles.editInfoBlock}>
         <h1 className={styles.editInfoTitle}>경력정보</h1>
         <InfoEditBox
@@ -90,7 +104,6 @@ const RegisterAsMentor = ({ token }) => {
           makeChange={(e) => ChangeObject(setCareer, "others", e)}
         />
       </div>
-
       <div className={styles.editInfoBlock}>
         <h1 className={styles.editInfoTitle}>소개</h1>
         <InfoEditBox
@@ -100,14 +113,13 @@ const RegisterAsMentor = ({ token }) => {
           makeChange={(e) => setBio(e.target.value)}
         />
       </div>
-
       <BottomBlueBtn
         text={"저장"}
         onClick={async () => {
           const res = await registerAsMentor(bio, career, edu, token);
-          if (res == 200 || res==201) {
-            router.back();
-          }
+          if (res == 200 || res == 201) setSuccess(true);
+          else setSuccess(false);
+          setModal(true);
         }}
       />
     </section>
