@@ -8,7 +8,7 @@ import {
   basicBtnStyle,
 } from "../../components/common";
 import { login, getUserRoleType } from "../../core/api/Login";
-import { cookieForAuth, removeCookie } from "../../utils/cookie";
+import { cookieForAuth, removeInfo } from "../../utils/cookie";
 import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../icons";
 import { NameLogo } from "../../components/common/icons/nameLogo";
 
@@ -18,7 +18,7 @@ const Login = () => {
   const [error, setError] = useState(false);
 
   // useEffect(() => {
-  //   removeCookie(); //배포할 때 주석 풀기
+  //   removeInfo(); //배포할 때 주석 풀기
   // }, []);
 
   const checkAccount = async () => {
