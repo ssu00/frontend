@@ -23,22 +23,12 @@ import { cookieForAuth, setCookie } from "../../../utils/cookie";
 import { useContext } from "react";
 import { sockContext } from "../../_app";
 
-<<<<<<< HEAD
-const MyPage = ({ userInfo, role, token }) => {
-  console.log(role);
-  return (
-    <section className={styles.mypageSection}>
-      <MyPageTopBar token={token} />
-=======
 const MyPage = ({ token, userInfo, role }) => {
   const alarm = useContext(sockContext);
-  console.log("alarm===================", alarm);
-  console.log("alarm===================", alarm.alarmCnt);
 
   return (
     <section className={styles.mypageSection}>
       <MyPageTopBar count={alarm?.alarmCnt} />
->>>>>>> 3e25f68fc997c99f073ccdc5bd3711e16b367954
       <section className={styles.profileSection}>
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
