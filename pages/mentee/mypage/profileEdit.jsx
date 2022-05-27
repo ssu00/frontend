@@ -8,7 +8,7 @@ import { getMyInfo } from "../../../core/api/User";
 import { registerProfileImg, uploadImage } from "../../../core/api/Image";
 import router from "next/router";
 import RefreshPage from "../../../utils/refreshPage";
-import { removeCookie } from "../../../utils/cookie";
+import { removeInfo } from "../../../utils/cookie";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -84,7 +84,7 @@ const ProfileEdit = ({ token, userInfo }) => {
           text={"로그아웃"}
           arrow={true}
           onClick={() => {
-            removeCookie();
+            removeInfo();
             router.push("/");
           }}
         />
