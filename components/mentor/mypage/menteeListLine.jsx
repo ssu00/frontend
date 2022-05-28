@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import router from "next/router";
 import Image from "next/image";
 import classNames from "classnames";
-import { getMenteeLecture } from "../../../core/api/Mentor";
+import { checkEnrollment, getMenteeLecture } from "../../../core/api/Mentor";
 import styles from "./menteeListLine.module.scss";
 import {
   IC_BubbleStarOutline,
@@ -25,17 +25,21 @@ const MenteeListLine = ({ data, setOpen }) => {
   );
 };
 
-const MenteeListBlock = ({ token, data, setOpen, baseData, setModal }) => {
+const MenteeListBlock = ({
+  token,
+  data,
+  setOpen,
+  baseData,
+  setModal,
+  type,
+}) => {
   const [menteeLecture, setMenteeLecture] = useState([]);
   const [systems, setSystems] = useState("");
   const GetMenteeLectureInfo = async () => {
     setMenteeLecture(
-      await getMenteeLecture(
-        baseData.token,
-        data.menteeId,
-        baseData.closed,
-        baseData.page
-      ).then((res) => res.content)
+      await getMenteeLecture(baseData.token, data.menteeId, baseData.page).then(
+        (res) => res.content
+      )
     );
   };
 
@@ -87,19 +91,23 @@ const MenteeListBlock = ({ token, data, setOpen, baseData, setModal }) => {
             basicBtnStyle.btn_bg_color
           )}
           onClick={async () => {
-            const res = await requestChatToMentee(token, data.menteeId);
-            if (!isNaN(res)) {
-              router.push({
-                pathname: `/common/chat/chatDetail/${res}`,
-                query: { other: data?.menteeId },
-              });
+            if (type == "checked") {
+              const res = await requestChatToMentee(token, data.menteeId);
+              if (!isNaN(res)) {
+                router.push({
+                  pathname: `/common/chat/chatDetail/${res}`,
+                  query: { other: data?.menteeId },
+                });
+              } else {
+                console.log("채팅 요청 실패");
+              }
             } else {
-              console.log("채팅 요청 실패");
+              await checkEnrollment(token, data.enrollmentId);
             }
           }}
         >
           <IC_TalkDots width={16} height={16} className={styles.btnIcon} />
-          <span>대화 요청</span>
+          <span>{type == "checked" ? "대화 요청" : "신청 승인"}</span>
         </button>
         <button
           type="button"
@@ -129,9 +137,9 @@ const MenteeListBlock = ({ token, data, setOpen, baseData, setModal }) => {
   );
 };
 
-const DecideOpenOrClose = ({ data, token, closed, page, setModal }) => {
+const DecideOpenOrClose = ({ data, token, setModal, type }) => {
   const [open, setOpen] = useState(false);
-  const dataForMenteeLecture = { token: token, closed: closed, page: page };
+  const dataForMenteeLecture = { token: token, page: 1 };
 
   return open ? (
     <MenteeListBlock
@@ -140,6 +148,7 @@ const DecideOpenOrClose = ({ data, token, closed, page, setModal }) => {
       setOpen={() => setOpen(!open)}
       baseData={dataForMenteeLecture}
       setModal={setModal}
+      type={type}
     />
   ) : (
     <MenteeListLine data={data} setOpen={() => setOpen(!open)} />
