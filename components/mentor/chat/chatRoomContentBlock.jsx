@@ -4,11 +4,14 @@ import ConvertTime from "../../../utils/common/convertTime";
 import styles from "./chatRoomContentBlock.module.scss";
 import { IC_PersonBlue } from "../../../icons";
 
-const MyChat = ({ text, sentAt }) => {
+const MyChat = ({ text, sentAt, checked }) => {
   return (
     <div className={styles.myChat}>
-      <div className={styles.blueContentBox}>
-        <span>{text}</span>
+      <div className={styles.alignRow}>
+        {!checked && <span className={styles.checked}>1</span>}
+        <div className={styles.blueContentBox}>
+          <span>{text}</span>
+        </div>
       </div>
       <span className={styles.date}>{sentAt}</span>
     </div>
@@ -36,7 +39,7 @@ const OtherChat = ({ image, name, text, sentAt }) => {
   );
 };
 
-const ChatRoomContentBlock = ({ my, other, sender, sentAt, msg }) => {
+const ChatRoomContentBlock = ({ my, other, sender, sentAt, msg, checked }) => {
   const [converted, setConverted] = useState({
     date: "",
     time: "",
@@ -51,6 +54,7 @@ const ChatRoomContentBlock = ({ my, other, sender, sentAt, msg }) => {
       <MyChat
         text={msg}
         sentAt={converted.sameDay ? converted.time : converted.date}
+        checked={checked}
       />
     );
   } else {

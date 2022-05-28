@@ -2,13 +2,16 @@ import styles from "./chatRoomTopBar.module.scss";
 import { IC_ArrowLeft, IC_Menu, IC_Plus } from "../../../icons";
 import Role from "../../common/tag/role";
 import router from "next/router";
-const ChatRoomTopBar = ({ nickname, othersRole }) => {
+const ChatRoomTopBar = ({ nickname, othersRole, getOut }) => {
   return (
     <div className={styles.chatRoomTopBar}>
       <button
         type="button"
         className={styles.goBackBtn}
-        onClick={() => router.push("/common/chat/chatList")}
+        onClick={() => {
+          getOut();
+          router.push("/common/chat/chatList");
+        }}
       >
         <IC_ArrowLeft width="24px" height="24px" />
       </button>
