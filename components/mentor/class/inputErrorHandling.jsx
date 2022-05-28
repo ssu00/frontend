@@ -9,7 +9,7 @@ const ClassRegistrationInputError = (form, setErr) => {
     setErr("간략하게 멘토 자신을 소개해주세요.");
   } else if (form.level == "") {
     setErr("강의 난이도를 선택해주세요.");
-  } else if (form.content == "") {
+  } else if (form.content == "" || form.content == "<p><br></p>") {
     setErr("강의 상세 내용 및 이미지를 등록해주세요.");
   } else if (
     form.online == "off" &&
