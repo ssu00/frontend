@@ -168,9 +168,9 @@ const Home = ({ classes, role, token }) => {
       <main>
         <SearchBox />
         <Breadcrumb filters={filters} openDrawer={openDrawer} />
-        <p className={styles.classesCount}>총 {classData.length}개의 강의</p>
+        <p className={styles.classesCount}>총 {classData?.length}개의 강의</p>
         <div className={styles.classCards}>
-          {classData.map((classDetail, index) => (
+          {classData?.map((classDetail, index) => (
             <ClassCard key={index} classDetail={classDetail} />
           ))}
         </div>

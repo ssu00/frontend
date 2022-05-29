@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   BasicInputBox,
+  BasicSelectBox,
   BottomBlueBtn,
   TopBar,
 } from "../../../components/common";
@@ -9,8 +10,9 @@ import { uploadPost } from "../../../core/api/Mentee";
 import styles from "./writeboard.module.scss";
 import * as cookie from "cookie";
 import router from "next/router";
+import { getBoardCategory } from "../../../core/api/Mentee/board";
 
-const WriteBoard = ({ token }) => {
+const WriteBoard = ({ token, categories }) => {
   const [inquiryInfo, setInquiryInfo] = useState({
     content: "",
     title: "",
@@ -41,13 +43,14 @@ const WriteBoard = ({ token }) => {
     <section className={styles.changeInquiry}>
       <TopBar text={"글쓰기"} onClick={() => router.back()} />
       <p className={styles.content}>
-        <BasicInputBox
-          type={"text"}
-          placeholder={"카테고리"}
-          // onChange={(e) =>
-          //   setInquiryInfo({ ...inquiryInfo, category: e.target.value })
-          // }
-          style={styles.titleBox}
+        <BasicSelectBox
+          arr={categories}
+          name={"문의 유형을 선택해주세요."}
+          onChange={(e) =>
+            setInquiryInfo({ ...inquiryInfo, category: e.target.value })
+          }
+          otherClassName={styles.select}
+          selectStyles={styles.selectCon}
         />
         <BasicInputBox
           type={"text"}
@@ -107,9 +110,11 @@ export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const role = cookie.parse(context.req.headers.cookie).role;
 
+  const categories = await getBoardCategory(token);
   return {
     props: {
       token,
+      categories,
     },
   };
 };

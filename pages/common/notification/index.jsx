@@ -52,7 +52,7 @@ const Notification = ({ token, notiData, my }) => {
 
   return (
     <div className={styles.notiPage}>
-      <TopBar text={"알림"} onClick={() => router.push("/mentor/mypage")} />
+      <TopBar text={"알림"} onClick={() => router.back()} />
       <div className={styles.line} />
       {notiData.totalElements == 0 ? (
         <div className={styles.noNoti}>
