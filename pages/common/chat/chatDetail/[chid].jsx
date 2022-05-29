@@ -71,8 +71,18 @@ const Chat = ({ token, history, chatRoomId, other, my, myRole }) => {
   };
 
   useEffect(() => {
-    if (chatContext.chat != undefined)
+    if (chatContext.chat != undefined && chatContext.chat.type == "MESSAGE")
       setChatContents((prev) => [...prev, chatContext.chat]);
+    else if (
+      chatContext.chat != undefined &&
+      chatContext.chat.type == "ENTER"
+    ) {
+      setChatContents(
+        chatContents.map((data) =>
+          !data.checked ? { ...data, checked: true } : data
+        )
+      );
+    }
   }, [chatContext.chat]);
 
   const sendMsg = (content) => {
@@ -115,7 +125,6 @@ const Chat = ({ token, history, chatRoomId, other, my, myRole }) => {
                     sender={data.senderId}
                     sentAt={data.createdAt}
                     msg={data.text}
-                    // msg={data.messageId}
                     checked={data.checked}
                   />
                 );
