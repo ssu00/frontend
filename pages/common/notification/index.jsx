@@ -75,7 +75,7 @@ const Notification = ({ token, notiData, my }) => {
                   key={i}
                   // title={data?.type}
                   title={data?.notificationId}
-                  date={data?.createdAt?.substring(0, 10)}
+                  date={data?.createdAt}
                   content={data?.content}
                   deleteAlarm={async () => {
                     const res = await deleteNotification(
