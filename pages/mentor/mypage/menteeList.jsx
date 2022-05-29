@@ -10,8 +10,8 @@ import EmptyDataNotice from "../../../components/common/emptyDataNotice";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  let myMenteeClosed = await getMyMentees(1, true, token);
-  let myMenteeOpened = await getMyMentees(1, false, token);
+  let myMenteeClosed = await getMyMentees(true, token);
+  let myMenteeOpened = await getMyMentees(false, token);
 
   return {
     props: { token, myMenteeClosed, myMenteeOpened },
@@ -21,7 +21,6 @@ export const getServerSideProps = async (context) => {
 const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
   const [closedMentee, setClosedMentee] = useState(myMenteeClosed);
   const [openedMentee, setOpenedMentee] = useState(myMenteeOpened);
-  const [page, setPage] = useState(1);
   const [modal, setModal] = useState(false);
 
   return (
@@ -45,14 +44,13 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
         <div className={styles.titleBox}>
           <h1 className={styles.title}>진행 중인 강의의 멘티</h1>
         </div>
-        <EmptyDataNotice data={openedMentee.content} content={"멘티"} />
-        {openedMentee?.content?.map((data, i) => {
+        <EmptyDataNotice data={openedMentee} content={"멘티"} />
+        {openedMentee?.map((data, i) => {
           return (
             <DecideOpenOrClose
               key={i}
               data={data}
               token={token}
-              page={page}
               setModal={setModal}
               type={"checked"}
             />
@@ -66,14 +64,13 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
         <div className={styles.titleBox}>
           <h1 className={styles.title}>종료된 강의의 멘티</h1>
         </div>
-        <EmptyDataNotice data={closedMentee.content} content={"멘티"} />
-        {closedMentee.content?.map((data, i) => {
+        <EmptyDataNotice data={closedMentee} content={"멘티"} />
+        {closedMentee?.map((data, i) => {
           return (
             <DecideOpenOrClose
               key={i}
               data={data}
               token={token}
-              page={page}
               setModal={setModal}
               type={"checked"}
             />

@@ -1,8 +1,8 @@
 import Api, { METHOD } from "../apiController";
-export const getMyMentees = async (page, closed, token) => {
+export const getMyMentees = async (closed, token) => {
   const res = await Api({
     method: METHOD.GET,
-    url: `/mentors/my-mentees?closed=${closed}&page=${page}`,
+    url: `/mentors/my-mentees?closed=${closed}`,
     headers: {
       Authorization: token,
     },
@@ -10,10 +10,10 @@ export const getMyMentees = async (page, closed, token) => {
   return res.data;
 };
 
-export const getMenteeLecture = async (token, mentee, page) => {
+export const getMenteeLecture = async (token, mentee) => {
   const res = await Api({
     method: METHOD.GET,
-    url: `/mentors/my-mentees/${mentee}?&page=${page}`,
+    url: `/mentors/my-mentees/${mentee}?&page=1`,
     headers: { Authorization: token },
   });
   return res.data;
@@ -22,7 +22,7 @@ export const getMenteeLecture = async (token, mentee, page) => {
 export const getUncheckedLecture = async (token) => {
   const res = await Api({
     method: METHOD.GET,
-    url: "mentors/my-mentees/unchecked?page=1", //page 없애기
+    url: "mentors/my-mentees/unchecked",
     headers: { Authorization: token },
   });
   return res.data;

@@ -42,8 +42,8 @@ const MenteeUncheckedList = ({ token, myMenteeUnchecked }) => {
         <div className={styles.titleBox}>
           <h1 className={styles.title}>강의 신청한 멘티</h1>
         </div>
-        <EmptyDataNotice data={uncheckedMentee.content} content={"멘티"} />
-        {uncheckedMentee?.content?.map((data, i) => {
+        <EmptyDataNotice data={uncheckedMentee} content={"멘티"} />
+        {uncheckedMentee?.map((data, i) => {
           return (
             <DecideOpenOrClose
               key={i}

@@ -25,21 +25,12 @@ const MenteeListLine = ({ data, setOpen }) => {
   );
 };
 
-const MenteeListBlock = ({
-  token,
-  data,
-  setOpen,
-  baseData,
-  setModal,
-  type,
-}) => {
+const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
   const [menteeLecture, setMenteeLecture] = useState([]);
   const [systems, setSystems] = useState("");
   const GetMenteeLectureInfo = async () => {
     setMenteeLecture(
-      await getMenteeLecture(baseData.token, data.menteeId, baseData.page).then(
-        (res) => res.content
-      )
+      await getMenteeLecture(token, data.menteeId).then((res) => res.content)
     );
   };
 
@@ -139,14 +130,11 @@ const MenteeListBlock = ({
 
 const DecideOpenOrClose = ({ data, token, setModal, type }) => {
   const [open, setOpen] = useState(false);
-  const dataForMenteeLecture = { token: token, page: 1 };
-
   return open ? (
     <MenteeListBlock
       token={token}
       data={data}
       setOpen={() => setOpen(!open)}
-      baseData={dataForMenteeLecture}
       setModal={setModal}
       type={type}
     />
