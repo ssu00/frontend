@@ -28,6 +28,7 @@ const MenteeListLine = ({ data, setOpen }) => {
 const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
   const [menteeLecture, setMenteeLecture] = useState([]);
   const [systems, setSystems] = useState("");
+  const [change, setChange] = useState(false);
   const GetMenteeLectureInfo = async () => {
     setMenteeLecture(
       await getMenteeLecture(token, data.menteeId).then((res) => res.content)
@@ -92,13 +93,21 @@ const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
               } else {
                 console.log("채팅 요청 실패");
               }
-            } else {
-              await checkEnrollment(token, data.enrollmentId);
+            } else if (!change) {
+              const res = await checkEnrollment(token, data.enrollmentId);
+              console.log("res==", res);
+              if (res == 200) setChange(true);
             }
           }}
         >
           <IC_TalkDots width={16} height={16} className={styles.btnIcon} />
-          <span>{type == "checked" ? "대화 요청" : "신청 승인"}</span>
+          <span>
+            {type == "checked"
+              ? "대화 요청"
+              : change
+              ? "승인 완료"
+              : "신청 승인"}
+          </span>
         </button>
         <button
           type="button"

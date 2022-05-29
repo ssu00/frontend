@@ -5,5 +5,5 @@ export const checkEnrollment = async (token, enrollmentId) => {
     url: `/enrollments/${enrollmentId}/check`,
     headers: { Authorization: token },
   });
-  return res.data;
+  return res.status;
 };
