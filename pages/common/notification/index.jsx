@@ -36,7 +36,7 @@ const Notification = ({ token, notiData, my }) => {
     if (alarm.alarmContents != undefined) {
       setAllNoti((prev) => [alarm.alarmContents, ...prev]);
     }
-  }, [alarm]);
+  }, [alarm.alarmContents]);
 
   const GetMoreNoti = async () => {
     const moreNoti = await getMyNotification(token, pageNum);

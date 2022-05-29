@@ -8,7 +8,7 @@ import ChatRoomContentBlock from "../../../../components/mentor/chat/chatRoomCon
 import { getMyInfo, getUserInfo } from "../../../../core/api/User";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { getUserRoleType } from "../../../../core/api/Login";
-import { sockContext, ws } from "../../../../core/provider";
+import { sockContext } from "../../../../core/provider";
 import { getOutFromChatRoom } from "../../../../core/api/Chat";
 
 export async function getServerSideProps(context) {
@@ -38,6 +38,7 @@ export async function getServerSideProps(context) {
 
 const Chat = ({ token, history, chatRoomId, other, my, myRole }) => {
   const chatContext = useContext(sockContext);
+  const ws = chatContext.ws;
   const [chatContents, setChatContents] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [dataLen, setDataLen] = useState(10);
@@ -70,10 +71,9 @@ const Chat = ({ token, history, chatRoomId, other, my, myRole }) => {
   };
 
   useEffect(() => {
-    console.log("this is chatContext=", chatContext);
     if (chatContext.chat != undefined)
       setChatContents((prev) => [...prev, chatContext.chat]);
-  }, [chatContext.send]);
+  }, [chatContext.chat]);
 
   const sendMsg = (content) => {
     if (content.replace(/ /g, "").length !== 0) {
