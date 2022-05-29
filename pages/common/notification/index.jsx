@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import * as cookie from "cookie";
 import styles from "./notification.module.scss";
 import { TopBar } from "../../../components/common";
@@ -11,7 +11,7 @@ import {
   deleteNotification,
 } from "../../../core/api/Notification";
 import router from "next/router";
-import { sockContext } from "../../_app";
+import { sockContext } from "../../../core/provider";
 import { getMyInfo } from "../../../core/api/User";
 
 export async function getServerSideProps(context) {
@@ -31,13 +31,12 @@ const Notification = ({ token, notiData, my }) => {
   const [allNoti, setAllNoti] = useState(notiData.content);
   const [last, setLast] = useState(notiData.last);
   const [dataLen, setDataLen] = useState(10);
-  const deleteBtn = useRef();
   const alarm = useContext(sockContext);
-  console.log("alarm===================", alarm.alarmContents);
   useEffect(() => {
-    if (alarm.alarmContents?.content != "")
+    if (alarm.alarmContents != undefined) {
       setAllNoti((prev) => [alarm.alarmContents, ...prev]);
-  }, [alarm]);
+    }
+  }, [alarm.alarmContents]);
 
   const GetMoreNoti = async () => {
     const moreNoti = await getMyNotification(token, pageNum);
@@ -76,7 +75,7 @@ const Notification = ({ token, notiData, my }) => {
                   key={i}
                   // title={data?.type}
                   title={data?.notificationId}
-                  date={data?.createdAt?.substring(0, 10)}
+                  date={data?.createdAt}
                   content={data?.content}
                   deleteAlarm={async () => {
                     const res = await deleteNotification(

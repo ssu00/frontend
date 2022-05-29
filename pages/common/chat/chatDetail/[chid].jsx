@@ -1,24 +1,26 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import * as cookie from "cookie";
 import styles from "./chat.module.scss";
 import { getMyChatHistory, readChat } from "../../../../core/api/Chat";
 import ChatRoomTyping from "../../../../components/mentor/chat/chatRoomTyping";
 import ChatRoomTopBar from "../../../../components/mentor/chat/chatRoomTopBar";
 import ChatRoomContentBlock from "../../../../components/mentor/chat/chatRoomContentBlock";
-import SockJS from "sockjs-client";
-import Stomp from "stompjs";
-import { getUserInfo } from "../../../../core/api/User";
+import { getMyInfo, getUserInfo } from "../../../../core/api/User";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { getUserRoleType } from "../../../../core/api/Login";
+import { sockContext } from "../../../../core/provider";
+import { getOutFromChatRoom } from "../../../../core/api/Chat";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const chatRoomId = context.query.chid;
   const othersId = context.query.other;
-  const history = await getMyChatHistory(token, chatRoomId, 1);
-
+  const history = await getMyChatHistory(token, chatRoomId, 1).then((res) =>
+    res.content.reverse()
+  );
   const other = await getUserInfo(token, othersId);
-  const my = await getUserRoleType(token);
+  const my = await getMyInfo();
+  const myRole = await getUserRoleType(token).then((data) => data.loginType);
 
   await readChat(chatRoomId);
 
@@ -29,58 +31,79 @@ export async function getServerSideProps(context) {
       chatRoomId,
       other,
       my,
+      myRole,
     },
   };
 }
 
-const Chat = ({ token, history, chatRoomId, other, my }) => {
-  let sockJS = new SockJS("http://13.124.128.220:8080/ws");
-  let ws = Stomp.over(sockJS);
-
+const Chat = ({ token, history, chatRoomId, other, my, myRole }) => {
+  const chatContext = useContext(sockContext);
+  const ws = chatContext.ws;
   const [chatContents, setChatContents] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [dataLen, setDataLen] = useState(10);
-  const [last, setLast] = useState(history.last);
 
   useEffect(() => {
-    setChatContents(history.content.reverse());
+    setChatContents(history);
   }, [history]);
+
+  useEffect(() => {
+    //detect page leaving
+    window.onbeforeunload = function (e) {
+      if (e) getOutFromChatRoom(token, chatRoomId);
+    };
+    window.onpopstate = function (e) {
+      if (e) getOutFromChatRoom(token, chatRoomId);
+    };
+  }, []);
 
   const fetchMore = async () => {
     if (pageNum != 1) {
-      const moreHistory = await getMyChatHistory(token, chatRoomId, pageNum);
-      setLast(moreHistory.last);
-      setChatContents([...moreHistory.content.reverse(), ...chatContents]);
+      const moreHistory = await getMyChatHistory(
+        token,
+        chatRoomId,
+        pageNum
+      ).then((res) => res.content.reverse());
+      setChatContents([...moreHistory, ...chatContents]);
     }
     setPageNum(pageNum + 1);
     setDataLen(dataLen + 10);
   };
 
   useEffect(() => {
-    ws.connect({}, () => {
-      ws.subscribe(`/sub/chat/room/${chatRoomId}`, (data) => {
-        const newMessage = JSON.parse(data.body);
-        setChatContents((prev) => [...prev, newMessage]);
-      });
-    });
-  }, [chatRoomId]);
+    if (chatContext.chat != undefined && chatContext.chat.type == "MESSAGE")
+      setChatContents((prev) => [...prev, chatContext.chat]);
+    else if (
+      chatContext.chat != undefined &&
+      chatContext.chat.type == "ENTER"
+    ) {
+      setChatContents(
+        chatContents.map((data) =>
+          !data.checked ? { ...data, checked: true } : data
+        )
+      );
+    }
+  }, [chatContext.chat]);
 
   const sendMsg = (content) => {
-    var msg = {
-      type: "MESSAGE",
-      chatroomId: parseInt(chatRoomId),
-      receiverId: other.userId,
-      senderId: my.userId,
-      text: content,
-    };
-    ws.send("/pub/chat", {}, JSON.stringify(msg));
+    if (content.replace(/ /g, "").length !== 0) {
+      var msg = {
+        type: "MESSAGE",
+        chatroomId: parseInt(chatRoomId),
+        receiverId: other.userId,
+        senderId: my.userId,
+        text: content,
+      };
+      ws.send("/pub/chat", {}, JSON.stringify(msg));
+    }
   };
 
   return (
     <div className={styles.chatRoom}>
       <ChatRoomTopBar
         nickname={other?.nickname}
-        othersRole={my?.loginType == "ROLE_MENTEE" ? "멘토" : "멘티"}
+        othersRole={myRole == "ROLE_MENTEE" ? "멘토" : "멘티"}
+        getOut={() => getOutFromChatRoom(token, chatRoomId)}
       />
       <div className={styles.chatContentSection} id="chatContents">
         <div className={styles.chatContents}>
@@ -88,7 +111,8 @@ const Chat = ({ token, history, chatRoomId, other, my }) => {
             scrollableTarget={"chatContents"}
             dataLength={dataLen}
             next={fetchMore}
-            hasMore={!last}
+            hasMore={true}
+            // hasMore={!last}
             inverse={true}
           >
             {chatContents.length != 0 &&
@@ -101,6 +125,7 @@ const Chat = ({ token, history, chatRoomId, other, my }) => {
                     sender={data.senderId}
                     sentAt={data.createdAt}
                     msg={data.text}
+                    checked={data.checked}
                   />
                 );
               })}

@@ -8,6 +8,7 @@ import { BottomTab, TopBar, CategoryBtn } from "../../../components/common";
 import { IC_EditFill } from "../../../icons";
 import { uploadImage, registerProfileImg } from "../../../core/api/Image";
 import Router from "next/router";
+import { IC_PersonBlueBig } from "../../../icons";
 import { removeInfo } from "../../../utils/cookie";
 
 export const getServerSideProps = async (context) => {

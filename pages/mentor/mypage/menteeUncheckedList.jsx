@@ -4,23 +4,21 @@ import { BottomTab, TopBar } from "../../../components/common";
 import styles from "./menteeList.module.scss";
 import router from "next/router";
 import { DecideOpenOrClose } from "../../../components/mentor/mypage/menteeListLine";
-import { getMyMentees } from "../../../core/api/Mentor";
 import { ModalWithBackground, BasicModal } from "../../../components/common";
 import EmptyDataNotice from "../../../components/common/emptyDataNotice";
+import { getUncheckedLecture } from "../../../core/api/Mentor/getMyMentees";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  let myMenteeClosed = await getMyMentees(true, token);
-  let myMenteeOpened = await getMyMentees(false, token);
+  let myMenteeUnchecked = await getUncheckedLecture(token);
 
   return {
-    props: { token, myMenteeClosed, myMenteeOpened },
+    props: { token, myMenteeUnchecked },
   };
 };
 
-const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
-  const [closedMentee, setClosedMentee] = useState(myMenteeClosed);
-  const [openedMentee, setOpenedMentee] = useState(myMenteeOpened);
+const MenteeUncheckedList = ({ token, myMenteeUnchecked }) => {
+  const [uncheckedMentee, setUncheckedMentee] = useState(myMenteeUnchecked);
   const [modal, setModal] = useState(false);
 
   return (
@@ -42,37 +40,17 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
       />
       <div className={styles.ing}>
         <div className={styles.titleBox}>
-          <h1 className={styles.title}>진행 중인 강의의 멘티</h1>
+          <h1 className={styles.title}>강의 신청한 멘티</h1>
         </div>
-        <EmptyDataNotice data={openedMentee} content={"멘티"} />
-        {openedMentee?.map((data, i) => {
+        <EmptyDataNotice data={uncheckedMentee} content={"멘티"} />
+        {uncheckedMentee?.map((data, i) => {
           return (
             <DecideOpenOrClose
               key={i}
               data={data}
               token={token}
               setModal={setModal}
-              type={"checked"}
-            />
-          );
-        })}
-      </div>
-
-      <div className={styles.line} />
-
-      <div className={styles.finished}>
-        <div className={styles.titleBox}>
-          <h1 className={styles.title}>종료된 강의의 멘티</h1>
-        </div>
-        <EmptyDataNotice data={closedMentee} content={"멘티"} />
-        {closedMentee?.map((data, i) => {
-          return (
-            <DecideOpenOrClose
-              key={i}
-              data={data}
-              token={token}
-              setModal={setModal}
-              type={"checked"}
+              type={"unchecked"}
             />
           );
         })}
@@ -83,4 +61,4 @@ const MenteeList = ({ token, myMenteeClosed, myMenteeOpened }) => {
   );
 };
 
-export default MenteeList;
+export default MenteeUncheckedList;

@@ -18,7 +18,7 @@ const ChatPreview = ({ chatData, othersRole }) => {
     if (sentAt != undefined) {
       ConvertTime(sentAt, setConverted);
     }
-  }, []);
+  }, [chatData.lastMessage]);
 
   const nickname =
     othersRole == "멘티" ? chatData.menteeNickname : chatData.mentorNickname;
@@ -39,7 +39,7 @@ const ChatPreview = ({ chatData, othersRole }) => {
     >
       <div className={styles.profileImg}>
         {userImg == null ? (
-          <IC_PersonBlue width={56} height={56} className={styles.person}/>
+          <IC_PersonBlue width={56} height={56} className={styles.person} />
         ) : (
           <Image src={userImg} width={56} height={56} />
         )}
@@ -50,8 +50,8 @@ const ChatPreview = ({ chatData, othersRole }) => {
           <strong className={styles.name}>{nickname}</strong>
         </div>
         <p className={styles.chatContent}>
-          {chatData?.lastMessage?.text.length > 20
-            ? chatData?.lastMessage?.text.substr(0, 20) + "..."
+          {chatData?.lastMessage?.text?.length > 20
+            ? chatData?.lastMessage?.text?.substr(0, 20) + "..."
             : chatData?.lastMessage?.text}
         </p>
       </div>
@@ -60,9 +60,11 @@ const ChatPreview = ({ chatData, othersRole }) => {
         <span className={styles.timeInfo}>
           {converted.sameDay ? converted.time : converted.date}
         </span>
-        <div className={styles.newChatCnt}>
-          <span>{chatData.uncheckedMessageCount}</span>
-        </div>
+        {chatData.uncheckedMessageCount != 0 && (
+          <div className={styles.newChatCnt}>
+            <span>{chatData.uncheckedMessageCount}</span>
+          </div>
+        )}
       </div>
     </button>
   );

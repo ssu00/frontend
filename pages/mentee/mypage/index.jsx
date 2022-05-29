@@ -20,7 +20,7 @@ import { getMyInfo } from "../../../core/api/User";
 import Role from "../../../components/common/tag/role";
 import { changeType } from "../../../core/api/Login";
 import { useContext } from "react";
-import { sockContext } from "../../_app";
+import { sockContext } from "../../../core/provider";
 
 const MyPage = ({ token, userInfo, role }) => {
   const alarm = useContext(sockContext);

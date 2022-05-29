@@ -4,12 +4,23 @@
   flex-direction: column;
   margin-bottom: 10px;
 
-  .blueContentBox {
-    background-color: $main;
-    border-radius: 16px 2px 16px 16px;
+  .alignRow {
+    @include flexBox(between, end);
+    max-width: 80%;
 
-    span {
-      @include text-style($fs-14, $white, 400);
+    .checked {
+      @include text-style($fs-12, $main, 400);
+      display: block;
+      margin-right: 5px;
+    }
+
+    .blueContentBox {
+      background-color: $main;
+      border-radius: 16px 2px 16px 16px;
+
+      span {
+        @include text-style($fs-14, $white, 400);
+      }
     }
   }
 
@@ -23,7 +34,6 @@
 .blueContentBox,
 .whiteContentBox {
   display: inline-block;
-  max-width: 80%;
   padding: 10px 16px;
   word-break: break-all;
 }

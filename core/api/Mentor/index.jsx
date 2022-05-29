@@ -5,6 +5,7 @@ import { getMyMentees, getMenteeLecture } from "./getMyMentees";
 import { getOneMentorLecture } from "./getOneMentorLecture";
 import { getViewMentor } from "./getViewMentor";
 import { registerMentor } from "./registerMentor";
+import { checkEnrollment } from "./checkEnrollment";
 export {
   editMyInfoAsMentor,
   getMentorLectureList,
@@ -14,4 +15,5 @@ export {
   getOneMentorLecture,
   getViewMentor,
   registerMentor,
+  checkEnrollment,
 };

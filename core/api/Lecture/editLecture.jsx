@@ -17,11 +17,10 @@ export const editLecture = async ({ form, token, classID }) => {
     thumbnail: form.image,
   };
 
-  const res = await Api({
+  return await Api({
     method: METHOD.PUT,
     url: `/lectures/${classID}`,
     headers: { Authorization: token },
     data,
   });
-  return res;
 };

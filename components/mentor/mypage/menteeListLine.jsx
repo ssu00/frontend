@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import router from "next/router";
 import Image from "next/image";
 import classNames from "classnames";
-import { getMenteeLecture } from "../../../core/api/Mentor";
+import { checkEnrollment, getMenteeLecture } from "../../../core/api/Mentor";
 import styles from "./menteeListLine.module.scss";
 import {
   IC_BubbleStarOutline,
@@ -18,24 +18,20 @@ const MenteeListLine = ({ data, setOpen }) => {
       <div className={styles.profileImg}>
         <Image src={"/samples/mentee.png"} width={32} height={32} />
       </div>
-      <span className={styles.menteeName}>{data?.name} 멘티</span>
+      <span className={styles.menteeName}>{data?.nickname} 멘티</span>
       {/* <span className={styles.classCnt}>{"1"}개의 강의</span> */}
       <IC_ChevronDownS className={styles.arrowBtn} />
     </button>
   );
 };
 
-const MenteeListBlock = ({ token, data, setOpen, baseData, setModal }) => {
+const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
   const [menteeLecture, setMenteeLecture] = useState([]);
   const [systems, setSystems] = useState("");
+  const [change, setChange] = useState(false);
   const GetMenteeLectureInfo = async () => {
     setMenteeLecture(
-      await getMenteeLecture(
-        baseData.token,
-        data.menteeId,
-        baseData.closed,
-        baseData.page
-      ).then((res) => res.content)
+      await getMenteeLecture(token, data.menteeId).then((res) => res.content)
     );
   };
 
@@ -59,7 +55,7 @@ const MenteeListBlock = ({ token, data, setOpen, baseData, setModal }) => {
         <div className={styles.profileImg}>
           <Image src={"/samples/mentee.png"} width={32} height={32} />
         </div>
-        <span className={styles.menteeName}>{data?.name} 멘티</span>
+        <span className={styles.menteeName}>{data?.nickname} 멘티</span>
         <IC_ChevronDownS className={styles.arrowBtnUp} />
       </button>
 
@@ -87,19 +83,31 @@ const MenteeListBlock = ({ token, data, setOpen, baseData, setModal }) => {
             basicBtnStyle.btn_bg_color
           )}
           onClick={async () => {
-            const res = await requestChatToMentee(token, data.menteeId);
-            if (!isNaN(res)) {
-              router.push({
-                pathname: `/common/chat/chatDetail/${res}`,
-                query: { other: data?.menteeId },
-              });
-            } else {
-              console.log("채팅 요청 실패");
+            if (type == "checked") {
+              const res = await requestChatToMentee(token, data.menteeId);
+              if (!isNaN(res)) {
+                router.push({
+                  pathname: `/common/chat/chatDetail/${res}`,
+                  query: { other: data?.menteeId },
+                });
+              } else {
+                console.log("채팅 요청 실패");
+              }
+            } else if (!change) {
+              const res = await checkEnrollment(token, data.enrollmentId);
+              console.log("res==", res);
+              if (res == 200) setChange(true);
             }
           }}
         >
           <IC_TalkDots width={16} height={16} className={styles.btnIcon} />
-          <span>대화 요청</span>
+          <span>
+            {type == "checked"
+              ? "대화 요청"
+              : change
+              ? "승인 완료"
+              : "신청 승인"}
+          </span>
         </button>
         <button
           type="button"
@@ -129,17 +137,15 @@ const MenteeListBlock = ({ token, data, setOpen, baseData, setModal }) => {
   );
 };
 
-const DecideOpenOrClose = ({ data, token, closed, page, setModal }) => {
+const DecideOpenOrClose = ({ data, token, setModal, type }) => {
   const [open, setOpen] = useState(false);
-  const dataForMenteeLecture = { token: token, closed: closed, page: page };
-
   return open ? (
     <MenteeListBlock
       token={token}
       data={data}
       setOpen={() => setOpen(!open)}
-      baseData={dataForMenteeLecture}
       setModal={setModal}
+      type={type}
     />
   ) : (
     <MenteeListLine data={data} setOpen={() => setOpen(!open)} />

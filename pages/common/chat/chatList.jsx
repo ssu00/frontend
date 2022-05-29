@@ -1,11 +1,12 @@
 import styles from "./chatList.module.scss";
 import { BottomTab } from "../../../components/common";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getMyChatRooms } from "../../../core/api/Chat";
 import * as cookie from "cookie";
 import ChatPreview from "../../../components/mentor/chat/chatPreview";
 import { IC_SmilingMan } from "../../../icons";
 import ChatListTopBar from "../../../components/mentor/chat/chatListTopBar";
+import { sockContext } from "../../../core/provider";
 
 export const getServerSideProps = async (context) => {
   const role = cookie.parse(context.req.headers.cookie).role;
@@ -21,17 +22,40 @@ export const getServerSideProps = async (context) => {
 
 const ChatList = ({ myChatRooms, role }) => {
   const othersRole = role == "ROLE_MENTOR" ? "멘티" : "멘토"; //상대방 role 출력해야 해서 반대로
+  const chatContext = useContext(sockContext);
+  const chat = chatContext.chat;
+  const [updated, setUpdated] = useState(myChatRooms.content);
+
+  useEffect(() => {
+    console.log("chat===", chat);
+    if (chat != undefined && chat.type === "MESSAGE") {
+      let filtered = [],
+        thatRoom;
+      updated.forEach((i) => {
+        i.chatroomId !== chat.chatroomId ? filtered.push(i) : (thatRoom = i);
+      });
+      thatRoom.lastMessage = chat;
+      thatRoom.uncheckedMessageCount += 1;
+      const chatLists = [thatRoom, ...filtered];
+      setUpdated(chatLists);
+    }
+  }, [chat]);
+
+  useEffect(() => {
+    console.log("updated==", updated);
+  }, [updated]);
+
   return (
     <>
       <div className={styles.chatList}>
         <ChatListTopBar />
-        {myChatRooms.content.length == 0 && (
+        {updated.length == 0 && (
           <div className={styles.noChat}>
             <IC_SmilingMan width="180px" height="124px" />
           </div>
         )}
         {myChatRooms != undefined &&
-          myChatRooms?.content?.map((data, i) => {
+          updated.map((data, i) => {
             return (
               <ChatPreview chatData={data} key={i} othersRole={othersRole} />
             );

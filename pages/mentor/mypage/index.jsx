@@ -17,11 +17,10 @@ import {
   IC_ToggleActive,
 } from "../../../icons";
 import { getMyInfo } from "../../../core/api/User";
-import UserRole from "../../../utils/userRole";
 import { changeType } from "../../../core/api/Login";
 import { cookieForAuth } from "../../../utils/cookie";
 import { useContext } from "react";
-import { sockContext } from "../../_app";
+import { sockContext } from "../../../core/provider";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -79,10 +78,11 @@ const MyPage = ({ token, userInfo }) => {
           <button
             type="button"
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
-            onClick={() => router.push("/mentor/myclass/myClassList")}
+            onClick={() => router.push("/mentor/mypage/menteeUncheckedList")}
+            // onClick={() => router.push("/mentor/myclass/myClassList")}
           >
             <IC_Bookmark />
-            <span className={styles.bigBtnText}>강의 목록</span>
+            <span className={styles.bigBtnText}>강의 신청한 멘티</span>
           </button>
 
           <button
