@@ -7,5 +7,5 @@ export const getUncheckedNotificationCount = async (token) => {
     headers: { Authorization: token },
   });
 
-  return res.data;
+  return res?.data;
 };

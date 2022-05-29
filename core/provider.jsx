@@ -18,17 +18,18 @@ const SocketProvider = ({ children, my, uncheckedCnt, myChatRooms }) => {
 
   useEffect(() => {
     ws?.connect({}, () => {
-      ws?.subscribe(`/sub/notification/${my.userId}`, (data) => {
-        const newMessage = JSON.parse(data.body);
-        setAlarmContents(newMessage);
-        setAlarmCnt((prev) => prev + 1);
-      });
-
-      myChatRooms?.forEach((data) => {
-        ws?.subscribe(`/sub/chat/room/${data.chatroomId}`, (data2) => {
-          setChat(JSON.parse(data2.body));
+      my?.code !== 401 &&
+        ws?.subscribe(`/sub/notification/${my?.userId}`, (data) => {
+          setAlarmContents(JSON.parse(data.body));
+          setAlarmCnt((prev) => prev + 1);
         });
-      });
+
+      myChatRooms?.code !== 500 &&
+        myChatRooms?.forEach((data) => {
+          ws?.subscribe(`/sub/chat/room/${data?.chatroomId}`, (data2) => {
+            setChat(JSON.parse(data2.body));
+          });
+        });
     });
   }, []);
 

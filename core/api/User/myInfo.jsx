@@ -6,5 +6,5 @@ export const getMyInfo = async () => {
     url: "/users/my-info",
   });
 
-  return res.data;
+  return res?.data;
 };

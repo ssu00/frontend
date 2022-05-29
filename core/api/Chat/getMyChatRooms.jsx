@@ -12,5 +12,5 @@ export const allChatRooms = async () => {
     method: METHOD.GET,
     url: `/chat/rooms/all`,
   });
-  return res.data;
+  return res?.data;
 };
