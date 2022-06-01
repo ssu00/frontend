@@ -10,6 +10,7 @@ import { deleteMenteeReivew } from "../../../../core/api/Mentee";
 const WriteMenteeReview = ({ menteeReviews, token }) => {
   const [reviews, setReviews] = useState([]);
   const [modal, setModal] = useState({});
+  const [click, setClick] = useState(false);
 
   useEffect(() => {
     setReviews(menteeReviews);
@@ -34,7 +35,7 @@ const WriteMenteeReview = ({ menteeReviews, token }) => {
     <>
       {reviewCon?.length !== 0 ? (
         <>
-          {reviewCon?.map((review, i) => {
+          {reviewCon?.map((review) => {
             const lectureDate = review.createdAt.slice(0, 10);
             const dateDot = lectureDate.split("-").join(".");
 

@@ -8,8 +8,8 @@ import { BottomTab, TopBar, CategoryBtn } from "../../../components/common";
 import { IC_EditFill } from "../../../icons";
 import { uploadImage, registerProfileImg } from "../../../core/api/Image";
 import Router from "next/router";
-import { removeCookie } from "../../../utils/cookie";
 import { IC_PersonBlueBig } from "../../../icons";
+import { removeInfo } from "../../../utils/cookie";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -86,7 +86,7 @@ const ProfileEdit = ({ token, userInfo }) => {
           text={"로그아웃"}
           arrow={true}
           onClick={() => {
-            removeCookie();
+            removeInfo();
             router.push("/");
           }}
         />

@@ -42,6 +42,10 @@ function MyApp({ my, uncheckedCnt, myChatRooms, Component, pageProps }) {
   ) : (
     <>
       <Head>
+        <link rel="shortcut icon" href="favicon/favicon(16x16).ico" />
+        <link rel="shortcut icon" href="favicon/favicon(32x32).ico" />
+        <link rel="shortcut icon" href="favicon/favicon(64x64).ico" />
+
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
         <meta property="og:title" content={"멘토릿지"} />
       </Head>

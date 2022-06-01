@@ -3,10 +3,11 @@ export const setCookie = (name, value, option) => {
   return Cookies.set(name, value, { ...option });
 };
 
-export const removeCookie = () => {
+export const removeInfo = () => {
   Cookies.remove("role", { path: "/" });
   Cookies.remove("accessToken", { path: "/" });
   Cookies.remove("refreshToken", { path: "/" });
+  localStorage.clear();
 };
 
 export const getCookie = (name) => {

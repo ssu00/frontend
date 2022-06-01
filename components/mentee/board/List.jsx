@@ -5,6 +5,7 @@ import router from "next/router";
 function List({ boardList }) {
   return (
     <ul className={styles.container}>
+      {console.log(boardList)}
       {boardList.map((content) => (
         <li
           key={content.postId}

@@ -19,14 +19,11 @@ import {
 import { getMyInfo } from "../../../core/api/User";
 import Role from "../../../components/common/tag/role";
 import { changeType } from "../../../core/api/Login";
-import { cookieForAuth, setCookie } from "../../../utils/cookie";
 import { useContext } from "react";
 import { sockContext } from "../../../core/provider";
 
 const MyPage = ({ token, userInfo, role }) => {
   const alarm = useContext(sockContext);
-  console.log("alarm===================", alarm);
-  console.log("alarm===================", alarm.alarmCnt);
 
   return (
     <section className={styles.mypageSection}>
@@ -140,7 +137,7 @@ export async function getServerSideProps(context) {
   const userInfo = await getMyInfo(parsedCookies.accessToken);
 
   return {
-    props: { token, userInfo, role },
+    props: { userInfo, role, token },
   };
 }
 

@@ -1,11 +1,12 @@
 import Api, { METHOD } from "../apiController";
 
-export const getBoardList = async (token, page) => {
+export const getBoardList = async (token, page, search) => {
+  Object.assign(page, search);
   const res = await Api({
     method: METHOD.GET,
     url: `/posts`,
-    params: page,
     headers: { Authorization: token },
+    params: page,
   });
   return res.data;
 };
@@ -77,4 +78,22 @@ export const deleteBoardComments = async (token, post_id, comment_id) => {
     headers: { Authorization: token },
   });
   return res;
+};
+
+export const likeBoardPosts = async (token, post_id) => {
+  const res = await Api({
+    method: METHOD.POST,
+    url: `/posts/${post_id}/like`,
+    headers: { Authorization: token },
+  });
+  return res;
+};
+
+export const getBoardCategory = async (token) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/posts/categories`,
+    headers: { Authorization: token },
+  });
+  return res.data;
 };
