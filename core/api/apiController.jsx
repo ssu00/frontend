@@ -16,11 +16,17 @@ myAxios.interceptors.request.use(
 
 myAxios.interceptors.response.use(
   async function (response) {
-    let cookie = myAxios.defaults.headers.common["Cookies"];
-    refreshToken(cookie.access, cookie.refresh, cookie.role);
     return response;
   },
   async function (error) {
+    if (
+      error.response.data.code == 401 &&
+      error.response.data.message == "Token Expired"
+    ) {
+      let cookie = myAxios.defaults.headers.common["Set-Cookie"];
+      if (cookie != undefined)
+        refreshToken(cookie.access, cookie.refresh, cookie.role);
+    }
     return error.response;
   }
 );

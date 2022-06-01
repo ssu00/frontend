@@ -16,6 +16,7 @@ import SocketProvider from "../core/provider";
 
 function MyApp({ my, uncheckedCnt, myChatRooms, Component, pageProps }) {
   const [loading, setLoading] = useState(false);
+
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
@@ -25,6 +26,7 @@ function MyApp({ my, uncheckedCnt, myChatRooms, Component, pageProps }) {
     const end = () => {
       setLoading(false);
     };
+
     router.events.on("routeChangeStart", start);
     router.events.on("routeChangeComplete", end);
     router.events.on("routeChangeError", end);
@@ -55,19 +57,24 @@ function MyApp({ my, uncheckedCnt, myChatRooms, Component, pageProps }) {
 }
 
 MyApp.getInitialProps = async (context) => {
-  const accessToken =
-    context.ctx.req && context.ctx.req.headers.cookie
-      ? cookie.parse(context.ctx.req.headers.cookie).accessToken
-      : "";
-  // const refreshToken =
-  //   context.ctx.req && context.ctx.req.headers.cookie
-  //     ? cookie.parse(context.ctx.req.headers.cookie).refreshToken
-  //     : "";
-  axios.defaults.withCredentials = true;
-  axios.defaults.headers.common["Authorization"] = accessToken;
-  myAxios.defaults.headers.common["Authorization"] = accessToken;
+  let myTokens = {
+    access: "",
+    refresh: "",
+    role: "",
+  };
+
+  if (context.ctx.req && context.ctx.req.headers.cookie) {
+    const parsedCookie = cookie.parse(context.ctx.req.headers.cookie);
+    myTokens.access = parsedCookie.accessToken;
+    myTokens.refresh = parsedCookie.refreshToken;
+    myTokens.role = parsedCookie.role;
+  }
+
+  myAxios.defaults.headers.common["Authorization"] = myTokens.access;
+  myAxios.defaults.headers.common["Set-Cookie"] = myTokens;
+
   const my = await getMyInfo();
-  const uncheckedCnt = await getUncheckedNotificationCount(accessToken);
+  const uncheckedCnt = await getUncheckedNotificationCount(myTokens.access);
   const myChatRooms = await allChatRooms();
   return { my, uncheckedCnt, myChatRooms };
 };
