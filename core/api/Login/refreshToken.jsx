@@ -1,5 +1,11 @@
-import Api, { METHOD } from "../apiController";
+import Api from "../apiController";
+import { METHOD } from "../../../pages/tokenExpiredHandler";
+
 export const refreshToken = async (access, refresh, role) => {
+  console.log("this is refresh===", access);
+  console.log("this is refresh===", refresh);
+  console.log("this is refresh===", role);
+
   const res = await Api({
     method: METHOD.POST,
     url: "/refresh-token",
@@ -10,5 +16,7 @@ export const refreshToken = async (access, refresh, role) => {
       role: role,
     },
   });
+  console.log("res================", res);
+  console.log("this is refresh end===");
   return res;
 };

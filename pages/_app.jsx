@@ -13,11 +13,22 @@ import { getMyInfo } from "../core/api/User";
 import { getUncheckedNotificationCount } from "../core/api/Notification";
 import { allChatRooms } from "../core/api/Chat";
 import SocketProvider from "../core/provider";
+// import { refreshToken } from "../core/api/Login";
+// import Api, { METHOD } from "../core/api/apiController";
+import TokenExpiredHandler from "./tokenExpiredHandler";
 
-function MyApp({ my, uncheckedCnt, myChatRooms, Component, pageProps }) {
+function MyApp({
+  my,
+  uncheckedCnt,
+  myChatRooms,
+  myTokens,
+  Component,
+  pageProps,
+}) {
   const [loading, setLoading] = useState(false);
 
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
+  myAxios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const start = () => {
@@ -49,13 +60,15 @@ function MyApp({ my, uncheckedCnt, myChatRooms, Component, pageProps }) {
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
         <meta property="og:title" content={"멘토릿지"} />
       </Head>
-      <SocketProvider
-        my={my}
-        uncheckedCnt={uncheckedCnt}
-        myChatRooms={myChatRooms}
-      >
-        <Component {...pageProps} />
-      </SocketProvider>
+      <TokenExpiredHandler myTokens={myTokens}>
+        <SocketProvider
+          my={my}
+          uncheckedCnt={uncheckedCnt}
+          myChatRooms={myChatRooms}
+        >
+          <Component {...pageProps} />
+        </SocketProvider>
+      </TokenExpiredHandler>
     </>
   );
 }
@@ -74,13 +87,15 @@ MyApp.getInitialProps = async (context) => {
     myTokens.role = parsedCookie.role;
   }
 
+  axios.defaults.headers.common["Authorization"] = myTokens.access;
+  // axios.defaults.headers.common["Set-Cookie"] = myTokens;
   myAxios.defaults.headers.common["Authorization"] = myTokens.access;
-  myAxios.defaults.headers.common["Set-Cookie"] = myTokens;
+  // myAxios.defaults.headers.common["Set-Cookie"] = myTokens;
 
-  const my = await getMyInfo();
+  const my = await getMyInfo(myTokens.access);
   const uncheckedCnt = await getUncheckedNotificationCount(myTokens.access);
   const myChatRooms = await allChatRooms();
-  return { my, uncheckedCnt, myChatRooms };
+  return { my, uncheckedCnt, myChatRooms, myTokens };
 };
 
 export default wrapper.withRedux(MyApp);
