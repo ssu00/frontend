@@ -8,7 +8,7 @@ import NoWrite from "../../../components/mentee/NoWrite";
 import {
   getApprovedLectures,
   getNotApprovedLectures,
-} from "../../../core/api/Mentee/getRegisteredLectures";
+} from "../../../core/api/Mentee";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;

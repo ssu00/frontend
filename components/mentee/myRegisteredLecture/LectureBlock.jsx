@@ -2,7 +2,7 @@ import classNames from "classnames";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
-import { approveLecture } from "../../../core/api/Mentee/getRegisteredLectures";
+import { approveLecture } from "../../../core/api/Mentee";
 import { IC_WriteReview } from "../../../icons";
 import { basicBtnStyle } from "../../common";
 import styles from "./LectureBlock.module.scss";

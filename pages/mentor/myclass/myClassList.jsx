@@ -6,12 +6,12 @@ import { BottomTab, MenuBtn, TopBar } from "../../../components/common";
 import ClassCard from "../../../components/mentor/class/classCard";
 import { getMyLectures } from "../../../core/api/Lecture";
 
-const MyClassList = ({ classes }) => {
+const MyClassList = ({ token, classes }) => {
   const [pageNum, setPageNum] = useState(1);
   const [allClass, setAllClass] = useState(classes.content);
 
   const GetMoreClasses = async () => {
-    const classesNewPage = await getMyLectures(pageNum);
+    const classesNewPage = await getMyLectures(pageNum, token);
     setAllClass([...allClass, ...classesNewPage.content]);
   };
 
@@ -63,13 +63,13 @@ const MyClassList = ({ classes }) => {
   );
 };
 
-export const getStaticProps = async () => {
-  const classes = await getMyLectures(1);
+export async function getServerSideProps(context) {
+  const token = cookie.parse(context.req.headers.cookie).accessToken;
+  const classes = await getMyLectures(1, token);
+
   return {
-    props: {
-      classes,
-    },
+    props: { classes, token },
   };
-};
+}
 
 export default MyClassList;
