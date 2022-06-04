@@ -15,7 +15,7 @@ import Step01 from "../../../components/mentor/class/step01";
 import Step02 from "../../../components/mentor/class/step02";
 import Step03 from "../../../components/mentor/class/step03";
 import * as cookie from "cookie";
-import GetEachLecture from "../../../core/api/Lecture/getEachLecture";
+import { getEachLecture } from "../../../core/api/Lecture";
 import { LevelToKor } from "../../../utils/class/classLevel";
 import { SystemToObj } from "../../../utils/class/classSystem";
 import { PriceToObj } from "../../../utils/class/classPrice";
@@ -29,7 +29,7 @@ export const getServerSideProps = async (context) => {
 
   if (classID != undefined) {
     classIDReal = classID;
-    const individualClass = await GetEachLecture(token, classID);
+    const individualClass = await getEachLecture(token, classID);
     const classPrice = PriceToObj(individualClass.lecturePrices);
     const classSystem = SystemToObj(individualClass.systems);
     classData = {
@@ -95,10 +95,36 @@ const ClassRegistration = ({ token, classIDReal, classData }) => {
   }));
 
   const step = form.step;
+  const onChangeWithoutE = (name, value) => {
+    dispatch(
+      ChangeField({
+        form: "classInfo",
+        key: name,
+        value,
+      })
+    );
+  };
+
+  const textLimit = (e, limit) => {
+    let newText = e.target.value;
+    if (e.target.value.length > limit) {
+      alert(`최대 ${limit}자까지 작성하실 수 있습니다.`);
+      newText = e.target.value.substring(0, limit);
+    }
+    return newText;
+  };
+
   const onChange = (name, index) => async (e) => {
     let value = e.target.value;
     let discuss = form.discuss;
     switch (name) {
+      case "title":
+      case "introduction":
+        value = textLimit(e, 20);
+        break;
+      case "subtitle":
+        value = textLimit(e, 30);
+        break;
       case "lectureSubject":
         value = JSON.parse(e.target.value);
         break;
@@ -186,11 +212,22 @@ const ClassRegistration = ({ token, classIDReal, classData }) => {
   switch (step) {
     case 1:
       return (
-        <Step01 form={form} handleChange={onChange} MoveStep={RandomMove} />
+        <Step01
+          form={form}
+          handleChange={onChange}
+          imgChange={onChangeWithoutE}
+          MoveStep={RandomMove}
+          token={token}
+        />
       );
     case 2:
       return (
-        <Step02 form={form} handleChange={onChange} MoveStep={RandomMove} />
+        <Step02
+          form={form}
+          handleChange={onChange}
+          MoveStep={RandomMove}
+          token={token}
+        />
       );
     case 3:
       return (

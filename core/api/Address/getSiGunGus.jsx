@@ -1,11 +1,10 @@
-import axios from "axios";
-const GetSiGunGus = (state) => {
-  return new Promise((resolve, reject) => {
-    axios
-      .get("/addresses/siGunGus", { params: { state: state } })
-      .then((res) => resolve(res))
-      .catch((err) => reject(err));
+import Api, { METHOD } from "../apiController";
+export const getSiGunGus = async (state) => {
+  return await Api({
+    method: METHOD.GET,
+    url: `/addresses/siGunGus`,
+    params: {
+      state: state,
+    },
   });
 };
-
-export default GetSiGunGus;

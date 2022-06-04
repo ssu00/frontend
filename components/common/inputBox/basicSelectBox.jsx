@@ -1,19 +1,29 @@
 import { IC_ArrowDoubleTriangle } from "../../../icons";
 import styles from "./basicSelectBox.module.scss";
-const BasicSelectBox = ({ arr, name, onChange }) => {
+import classNames from "classnames";
+const BasicSelectBox = ({
+  arr,
+  name,
+  onChange,
+  otherClassName,
+  selectStyles,
+}) => {
   return (
-    <section className={styles.selectBox}>
-      <select className={styles.sel} name={name} id={name} onChange={onChange}>
-        {arr?.map((data, i) => {
-          return (
-            <option value={data} className={styles.option} key={i}>
-              {data}
-            </option>
-          );
-        })}
+    <div className={classNames(styles.selectBox, otherClassName)}>
+      <select
+        name={name}
+        id={name}
+        onChange={onChange}
+        className={selectStyles}
+      >
+        {arr?.map((data, i) => (
+          <option value={data} key={i}>
+            {data}
+          </option>
+        ))}
       </select>
       <IC_ArrowDoubleTriangle className={styles.arrow} />
-    </section>
+    </div>
   );
 };
 

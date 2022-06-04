@@ -13,7 +13,7 @@ function Header() {
   useEffect(() => {
     const changeHeaderBackground = () => {
       if (window.scrollY > 0) headerRef.current.classList.add(styles.scroll);
-      else headerRef.current.classList.remove(styles.scroll);
+      else headerRef?.current?.classList.remove(styles.scroll);
     };
 
     window.addEventListener("scroll", changeHeaderBackground);
@@ -28,12 +28,12 @@ function Header() {
       <IC_LogoText className={styles.logo} onClick={handleClickLogo} />
       <Dropdown options={["서울시 관악구", "서울시 동작구"]} />
       <div className={styles.rightPannel}>
-        <button aria-label="알람 확인">
+        {/* <button aria-label="알람 확인">
           <IC_Alarm />
         </button>
         <button aria-label="메뉴 열기">
           <IC_Menu />
-        </button>
+        </button> */}
       </div>
     </header>
   );

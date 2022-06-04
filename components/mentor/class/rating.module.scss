@@ -5,7 +5,7 @@
   background-repeat: no-repeat;
 
   .ratingFullSection {
-    @include pos(absolute, 0, false, false, -0.18px);
+    @include pos(absolute, 0, false, false, 0);
     overflow: hidden;
     background-image: url("/icons/stars_fill.svg");
     background-repeat: no-repeat;
@@ -18,7 +18,7 @@
   background-repeat: no-repeat;
 
   .ratingFullSectionBig {
-    @include pos(absolute, 0, false, false, -0.18px);
+    @include pos(absolute, 0, false, false, 0);
     overflow: hidden;
     background-image: url("/icons/stars_fill_big.svg");
     background-repeat: no-repeat;

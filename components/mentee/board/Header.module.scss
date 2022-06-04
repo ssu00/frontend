@@ -1,0 +1,62 @@
+@import "../../../styles/main.module";
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 12px 20px;
+  transition: background-color 0.4s;
+  background: $white;
+
+  &.scroll {
+    background-color: $white;
+  }
+}
+
+.logo {
+  cursor: pointer;
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.rightPannel {
+  display: flex;
+  gap: 16px;
+
+  button {
+    padding: 0;
+    cursor: pointer;
+    background: none;
+    border: 0;
+
+    @media (hover: hover) {
+      &:hover path {
+        stroke: $light_gray;
+      }
+    }
+  }
+}
+
+.leftPannel {
+  display: flex;
+  gap: 16px;
+
+  button {
+    padding: 0;
+    cursor: pointer;
+    background: none;
+    border: 0;
+
+    @media (hover: hover) {
+      &:hover path {
+        stroke: $light_gray;
+      }
+    }
+  }
+}

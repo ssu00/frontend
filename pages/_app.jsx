@@ -1,22 +1,79 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import wrapper from "../core/redux/store";
 import "../styles/globals.css";
 import axios from "axios";
 import Head from "next/head";
+import "react-image-crop/src/ReactCrop.scss"; //react-image-crop에 영향이 있기 때문에 절대 지우면 안 됨!
+import * as cookie from "cookie";
+import router from "next/router";
+import "nprogress/nprogress.css";
+import Loading from "../components/common/Loading";
+import myAxios from "../core/api/apiController";
+import { getMyInfo } from "../core/api/User";
+import { getUncheckedNotificationCount } from "../core/api/Notification";
+import { allChatRooms } from "../core/api/Chat";
+import SocketProvider from "../core/provider";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ my, uncheckedCnt, myChatRooms, Component, pageProps }) {
+  const [loading, setLoading] = useState(false);
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
-  const title = "";
 
-  return (
+  useEffect(() => {
+    const start = () => {
+      setLoading(true);
+    };
+    const end = () => {
+      setLoading(false);
+    };
+    router.events.on("routeChangeStart", start);
+    router.events.on("routeChangeComplete", end);
+    router.events.on("routeChangeError", end);
+    return () => {
+      router.events.off("routeChangeStart", start);
+      router.events.off("routeChangeComplete", end);
+      router.events.off("routeChangeError", end);
+    };
+  }, []);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <>
       <Head>
+        <link rel="shortcut icon" href="favicon/favicon(16x16).ico" />
+        <link rel="shortcut icon" href="favicon/favicon(32x32).ico" />
+        <link rel="shortcut icon" href="favicon/favicon(64x64).ico" />
+
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
-        <meta property="og:title" content={title ? title : "멘토릿지"} />
+        <meta property="og:title" content={"멘토릿지"} />
       </Head>
-      <Component {...pageProps} />
+      <SocketProvider
+        my={my}
+        uncheckedCnt={uncheckedCnt}
+        myChatRooms={myChatRooms}
+      >
+        <Component {...pageProps} />
+      </SocketProvider>
     </>
   );
 }
+
+MyApp.getInitialProps = async (context) => {
+  const accessToken =
+    context.ctx.req && context.ctx.req.headers.cookie
+      ? cookie.parse(context.ctx.req.headers.cookie).accessToken
+      : "";
+  // const refreshToken =
+  //   context.ctx.req && context.ctx.req.headers.cookie
+  //     ? cookie.parse(context.ctx.req.headers.cookie).refreshToken
+  //     : "";
+  axios.defaults.withCredentials = true;
+  axios.defaults.headers.common["Authorization"] = accessToken;
+  myAxios.defaults.headers.common["Authorization"] = accessToken;
+  const my = await getMyInfo();
+  const uncheckedCnt = await getUncheckedNotificationCount(accessToken);
+  const myChatRooms = await allChatRooms();
+  return { my, uncheckedCnt, myChatRooms };
+};
 
 export default wrapper.withRedux(MyApp);

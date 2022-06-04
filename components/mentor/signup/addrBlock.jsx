@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styles from "./addrBlock.module.scss";
 import { BasicSelectBox } from "../../common";
-import { GetSiGunGus, GetStates, GetDongs } from "../../../core/api/Address";
+import { getSiGunGus, getStates, getDongs } from "../../../core/api/Address";
 
 const AddrBlock = ({ datas }) => {
   const { addr, setAddr } = datas;
@@ -20,40 +20,29 @@ const AddrBlock = ({ datas }) => {
     GetSi(addr.statePick);
   }, []);
 
+  const InitAddress = (values, valuePick, res) => {
+    setAddr((prev) => ({
+      ...prev,
+      [values]: res.data.map((data) => data),
+      [valuePick]: res.data[0],
+    }));
+  };
+
   const GetAddr = async () => {
     if (Array.isArray(addr.state) && addr.state.length == 0) {
-      await GetStates().then((res) => {
-        setAddr((prev) => ({
-          ...prev,
-          state: res.data.map((data) => data.value),
-        }));
-      });
+      const res = await getStates();
+      InitAddress("state", "statePick", res);
     }
   };
 
   const GetSi = async (state) => {
-    await GetSiGunGus(state).then((res) => {
-      let sigunguBase = "";
-      setAddr((prev) => ({
-        ...prev,
-        sigungu: res.data.map((data, i) => {
-          if (i == 0) {
-            sigunguBase = data.value;
-          }
-          return data.value;
-        }),
-        sigunguPick: sigunguBase,
-      }));
-    });
+    const res = await getSiGunGus(state);
+    InitAddress("sigungu", "sigunguPick", res);
   };
 
   const GetDong = async (state, siGunGu) => {
-    await GetDongs(state, siGunGu).then((res) => {
-      setAddr((prev) => ({
-        ...prev,
-        dong: res.data.map((data) => data.value),
-      }));
-    });
+    const res = await getDongs(state, siGunGu);
+    InitAddress("dong", "dongPick", res);
   };
 
   return (

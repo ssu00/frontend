@@ -1,10 +1,11 @@
-const BasicBtn = ({ text, onClick, btnStyle, textStyle, disabled }) => {
+const BasicBtn = ({ id, text, onClick, btnStyle, textStyle, disabled }) => {
   return (
     <button
       type="button"
       className={btnStyle}
       onClick={onClick}
       disabled={disabled}
+      id={id}
     >
       <span className={textStyle}>{text}</span>
     </button>

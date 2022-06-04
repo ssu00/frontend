@@ -15,6 +15,7 @@
       margin: 0;
       border-top-right-radius: 10px;
       border-top-left-radius: 10px;
+      object-fit: cover;
     }
 
     .classSystemSection {
@@ -37,7 +38,7 @@
     padding: 9px 17px 16px;
 
     .subject {
-      @include text-style(9px, $gray, 900);
+      @include text-style(9px, $gray, 900, left);
     }
 
     .title {

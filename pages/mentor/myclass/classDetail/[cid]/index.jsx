@@ -5,23 +5,30 @@ import Image from "next/image";
 import * as cookie from "cookie";
 import styles from "./classDetail.module.scss";
 import {
-  GetLectureDetail,
-  GetReview,
-  DeleteLecture,
+  getLectureDetail,
+  getReview,
+  deleteLecture,
 } from "../../../../../core/api/Lecture";
-import { TopBar, BasicBtn, MenuBtn } from "../../../../../components/common";
-import { transLevel } from "../../../../../components/mentor/class/classCard";
+import {
+  TopBar,
+  BasicBtn,
+  MenuBtn,
+  ModalWithBackground,
+  BasicModal,
+} from "../../../../../components/common";
 import ClassReview from "../../../../../components/mentor/class/classReview";
 import {
   Rating,
   RatingBig,
 } from "../../../../../components/mentor/class/rating";
+import { LevelToKor } from "../../../../../utils/class/classLevel";
+import EmptyDataNotice from "../../../../../components/common/emptyDataNotice";
 
 export async function getServerSideProps(context) {
-  const classID = context.query.cid;
-  const classData = await GetLectureDetail(classID);
-  const reviewData = await GetReview(classID);
   const token = cookie.parse(context.req.headers.cookie).accessToken;
+  const classID = context.query.cid;
+  const classData = await getLectureDetail(classID, token);
+  const reviewData = await getReview(classID);
 
   return {
     props: { token, classData, reviewData },
@@ -30,19 +37,42 @@ export async function getServerSideProps(context) {
 
 const ClassDetail = ({ token, classData, reviewData }) => {
   const [select, setSelect] = useState(true);
+  const [modal, setModal] = useState(false);
+
   const subjectOnly = classData.lectureSubjects.map(
     (data, i) => data.krSubject
   );
   const score =
-    classData.scoreAverage % 1 == 0
-      ? classData.scoreAverage + ".0"
-      : classData.scoreAverage;
+    classData?.scoreAverage % 1 == 0
+      ? classData?.scoreAverage + ".0"
+      : Math.round(classData?.scoreAverage * 10) / 10;
 
   return (
     <section className={styles.classDetailSection}>
+      {modal && (
+        <ModalWithBackground prevent={false} setModal={setModal}>
+          <BasicModal
+            notice={"강의를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다."}
+            btnText={"강의 삭제"}
+            modalStyle={"square"}
+            btnClick={async () => {
+              const res = await deleteLecture(token, classData.id);
+              if (res == 200) {
+                router.push("/mentor/myclass/myClassList");
+              }
+            }}
+          />
+        </ModalWithBackground>
+      )}
       <TopBar onClick={() => router.push("/mentor/myclass/myClassList")} />
       <div className={styles.imageBlock}>
-        <Image src={"/samples/lecture.png"} width={375} height={277} />
+        <Image
+          src={
+            classData.thumbnail ? classData.thumbnail : "/samples/lecture.png"
+          }
+          width={375}
+          height={277}
+        />
         <div className={styles.edit_remove_btn}>
           <BasicBtn
             text={"수정"}
@@ -57,20 +87,19 @@ const ClassDetail = ({ token, classData, reviewData }) => {
           <BasicBtn
             text={"삭제"}
             btnStyle={styles.removeBtn}
-            onClick={async () => {
-              const res = await DeleteLecture(token, classData.id);
-              if (res == 200) {
-                router.push("/mentor/myclass/myClassList");
-              }
-            }}
+            onClick={() => setModal(true)}
           />
         </div>
         <div className={styles.classSystemTag}>
-          <span>{transLevel(classData)}</span>
+          <span>{LevelToKor(classData.difficulty)}</span>
         </div>
         <div className={styles.mentorProfileBlock}>
           <Image
-            src={"/samples/lecture.png"}
+            src={
+              classData.lectureMentor.image
+                ? classData.lectureMentor.image
+                : "/samples/mentor.svg"
+            }
             width={72}
             height={72}
             className={styles.mentorImg}
@@ -101,7 +130,14 @@ const ClassDetail = ({ token, classData, reviewData }) => {
       </div>
 
       <div className={styles.classPriceBlock}>
-        <h1>가격......</h1>
+        {classData.lecturePrices.map((data, i) => {
+          return (
+            <div className={styles.price} key={i}>
+              <span>{data.isGroup ? "그룹" : "1:1"}</span>
+              <h1>{data.totalPrice.toLocaleString("ko-KR")} 원</h1>
+            </div>
+          );
+        })}
       </div>
 
       <span className={styles.line} />
@@ -133,6 +169,7 @@ const ClassDetail = ({ token, classData, reviewData }) => {
           </div>
           <div className={styles.reviews}>
             <h1 className={styles.reviewTitle}>강의 후기</h1>
+            <EmptyDataNotice data={reviewData.content} content="강의 후기" />
             {reviewData.content.map((data, i) => {
               return (
                 <ClassReview

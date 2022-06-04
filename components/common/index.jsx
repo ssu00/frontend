@@ -16,6 +16,7 @@ import {
 } from "./inputBox";
 import { BasicModal, ModalWithBackground } from "./modal";
 import { BottomTab, BottomTabElem, TopBar } from "./tab";
+import { canvasPreview, useDebounceEffect } from "./imgCrop";
 
 export {
   //============ button
@@ -40,6 +41,9 @@ export {
   BottomTab,
   BottomTabElem,
   TopBar,
+  // =========== image
+  canvasPreview,
+  useDebounceEffect,
   //============ style
   basicBtnStyle,
 };

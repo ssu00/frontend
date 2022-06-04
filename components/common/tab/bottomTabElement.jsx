@@ -5,11 +5,11 @@ const BottomTabElem = ({ url, text, children }) => {
     <button
       type="button"
       onClick={() => router.push(url)}
-      className={styles.elemBtn}
+      className={styles.bottomTabElem}
     >
-      <li className={styles.elem}>
+      <li>
         {children}
-        <span className={styles.elemText_unselected}>{text}</span>
+        <span>{text}</span>
       </li>
     </button>
   );

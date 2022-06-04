@@ -1,38 +1,36 @@
 @import "../../../styles/main.module.scss";
 .ellipseBtn {
   @include flexBox;
+  @include basic-box(133px, 26px, 0, 0, 10px);
   position: relative;
-  width: 133px;
-  height: 26px;
-  margin: 0;
-  margin-bottom: 5px;
+  margin: 0 0 5px 0;
   cursor: pointer;
   background-color: $bg-color;
-  border-radius: 10px;
 
   input {
     display: none;
   }
 
-  span {
-    display: block;
+  .checkIcon {
+    @include pos(absolute, 4px, 0, 0, 4px);
+    pointer-events: none;
   }
 
   label {
     width: 100%;
     cursor: pointer;
-  }
 
-  .checkIcon {
-    @include pos(absolute, 4px, 0, 0, 4px);
-  }
+    span {
+      display: block;
+    }
 
-  .selectedText {
-    @include text-style($fs-12, $main, 700);
-  }
+    .selectedText {
+      @include text-style($fs-12, $main, 700);
+    }
 
-  .unselectedText {
-    @include text-style($fs-12, $light_gray, 700);
+    .unselectedText {
+      @include text-style($fs-12, $light_gray, 700);
+    }
   }
 }
 

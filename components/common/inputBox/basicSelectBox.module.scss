@@ -1,29 +1,21 @@
 @import "../../../styles/main.module.scss";
 .selectBox {
   position: relative;
-  display: inline-block;
   margin-bottom: 11px;
 
-  .sel {
-    position: relative;
-    width: 140px;
-    height: 50px;
-    padding: 15px 18px;
+  select {
+    @include basic-box(140px, 50px, 15px 18px, 0, 10px);
     background-color: $bg-color;
-    border: 0;
-    border-radius: 10px;
-    outline: none;
     appearance: none;
-  }
-
-  .arrow {
-    position: absolute;
-    top: 50%;
-    left: 85%;
-    transform: translate(0, -50%);
   }
 
   select::-ms-expand {
     display: none;
+  }
+
+  .arrow {
+    @include pos(absolute, 50%, false, false, 85%);
+    pointer-events: none;
+    transform: translate(0, -50%);
   }
 }

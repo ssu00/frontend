@@ -1,11 +1,11 @@
-import axios from "axios";
-const GetLectureDetail = async (id) => {
-  try {
-    const res = await axios.get(`/lectures/${id}`);
-    return res.data;
-  } catch (err) {
-    return err;
-  }
-};
+import Api, { METHOD } from "../apiController";
 
-export default GetLectureDetail;
+export const getLectureDetail = async (id, token) => {
+  const res = await Api({
+    method: METHOD.GET,
+    url: `/mentors/my-lectures/${id}`,
+    headers: { Authorization: token },
+  });
+
+  return res.data;
+};

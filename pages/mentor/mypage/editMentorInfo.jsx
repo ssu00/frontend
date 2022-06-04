@@ -7,14 +7,14 @@ import { BottomBlueBtn, TopBar } from "../../../components/common";
 import InfoEditBox from "../../../components/mentor/mypage/infoEditBox";
 import { TransEduLevelToKor } from "../../../components/mentor/transform";
 import {
-  GetMyInfoAsMentor,
-  EditMyInfoAsMentor,
+  getMyInfoAsMentor,
+  editMyInfoAsMentor,
 } from "../../../core/api/Mentor";
 import ChangeObject from "../../../utils/changeObject";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const myInfoAsMentor = await GetMyInfoAsMentor(token);
+  const myInfoAsMentor = await getMyInfoAsMentor();
   const myBio = myInfoAsMentor.bio;
   const myCareer = myInfoAsMentor.careers[0];
   const myEdu = myInfoAsMentor.educations[0];
@@ -100,7 +100,7 @@ const EditMentorInfo = ({ token, myBio, myCareer, myNewEdu }) => {
         <h1 className={styles.editInfoTitle}>소개</h1>
         <InfoEditBox
           title={"소개"}
-          value={myBio}
+          value={bio}
           ownStyle={classNames(styles.firstBox, styles.lastBox)}
           makeChange={(e) => setBio(e.target.value)}
         />
@@ -109,7 +109,7 @@ const EditMentorInfo = ({ token, myBio, myCareer, myNewEdu }) => {
       <BottomBlueBtn
         text={"저장"}
         onClick={async () => {
-          const res = await EditMyInfoAsMentor(bio, career, edu, token);
+          const res = await editMyInfoAsMentor(bio, career, edu, token);
           if (res == 200) {
             router.push("/mentor/mypage/mentorIntroduction");
           }

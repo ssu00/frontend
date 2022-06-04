@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import router from "next/router";
 import * as cookie from "cookie";
 import styles from "./reviewDetail.module.scss";
@@ -10,15 +10,16 @@ import {
 } from "../../../../../../components/common";
 import { MenteeReview } from "../../../../../../components/mentor/class/classReview";
 import {
-  GetReviewOnlyOne,
-  WriteMentorReview,
-  EditMentorReview,
+  getReviewOnlyOne,
+  writeMentorReview,
+  editMentorReview,
 } from "../../../../../../core/api/Lecture";
+import PreventDuplicateSubmit from "../../../../../../utils/preventDuplicateSubmit";
 
 export async function getServerSideProps(context) {
   const classID = context.query.cid;
   const reviewID = context.query.rid;
-  const reviewData = await GetReviewOnlyOne(classID, reviewID);
+  const reviewData = await getReviewOnlyOne(classID, reviewID);
   const parsedCookies = cookie.parse(context.req.headers.cookie);
 
   return {
@@ -35,21 +36,68 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
   const [comment, setComment] = useState("");
   const [modal, setModal] = useState(false);
   const [writeType, setWriteType] = useState("register");
+  const [err, setErr] = useState(false);
+  const [keydown, setKeyDown] = useState(0);
+
+  if (typeof document !== "undefined") {
+    const documentRef = useRef(document);
+    const reviewBtn = documentRef.current.getElementById("reviewBtn");
+    PreventDuplicateSubmit(reviewBtn, keydown, setKeyDown);
+  }
 
   useEffect(() => {
-    if (reviewData.child.reviewId) {
+    if (reviewData?.child?.mentorReviewId) {
       setWriteType("edit");
-      setComment(reviewData.child.content);
+      setComment(reviewData?.child?.content);
     }
   }, []);
 
+  const ReviewRegister = async () => {
+    keydown == 1 &&
+      (await writeMentorReview(
+        parsedCookies.accessToken,
+        classID,
+        reviewID,
+        comment
+      ).then((res) => {
+        if (res == 201) {
+          setModal(true);
+          setErr("");
+        } else {
+          setModal(false);
+          setErr("실패");
+        }
+      }));
+  };
+
+  const ReviewEdit = async () => {
+    keydown == 1 &&
+      (await editMentorReview(
+        parsedCookies.accessToken,
+        classID,
+        reviewID,
+        reviewData?.child?.mentorReviewId,
+        comment
+      ).then((res) => {
+        if (res == 200) {
+          setModal(true);
+          setErr("");
+        } else {
+          setModal(false);
+          setErr("실패");
+        }
+      }));
+  };
+
   return (
     <section className={styles.reviewDetailSection}>
-      {modal ? (
-        <ModalWithBackground setModal={setModal}>
+      {modal && (
+        <ModalWithBackground setModal={setModal} prevent={true}>
           <BasicModal
             notice={
-              writeType == "register"
+              err != ""
+                ? "등록에 실패했습니다."
+                : writeType == "register"
                 ? `정상적으로 등록되었습니다.`
                 : "정상적으로 수정되었습니다."
             }
@@ -60,8 +108,6 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
             }
           />
         </ModalWithBackground>
-      ) : (
-        <></>
       )}
       <TopBar
         text={"후기 상세보기"}
@@ -80,28 +126,10 @@ const ReviewDetail = ({ classID, reviewID, reviewData, parsedCookies }) => {
         ></textarea>
       </div>
       <BottomBlueBtn
+        id={"reviewBtn"}
         text={writeType == "register" ? "등록" : "수정"}
-        onClick={async () => {
-          if (writeType == "register") {
-            await WriteMentorReview(
-              parsedCookies.accessToken,
-              classID,
-              reviewID,
-              comment
-            ).then((res) => {
-              if (res == 201) setModal(true);
-            });
-          } else {
-            await EditMentorReview(
-              parsedCookies.accessToken,
-              classID,
-              reviewID,
-              reviewData.child.reviewId,
-              comment
-            ).then((res) => {
-              if (res == 200) setModal(true);
-            });
-          }
+        onClick={() => {
+          writeType == "register" ? ReviewRegister() : ReviewEdit();
         }}
       />
     </section>

@@ -1,48 +1,86 @@
 import styles from "./classCard.module.scss";
-import Image from "next/image";
 import classNames from "classnames";
+import { IC_HeartEmpty, IC_HeartRedFill, IC_HeightBar } from "../../icons";
+import { useRouter } from "next/router";
+import { LevelToKor } from "../../utils/class/classLevel";
+import { Rating } from "../mentor/class/rating";
+import Image from "next/image";
+
+export const transGroup = (status) => {
+  if (!status) return "개인";
+  else return "그룹";
+};
 
 const ClassCard = ({ classDetail }) => {
-  const { title, explanation } = classDetail;
-  const labels = ["초급", "그룹"];
-  const tags = ["ONLINE", "NEW"];
+  const { title, explanation, lectureMentor, lecturePrice } = classDetail;
+  const router = useRouter();
 
   return (
-    <a
-      href="#"
-      className={styles.classCard}
-      aria-label={`${title} 상세 정보 보기`}
-    >
-      <section>
+    <div className={styles.classCard} aria-label={`${title} 상세 정보 보기`}>
+      <section
+        onClick={() =>
+          router.push({
+            pathname: `/mentee/classdetails/${classDetail.lectureId}`,
+            query: {
+              lecturePriceId: lecturePrice?.lecturePriceId,
+              mentorId: lectureMentor.mentorId,
+            },
+          })
+        }
+      >
         <div className={styles.imageContainer}>
           <Image
             layout="fill"
             objectFit="cover"
-            src="/samples/lecture.png"
+            src={
+              classDetail.thumbnail
+                ? classDetail.thumbnail
+                : "/samples/lecture.png"
+            }
             alt={title}
           />
           <div className={styles.labels}>
-            {labels.map((label, index) => (
-              <div className={styles.label} key={index}>
-                {label}
-              </div>
-            ))}
+            <div className={styles.label}>
+              {LevelToKor(classDetail.difficulty)}
+            </div>
           </div>
         </div>
         <div className={styles.informationBox}>
           <div className={styles.tags}>
-            {tags.map((tag, index) => (
-              <div className={classNames(styles.tag)} key={index}>
-                {tag}
-              </div>
-            ))}
+            <div className={classNames(styles.tag)}>
+              {classDetail?.systems[0]?.type}
+            </div>
+            <div className={classNames(styles.tag)}>
+              {transGroup(lecturePrice?.isGroup)}
+            </div>
           </div>
           <h2>{title}</h2>
           <h3>{explanation}</h3>
-          <p className={styles.tutorName}>튜터 김하나</p>
+          <p className={styles.tutorName}>{`멘토 ${lectureMentor.nickname}`}</p>
+          <div className={styles.rating}>
+            {classDetail.picked ? (
+              <IC_HeartRedFill width="16px" height="18px" />
+            ) : (
+              <IC_HeartEmpty width="16px" height="18px" />
+            )}
+            <span>{classDetail.pickCount}</span>
+            <IC_HeightBar width="1" height="8" className={styles.height_bar} />
+            <Rating w={55} h={11} fillRating={classDetail.scoreAverage} />
+            <span
+              className={styles.review_num}
+            >{`${classDetail.reviewCount}개 후기`}</span>
+          </div>
+          <div className={styles.price_box}>
+            <span className={styles.sale}></span>
+            <span className={styles.price}>
+              {lecturePrice.totalPrice.toLocaleString()}
+            </span>
+            <span className={styles.won}>원</span>
+            <span className={styles.month}></span>
+          </div>
         </div>
       </section>
-    </a>
+    </div>
   );
 };
 

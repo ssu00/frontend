@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import router from "next/router";
 import classNames from "classnames";
 import styles from "./login.module.scss";
@@ -7,9 +7,9 @@ import {
   BasicBtn,
   basicBtnStyle,
 } from "../../components/common";
-import { Login_API } from "../../core/api/Login";
-import { setCookie } from "../../utils/cookie";
-import { IC_Logo } from "../../icons";
+import { login, getUserRoleType } from "../../core/api/Login";
+import { cookieForAuth, removeInfo } from "../../utils/cookie";
+import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../icons";
 import { NameLogo } from "../../components/common/icons/nameLogo";
 
 const Login = () => {
@@ -17,14 +17,21 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
+  // useEffect(() => {
+  //   removeInfo(); //배포할 때 주석 풀기
+  // }, []);
+
   const checkAccount = async () => {
-    const res = await Login_API(username, password);
+    const res = await login(username, password);
     if (res.status == 200) {
-      router.push("/mentor/myclass/myClassList");
-      setCookie("accessToken", res.data, {
-        path: "/",
-        secure: true,
-      });
+      const role = await getUserRoleType(res.headers["x-access-token"]);
+      cookieForAuth(res, role);
+      if (role.loginType === "ROLE_MENTOR") {
+        router.push("/mentor/myclass/myClassList");
+      }
+      if (role.loginType === "ROLE_MENTEE") {
+        router.push("/mentee");
+      }
     } else {
       setError(true);
     }
@@ -74,20 +81,43 @@ const Login = () => {
 
         <span className={styles.textButtons}>
           <BasicBtn
-            text={"아이디찾기"}
+            text={"회원가입하기"}
             btnStyle={classNames(styles.textBtn, basicBtnStyle.btn_transparent)}
             textStyle={styles.textBtnText}
-            onClick={() => router.push("/mentor/findID")}
+            onClick={() => router.push("/mentor/signup")}
           />
           <BasicBtn
             text={"비밀번호찾기"}
             btnStyle={classNames(styles.textBtn, basicBtnStyle.btn_transparent)}
             textStyle={styles.textBtnText}
-            onClick={() => router.push("/mentor/findPW")}
+            onClick={() => router.push("/common/findPW")}
           />
         </span>
       </div>
 
+      <div className={styles.snsCon}>
+        <p>SNS 로그인</p>
+        <div className={styles.snsBtn}>
+          <a
+            href={`${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/google`}
+            target="_blank"
+          >
+            <IC_Google />
+          </a>
+          <a
+            href={`${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/naver`}
+            target="_blank"
+          >
+            <IC_Naver />
+          </a>
+          <a
+            href={`${process.env.NEXT_PUBLIC_URL}/oauth2/authorization/kakao`}
+            target="_blank"
+          >
+            <IC_Kakao />
+          </a>
+        </div>
+      </div>
       <NameLogo />
     </section>
   );

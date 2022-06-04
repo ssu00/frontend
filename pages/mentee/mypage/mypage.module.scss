@@ -1,0 +1,95 @@
+@import "../../../styles/main.module.scss";
+.mypageSection {
+  @extend %page-base;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .profileSection {
+    width: 100%;
+    height: 200px;
+    padding: 16px 20px 32px;
+
+    .profile {
+      @include flexBox(start, center);
+      margin-bottom: 24px;
+
+      .profileImgMargin {
+        margin-right: 12px;
+
+        .profileImg {
+          @include avatar(56, 56);
+          margin-right: 12px;
+        }
+      }
+
+      .role_name {
+        width: 60%;
+
+        .name {
+          @include text-style($fs-16, $sub, 700);
+          width: 60%;
+        }
+      }
+
+      .toggle_btn {
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
+
+        .profileEditBtn {
+          @include btn-style(36px, 50px);
+          width: 82px;
+          background-color: $white;
+          border: 1px solid $line;
+        }
+
+        .profileEditBtnText {
+          @include text-style($fs-12, $gray, 400);
+        }
+      }
+    }
+
+    .btns {
+      @include flexBox(between, center);
+      width: 100%;
+
+      button {
+        span {
+          margin-top: 3px;
+        }
+      }
+      .bigBlueBtn {
+        @include flexBox(center, center);
+        @include btn-style(72px, 8px);
+        flex-direction: column;
+        width: 164px;
+
+        .bigBtnText {
+          @include text-style(11px, $white, 400);
+        }
+      }
+    }
+  }
+
+  .line {
+    width: 100%;
+    height: 8px;
+    margin-bottom: 27px;
+    background-color: $bg-color;
+  }
+
+  .categorySection {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 21px 40px;
+
+    .title {
+      @include text-style($fs-15, $main, 700, left);
+      padding-bottom: 3px;
+      margin-bottom: 0;
+      border-bottom: 2px solid #6595f4;
+    }
+  }
+}

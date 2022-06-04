@@ -10,52 +10,85 @@ import {
   basicBtnStyle,
 } from "../../../components/common";
 import MyPageTopBar from "../../../components/mentor/mypage/mypageTopBar";
-import { IC_Bookmark, IC_Student } from "../../../icons";
-import { GetMyInfo } from "../../../core/api/User";
-import UserRole from "../../../utils/userRole";
+import {
+  IC_Bookmark,
+  IC_PersonBlue,
+  IC_Student,
+  IC_ToggleActive,
+} from "../../../icons";
+import { getMyInfo } from "../../../core/api/User";
+import { changeType } from "../../../core/api/Login";
+import { cookieForAuth } from "../../../utils/cookie";
+import { useContext } from "react";
+import { sockContext } from "../../../core/provider";
 
-const MyPage = ({ userInfo }) => {
+export const getServerSideProps = async (context) => {
+  const token = cookie.parse(context.req.headers.cookie).accessToken;
+  const userInfo = await getMyInfo(token);
+  return {
+    props: { token, userInfo },
+  };
+};
+
+const MyPage = ({ token, userInfo }) => {
+  const alarm = useContext(sockContext);
   return (
     <section className={styles.mypageSection}>
-      <MyPageTopBar />
+      <MyPageTopBar count={alarm.alarmCnt} />
       <section className={styles.profileSection}>
         <div className={styles.profile}>
           <div className={styles.profileImgMargin}>
-            <Image
-              src={"/samples/lecture.png"}
-              width={56}
-              height={56}
-              className={styles.profileImg}
-            />
+            {userInfo.image == null ? (
+              <IC_PersonBlue width={56} height={56} />
+            ) : (
+              <Image
+                src={userInfo.image}
+                width={56}
+                height={56}
+                className={styles.profileImg}
+              />
+            )}
           </div>
 
           <div className={styles.role_name}>
             <div className={styles.mentorTag}>
-              <span>{UserRole(userInfo.role)}</span>
+              <span>멘토</span>
             </div>
-            <span className={styles.name}>{userInfo.name}</span>
+            <span className={styles.name}>{userInfo.nickname}</span>
           </div>
 
-          <BasicBtn
-            text={"프로필 수정"}
-            onClick={() => router.push("/mentor/mypage/profileEdit")}
-            btnStyle={styles.profileEditBtn}
-            textStyle={styles.profileEditBtnText}
-          />
+          <div className={styles.toggle_btn}>
+            <BasicBtn
+              text={"프로필 수정"}
+              onClick={() => router.push("/mentor/mypage/profileEdit")}
+              btnStyle={styles.profileEditBtn}
+              textStyle={styles.profileEditBtnText}
+            />
+            <IC_ToggleActive
+              onClick={async () => {
+                const res = await changeType(token);
+                cookieForAuth(res, { loginType: "ROLE_MENTEE" });
+                router.push("/mentee/mypage");
+              }}
+            />
+          </div>
         </div>
 
         <div className={styles.btns}>
           <button
             type="button"
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
+            onClick={() => router.push("/mentor/mypage/menteeUncheckedList")}
+            // onClick={() => router.push("/mentor/myclass/myClassList")}
           >
             <IC_Bookmark />
-            <span className={styles.bigBtnText}>강의 목록</span>
+            <span className={styles.bigBtnText}>강의 신청한 멘티</span>
           </button>
 
           <button
             type="button"
             className={classNames(basicBtnStyle.btn_blue, styles.bigBlueBtn)}
+            onClick={() => router.push("/mentor/mypage/menteeList")}
           >
             <IC_Student w="30" h="30" />
             <span className={styles.bigBtnText}>멘티 목록</span>
@@ -73,17 +106,9 @@ const MyPage = ({ userInfo }) => {
         <CategoryBtn text={"버전정보"} />
       </section>
 
-      <BottomTab num={[0, 0, 0, 1]} />
+      <BottomTab num={[0, 0, 0, 1]} role={"ROLE_MENTOR"} />
     </section>
   );
 };
-
-export async function getServerSideProps(context) {
-  const parsedCookies = cookie.parse(context.req.headers.cookie);
-  const userInfo = await GetMyInfo(parsedCookies.accessToken);
-  return {
-    props: { userInfo },
-  };
-}
 
 export default MyPage;

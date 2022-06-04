@@ -10,9 +10,9 @@ const SignUpComplete = () => {
       <IC_CheckOutline />
       <strong className={styles.completeTitle}>회원가입 완료</strong>
       <p className={styles.completeParagraph}>
-        이메일 인증 및 회원가입이 완료되었습니다.
+        이메일 인증이 완료되어야 회원가입이 완료됩니다.
         <br />
-        로그인 후 Mentoridge 서비스를 이용해보세요.
+        이메일 인증 후 Mentoridge 서비스를 이용해보세요.
       </p>
       <BasicBtn
         text={"로그인"}

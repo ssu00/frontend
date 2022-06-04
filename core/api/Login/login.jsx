@@ -1,10 +1,8 @@
-import axios from "axios";
-const Login_API = async (id, pw) => {
-  try {
-    const res = await axios.post("/login", { password: pw, username: id });
-    return res;
-  } catch (err) {
-    return err;
-  }
+import Api, { METHOD } from "../apiController";
+export const login = async (id, pw) => {
+  return await Api({
+    method: METHOD.POST,
+    url: "/login",
+    data: { password: pw, username: id },
+  });
 };
-export default Login_API;

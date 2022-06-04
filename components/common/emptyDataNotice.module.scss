@@ -1,0 +1,9 @@
+@import "../../styles/main.module.scss";
+
+.noData {
+  @include text-style($fs-14, $white, 400);
+  @include flexBox;
+  @include basic-box(100%, 100px, 0, 0, 10px);
+  margin: 20px auto;
+  background-color: $light_gray;
+}

@@ -1,0 +1,81 @@
+@import "../../styles/main.module.scss";
+
+.container {
+  @extend %page-base;
+  position: relative;
+  @include flexBox(center, center);
+  padding-bottom: 80px;
+  background: $white;
+
+  .loadingBalls {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $main;
+    opacity: 1;
+    animation: mainBalls 1s infinite linear;
+    position: relative;
+    &::before {
+      position: absolute;
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: $main;
+      opacity: 0.25;
+      left: 20px;
+      animation: beforeBalls 1s infinite linear;
+    }
+    &::after {
+      position: absolute;
+      content: "";
+      width: 10px;
+      height: 10px;
+      opacity: 0.25;
+      border-radius: 50%;
+      background-color: $main;
+      left: -20px;
+
+      animation: AfterBalls 1s infinite linear;
+    }
+  }
+}
+
+@keyframes mainBalls {
+  0% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 0.25;
+  }
+  66% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes beforeBalls {
+  0% {
+    opacity: 0.25;
+  }
+  33% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes AfterBalls {
+  33% {
+    opacity: 0.25;
+  }
+  66% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.25;
+  }
+}

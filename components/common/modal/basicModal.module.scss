@@ -2,14 +2,22 @@
 .roundModal {
   @extend %modal-base;
   height: 224px;
+  white-space: pre-line;
   border-radius: 10px;
 
-  .noticeText {
-    @include text-style(17px, $sub, 500);
+  .closeIcon circle {
+    fill: $red;
+  }
+
+  p {
+    @include text-style(17px, $sub, 500, center);
+    width: 200px;
+    margin: 0 0 16px;
   }
 
   .btnStyle {
     @include btn-style(50px, 10px);
+    width: 249px;
   }
 
   .btnTextStyle {
@@ -20,17 +28,18 @@
 .squareModal {
   @extend %modal-base;
   height: 175px;
+  white-space: pre-line;
   border-radius: 3px;
   box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.25);
 
   .closeIcon circle {
-    fill: #ee5a5a;
+    fill: $red;
   }
 
-  .noticeText {
+  p {
     @include text-style(14px, $sub, 400, center);
+    width: 250px;
     margin: 0 0 16px;
-    white-space: pre-line;
   }
 
   .btnStyle {

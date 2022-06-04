@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import router from "next/router";
-import * as cookie from "cookie";
 import styles from "./myClassList.module.scss";
 import { BottomTab, MenuBtn, TopBar } from "../../../components/common";
 import ClassCard from "../../../components/mentor/class/classCard";
-import { GetMyLectures } from "../../../core/api/Lecture";
+import { getMyLectures } from "../../../core/api/Lecture";
 
-const MyClassList = ({ classes, parsedCookies }) => {
+const MyClassList = ({ classes }) => {
   const [pageNum, setPageNum] = useState(1);
   const [allClass, setAllClass] = useState(classes.content);
 
   const GetMoreClasses = async () => {
-    const classesNewPage = await GetMyLectures(
-      parsedCookies.accessToken,
-      pageNum
-    );
+    const classesNewPage = await getMyLectures(pageNum);
     setAllClass([...allClass, ...classesNewPage.content]);
   };
 
@@ -56,25 +52,22 @@ const MyClassList = ({ classes, parsedCookies }) => {
           hasMore={!classes.last}
           className={styles.infiniteScroll}
         >
-          {allClass.map((data, i) => {
+          {allClass?.map((data, i) => {
             return <ClassCard key={i} data={data} />;
           })}
         </InfiniteScroll>
 
-        <BottomTab num={[1, 0, 0, 0]} />
+        <BottomTab num={[1, 0, 0, 0]} role={"ROLE_MENTOR"} />
       </section>
     </>
   );
 };
 
-export const getServerSideProps = async (context) => {
-  const parsedCookies = cookie.parse(context.req.headers.cookie);
-  const classes = await GetMyLectures(parsedCookies.accessToken, 1);
-
+export const getStaticProps = async () => {
+  const classes = await getMyLectures(1);
   return {
     props: {
       classes,
-      parsedCookies,
     },
   };
 };

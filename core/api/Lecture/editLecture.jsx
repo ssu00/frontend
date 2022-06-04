@@ -1,10 +1,10 @@
-import axios from "axios";
+import Api, { METHOD } from "../apiController";
 import { LevelToEng } from "../../../utils/class/classLevel";
 import { PriceToArray } from "../../../utils/class/classPrice";
 import { SystemToArr } from "../../../utils/class/classSystem";
 import { FilterSubjectArr } from "../../../utils/class/classSubject";
 
-const EditLecture = async ({ form, token, classID }) => {
+export const editLecture = async ({ form, token, classID }) => {
   const data = {
     title: form.title,
     subTitle: form.subtitle,
@@ -14,18 +14,13 @@ const EditLecture = async ({ form, token, classID }) => {
     lecturePrices: PriceToArray(form),
     lectureSubjects: FilterSubjectArr(form),
     systems: SystemToArr(form),
-    thumbnail:
-      "https://www.city.kr/files/attach/images/161/701/416/022/a2c34aa75756074e20552ccbac6894e8.jpg",
+    thumbnail: form.image,
   };
 
-  try {
-    const res = await axios.put(`/lectures/${classID}`, data, {
-      headers: { Authorization: token },
-    });
-    return res;
-  } catch (err) {
-    return err;
-  }
+  return await Api({
+    method: METHOD.PUT,
+    url: `/lectures/${classID}`,
+    headers: { Authorization: token },
+    data,
+  });
 };
-
-export default EditLecture;

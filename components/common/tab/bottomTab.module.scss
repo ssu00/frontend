@@ -1,11 +1,9 @@
-.tab {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  display: flex;
-  justify-content: space-between;
+@import "../../../styles/main.module.scss";
+.bottomTab {
+  @include pos(fixed, false, false, 0, 50%);
+  @include flexBox(between, center);
   width: 375px;
   padding: 13px 17.5px;
-  background-color: #fff;
+  background-color: $white;
   transform: translateX(-50%);
 }

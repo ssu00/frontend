@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import router from "next/router";
 import styles from "./signup.module.scss";
 import { BottomBlueBtn, TopBar } from "../../components/common";
-import { SignUp_API } from "../../core/api/Login";
+import { signUp } from "../../core/api/Login";
 import SignUpErr from "../../utils/errorHandling/signupErr";
 import UserBlock from "../../components/mentor/signup/userBlock";
 import BasicDataBlock from "../../components/mentor/signup/basicDataBlock";
@@ -70,7 +70,7 @@ const MenteeSignUp = () => {
   }, [user.email]);
 
   const SignUpAPI = async () => {
-    const res = await SignUp_API(user, addr);
+    const res = await signUp(user, addr);
     if (res.status == 201 || res.status == 200) {
       router.push("/mentor/signupComplete");
     }
