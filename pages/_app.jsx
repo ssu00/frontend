@@ -20,7 +20,7 @@ function MyApp({
   my,
   uncheckedCnt,
   myChatRooms,
-  newToken,
+  // newToken,
   Component,
   pageProps,
 }) {
@@ -36,12 +36,12 @@ function MyApp({
       setLoading(false);
     };
 
-    if (newToken !== "")
-      setCookie("accessToken", newToken, {
-        path: "/",
-        secure: true,
-        withCredentials: true,
-      });
+    // if (newToken !== "")
+    //   setCookie("accessToken", newToken, {
+    //     path: "/",
+    //     secure: true,
+    //     withCredentials: true,
+    //   });
 
     router.events.on("routeChangeStart", start);
     router.events.on("routeChangeComplete", end);
@@ -92,15 +92,15 @@ MyApp.getInitialProps = async (context) => {
     myTokens.access = parsedCookie.accessToken;
     myTokens.refresh = parsedCookie.refreshToken;
     myTokens.role = parsedCookie.role;
-    const res = await tokenRefresh(
-      myTokens.access,
-      myTokens.refresh,
-      myTokens.role
-    );
-    newToken =
-      res?.headers["x-access-token"] !== undefined
-        ? res.headers["x-access-token"]
-        : myTokens.access;
+    // const res = await tokenRefresh(
+    //   myTokens.access,
+    //   myTokens.refresh,
+    //   myTokens.role
+    // );
+    // newToken =
+    //   res?.headers["x-access-token"] !== undefined
+    //     ? res.headers["x-access-token"]
+    //     : myTokens.access;
   }
 
   // const newToken=res.headers['x-access-token']?res.headers['x-access-token']:myTokens.access;
@@ -112,8 +112,8 @@ MyApp.getInitialProps = async (context) => {
   const my = await getMyInfo(myTokens.access);
   const uncheckedCnt = await getUncheckedNotificationCount(myTokens.access);
   const myChatRooms = await allChatRooms();
-  // return { my, uncheckedCnt, myChatRooms };
-  return { my, uncheckedCnt, myChatRooms, newToken };
+  return { my, uncheckedCnt, myChatRooms };
+  // return { my, uncheckedCnt, myChatRooms, newToken };
 };
 
 export default wrapper.withRedux(MyApp);
