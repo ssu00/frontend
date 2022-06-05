@@ -1,5 +1,4 @@
-import Api from "../apiController";
-import { METHOD } from "../../../pages/tokenExpiredHandler";
+import Api, { METHOD } from "../apiController";
 
 export const getMyLectures = async (pageNum, token) => {
   const res = await Api({
@@ -7,6 +6,5 @@ export const getMyLectures = async (pageNum, token) => {
     url: `/mentors/my-lectures?page=${pageNum}`,
     headers: { Authorization: token },
   });
-  // console.log("res=", res);
   return res.data;
 };

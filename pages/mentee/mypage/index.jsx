@@ -21,6 +21,7 @@ import Role from "../../../components/common/tag/role";
 import { changeType } from "../../../core/api/Login";
 import { useContext } from "react";
 import { sockContext } from "../../../core/provider";
+import { cookieForAuth } from "../../../utils/cookie";
 
 const MyPage = ({ token, userInfo, role }) => {
   const alarm = useContext(sockContext);

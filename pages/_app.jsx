@@ -13,20 +13,18 @@ import { getMyInfo } from "../core/api/User";
 import { getUncheckedNotificationCount } from "../core/api/Notification";
 import { allChatRooms } from "../core/api/Chat";
 import SocketProvider from "../core/provider";
-// import { refreshToken } from "../core/api/Login";
-// import Api, { METHOD } from "../core/api/apiController";
-import TokenExpiredHandler from "./tokenExpiredHandler";
+import { tokenRefresh } from "../core/api/Login";
+import { setCookie } from "../utils/cookie";
 
 function MyApp({
   my,
   uncheckedCnt,
   myChatRooms,
-  myTokens,
+  newToken,
   Component,
   pageProps,
 }) {
   const [loading, setLoading] = useState(false);
-
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
   myAxios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -37,6 +35,13 @@ function MyApp({
     const end = () => {
       setLoading(false);
     };
+
+    if (newToken !== "")
+      setCookie("accessToken", newToken, {
+        path: "/",
+        secure: true,
+        withCredentials: true,
+      });
 
     router.events.on("routeChangeStart", start);
     router.events.on("routeChangeComplete", end);
@@ -53,22 +58,20 @@ function MyApp({
   ) : (
     <>
       <Head>
-        <link rel="shortcut icon" href="favicon/favicon(16x16).ico" />
-        <link rel="shortcut icon" href="favicon/favicon(32x32).ico" />
-        <link rel="shortcut icon" href="favicon/favicon(64x64).ico" />
+        <link rel="shortcut icon" href="/favicon/favicon(16x16).ico" />
+        <link rel="shortcut icon" href="/favicon/favicon(32x32).ico" />
+        <link rel="shortcut icon" href="/favicon/favicon(64x64).ico" />
 
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
         <meta property="og:title" content={"멘토릿지"} />
       </Head>
-      <TokenExpiredHandler myTokens={myTokens}>
-        <SocketProvider
-          my={my}
-          uncheckedCnt={uncheckedCnt}
-          myChatRooms={myChatRooms}
-        >
-          <Component {...pageProps} />
-        </SocketProvider>
-      </TokenExpiredHandler>
+      <SocketProvider
+        my={my}
+        uncheckedCnt={uncheckedCnt}
+        myChatRooms={myChatRooms}
+      >
+        <Component {...pageProps} />
+      </SocketProvider>
     </>
   );
 }
@@ -80,22 +83,37 @@ MyApp.getInitialProps = async (context) => {
     role: "",
   };
 
+  let parsed = "";
+  let newToken = "";
+
   if (context.ctx.req && context.ctx.req.headers.cookie) {
     const parsedCookie = cookie.parse(context.ctx.req.headers.cookie);
+    parsed = parsedCookie;
     myTokens.access = parsedCookie.accessToken;
     myTokens.refresh = parsedCookie.refreshToken;
     myTokens.role = parsedCookie.role;
+    const res = await tokenRefresh(
+      myTokens.access,
+      myTokens.refresh,
+      myTokens.role
+    );
+    newToken =
+      res?.headers["x-access-token"] !== undefined
+        ? res.headers["x-access-token"]
+        : myTokens.access;
   }
 
-  axios.defaults.headers.common["Authorization"] = myTokens.access;
-  // axios.defaults.headers.common["Set-Cookie"] = myTokens;
-  myAxios.defaults.headers.common["Authorization"] = myTokens.access;
-  // myAxios.defaults.headers.common["Set-Cookie"] = myTokens;
+  // const newToken=res.headers['x-access-token']?res.headers['x-access-token']:myTokens.access;
+  //  axios.defaults.headers.common["Authorization"] = myTokens.access;
+  axios.defaults.headers.common["Set-Cookie"] = JSON.stringify(myTokens);
+  //  myAxios.defaults.headers.common["Authorization"] = myTokens.access;
+  myAxios.defaults.headers.common["Set-Cookie"] = JSON.stringify(myTokens);
 
   const my = await getMyInfo(myTokens.access);
   const uncheckedCnt = await getUncheckedNotificationCount(myTokens.access);
   const myChatRooms = await allChatRooms();
-  return { my, uncheckedCnt, myChatRooms, myTokens };
+  // return { my, uncheckedCnt, myChatRooms };
+  return { my, uncheckedCnt, myChatRooms, newToken };
 };
 
 export default wrapper.withRedux(MyApp);

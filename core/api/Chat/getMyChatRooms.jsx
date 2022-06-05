@@ -1,5 +1,5 @@
-import Api from "../apiController";
-import { METHOD } from "../../../pages/tokenExpiredHandler";
+import Api, { METHOD } from "../apiController";
+// import { METHOD } from "../../../pages/tokenExpiredHandler";
 
 export const getMyChatRooms = async () => {
   const res = await Api({

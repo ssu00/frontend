@@ -1,5 +1,4 @@
-import Api from "../apiController";
-import { METHOD } from "../../../pages/tokenExpiredHandler";
+import Api, { METHOD } from "../apiController";
 
 export const getUncheckedNotificationCount = async (token) => {
   const res = await Api({

@@ -7,7 +7,6 @@ export const removeInfo = () => {
   Cookies.remove("role", { path: "/" });
   Cookies.remove("accessToken", { path: "/" });
   Cookies.remove("refreshToken", { path: "/" });
-  localStorage.clear();
 };
 
 export const getCookie = (name) => {

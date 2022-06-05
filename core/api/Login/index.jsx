@@ -4,7 +4,7 @@ import { findPassword } from "./findPW";
 import { login } from "./login";
 import { getUserRoleType } from "./roleTypeCheck";
 import { signUp } from "./signUp";
-import { refreshToken } from "./refreshToken";
+import { tokenRefresh } from "./tokenRefresh";
 
 export {
   changeType,
@@ -14,5 +14,5 @@ export {
   login,
   getUserRoleType,
   signUp,
-  refreshToken,
+  tokenRefresh,
 };
