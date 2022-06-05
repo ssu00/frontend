@@ -20,7 +20,11 @@ import { getMyPosts, getMyComments, getMyLikes } from "./getMypageBoard";
 import { getMyReviews } from "./getMyReviews";
 import { getNoticeDetail } from "./getNoticeDetail";
 import { getNoticeList } from "./getNoticeList";
-import { getRegisteredLectures } from "./getRegisteredLectures";
+import {
+  getNotApprovedLectures,
+  getApprovedLectures,
+  approveLecture,
+} from "./getRegisteredLectures";
 import { getReviewMentee } from "./getReviewMentee";
 import { getUnreviewedMentee } from "./getUnreviewedMentee";
 import { getWriteReview } from "./getWriteReview";
@@ -52,7 +56,9 @@ export {
   getMyReviews,
   getNoticeDetail,
   getNoticeList,
-  getRegisteredLectures,
+  getNotApprovedLectures,
+  getApprovedLectures,
+  approveLecture,
   getReviewMentee,
   getUnreviewedMentee,
   getWriteReview,

@@ -2,12 +2,14 @@ import classNames from "classnames";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
+import { approveLecture } from "../../../core/api/Mentee";
 import { IC_WriteReview } from "../../../icons";
 import { basicBtnStyle } from "../../common";
 import styles from "./LectureBlock.module.scss";
 
-const LectureBlock = ({ lecture }) => {
+const LectureBlock = ({ lecture, approved, token }) => {
   const router = useRouter();
+
   return (
     <div className={styles.lectureBlock}>
       <div className={styles.lectureInfo}>
@@ -29,24 +31,41 @@ const LectureBlock = ({ lecture }) => {
           >{`${lecture.lecturePrice.totalPrice.toLocaleString()}원`}</span>
         </div>
       </div>
-
-      <div className={styles.btnSection}>
-        <button
-          type="button"
-          className={classNames(
-            styles.btnForlectureBlock,
-            basicBtnStyle.btn_bg_color
-          )}
-          onClick={() =>
-            router.push({
-              pathname: `/mentee/mypage/menteeReview/review/${lecture.lectureId}`,
-            })
-          }
-        >
-          <IC_WriteReview widht={14} height={14} className={styles.btnIcon} />
-          <span>후기작성</span>
-        </button>
-      </div>
+      {approved ? (
+        <div className={styles.btnSection}>
+          <button
+            type="button"
+            className={classNames(
+              styles.btnForlectureBlock,
+              basicBtnStyle.btn_bg_color
+            )}
+            onClick={() =>
+              router.push({
+                pathname: `/mentee/mypage/menteeReview/review/${lecture.lectureId}`,
+              })
+            }
+          >
+            <span>후기 작성</span>
+          </button>
+          <button
+            type="button"
+            className={classNames(
+              styles.btnForApproved,
+              basicBtnStyle.btn_bg_color
+            )}
+            onClick={async () => {
+              const res = await approveLecture(token, lecture.enrollmentId);
+              console.log("수강완료 >>>>>> ", res);
+              window.location.reload();
+            }}
+            disabled={lecture.finished}
+          >
+            <span>수강 완료</span>
+          </button>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

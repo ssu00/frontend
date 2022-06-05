@@ -73,7 +73,7 @@ export const getServerSideProps = async (context) => {
       token,
     },
   };
-};
+}
 
 // export const getStaticProps = async () => {
 //   const classes = await getMyLectures(1, token);
