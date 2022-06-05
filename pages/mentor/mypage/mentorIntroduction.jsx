@@ -6,10 +6,11 @@ import MyPageInfoLine from "../../../components/mentor/mypage/mypageInfoLine";
 import { TransEduLevelToKor } from "../../../components/mentor/transform";
 import { IC_EditFill } from "../../../icons";
 import { getMyInfoAsMentor } from "../../../core/api/Mentor";
+import { getCookie } from "../../../utils/cookie";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const myInfo = await getMyInfoAsMentor();
+  const myInfo = await getMyInfoAsMentor(token);
   const myInfoAsMentor = myInfo == null ? "" : myInfo;
   return {
     props: {
@@ -19,6 +20,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const MentorIntroduction = ({ myInfoAsMentor }) => {
+  console.log("test--=============", getCookie("accessToken"));
   const user = myInfoAsMentor.user;
   const careers = myInfoAsMentor.careers[0];
   const edu = myInfoAsMentor.educations[0];

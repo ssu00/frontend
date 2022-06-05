@@ -14,7 +14,7 @@ import ChangeObject from "../../../utils/changeObject";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
-  const myInfoAsMentor = await getMyInfoAsMentor();
+  const myInfoAsMentor = await getMyInfoAsMentor(token);
   const myBio = myInfoAsMentor.bio;
   const myCareer = myInfoAsMentor.careers[0];
   const myEdu = myInfoAsMentor.educations[0];

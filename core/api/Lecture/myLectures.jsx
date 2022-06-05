@@ -6,6 +6,5 @@ export const getMyLectures = async (pageNum, token) => {
     url: `/mentors/my-lectures?page=${pageNum}`,
     headers: { Authorization: token },
   });
-
   return res.data;
 };
