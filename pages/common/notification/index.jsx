@@ -19,7 +19,7 @@ export async function getServerSideProps(context) {
   const notiData = await getMyNotification(token, 1);
 
   await checkNotification();
-  const my = await getMyInfo();
+  const my = await getMyInfo(token);
 
   return {
     props: { token, notiData, my },
