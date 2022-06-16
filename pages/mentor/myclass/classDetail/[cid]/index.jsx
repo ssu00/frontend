@@ -23,6 +23,11 @@ import {
 } from "../../../../../components/mentor/class/rating";
 import { LevelToKor } from "../../../../../utils/class/classLevel";
 import EmptyDataNotice from "../../../../../components/common/emptyDataNotice";
+import {
+  closeLecture,
+  openLecture,
+} from "../../../../../core/api/Mentor/openLecture";
+import RefreshPage from "../../../../../utils/refreshPage";
 
 export async function getServerSideProps(context) {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -31,14 +36,16 @@ export async function getServerSideProps(context) {
   const reviewData = await getReview(classID);
 
   return {
-    props: { token, classData, reviewData },
+    props: { token, classData, reviewData, classID },
   };
 }
 
-const ClassDetail = ({ token, classData, reviewData }) => {
+const ClassDetail = ({ token, classData, reviewData, classID }) => {
   const [select, setSelect] = useState(true);
   const [modal, setModal] = useState(false);
+  const [lectureOpenModal, setLectureOpenModal] = useState(false);
 
+  console.log("classData=", classData);
   const subjectOnly = classData.lectureSubjects.map(
     (data, i) => data.krSubject
   );
@@ -64,6 +71,53 @@ const ClassDetail = ({ token, classData, reviewData }) => {
           />
         </ModalWithBackground>
       )}
+      {lectureOpenModal && (
+        <ModalWithBackground prevent={true} setModal={setLectureOpenModal}>
+          <div className={styles.lectureOpenModal}>
+            {classData.lecturePrices.map((data, i) => {
+              return (
+                <div className={styles.openState}>
+                  <span className={styles.type}>
+                    {data.isGroup ? "그룹" : "1:1"}
+                  </span>
+                  <div>
+                    <span
+                      className={
+                        data.closed ? styles.status_closed : styles.status_open
+                      }
+                    >
+                      {data.closed ? "모집 종료" : "모집 중"}
+                    </span>
+                    <button
+                      type="button"
+                      className={data.closed ? styles.openBtn : styles.closeBtn}
+                      onClick={async () => {
+                        let res;
+                        if (data.closed) {
+                          res = await openLecture(
+                            classID,
+                            data.lecturePriceId,
+                            token
+                          );
+                        } else {
+                          res = await closeLecture(
+                            classID,
+                            data.lecturePriceId,
+                            token
+                          );
+                        }
+                        if (res === 200) RefreshPage();
+                      }}
+                    >
+                      {data.closed ? "모집 재개" : "모집 종료"}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </ModalWithBackground>
+      )}
       <TopBar onClick={() => router.push("/mentor/myclass/myClassList")} />
       <div className={styles.imageBlock}>
         <Image
@@ -74,6 +128,12 @@ const ClassDetail = ({ token, classData, reviewData }) => {
           height={277}
         />
         <div className={styles.edit_remove_btn}>
+          <BasicBtn
+            text={"모집 상태 변경"}
+            btnStyle={styles.stateBtn}
+            onClick={() => setLectureOpenModal(true)}
+          />
+
           <BasicBtn
             text={"수정"}
             btnStyle={styles.editBtn}
@@ -110,7 +170,6 @@ const ClassDetail = ({ token, classData, reviewData }) => {
           </span>
         </div>
       </div>
-
       <div className={styles.classInfoBlock}>
         <span className={styles.classSubject}>{subjectOnly.join(", ")}</span>
         <h1 className={styles.title}>{classData.title}</h1>
@@ -128,7 +187,6 @@ const ClassDetail = ({ token, classData, reviewData }) => {
         </div>
         <span className={styles.subtitle}>{classData.subTitle}</span>
       </div>
-
       <div className={styles.classPriceBlock}>
         {classData.lecturePrices.map((data, i) => {
           return (
@@ -139,9 +197,7 @@ const ClassDetail = ({ token, classData, reviewData }) => {
           );
         })}
       </div>
-
       <span className={styles.line} />
-
       <div className={styles.btnBlock}>
         <MenuBtn
           selected={select}
@@ -156,7 +212,6 @@ const ClassDetail = ({ token, classData, reviewData }) => {
           onClick={() => setSelect(false)}
         />
       </div>
-
       {select ? (
         <div className={styles.classIntroBlock}>
           {renderHTML(classData.content)}
