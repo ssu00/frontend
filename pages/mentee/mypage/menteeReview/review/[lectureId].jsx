@@ -180,7 +180,7 @@ const WriteMentee = ({ token, lectureId, unreviewedLecture }) => {
       <BottomBlueBtn
         text={"등록"}
         onClick={setModal}
-        disabled={content.length < 20 || score < -1 ? true : false}
+        disabled={content.length < 20 && score === null ? true : false}
       />
     </>
   );
