@@ -6,8 +6,8 @@ const myAxios = axios.create({
 
 myAxios.interceptors.request.use(
   async (config) => {
-    // isRefresh =
-    //   config.headers.common["X-Access-Token"] === undefined ? false : true;
+    isRefresh =
+      config.headers.common["X-Access-Token"] === undefined ? false : true;
     return config;
   },
   (err) => {
@@ -17,10 +17,10 @@ myAxios.interceptors.request.use(
 
 myAxios.interceptors.response.use(
   async function (response) {
-    // if (isRefresh) {
-    //   myAxios(config);
-    //   return response;
-    // }
+    if (isRefresh) {
+      myAxios(config);
+      return response;
+    }
     return response;
   },
   async function (error) {
