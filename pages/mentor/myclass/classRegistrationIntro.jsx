@@ -1,6 +1,5 @@
 import router from "next/router";
 import styles from "./classRegistrationIntro.module.scss";
-import fakeData from "../../../mock/data.json";
 import { BottomTab, MenuBtn, TopBar } from "../../../components/common";
 import { IC_PlusCircle } from "../../../icons";
 

@@ -2,6 +2,56 @@
 .classDetailSection {
   @extend %page-base;
 
+  .lectureOpenModal {
+    @extend %modal-base;
+    @include flexBox(start, start);
+    white-space: pre-line;
+    border-radius: 10px;
+
+    .line {
+      width: 100%;
+      height: 1px;
+      background-color: $light_gray;
+    }
+
+    .openState {
+      @include flexBox(center, start);
+      flex-direction: column;
+      padding: 20px;
+      width: 100%;
+
+      .type {
+        @include text-style(16px, $gray, 700, left);
+      }
+
+      div {
+        @include flexBox(between, center);
+        width: 100%;
+
+        .status_open {
+          @include text-style(18px, $main, 500, left);
+        }
+
+        .status_closed {
+          @include text-style(18px, $red, 500, left);
+        }
+
+        .closeBtn,
+        .openBtn {
+          @include btn-style(30px, 10px);
+          @include text-style(14px, $white, 400);
+          width: 80px;
+          background-color: $red;
+          border: 0;
+        }
+
+        .openBtn {
+          background-color: $main;
+        }
+      }
+    }
+  }
+
   .imageBlock {
     position: relative;
 
@@ -11,7 +61,8 @@
       height: 23px;
 
       .editBtn,
-      .removeBtn {
+      .removeBtn,
+      .stateBtn {
         @include tag-class-system-colored($light_gray, $white);
         z-index: 1;
         margin-left: 7px;
@@ -20,6 +71,10 @@
 
       .removeBtn {
         @include tag-class-system-colored($gray, $white);
+      }
+
+      .stateBtn {
+        @include tag-class-system-colored($main, $white);
       }
     }
 

@@ -35,6 +35,15 @@ const ClassCard = ({ data }) => {
               </div>
             );
           })}
+          <div
+            className={
+              data.approved === false
+                ? styles.approvedFalse
+                : styles.approvedTrue
+            }
+          >
+            <span>{data.approved === false ? "미승인" : "승인완료"}</span>
+          </div>
         </section>
       </div>
 
