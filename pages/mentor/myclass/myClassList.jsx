@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import router from "next/router";
 import styles from "./myClassList.module.scss";
 import { BottomTab, MenuBtn, TopBar } from "../../../components/common";
 import ClassCard from "../../../components/mentor/class/classCard";
 import { getMyLectures } from "../../../core/api/Lecture";
+import * as cookie from "cookie";
 
-const MyClassList = ({ token, classes }) => {
+const MyClassList = ({ classes, token }) => {
   const [pageNum, setPageNum] = useState(1);
   const [allClass, setAllClass] = useState(classes.content);
 
@@ -47,7 +48,7 @@ const MyClassList = ({ token, classes }) => {
         >{`등록한 강의 총 ${classes.totalElements}개`}</h3>
 
         <InfiniteScroll
-          dataLength={classes.totalElements}
+          dataLength={10}
           next={() => setPageNum(pageNum + 1)}
           hasMore={!classes.last}
           className={styles.infiniteScroll}
@@ -63,13 +64,24 @@ const MyClassList = ({ token, classes }) => {
   );
 };
 
-export async function getServerSideProps(context) {
+export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const classes = await getMyLectures(1, token);
-
   return {
-    props: { classes, token },
+    props: {
+      classes,
+      token,
+    },
   };
 }
+
+// export const getStaticProps = async () => {
+//   const classes = await getMyLectures(1, token);
+//   return {
+//     props: {
+//       classes,
+//     },
+//   };
+// };
 
 export default MyClassList;

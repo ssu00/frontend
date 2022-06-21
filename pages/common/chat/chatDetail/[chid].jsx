@@ -19,7 +19,7 @@ export async function getServerSideProps(context) {
     res.content.reverse()
   );
   const other = await getUserInfo(token, othersId);
-  const my = await getMyInfo();
+  const my = await getMyInfo(token);
   const myRole = await getUserRoleType(token).then((data) => data.loginType);
 
   await readChat(chatRoomId);

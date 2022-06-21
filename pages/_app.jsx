@@ -13,10 +13,20 @@ import { getMyInfo } from "../core/api/User";
 import { getUncheckedNotificationCount } from "../core/api/Notification";
 import { allChatRooms } from "../core/api/Chat";
 import SocketProvider from "../core/provider";
+import { tokenRefresh } from "../core/api/Login";
+import { setCookie } from "../utils/cookie";
 
-function MyApp({ my, uncheckedCnt, myChatRooms, Component, pageProps }) {
+function MyApp({
+  my,
+  uncheckedCnt,
+  myChatRooms,
+  // newToken,
+  Component,
+  pageProps,
+}) {
   const [loading, setLoading] = useState(false);
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
+  myAxios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     const start = () => {
@@ -25,6 +35,14 @@ function MyApp({ my, uncheckedCnt, myChatRooms, Component, pageProps }) {
     const end = () => {
       setLoading(false);
     };
+
+    // if (newToken !== "")
+    //   setCookie("accessToken", newToken, {
+    //     path: "/",
+    //     secure: true,
+    //     withCredentials: true,
+    //   });
+
     router.events.on("routeChangeStart", start);
     router.events.on("routeChangeComplete", end);
     router.events.on("routeChangeError", end);
@@ -40,9 +58,9 @@ function MyApp({ my, uncheckedCnt, myChatRooms, Component, pageProps }) {
   ) : (
     <>
       <Head>
-        <link rel="shortcut icon" href="favicon/favicon(16x16).ico" />
-        <link rel="shortcut icon" href="favicon/favicon(32x32).ico" />
-        <link rel="shortcut icon" href="favicon/favicon(64x64).ico" />
+        <link rel="shortcut icon" href="/favicon/favicon(16x16).ico" />
+        <link rel="shortcut icon" href="/favicon/favicon(32x32).ico" />
+        <link rel="shortcut icon" href="/favicon/favicon(64x64).ico" />
 
         <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0" />
         <meta property="og:title" content={"멘토릿지"} />
@@ -59,21 +77,43 @@ function MyApp({ my, uncheckedCnt, myChatRooms, Component, pageProps }) {
 }
 
 MyApp.getInitialProps = async (context) => {
-  const accessToken =
-    context.ctx.req && context.ctx.req.headers.cookie
-      ? cookie.parse(context.ctx.req.headers.cookie).accessToken
-      : "";
-  // const refreshToken =
-  //   context.ctx.req && context.ctx.req.headers.cookie
-  //     ? cookie.parse(context.ctx.req.headers.cookie).refreshToken
-  //     : "";
-  axios.defaults.withCredentials = true;
-  axios.defaults.headers.common["Authorization"] = accessToken;
-  myAxios.defaults.headers.common["Authorization"] = accessToken;
-  const my = await getMyInfo();
-  const uncheckedCnt = await getUncheckedNotificationCount(accessToken);
+  let myTokens = {
+    access: "",
+    refresh: "",
+    role: "",
+  };
+
+  let parsed = "";
+  let newToken = "";
+
+  if (context.ctx.req && context.ctx.req.headers.cookie) {
+    const parsedCookie = cookie.parse(context.ctx.req.headers.cookie);
+    parsed = parsedCookie;
+    myTokens.access = parsedCookie.accessToken;
+    myTokens.refresh = parsedCookie.refreshToken;
+    myTokens.role = parsedCookie.role;
+    // const res = await tokenRefresh(
+    //   myTokens.access,
+    //   myTokens.refresh,
+    //   myTokens.role
+    // );
+    // newToken =
+    //   res?.headers["x-access-token"] !== undefined
+    //     ? res.headers["x-access-token"]
+    //     : myTokens.access;
+  }
+
+  // const newToken=res.headers['x-access-token']?res.headers['x-access-token']:myTokens.access;
+  //  axios.defaults.headers.common["Authorization"] = myTokens.access;
+  axios.defaults.headers.common["Set-Cookie"] = JSON.stringify(myTokens);
+  //  myAxios.defaults.headers.common["Authorization"] = myTokens.access;
+  myAxios.defaults.headers.common["Set-Cookie"] = JSON.stringify(myTokens);
+
+  const my = await getMyInfo(myTokens.access);
+  const uncheckedCnt = await getUncheckedNotificationCount(myTokens.access);
   const myChatRooms = await allChatRooms();
   return { my, uncheckedCnt, myChatRooms };
+  // return { my, uncheckedCnt, myChatRooms, newToken };
 };
 
 export default wrapper.withRedux(MyApp);

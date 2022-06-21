@@ -1,10 +1,17 @@
-import React, { createContext, useEffect, useState, useCallback } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+} from "react";
 import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
 export const sockContext = createContext();
 const SocketProvider = ({ children, my, uncheckedCnt, myChatRooms }) => {
-  const Sock = new SockJS("http://13.124.128.220:8080/ws");
+  const Sock = new SockJS("https://www.mentoridge.co.kr/ws");
+  // const Sock = new SockJS(process.env.NEXT_PUBLIC_CHAT_URL);
   const ws = Stomp.over(Sock);
 
   const [alarmContents, setAlarmContents] = useState(undefined);
@@ -15,7 +22,6 @@ const SocketProvider = ({ children, my, uncheckedCnt, myChatRooms }) => {
     () => ({ alarmContents, alarmCnt, chat, ws }),
     [alarmContents, alarmCnt, chat, ws]
   );
-
   useEffect(() => {
     ws?.connect({}, () => {
       my?.code !== 401 &&
@@ -24,7 +30,7 @@ const SocketProvider = ({ children, my, uncheckedCnt, myChatRooms }) => {
           setAlarmCnt((prev) => prev + 1);
         });
 
-      myChatRooms?.code !== 500 &&
+      (myChatRooms?.code === 200 || myChatRooms?.code === 201) &&
         myChatRooms?.forEach((data) => {
           ws?.subscribe(`/sub/chat/room/${data?.chatroomId}`, (data2) => {
             setChat(JSON.parse(data2.body));
