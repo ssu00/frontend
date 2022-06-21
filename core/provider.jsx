@@ -10,7 +10,7 @@ import Stomp from "stompjs";
 
 export const sockContext = createContext();
 const SocketProvider = ({ children, my, uncheckedCnt, myChatRooms }) => {
-  const Sock = new SockJS("https://localhost:8080/ws");
+  const Sock = new SockJS(process.env.NEXT_PUBLIC_CHAT_URL);
   const ws = Stomp.over(Sock);
 
   const [alarmContents, setAlarmContents] = useState(undefined);
