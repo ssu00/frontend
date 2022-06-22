@@ -12,7 +12,7 @@ function List({ notice }) {
         className={styles.container}
         onClick={() =>
           router.push({
-            pathname: `/mentee/mypage/mypageNotice/${notice.noticeId}`,
+            pathname: `/common/notice/${notice.noticeId}`,
           })
         }
       >

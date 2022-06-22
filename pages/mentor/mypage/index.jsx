@@ -100,7 +100,10 @@ const MyPage = ({ token, userInfo }) => {
 
       <section className={styles.categorySection}>
         <h1 className={styles.title}>MENTORIDGE</h1>
-        <CategoryBtn text={"공지사항"} />
+        <CategoryBtn
+          text={"공지사항"}
+          onClick={() => router.push("/common/notice")}
+        />
         <CategoryBtn
           text={"문의하기"}
           onClick={() => router.push("/common/inquiry")}

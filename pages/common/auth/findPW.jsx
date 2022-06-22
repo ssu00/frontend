@@ -2,16 +2,16 @@ import { useState } from "react";
 import router from "next/router";
 import classNames from "classnames";
 import styles from "./findPW.module.scss";
-import { findPassword } from "../../core/api/Login";
-import { EmailValidation } from "../../utils/validation";
+import { findPassword } from "../../../core/api/Login";
+import { EmailValidation } from "../../../utils/validation";
 import {
   BasicInputBox,
   BasicBtn,
   basicBtnStyle,
   ModalWithBackground,
   BasicModal,
-} from "../../components/common";
-import { NameLogo } from "../../components/common/icons/nameLogo";
+} from "../../../components/common";
+import { NameLogo } from "../../../components/common/icons/nameLogo";
 
 const MentorFindPW = () => {
   const [email, setEmail] = useState("");
@@ -30,7 +30,7 @@ const MentorFindPW = () => {
             notice={msg.noticeMsg == "" ? msg.errMsg : msg.noticeMsg}
             btnText={"확인"}
             btnClick={() => {
-              if (msg.errMsg == "") router.push("/common/login");
+              if (msg.errMsg == "") router.push("/common/auth/login");
             }}
             err={msg.errMsg != ""}
             ing={msg.noticeMsg == "메일 보내는 중..."}

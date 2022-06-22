@@ -16,7 +16,7 @@ const SignUpComplete = () => {
       </p>
       <BasicBtn
         text={"로그인"}
-        onClick={() => router.push("/common/login")}
+        onClick={() => router.push("/common/auth/login")}
         btnStyle={classNames(styles.loginBtn, basicBtnStyle.btn_blue)}
         textStyle={styles.loginBtnText}
       />

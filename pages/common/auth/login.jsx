@@ -6,20 +6,20 @@ import {
   BasicInputBox,
   BasicBtn,
   basicBtnStyle,
-} from "../../components/common";
-import { login, getUserRoleType } from "../../core/api/Login";
-import { cookieForAuth, removeInfo } from "../../utils/cookie";
-import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../icons";
-import { NameLogo } from "../../components/common/icons/nameLogo";
+} from "../../../components/common";
+import { login, getUserRoleType } from "../../../core/api/Login";
+import { cookieForAuth, removeInfo } from "../../../utils/cookie";
+import { IC_Google, IC_Kakao, IC_Logo, IC_Naver } from "../../../icons";
+import { NameLogo } from "../../../components/common/icons/nameLogo";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
-  // useEffect(() => {
-  //   removeInfo(); //배포할 때 주석 풀기
-  // }, []);
+  useEffect(() => {
+    removeInfo();
+  }, []);
 
   const checkAccount = async () => {
     const res = await login(username, password);
@@ -84,13 +84,13 @@ const Login = () => {
             text={"회원가입하기"}
             btnStyle={classNames(styles.textBtn, basicBtnStyle.btn_transparent)}
             textStyle={styles.textBtnText}
-            onClick={() => router.push("/mentor/signup")}
+            onClick={() => router.push("/common/auth/signup")}
           />
           <BasicBtn
             text={"비밀번호찾기"}
             btnStyle={classNames(styles.textBtn, basicBtnStyle.btn_transparent)}
             textStyle={styles.textBtnText}
-            onClick={() => router.push("/common/findPW")}
+            onClick={() => router.push("/common/auth/findPW")}
           />
         </span>
       </div>
