@@ -24,7 +24,7 @@ const Start = () => {
         />
         <BasicBtn
           text={"회원가입"}
-          onClick={() => router.push("/mentor/signup")}
+          onClick={() => router.push("/common/auth/signup")}
           btnStyle={classNames(styles.loginBtn, basicBtnStyle.btn_blue)}
         />
       </div>

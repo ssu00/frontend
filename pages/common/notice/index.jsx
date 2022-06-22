@@ -1,11 +1,10 @@
 import React from "react";
 import styles from "./template.module.scss";
-
-import TopBar from "../../../../components/mentee/TopBar";
+import TopBar from "../../../components/mentee/TopBar";
 import * as cookie from "cookie";
-import List from "../../../../components/mentee/mypageNotice/List";
-import { BottomTab } from "../../../../components/common";
-import { getNoticeList } from "../../../../core/api/Mentee";
+import List from "../../../components/mentee/mypageNotice/List";
+import { BottomTab } from "../../../components/common";
+import { getNoticeList } from "../../../core/api/Mentee";
 
 function mypageNotice({ role, noticeList }) {
   return (

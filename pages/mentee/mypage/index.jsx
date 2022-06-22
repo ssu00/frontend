@@ -116,7 +116,7 @@ const MyPage = ({ token, userInfo, role }) => {
         <h1 className={styles.title}>MENTORIDGE</h1>
         <CategoryBtn
           text={"공지사항"}
-          onClick={() => router.push("/mentee/mypage/mypageNotice")}
+          onClick={() => router.push("/common/notice")}
         />
         {/* <CategoryBtn text={"이용약관"} /> */}
         <CategoryBtn
