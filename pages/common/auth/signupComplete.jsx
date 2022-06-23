@@ -3,6 +3,7 @@ import classNames from "classnames";
 import styles from "./signupComplete.module.scss";
 import { BasicBtn } from "../../../components/common";
 import { IC_CheckOutline } from "../../../icons";
+import { basicBtnStyle } from "../../../components/common";
 
 const SignUpComplete = () => {
   return (
