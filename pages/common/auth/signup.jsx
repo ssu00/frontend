@@ -72,7 +72,7 @@ const SignUp = () => {
   const SignUpAPI = async () => {
     const res = await signUp(user, addr);
     if (res.status == 201 || res.status == 200) {
-      router.push("/mentor/signupComplete");
+      router.push("/common/auth/signupComplete");
     }
   };
 
