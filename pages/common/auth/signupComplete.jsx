@@ -1,8 +1,8 @@
 import router from "next/router";
 import classNames from "classnames";
 import styles from "./signupComplete.module.scss";
-import { BasicBtn, basicBtnStyle } from "../../components/common";
-import { IC_CheckOutline } from "../../icons";
+import { BasicBtn } from "../../../components/common";
+import { IC_CheckOutline } from "../../../icons";
 
 const SignUpComplete = () => {
   return (
