@@ -17,6 +17,7 @@ const SocketProvider = ({ children, my, uncheckedCnt, myChatRooms }) => {
   const [alarmContents, setAlarmContents] = useState(undefined);
   const [alarmCnt, setAlarmCnt] = useState(uncheckedCnt);
   const [chat, setChat] = useState(undefined);
+  console.log("myChatRooms===", myChatRooms);
 
   const getContextValue = useCallback(
     () => ({ alarmContents, alarmCnt, chat, ws }),
