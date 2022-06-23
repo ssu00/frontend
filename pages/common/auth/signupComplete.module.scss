@@ -1,4 +1,4 @@
-@import "../../styles/main.module.scss";
+@import "../../../styles/main.module.scss";
 .signupComplete {
   @extend %page-base;
   @include flexBox(center, center);

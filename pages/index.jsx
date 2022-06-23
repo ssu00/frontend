@@ -18,13 +18,13 @@ const Start = () => {
       <div className={styles.buttons}>
         <BasicBtn
           text={"로그인"}
-          onClick={() => router.push("/common/login")}
+          onClick={() => router.push("/common/auth/login")}
           btnStyle={classNames(styles.loginBtn, basicBtnStyle.btn_white)}
           textStyle={styles.loginBtnText}
         />
         <BasicBtn
           text={"회원가입"}
-          onClick={() => router.push("/mentor/signup")}
+          onClick={() => router.push("/common/auth/signup")}
           btnStyle={classNames(styles.loginBtn, basicBtnStyle.btn_blue)}
         />
       </div>

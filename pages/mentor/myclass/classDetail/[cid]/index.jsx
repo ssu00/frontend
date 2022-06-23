@@ -45,7 +45,6 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
   const [modal, setModal] = useState(false);
   const [lectureOpenModal, setLectureOpenModal] = useState(false);
 
-  console.log("classData=", classData);
   const subjectOnly = classData.lectureSubjects.map(
     (data, i) => data.krSubject
   );
@@ -72,7 +71,7 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
         </ModalWithBackground>
       )}
       {lectureOpenModal && (
-        <ModalWithBackground prevent={true} setModal={setLectureOpenModal}>
+        <ModalWithBackground setModal={setLectureOpenModal}>
           <div className={styles.lectureOpenModal}>
             {classData.lecturePrices.map((data, i) => {
               return (
@@ -128,11 +127,13 @@ const ClassDetail = ({ token, classData, reviewData, classID }) => {
           height={277}
         />
         <div className={styles.edit_remove_btn}>
-          <BasicBtn
-            text={"모집 상태 변경"}
-            btnStyle={styles.stateBtn}
-            onClick={() => setLectureOpenModal(true)}
-          />
+          {classData.approved && (
+            <BasicBtn
+              text={"모집 상태 변경"}
+              btnStyle={styles.stateBtn}
+              onClick={() => setLectureOpenModal(true)}
+            />
+          )}
 
           <BasicBtn
             text={"수정"}

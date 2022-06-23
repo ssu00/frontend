@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./noticedetail.module.scss";
 import * as cookie from "cookie";
-import { getNoticeDetail } from "../../../../core/api/Mentee";
-import TopBar from "../../../../components/mentee/TopBar";
+import { getNoticeDetail } from "../../../core/api/Mentee";
+import TopBar from "../../../components/mentee/TopBar";
 
 const NoticeDetail = ({ notice }) => {
   return (

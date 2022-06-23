@@ -100,10 +100,14 @@ const MyPage = ({ token, userInfo }) => {
 
       <section className={styles.categorySection}>
         <h1 className={styles.title}>MENTORIDGE</h1>
-        <CategoryBtn text={"공지사항"} />
-        <CategoryBtn text={"이용약관"} />
-        <CategoryBtn text={"문의하기"} onClick={() => router.push("/ask")} />
-        <CategoryBtn text={"버전정보"} />
+        <CategoryBtn
+          text={"공지사항"}
+          onClick={() => router.push("/common/notice")}
+        />
+        <CategoryBtn
+          text={"문의하기"}
+          onClick={() => router.push("/common/inquiry")}
+        />
       </section>
 
       <BottomTab num={[0, 0, 0, 1]} role={"ROLE_MENTOR"} />

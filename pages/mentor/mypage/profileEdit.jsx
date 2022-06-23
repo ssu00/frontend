@@ -80,7 +80,7 @@ const ProfileEdit = ({ token, userInfo }) => {
         <CategoryBtn
           text={"비밀번호 변경"}
           arrow={true}
-          onClick={() => router.push("/common/changePW")}
+          onClick={() => router.push("/common/auth/changePW")}
         />
         <CategoryBtn
           text={"로그아웃"}
@@ -93,7 +93,7 @@ const ProfileEdit = ({ token, userInfo }) => {
         <CategoryBtn
           text={"회원탈퇴"}
           arrow={true}
-          onClick={() => router.push("/common/withdraw")}
+          onClick={() => router.push("/common/auth/withdraw")}
         />
       </section>
       <BottomTab num={[0, 0, 0, 1]} role={"ROLE_MENTOR"} />

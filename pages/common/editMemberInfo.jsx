@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import router from "next/router";
 import { BottomBlueBtn, TopBar } from "../../components/common";
-import styles from "../mentor/signup.module.scss";
+import styles from "./auth/signup.module.scss";
 import BasicDataBlock from "../../components/mentor/signup/basicDataBlock";
 import AddrBlock from "../../components/mentor/signup/addrBlock";
 import * as cookie from "cookie";
