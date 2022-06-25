@@ -27,7 +27,7 @@ const RegisterAsMentor = ({ token }) => {
     others: "",
   });
   const [edu, setEdu] = useState({
-    educationLevel: "",
+    educationLevel: "ELEMENTARY",
     major: "",
     others: "",
     schoolName: "",

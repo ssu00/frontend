@@ -28,24 +28,13 @@ const MypageRegisteredLecture = ({
   approvedLectures,
   role,
 }) => {
-  const date = new Date();
-  const today = `${date.getFullYear()}.${date.getMonth()}.${date.getDay()}`;
-
   return (
     <section className={styles.LectureListSection}>
       <TopBar text={"구매한 강의"} onClick={() => router.back()} />
-      <div className={styles.ing}>
-        <div className={styles.titleBox}>
-          <h1 className={styles.title}>전체 강의</h1>
-        </div>
-      </div>
-
-      <div className={styles.line} />
 
       <div className={styles.finished}>
         <div className={styles.titleBox}>
-          <h1 className={styles.title}>{today}</h1>
-          <div className={styles.approveChip}>승인 예정</div>
+          <h1 className={styles.title}>승인 예정 강의</h1>
         </div>
         {notApprovedLectures.content.length !== 0 ? (
           notApprovedLectures.content.map((lecture, idx) => (
@@ -60,8 +49,7 @@ const MypageRegisteredLecture = ({
 
       <div className={styles.finished}>
         <div className={styles.titleBox}>
-          <h1 className={styles.title}>{today}</h1>
-          <div className={styles.approvedChip}>승인 완료</div>
+          <h1 className={styles.title}>승인 완료 강의</h1>
         </div>
         {approvedLectures.content.length !== 0 ? (
           approvedLectures.content.map((lecture, idx) => (
