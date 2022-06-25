@@ -4,6 +4,6 @@ export const uploadImage = async (data, token) => {
     method: METHOD.POST,
     url: `/uploads/images`,
     data: data,
-    headers: { Authorization: token },
+    headers: { Authorization: token, "Content-Type": "multipart/form-data" },
   });
 };
