@@ -77,7 +77,7 @@ const EditMemberInfo = ({ token, role }) => {
 
   const goBack = () => {
     return role === "ROLE_MENTEE"
-      ? router.push("/mentee/mypage/profileEdit")
+      ? router.push("/mentee/mypage/myAccount")
       : router.push("/mentor/mypage");
   };
 

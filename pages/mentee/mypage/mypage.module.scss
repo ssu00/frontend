@@ -11,24 +11,28 @@
     padding: 16px 20px 32px;
 
     .profile {
-      @include flexBox(start, center);
+      @include flexBox(between, center);
       margin-bottom: 24px;
 
-      .profileImgMargin {
-        margin-right: 12px;
+      .leftBox {
+        @include flexBox(start, center);
 
-        .profileImg {
-          @include avatar(56, 56);
+        .profileImgMargin {
           margin-right: 12px;
+
+          .profileImg {
+            @include avatar(56, 56);
+            margin-right: 12px;
+          }
         }
-      }
 
-      .role_name {
-        width: 60%;
-
-        .name {
-          @include text-style($fs-16, $sub, 700);
+        .role_name {
           width: 60%;
+
+          .name {
+            @include text-style($fs-16, $sub, 700);
+            width: 60%;
+          }
         }
       }
 
@@ -36,17 +40,6 @@
         display: flex;
         align-items: flex-end;
         flex-direction: column;
-
-        .profileEditBtn {
-          @include btn-style(36px, 50px);
-          width: 82px;
-          background-color: $white;
-          border: 1px solid $line;
-        }
-
-        .profileEditBtnText {
-          @include text-style($fs-12, $gray, 400);
-        }
       }
     }
 

@@ -32,7 +32,7 @@ const MentorIntroduction = ({ myInfoAsMentor }) => {
     <section className={styles.mentorIntroductionSection}>
       <TopBar
         text={"멘토 소개"}
-        onClick={() => router.push("/mentor/mypage/profileEdit")}
+        onClick={() => router.push("/mentor/mypage/myAccount")}
       />
 
       <section className={styles.basicInfo}>

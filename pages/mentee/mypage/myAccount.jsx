@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import * as cookie from "cookie";
-import styles from "./profileEdit.module.scss";
+import styles from "./myAccount.module.scss";
 import { BottomTab, TopBar, CategoryBtn } from "../../../components/common";
 import { IC_EditFill, IC_PersonBlueBig } from "../../../icons";
 import { getMyInfo } from "../../../core/api/User";
@@ -37,10 +37,7 @@ const ProfileEdit = ({ token, userInfo }) => {
   };
   return (
     <section className={styles.profileEditSection}>
-      <TopBar
-        text={"프로필 수정"}
-        onClick={() => router.push("/mentee/mypage")}
-      />
+      <TopBar text={"내 계정"} onClick={() => router.push("/mentee/mypage")} />
       <div className={styles.imgSection}>
         <input
           type="file"
