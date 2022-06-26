@@ -8,7 +8,7 @@ import classNames from "classnames";
 
 function LectureImage({ classData }) {
   return (
-    <div className={styles.imageBlock}>
+    <div className={classNames(styles.imageBlock, styles.pointer)}>
       <Image
         src={classData.thumbnail ? classData.thumbnail : "/samples/lecture.png"}
         width={375}
