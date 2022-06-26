@@ -9,7 +9,13 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
 export const sockContext = createContext();
-const SocketProvider = ({ children, my, uncheckedCnt, myChatRooms }) => {
+const SocketProvider = ({
+  children,
+  my,
+  uncheckedCnt,
+  myChatRooms,
+  access,
+}) => {
   const Sock = new SockJS("https://www.mentoridge.co.kr/ws");
   // const Sock = new SockJS(process.env.NEXT_PUBLIC_CHAT_URL);
   const ws = Stomp.over(Sock);
@@ -31,7 +37,7 @@ const SocketProvider = ({ children, my, uncheckedCnt, myChatRooms }) => {
           setAlarmCnt((prev) => prev + 1);
         });
 
-      (myChatRooms?.code === 200 || myChatRooms?.code === 201) &&
+      myChatRooms.length != 0 &&
         myChatRooms?.forEach((data) => {
           ws?.subscribe(`/sub/chat/room/${data?.chatroomId}`, (data2) => {
             setChat(JSON.parse(data2.body));
