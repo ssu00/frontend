@@ -19,7 +19,6 @@ const MenteeListLine = ({ data, setOpen }) => {
         <Image src={"/samples/mentee.png"} width={32} height={32} />
       </div>
       <span className={styles.menteeName}>{data?.nickname} 멘티</span>
-      {/* <span className={styles.classCnt}>{"1"}개의 강의</span> */}
       <IC_ChevronDownS className={styles.arrowBtn} />
     </button>
   );
@@ -76,62 +75,72 @@ const MenteeListBlock = ({ token, data, setOpen, setModal, type }) => {
       </div>
 
       <div className={styles.btnSection}>
-        <button
-          type="button"
-          className={classNames(
-            styles.btnForMenteeBlock,
-            basicBtnStyle.btn_bg_color
-          )}
-          onClick={async () => {
-            if (type == "checked") {
-              const res = await requestChatToMentee(token, data.menteeId);
-              if (!isNaN(res)) {
-                router.push({
-                  pathname: `/common/chat/chatDetail/${res}`,
-                  query: { other: data?.menteeId },
-                });
-              } else {
-                console.log("채팅 요청 실패");
+        {type === "checked" ? (
+          <>
+            <button
+              type="button"
+              className={classNames(
+                styles.btnForMenteeBlock,
+                basicBtnStyle.btn_bg_color
+              )}
+              onClick={async () => {
+                const res = await requestChatToMentee(token, data.menteeId);
+                if (!isNaN(res)) {
+                  router.push({
+                    pathname: `/common/chat/chatDetail/${res}`,
+                    query: { other: data?.menteeId },
+                  });
+                } else {
+                  console.log("채팅 요청 실패");
+                }
+              }}
+            >
+              <IC_TalkDots width={16} height={16} className={styles.btnIcon} />
+              <span>대화 요청</span>
+            </button>
+            <button
+              type="button"
+              className={classNames(
+                styles.btnForMenteeBlock,
+                basicBtnStyle.btn_bg_color
+              )}
+              onClick={() => {
+                if (menteeLecture[0]?.reviewId == null) {
+                  setModal(true);
+                } else {
+                  router.push(
+                    `/mentor/myclass/classDetail/${menteeLecture[0]?.lecture?.lectureId}/review/${menteeLecture[0]?.reviewId}`
+                  );
+                }
+              }}
+            >
+              <IC_BubbleStarOutline
+                widht={14}
+                height={14}
+                className={styles.btnIcon}
+              />
+              <span>리뷰 확인</span>
+            </button>
+          </>
+        ) : (
+          <button
+            type="button"
+            className={classNames(
+              styles.btnForMenteeBlock,
+              styles.btnWhole,
+              basicBtnStyle.btn_bg_color
+            )}
+            onClick={async () => {
+              if (!change) {
+                const res = await checkEnrollment(token, data.enrollmentId);
+                if (res == 200) setChange(true);
               }
-            } else if (!change) {
-              const res = await checkEnrollment(token, data.enrollmentId);
-              console.log("res==", res);
-              if (res == 200) setChange(true);
-            }
-          }}
-        >
-          <IC_TalkDots width={16} height={16} className={styles.btnIcon} />
-          <span>
-            {type == "checked"
-              ? "대화 요청"
-              : change
-              ? "승인 완료"
-              : "신청 승인"}
-          </span>
-        </button>
-        <button
-          type="button"
-          className={classNames(
-            styles.btnForMenteeBlock,
-            basicBtnStyle.btn_bg_color
-          )}
-          onClick={() => {
-            if (menteeLecture[0]?.reviewId == null) {
-              setModal(true);
-            } else {
-              router.push(
-                `/mentor/myclass/classDetail/${menteeLecture[0]?.lecture?.lectureId}/review/${menteeLecture[0]?.reviewId}`
-              );
-            }
-          }}
-        >
-          <IC_BubbleStarOutline
-            widht={14}
-            height={14}
-            className={styles.btnIcon}
-          />
-          <span>리뷰 확인</span>
-        </button>
+            }}
+          >
+            <IC_TalkDots width={16} height={16} className={styles.btnIcon} />
+            <span>{change ? "승인 완료" : "신청 승인"}</span>
+          </button>
+        )}
       </div>
     </div>
   );

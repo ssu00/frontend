@@ -40,6 +40,10 @@
     @include flexBox(between, center);
     width: 100%;
 
+    .btnWhole {
+      width: 100%;
+    }
+
     .btnForMenteeBlock {
       @include flexBox;
       height: 44px;

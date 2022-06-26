@@ -1,9 +1,9 @@
 import styles from "./withdraw.module.scss";
-import { TopBar, BottomBlueBtn, BasicRadio } from "../../components/common";
+import { TopBar, BottomBlueBtn, BasicRadio } from "../../../components/common";
 import router from "next/router";
 import * as cookie from "cookie";
 import { useState } from "react";
-import { resignMembership } from "../../core/api/User";
+import { resignMembership } from "../../../core/api/User";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -23,7 +23,7 @@ const WithDraw = ({ token, role }) => {
 
   const goBack = () => {
     return role === "ROLE_MENTEE"
-      ? router.push("/mentee/mypage/profileEdit")
+      ? router.push("/mentee/mypage/myAccount")
       : router.push("/mentor/mypage");
   };
 

@@ -31,31 +31,26 @@ const MyPage = ({ token, userInfo, role }) => {
       <MyPageTopBar count={alarm?.alarmCnt} />
       <section className={styles.profileSection}>
         <div className={styles.profile}>
-          <div className={styles.profileImgMargin}>
-            {userInfo.image == null ? (
-              <IC_PersonBlue width={56} height={56} />
-            ) : (
-              <Image
-                src={userInfo.image}
-                width={56}
-                height={56}
-                className={styles.profileImg}
-              />
-            )}
-          </div>
+          <div className={styles.leftBox}>
+            <div className={styles.profileImgMargin}>
+              {userInfo.image == null ? (
+                <IC_PersonBlue width={56} height={56} />
+              ) : (
+                <Image
+                  src={userInfo.image}
+                  width={56}
+                  height={56}
+                  className={styles.profileImg}
+                />
+              )}
+            </div>
 
-          <div className={styles.role_name}>
-            <Role role={"멘티"} />
-            <span className={styles.name}>{userInfo.nickname}</span>
+            <div className={styles.role_name}>
+              <Role role={"멘티"} />
+              <span className={styles.name}>{userInfo.nickname}</span>
+            </div>
           </div>
-
           <div className={styles.toggle_btn}>
-            <BasicBtn
-              text={"프로필 수정"}
-              onClick={() => router.push("/mentee/mypage/profileEdit")}
-              btnStyle={styles.profileEditBtn}
-              textStyle={styles.profileEditBtnText}
-            />
             {userInfo.role == "MENTOR" && (
               <IC_Toggle
                 onClick={async () => {
@@ -95,7 +90,10 @@ const MyPage = ({ token, userInfo, role }) => {
 
       <section className={styles.categorySection}>
         <h1 className={styles.title}>계정정보</h1>
-        <CategoryBtn text={"내 계정"} />
+        <CategoryBtn
+          text={"내 계정"}
+          onClick={() => router.push("/mentee/mypage/myAccount")}
+        />
         {userInfo.role == "MENTEE" && (
           <CategoryBtn
             text={"멘토 등록"}
@@ -116,7 +114,7 @@ const MyPage = ({ token, userInfo, role }) => {
         <h1 className={styles.title}>MENTORIDGE</h1>
         <CategoryBtn
           text={"공지사항"}
-          onClick={() => router.push("/mentee/mypage/mypageNotice")}
+          onClick={() => router.push("/common/notice")}
         />
         {/* <CategoryBtn text={"이용약관"} /> */}
         <CategoryBtn

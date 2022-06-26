@@ -55,6 +55,7 @@ const ImgCrop = ({ value, handleChange, token }) => {
       );
       setFileName(e.target.files[0].name);
       setImgType(e.target.files[0].type);
+      e.target.value = "";
     }
   };
 
@@ -181,7 +182,7 @@ const ImgCrop = ({ value, handleChange, token }) => {
           className={classNames(styles.submitBtn, basicBtnStyle.btn_white)}
           onClick={() => {
             handleChange("image", "");
-            setImgSrc("");
+            setImgSrc(null);
             inputRef.current.click();
           }}
         >

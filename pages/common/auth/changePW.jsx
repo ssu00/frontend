@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import styles from "./changePW.module.scss";
-import { BottomBlueBtn, TopBar, BasicInputBox } from "../../components/common";
+import {
+  BottomBlueBtn,
+  TopBar,
+  BasicInputBox,
+} from "../../../components/common";
 import * as cookie from "cookie";
-import { changePassword } from "../../core/api/User";
+import { changePassword } from "../../../core/api/User";
 import router from "next/router";
-import { ModalWithBackground, BasicModal } from "../../components/common";
+import { ModalWithBackground, BasicModal } from "../../../components/common";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
@@ -36,7 +40,7 @@ const ChangePW = ({ token, role }) => {
 
   const goBack = () => {
     return role === "ROLE_MENTEE"
-      ? router.push("/mentee/mypage/profileEdit")
+      ? router.push("/mentee/mypage/myAccount")
       : router.push("/mentor/mypage");
   };
 

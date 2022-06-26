@@ -9,7 +9,13 @@ import SockJS from "sockjs-client";
 import Stomp from "stompjs";
 
 export const sockContext = createContext();
-const SocketProvider = ({ children, my, uncheckedCnt, myChatRooms }) => {
+const SocketProvider = ({
+  children,
+  my,
+  uncheckedCnt,
+  myChatRooms,
+  access,
+}) => {
   const Sock = new SockJS("https://www.mentoridge.co.kr/ws");
   // const Sock = new SockJS(process.env.NEXT_PUBLIC_CHAT_URL);
   const ws = Stomp.over(Sock);
@@ -17,6 +23,7 @@ const SocketProvider = ({ children, my, uncheckedCnt, myChatRooms }) => {
   const [alarmContents, setAlarmContents] = useState(undefined);
   const [alarmCnt, setAlarmCnt] = useState(uncheckedCnt);
   const [chat, setChat] = useState(undefined);
+  console.log("myChatRooms===", myChatRooms);
 
   const getContextValue = useCallback(
     () => ({ alarmContents, alarmCnt, chat, ws }),
@@ -24,14 +31,18 @@ const SocketProvider = ({ children, my, uncheckedCnt, myChatRooms }) => {
   );
   useEffect(() => {
     ws?.connect({}, () => {
-      my?.code !== 401 &&
+      my !== undefined &&
+        my?.code !== 401 &&
         ws?.subscribe(`/sub/notification/${my?.userId}`, (data) => {
           setAlarmContents(JSON.parse(data.body));
           setAlarmCnt((prev) => prev + 1);
         });
 
-      (myChatRooms?.code === 200 || myChatRooms?.code === 201) &&
+      myChatRooms !== undefined &&
+        myChatRooms?.length != 0 &&
+        Array.isArray(myChatRooms) &&
         myChatRooms?.forEach((data) => {
+          console.log("data==", data);
           ws?.subscribe(`/sub/chat/room/${data?.chatroomId}`, (data2) => {
             setChat(JSON.parse(data2.body));
           });
