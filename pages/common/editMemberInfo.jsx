@@ -8,35 +8,41 @@ import * as cookie from "cookie";
 import { editMyInfo } from "../../core/api/User/editMyInfo";
 import EditInfo from "../../components/mentee/profileEdit/EditInfo";
 import EditInfoErr from "../../utils/errorHandling/editInfoErr";
+import { getMyInfo } from "../../core/api/User";
 
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const role = cookie.parse(context.req.headers.cookie).role;
 
+  const userInfo = await getMyInfo(token);
+
   return {
     props: {
       token,
       role,
+      userInfo,
     },
   };
 };
 
-const EditMemberInfo = ({ token, role }) => {
+const EditMemberInfo = ({ token, role, userInfo }) => {
   const [user, setUser] = useState({
-    nickname: "",
-    email: "",
-    phone: "",
-    birth: 2002,
-    gender: "남자",
+    nickname: userInfo?.nickname,
+    email: userInfo?.username,
+    phone: userInfo?.phoneNumber,
+    birth: userInfo?.birthYear,
+    gender: userInfo?.gender,
   });
 
+  const zoneSplit = userInfo.zone.split(" ");
+  console.log(zoneSplit);
   const [addr, setAddr] = useState({
     state: [],
     sigungu: [],
     dong: [],
-    statePick: "서울특별시",
-    sigunguPick: "",
-    dongPick: "",
+    statePick: zoneSplit[0],
+    sigunguPick: zoneSplit[1],
+    dongPick: zoneSplit[2],
   });
 
   const [agree, setAgree] = useState({

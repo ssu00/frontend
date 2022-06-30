@@ -124,7 +124,9 @@ const Inquiry = ({ token, role }) => {
         onClick={async () => {
           const res = await inquire(token, inquiryInfo);
           if (res.status == 201)
-            setResult({ success: true, error: false, errorMsg: "" });
+            setResult({ success: true, error: false, errorMsg: "" }),
+              alert("등록 성공했습니다"),
+              router.push("/mentee/mypage");
           else
             setResult({
               success: false,

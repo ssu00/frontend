@@ -7,7 +7,7 @@ function TopBar({ handleOptionModal }) {
   return (
     <header className={styles.header}>
       <div className={styles.leftPannel}>
-        <IC_ArrowLeft onClick={() => router.push("/mentee/board")} />
+        <IC_ArrowLeft onClick={() => router.back()} />
         <div className={styles.logo}>글 조회</div>
       </div>
 

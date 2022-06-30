@@ -5,16 +5,18 @@ import styles from "./BottomButton.module.scss";
 const BottomButton = ({ token, postId }) => {
   const [value, setValue] = useState("");
 
-  const uploadComment = async () => {
+  const uploadComment = async (e) => {
     try {
-      await uploadBoardComments(token, postId, { content: value });
+      if (value.trim() !== "")
+        await uploadBoardComments(token, postId, { content: value });
+      else e.preventDefault(), alert("내용을 입력해주세요.");
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <form className={styles.buttonContainer} onSubmit={uploadComment}>
+    <form className={styles.buttonContainer} onSubmit={(e) => uploadComment(e)}>
       <input
         className={styles.input}
         type="text"

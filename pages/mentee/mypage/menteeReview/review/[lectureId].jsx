@@ -28,6 +28,7 @@ export async function getServerSideProps(context) {
 }
 
 const WriteMentee = ({ token, lectureId, unreviewedLecture }) => {
+  console.log(lectureId, unreviewedLecture);
   const [modal, setModal] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
@@ -88,7 +89,8 @@ const WriteMentee = ({ token, lectureId, unreviewedLecture }) => {
           <TopBar
             text={"후기 작성"}
             onClick={() => {
-              router.push("/mentee/mypage/menteeReview");
+              // router.push("/mentee/mypage/menteeReview");
+              router.back();
             }}
           />
         </article>

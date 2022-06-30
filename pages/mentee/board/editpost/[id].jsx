@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "../writeboard.module.scss";
 import * as cookie from "cookie";
 import router from "next/router";
-import { editBoardPosts } from "../../../../core/api/Mentee";
+import { editBoardPosts, getBoardDetail } from "../../../../core/api/Mentee";
 import {
   BasicInputBox,
   BottomBlueBtn,
@@ -10,11 +10,11 @@ import {
 } from "../../../../components/common";
 import BasicTextAreaBox from "../../../../components/common/inputBox/basicTextAreaBox";
 
-const EditPost = ({ token, post_id }) => {
+const EditPost = ({ token, post_id, postDetail }) => {
   const [inquiryInfo, setInquiryInfo] = useState({
-    content: "",
-    title: "",
-    category: "LECTURE_REQUEST",
+    content: postDetail.content,
+    title: postDetail.title,
+    category: postDetail.category,
     image: "",
   });
   const [errMsg, setErrMsg] = useState("");
@@ -44,9 +44,7 @@ const EditPost = ({ token, post_id }) => {
         <BasicInputBox
           type={"text"}
           placeholder={"카테고리"}
-          // onChange={(e) =>
-          //   setInquiryInfo({ ...inquiryInfo, category: e.target.value })
-          // }
+          value={inquiryInfo.category}
           style={styles.titleBox}
         />
         <BasicInputBox
@@ -55,6 +53,7 @@ const EditPost = ({ token, post_id }) => {
           onChange={(e) =>
             setInquiryInfo({ ...inquiryInfo, title: e.target.value })
           }
+          value={inquiryInfo.title}
           style={styles.titleBox}
         />
       </p>
@@ -66,6 +65,7 @@ const EditPost = ({ token, post_id }) => {
           onChange={(e) =>
             setInquiryInfo({ ...inquiryInfo, content: e.target.value })
           }
+          value={inquiryInfo.content}
           style={styles.areaBox}
         />
       </section>
@@ -80,6 +80,7 @@ const EditPost = ({ token, post_id }) => {
         text={"수정"}
         disabled={!(errMsg == "")}
         onClick={async () => {
+          console.log(inquiryInfo);
           const res = await editBoardPosts(token, post_id, inquiryInfo);
           if (res.status == 200) {
             setResult({ success: true, error: false, errorMsg: "" });
@@ -106,11 +107,12 @@ const EditPost = ({ token, post_id }) => {
 export const getServerSideProps = async (context) => {
   const token = cookie.parse(context.req.headers.cookie).accessToken;
   const post_id = context.query.id;
-
+  const postDetail = await getBoardDetail(token, post_id);
   return {
     props: {
       token,
       post_id,
+      postDetail,
     },
   };
 };

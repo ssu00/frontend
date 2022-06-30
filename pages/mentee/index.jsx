@@ -17,6 +17,8 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Chip from "@mui/material/Chip";
 import { getLecture } from "../../core/api/Mentee";
+import { getUserRoleType } from "../../core/api/Login";
+import { useDebounceEffect } from "./board";
 
 const filters = ["개발 분야", "수업 방식", "레벨"];
 const subjectsList = [
@@ -56,9 +58,10 @@ const convertType = (type) => {
   else if (type === "오프라인") return "OFFLINE";
 };
 
-const Home = ({ classes, role, token }) => {
-  const [classData, setClassData] = useState(classes.content);
+const Home = ({ classes, role, token, user }) => {
+  const [classData, setClassData] = useState(classes?.content);
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
   const [subjects, setSubjects] = useState(["전체"]);
   const [systemType, setSystemType] = useState(["전체"]);
   const [isGroup, setIsGroup] = useState(["전체"]);
@@ -107,6 +110,7 @@ const Home = ({ classes, role, token }) => {
         page: page + 1,
         subjects: subjects.filter((el) => el !== "전체"),
         systemType: type,
+        title: search,
       });
 
       setClassData(classData.concat(...showMore.content));
@@ -128,12 +132,43 @@ const Home = ({ classes, role, token }) => {
       page: 1,
       subjects: subjects.filter((el) => el !== "전체"),
       systemType: type,
+      title: search,
     };
     const newLecture = await getLecture(token, data);
     setClassData(newLecture.content);
     setIsVisible(false);
     setPage(1);
   };
+
+  const resetFilterClassList = async () => {
+    setPage(1);
+    setSubjects(["전체"]);
+    setSystemType(["전체"]);
+    setIsGroup(["전체"]);
+    setDifficultyType(["전체"]);
+
+    const data = {
+      page: 1,
+    };
+    const newLecture = await getLecture(token, data);
+    setClassData(newLecture.content);
+  };
+
+  const debounceSearch = async () => {
+    const data = {
+      difficultyTypes: difficult,
+      isGroup: group,
+      page: 1,
+      subjects: subjects.filter((el) => el !== "전체"),
+      systemType: type,
+      title: search,
+    };
+    const newLecture = await getLecture(token, data);
+    setClassData(newLecture.content);
+    setPage(1);
+  };
+
+  useDebounceEffect(() => debounceSearch(), 500, [search]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -148,10 +183,6 @@ const Home = ({ classes, role, token }) => {
     setIsVisible(false);
   }, []);
 
-  // useEffect(() => {
-  //   getFilteredClassList();
-  // }, [classes]);
-
   return (
     <div className={styles.home}>
       <div className={styles.background}>
@@ -164,9 +195,9 @@ const Home = ({ classes, role, token }) => {
           />
         </div>
       </div>
-      <Header />
+      <Header zone={user.zone} />
       <main>
-        <SearchBox />
+        <SearchBox setSearch={setSearch} />
         <Breadcrumb filters={filters} openDrawer={openDrawer} />
         <p className={styles.classesCount}>총 {classData?.length}개의 강의</p>
         <div className={styles.classCards}>
@@ -326,7 +357,12 @@ const Home = ({ classes, role, token }) => {
           </Box>
 
           <div className={styles.bottom}>
-            <button className={styles.resetbutton}>초기화</button>
+            <button
+              className={styles.resetbutton}
+              onClick={resetFilterClassList}
+            >
+              초기화
+            </button>
             <button
               className={styles.findbutton}
               onClick={getFilteredClassList}
@@ -346,12 +382,14 @@ export const getServerSideProps = async (context) => {
   const parsedCookies = cookie.parse(context.req.headers.cookie);
   const role = parsedCookies.role;
   const classes = await getLecture(parsedCookies.accessToken, { page: 1 });
+  const user = await getUserRoleType(parsedCookies.accessToken);
 
   return {
     props: {
       classes: classes,
       role,
       token: parsedCookies.accessToken,
+      user,
     },
   };
 };

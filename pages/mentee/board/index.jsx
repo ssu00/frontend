@@ -7,7 +7,7 @@ import styles from "./board.module.scss";
 import * as cookie from "cookie";
 import { getBoardList } from "../../../core/api/Mentee";
 
-const useDebounceEffect = (func, delay, deps) => {
+export const useDebounceEffect = (func, delay, deps) => {
   const callback = useCallback(func, deps);
 
   useEffect(() => {
