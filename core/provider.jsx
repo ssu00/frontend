@@ -37,7 +37,7 @@ const SocketProvider = ({
           setAlarmCnt((prev) => prev + 1);
         });
 
-      myChatRooms.length != 0 &&
+      myChatRooms?.length != 0 &&
         myChatRooms?.forEach((data) => {
           ws?.subscribe(`/sub/chat/room/${data?.chatroomId}`, (data2) => {
             setChat(JSON.parse(data2.body));
