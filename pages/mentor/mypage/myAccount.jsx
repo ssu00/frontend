@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import router from "next/router";
 import Image from "next/image";
 import * as cookie from "cookie";
-import styles from "./profileEdit.module.scss";
+import styles from "./myAccount.module.scss";
 import { getMyInfo } from "../../../core/api/User";
 import { BottomTab, TopBar, CategoryBtn } from "../../../components/common";
 import { IC_EditFill } from "../../../icons";
@@ -39,10 +39,7 @@ const ProfileEdit = ({ token, userInfo }) => {
 
   return (
     <section className={styles.profileEditSection}>
-      <TopBar
-        text={"프로필 수정"}
-        onClick={() => router.push("/mentor/mypage")}
-      />
+      <TopBar text={"내 계정"} onClick={() => router.push("/mentor/mypage")} />
       <div className={styles.imgSection}>
         <input
           type="file"
@@ -76,7 +73,11 @@ const ProfileEdit = ({ token, userInfo }) => {
           arrow={true}
           onClick={() => router.push("/mentor/mypage/mentorIntroduction")}
         />
-        <CategoryBtn text={"회원정보 수정"} arrow={true} />
+        <CategoryBtn
+          text={"회원정보 수정"}
+          arrow={true}
+          onClick={() => router.push("/common/editMemberInfo")}
+        />
         <CategoryBtn
           text={"비밀번호 변경"}
           arrow={true}

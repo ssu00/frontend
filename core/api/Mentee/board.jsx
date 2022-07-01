@@ -50,13 +50,16 @@ export const uploadBoardComments = async (token, post_id, data) => {
 };
 
 export const editBoardPosts = async (token, post_id, data) => {
+  console.debug(data);
   const res = await Api({
     method: METHOD.PUT,
     url: `/users/my-posts/${post_id}`,
-    category: data.category,
-    content: data.content,
-    title: data.title,
-    image: data.image,
+    data: {
+      category: data.category,
+      content: data.content,
+      title: data.title,
+      image: data.image,
+    },
     headers: { Authorization: token },
   });
   return res;

@@ -9,7 +9,7 @@ import styles from "./LectureBlock.module.scss";
 
 const LectureBlock = ({ lecture, approved, token }) => {
   const router = useRouter();
-
+  console.log(lecture);
   return (
     <div className={styles.lectureBlock}>
       <div className={styles.lectureInfo}>
@@ -41,7 +41,7 @@ const LectureBlock = ({ lecture, approved, token }) => {
             )}
             onClick={() =>
               router.push({
-                pathname: `/mentee/mypage/menteeReview/review/${lecture.lectureId}`,
+                pathname: `/mentee/mypage/menteeReview/review/${lecture.enrollmentId}`,
               })
             }
           >

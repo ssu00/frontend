@@ -1,11 +1,16 @@
+import { useRouter } from "next/router";
 import React from "react";
 import styles from "./List.module.scss";
 
 function List({ commentList }) {
+  const router = useRouter();
   return (
     <ul className={styles.container}>
       {commentList.map((content) => (
-        <li key={content.postId}>
+        <li
+          key={content.postId}
+          onClick={() => router.push(`/mentee/board/${content.postId}`)}
+        >
           <h6>{content.title}</h6>
 
           <div className={styles.span_box}>

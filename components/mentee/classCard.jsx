@@ -63,7 +63,7 @@ const ClassCard = ({ classDetail }) => {
             ) : (
               <IC_HeartEmpty width="16px" height="18px" />
             )}
-            <span>{classDetail.pickCount}</span>
+            <span>{classDetail.pickCount ? classDetail.pickCount : 0}</span>
             <IC_HeightBar width="1" height="8" className={styles.height_bar} />
             <Rating w={55} h={11} fillRating={classDetail.scoreAverage} />
             <span

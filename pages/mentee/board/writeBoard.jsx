@@ -28,10 +28,11 @@ const WriteBoard = ({ token, categories }) => {
 
   useEffect(() => {
     setResult({ success: false, error: false, errorMsg: "" });
+
     if (
-      inquiryInfo.content == "" ||
-      inquiryInfo.title == "" ||
-      inquiryInfo.category == ""
+      inquiryInfo.content.trim() == "" ||
+      inquiryInfo.title.trim() == "" ||
+      inquiryInfo.category.trim() == ""
     ) {
       setErrMsg("빈칸을 모두 채워주세요.");
     } else {

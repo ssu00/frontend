@@ -3,7 +3,7 @@ import { IC_Alarm, IC_LogoText, IC_Menu } from "../../icons";
 import Dropdown from "./dropdown";
 import styles from "./header.module.scss";
 
-function Header() {
+function Header({ zone }) {
   const headerRef = useRef(null);
 
   const handleClickLogo = () => {
@@ -26,7 +26,7 @@ function Header() {
   return (
     <header ref={headerRef} className={styles.header}>
       <IC_LogoText className={styles.logo} onClick={handleClickLogo} />
-      <Dropdown options={["서울시 관악구", "서울시 동작구"]} />
+      <Dropdown options={[zone]} />
       <div className={styles.rightPannel}>
         {/* <button aria-label="알람 확인">
           <IC_Alarm />

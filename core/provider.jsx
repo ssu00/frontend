@@ -31,14 +31,18 @@ const SocketProvider = ({
   );
   useEffect(() => {
     ws?.connect({}, () => {
-      my?.code !== 401 &&
+      my !== undefined &&
+        my?.code !== 401 &&
         ws?.subscribe(`/sub/notification/${my?.userId}`, (data) => {
           setAlarmContents(JSON.parse(data.body));
           setAlarmCnt((prev) => prev + 1);
         });
 
-      myChatRooms?.length != 0 &&
+      myChatRooms !== undefined &&
+        myChatRooms?.length != 0 &&
+        Array.isArray(myChatRooms) &&
         myChatRooms?.forEach((data) => {
+          console.log("data==", data);
           ws?.subscribe(`/sub/chat/room/${data?.chatroomId}`, (data2) => {
             setChat(JSON.parse(data2.body));
           });
