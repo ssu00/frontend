@@ -106,13 +106,13 @@ const Login = () => {
       <div className={styles.snsCon}>
         <p>SNS 로그인</p>
         <div className={styles.snsBtn}>
-          <a href="/oauth2/authorization/google" target="_blank">
+          <a href="/oauth2/authorization/google">
             <IC_Google />
           </a>
-          <a href="/oauth2/authorization/naver" target="_blank">
+          <a href="/oauth2/authorization/naver">
             <IC_Naver />
           </a>
-          <a href="/oauth2/authorization/kakao" target="_blank">
+          <a href="/oauth2/authorization/kakao">
             <IC_Kakao />
           </a>
         </div>
